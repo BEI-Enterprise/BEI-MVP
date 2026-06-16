@@ -11,9 +11,11 @@ export default function BookPage() {
   const [form, setForm] = useState({
     business_name: '', contact_name: '', email: '', phone: '', industry: '', revenue_band: '',
   })
+
   const industries = ['Estate Agency', 'Marketing Agency', 'Accountancy Firm']
   const revenueBands = ['Under £250k', '£250k – £500k', '£500k – £1M', '£1M – £3M', '£3M – £10M', 'Over £10M']
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setForm({ ...form, [e.target.name]: e.target.value })
+
   const handleSubmit = async () => {
     setError('')
     if (!form.business_name || !form.contact_name || !form.email || !form.industry || !form.revenue_band) {
@@ -24,8 +26,18 @@ export default function BookPage() {
     try {
       const { data, error: dbError } = await supabase
         .from('businesses')
-        .insert([{ name: form.business_name, industry: form.industry, revenue_band: form.revenue_band, status: 'intake_pending', metadata: { contact_name: form.contact_name, email: form.email, phone: form.phone } }])
-        .select().single()
+        .insert([{
+          business_name: form.business_name,
+          industry: form.industry,
+          annual_revenue_band: form.revenue_band,
+          email: form.email,
+          phone: form.phone,
+          status: 'intake_pending',
+          mri_requested: true,
+          mri_completed: false,
+        }])
+        .select()
+        .single()
       if (dbError) throw dbError
       router.push('/intake/' + data.id)
     } catch (err: unknown) {
@@ -33,8 +45,10 @@ export default function BookPage() {
       setLoading(false)
     }
   }
+
   const inp: React.CSSProperties = {width:'100%',backgroundColor:'#111111',border:'1px solid #1a1a1a',borderRadius:'8px',padding:'14px 16px',color:'#ffffff',fontSize:'15px',outline:'none',boxSizing:'border-box'}
   const lbl: React.CSSProperties = {display:'block',fontSize:'13px',fontWeight:'600',color:'#888888',marginBottom:'8px',letterSpacing:'0.05em',textTransform:'uppercase'}
+
   return (
     <main style={{backgroundColor:'#050505',color:'#ffffff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh'}}>
       <nav style={{padding:'24px 48px',display:'flex',justifyContent:'space-between',alignItems:'center',borderBottom:'1px solid #1a1a1a'}}>
