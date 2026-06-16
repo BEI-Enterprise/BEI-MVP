@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { saveIntakeToStorage, saveMRIMetaToStorage } from '@/lib/mriStorage'
+import { saveIntakeData } from '@/lib/localStorage'
 
 const steps = [
   { id: 1, title: 'Growth', desc: 'Revenue, leads and sales performance' },
@@ -53,6 +55,7 @@ export default function IntakePage() {
   const [step, setStep] = useState(1)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [businessName, setBusinessName] = useState('')
 
   useEffect(() => {
@@ -70,10 +73,49 @@ export default function IntakePage() {
     if (step === 5) { setStep(6); return }
     if (step === 6) {
       setLoading(true)
+      setError(null)
       try {
-        await supabase.from('businesses').update({ status: 'processing', metadata: { ...answers } }).eq('id', businessId)
+        // 1. Update Supabase with intake data
+        const { error: supabaseError } = await supabase
+          .from('businesses')
+          .update({ status: 'processing', metadata: { ...answers } })
+          .eq('id', businessId)
+
+        if (supabaseError) {
+          throw new Error(supabaseError.message || 'Failed to save intake data to database')
+        }
+if (supabaseError) {
+  throw new Error(supabaseError.message || 'Failed to save intake data to database')
+}
+
+saveIntakeData(businessId, answers)
+
+router.push('/processing/' + businessId)
+
+        // 2. Save to localStorage for client-side access
+        const savedToStorage = saveIntakeToStorage(businessId, answers)
+        if (!savedToStorage) {
+          console.warn('[Intake] Failed to save to localStorage, but Supabase update succeeded')
+        }
+
+        // 3. Save metadata (business name) to localStorage
+        if (businessName) {
+          const metaSaved = saveMRIMetaToStorage(businessId, {
+            businessName,
+            businessId,
+            createdAt: new Date().toISOString(),
+          })
+          if (!metaSaved) {
+            console.warn('[Intake] Failed to save metadata to localStorage')
+          }
+        }
+
+        // 4. Redirect to processing page
         router.push('/processing/' + businessId)
-      } catch {
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred'
+        console.error('[Intake] Error during submission:', err)
+        setError(errorMessage)
         setLoading(false)
       }
     }
@@ -107,6 +149,13 @@ export default function IntakePage() {
           <div style={{fontSize:'12px',fontWeight:'600',letterSpacing:'0.2em',color:'#C8A24A',marginBottom:'12px',textTransform:'uppercase'}}>Step {step} of 6 — {steps[step-1].title}</div>
           <h1 style={{fontSize:'28px',fontWeight:'700',marginBottom:'8px'}}>{steps[step-1].desc}</h1>
         </div>
+
+        {error && (
+          <div style={{backgroundColor:'#2a0a0a',border:'1px solid #cc4444',borderRadius:'8px',padding:'16px',marginBottom:'24px',fontSize:'14px',color:'#ff8888'}}>
+            <div style={{fontWeight:'600',marginBottom:'4px'}}>Error:</div>
+            <div>{error}</div>
+          </div>
+        )}
 
         {step < 6 && (
           <div style={{display:'flex',flexDirection:'column',gap:'28px'}}>
