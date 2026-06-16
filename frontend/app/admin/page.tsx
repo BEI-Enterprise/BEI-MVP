@@ -97,7 +97,7 @@ export default function AdminPage() {
               {businesses.map(b => (
                 <tr key={b.id}>
                   <td style={{...s.td, color: '#ffffff', fontWeight: '500'}}>{b.business_name}</td>
-                  <td style={s.td}>{b.industry}</td>
+                  <td style={s.td}>{b.industry.replace(/_/g, ' ').replace(/bw/g, (c: string) => c.toUpperCase())}</td>
                   <td style={s.td}>{b.annual_revenue_band}</td>
                   <td style={s.td}>
                     <span style={{ padding: '3px 8px', borderRadius: '3px', fontSize: '11px', backgroundColor: '#1a1a1a', color: '#888' }}>{b.status}</span>

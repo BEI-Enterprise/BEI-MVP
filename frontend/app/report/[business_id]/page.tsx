@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
+import { supabase } from '../../../lib/supabase'
 import { runRulesBasedAnalysis, MRIResult } from '../../../lib/mriAnalysis'
 
 export default function ReportPage() {
@@ -16,7 +17,7 @@ export default function ReportPage() {
     if (stored) {
       const answers = JSON.parse(stored)
       const revenueBand = answers.monthly_revenue || 'Under £250k'
-      setResult(runRulesBasedAnalysis(answers, revenueBand))
+      setResult(runRulesBasedAnalysis(answers, revenueBand)); supabase.from('businesses').update({ mri_completed: true }).eq('id', businessId).then(() => {})
     }
     if (meta) {
       const m = JSON.parse(meta)

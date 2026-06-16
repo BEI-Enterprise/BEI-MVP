@@ -39,7 +39,7 @@ export default function BookPage() {
         .select()
         .single()
       if (dbError) throw dbError
-      router.push('/intake/' + data.id)
+      localStorage.setItem('bei_meta_' + data.id, JSON.stringify({ businessName: form.business_name })); router.push('/intake/' + data.id)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')
       setLoading(false)
