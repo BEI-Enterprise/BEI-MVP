@@ -12,7 +12,7 @@ export default function BookPage() {
     business_name: '', contact_name: '', email: '', phone: '', industry: '', revenue_band: '',
   })
 
-  const industries = ['Estate Agency', 'Marketing Agency', 'Accountancy Firm']
+  const industries = ['estate_agency', 'marketing_agency', 'accountancy_firm']
   const revenueBands = ['Under £250k', '£250k – £500k', '£500k – £1M', '£1M – £3M', '£3M – £10M', 'Over £10M']
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -32,7 +32,7 @@ export default function BookPage() {
           annual_revenue_band: form.revenue_band,
           email: form.email,
           phone: form.phone,
-          status: 'intake_pending',
+          status: 'active',
           mri_requested: true,
           mri_completed: false,
         }])

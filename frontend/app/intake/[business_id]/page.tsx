@@ -83,7 +83,7 @@ export default function IntakePage() {
       try {
         const { error: supabaseError } = await supabase
           .from('businesses')
-          .update({ status: 'processing', metadata: { ...answers } })
+          .update({ status: 'processing' })
           .eq('id', businessId)
 
         if (supabaseError) {
@@ -100,7 +100,7 @@ export default function IntakePage() {
           })
         }
 
-        router.push('/processing/' + businessId)
+        localStorage.setItem('bei_intake_' + businessId, JSON.stringify(answers)); router.push('/processing/' + businessId)
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred'
         console.error('[Intake] Error during submission:', err)

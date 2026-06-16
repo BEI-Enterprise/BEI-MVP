@@ -2,123 +2,132 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { runRulesBasedAnalysis, MRIResult } from '../../../lib/mriAnalysis'
 
 export default function ReportPage() {
   const params = useParams()
   const businessId = params.business_id as string
-  const [business, setBusiness] = useState<Record<string, unknown> | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const [result, setResult] = useState<MRIResult | null>(null)
+  const [businessName, setBusinessName] = useState('Your Business')
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const { data, error: err } = await supabase
-          .from('businesses')
-          .select('*')
-          .eq('id', businessId)
-          .single()
-        if (err || !data) throw new Error('Report not found')
-        setBusiness(data)
-      } catch (e: unknown) {
-        setError(e instanceof Error ? e.message : 'Failed to load report')
-      } finally {
-        setLoading(false)
-      }
+    const stored = localStorage.getItem('bei_intake_' + businessId)
+    const meta = localStorage.getItem('bei_meta_' + businessId)
+    if (stored) {
+      const answers = JSON.parse(stored)
+      const revenueBand = answers.monthly_revenue || 'Under £250k'
+      setResult(runRulesBasedAnalysis(answers, revenueBand))
     }
-    load()
+    if (meta) {
+      const m = JSON.parse(meta)
+      setBusinessName(m.businessName || 'Your Business')
+    }
   }, [businessId])
 
-  if (loading) return (
-    <main style={{backgroundColor:'#050505',color:'#ffffff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
-      <p style={{color:'#888888'}}>Loading your MRI report...</p>
-    </main>
-  )
+  if (!result) {
+    return (
+      <main style={{backgroundColor:'#050505',color:'#ffffff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
+        <p style={{color:'#666'}}>Loading your MRI Report...</p>
+      </main>
+    )
+  }
 
-  if (error) return (
-    <main style={{backgroundColor:'#050505',color:'#ffffff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
-      <p style={{color:'#ff6b6b'}}>{error}</p>
-    </main>
-  )
-
-  const meta = (business?.metadata || {}) as Record<string, unknown>
-  const constraints = (meta.constraints || []) as {type: string, severity: number, evidence: string}[]
-  const primaryConstraint = meta.primary_constraint as string || 'Unknown'
-  const opportunityValue = meta.opportunity_value as number || 0
-  const healthScore = meta.health_score as number || business?.health_score as number || 0
-
-  const card: React.CSSProperties = {backgroundColor:'#111111',border:'1px solid #1a1a1a',borderRadius:'12px',padding:'32px',marginBottom:'24px'}
-  const label: React.CSSProperties = {fontSize:'11px',fontWeight:'700',letterSpacing:'0.15em',color:'#C8A24A',textTransform:'uppercase',marginBottom:'12px',display:'block'}
+  const healthColor = result.overallHealth >= 70 ? '#4aaa4a' : result.overallHealth >= 45 ? '#C8A24A' : '#cc4444'
 
   return (
     <main style={{backgroundColor:'#050505',color:'#ffffff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh'}}>
-      <nav style={{padding:'20px 48px',display:'flex',justifyContent:'space-between',alignItems:'center',borderBottom:'1px solid #1a1a1a'}}>
-        <a href="/" style={{fontSize:'20px',fontWeight:'700',color:'#C8A24A',textDecoration:'none'}}>BEI</a>
-        <div style={{fontSize:'12px',color:'#555555'}}>BEI MRI v1.0 — Rules-Based Analysis</div>
+      <nav style={{padding:'24px 48px',borderBottom:'1px solid #1a1a1a',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <span style={{fontSize:'20px',fontWeight:'700',color:'#C8A24A',letterSpacing:'0.1em'}}>BEI</span>
+        <span style={{fontSize:'12px',color:'#444',letterSpacing:'0.1em'}}>BUSINESS MRI REPORT</span>
       </nav>
-
-      <section style={{padding:'60px 48px',maxWidth:'900px',margin:'0 auto'}}>
-
-        <div style={{marginBottom:'48px'}}>
+      <div style={{maxWidth:'860px',margin:'0 auto',padding:'48px 24px'}}>
+        <div style={{marginBottom:'48px',paddingBottom:'32px',borderBottom:'1px solid #1a1a1a'}}>
           <div style={{fontSize:'12px',fontWeight:'600',letterSpacing:'0.2em',color:'#C8A24A',marginBottom:'12px',textTransform:'uppercase'}}>Business MRI Report</div>
-          <h1 style={{fontSize:'36px',fontWeight:'700',marginBottom:'8px'}}>{business?.name as string}</h1>
-          <p style={{fontSize:'15px',color:'#888888'}}>{business?.industry as string} · {business?.revenue_band as string}</p>
+          <h1 style={{fontSize:'32px',fontWeight:'700',marginBottom:'8px'}}>{businessName}</h1>
+          <p style={{color:'#666',fontSize:'14px',marginBottom:'4px'}}>Generated: {new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</p>
+          <div style={{marginTop:'16px',display:'inline-block',padding:'6px 14px',border:'1px solid #2a2a2a',borderRadius:'4px',fontSize:'11px',color:'#555',letterSpacing:'0.1em'}}>BEI MRI v1.0 — Rules-Based Analysis</div>
         </div>
-
-        <div style={card}>
-          <span style={label}>Business Health Score</span>
-          <div style={{display:'flex',alignItems:'flex-end',gap:'16px',marginBottom:'16px'}}>
-            <div style={{fontSize:'64px',fontWeight:'700',color:healthScore>=70?'#4aaa4a':healthScore>=50?'#C8A24A':'#ff6b6b',lineHeight:'1'}}>{healthScore}</div>
-            <div style={{fontSize:'20px',color:'#555555',marginBottom:'8px'}}>/100</div>
+        <div style={{marginBottom:'48px'}}>
+          <h2 style={{fontSize:'18px',fontWeight:'600',marginBottom:'24px'}}>Business Health Overview</h2>
+          <div style={{display:'flex',alignItems:'center',gap:'32px',marginBottom:'32px'}}>
+            <div style={{textAlign:'center'}}>
+              <div style={{fontSize:'56px',fontWeight:'700',color:healthColor,lineHeight:'1'}}>{result.overallHealth}</div>
+              <div style={{fontSize:'12px',color:'#666',marginTop:'4px'}}>Overall Score</div>
+            </div>
+            <div style={{flex:1,fontSize:'14px',color:'#888'}}>
+              {result.overallHealth>=70?'Your business is in strong health across most areas.':result.overallHealth>=45?'Your business has solid foundations with some areas needing attention.':'Several areas of your business need focused attention.'}
+            </div>
           </div>
-          <div style={{backgroundColor:'#1a1a1a',borderRadius:'4px',height:'8px',overflow:'hidden'}}>
-            <div style={{height:'100%',width:healthScore+'%',backgroundColor:healthScore>=70?'#4aaa4a':healthScore>=50?'#C8A24A':'#ff6b6b',borderRadius:'4px'}}></div>
+          <div style={{display:'flex',flexDirection:'column',gap:'12px'}}>
+            {result.pillarScores.map(p=>(
+              <div key={p.pillar} style={{display:'flex',alignItems:'center',gap:'16px'}}>
+                <div style={{width:'100px',fontSize:'13px',color:'#888'}}>{p.pillar}</div>
+                <div style={{flex:1,height:'6px',backgroundColor:'#111',borderRadius:'3px',overflow:'hidden'}}>
+                  <div style={{width:p.score+'%',height:'100%',backgroundColor:p.score>=70?'#4aaa4a':p.score>=45?'#C8A24A':'#cc4444',borderRadius:'3px'}}/>
+                </div>
+                <div style={{width:'40px',fontSize:'13px',color:'#666',textAlign:'right'}}>{p.score}</div>
+                <div style={{width:'120px',fontSize:'12px',color:p.score>=70?'#4aaa4a':p.score>=45?'#C8A24A':'#cc4444'}}>{p.label}</div>
+              </div>
+            ))}
           </div>
         </div>
-
-        <div style={card}>
-          <span style={label}>Primary Constraint Identified</span>
-          <h2 style={{fontSize:'28px',fontWeight:'700',color:'#C8A24A',marginBottom:'16px'}}>{primaryConstraint}</h2>
-          <p style={{fontSize:'15px',color:'#888888',lineHeight:'1.6'}}>
-            This is the highest-value root constraint limiting your business performance. Resolving this constraint should be your primary focus before addressing secondary issues.
-          </p>
-        </div>
-
-        <div style={card}>
-          <span style={label}>Opportunity Value</span>
-          <div style={{fontSize:'48px',fontWeight:'700',color:'#ffffff',marginBottom:'8px'}}>
-            £{opportunityValue.toLocaleString()}
+        {result.likelyConstraint&&(
+          <div style={{marginBottom:'48px',padding:'32px',border:'1px solid #2a2a2a',borderRadius:'8px',backgroundColor:'#080808'}}>
+            <div style={{fontSize:'11px',fontWeight:'600',letterSpacing:'0.2em',color:'#C8A24A',marginBottom:'16px',textTransform:'uppercase'}}>Preliminary Constraint Assessment</div>
+            <h2 style={{fontSize:'24px',fontWeight:'700',marginBottom:'8px'}}>{result.likelyConstraint.name}</h2>
+            <div style={{display:'inline-block',padding:'4px 10px',borderRadius:'4px',fontSize:'11px',fontWeight:'600',marginBottom:'20px',backgroundColor:result.likelyConstraint.severity==='high'?'#2a0a0a':'#2a1a00',color:result.likelyConstraint.severity==='high'?'#cc4444':'#C8A24A',border:'1px solid '+(result.likelyConstraint.severity==='high'?'#cc4444':'#C8A24A')}}>
+              {result.likelyConstraint.severity.toUpperCase()} PRIORITY
+            </div>
+            <div style={{marginBottom:'20px'}}>
+              <div style={{fontSize:'12px',color:'#555',marginBottom:'8px',textTransform:'uppercase',letterSpacing:'0.1em'}}>Supporting Evidence</div>
+              {result.likelyConstraint.evidence.map((e,i)=>(
+                <div key={i} style={{fontSize:'14px',color:'#aaa',paddingLeft:'16px',borderLeft:'2px solid #2a2a2a',marginBottom:'8px'}}>{e}</div>
+              ))}
+            </div>
+            <div style={{padding:'16px',backgroundColor:'#0a0a0a',borderRadius:'4px',border:'1px solid #1a1a1a'}}>
+              <div style={{fontSize:'11px',color:'#444',marginBottom:'4px'}}>INDICATIVE OPPORTUNITY RANGE</div>
+              <div style={{fontSize:'20px',fontWeight:'700',color:'#C8A24A'}}>£{result.opportunityRangeLow.toLocaleString()} — £{result.opportunityRangeHigh.toLocaleString()}</div>
+              <div style={{fontSize:'11px',color:'#444',marginTop:'4px'}}>Estimated annual value at risk or available for recovery</div>
+            </div>
           </div>
-          <p style={{fontSize:'14px',color:'#888888'}}>Estimated annual value available when primary constraint is resolved.</p>
-        </div>
-
-        {constraints.length > 1 && (
-          <div style={card}>
-            <span style={label}>Secondary Constraints</span>
+        )}
+        {result.secondaryConstraints.length>0&&(
+          <div style={{marginBottom:'48px'}}>
+            <h2 style={{fontSize:'18px',fontWeight:'600',marginBottom:'20px'}}>Additional Areas Flagged</h2>
             <div style={{display:'flex',flexDirection:'column',gap:'12px'}}>
-              {constraints.slice(1).map((c, i) => (
-                <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'12px 16px',backgroundColor:'#0a0a0a',borderRadius:'8px',border:'1px solid #1a1a1a'}}>
-                  <span style={{fontSize:'14px',color:'#cccccc'}}>{c.type}</span>
-                  <span style={{fontSize:'12px',color:'#C8A24A',fontWeight:'600'}}>Severity {c.severity}</span>
+              {result.secondaryConstraints.map(c=>(
+                <div key={c.key} style={{padding:'20px',border:'1px solid #1a1a1a',borderRadius:'6px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                  <div>
+                    <div style={{fontSize:'15px',fontWeight:'600',marginBottom:'4px'}}>{c.name}</div>
+                    <div style={{fontSize:'13px',color:'#666'}}>{c.evidence[0]}</div>
+                  </div>
+                  <div style={{fontSize:'11px',fontWeight:'600',color:c.severity==='high'?'#cc4444':'#C8A24A',marginLeft:'16px',flexShrink:0}}>{c.severity.toUpperCase()}</div>
                 </div>
               ))}
             </div>
           </div>
         )}
-
-        <div style={card}>
-          <span style={label}>Recommended Next Step</span>
-          <p style={{fontSize:'16px',color:'#ffffff',lineHeight:'1.7'}}>
-            Focus all available resource on resolving <strong style={{color:'#C8A24A'}}>{primaryConstraint}</strong>. This is the single highest-leverage action available to your business right now. Secondary constraints should not be addressed until the primary constraint is resolved or materially improved.
-          </p>
+        <div style={{marginBottom:'48px'}}>
+          <h2 style={{fontSize:'18px',fontWeight:'600',marginBottom:'20px'}}>Recommended Next Steps</h2>
+          <div style={{display:'flex',flexDirection:'column',gap:'12px'}}>
+            {result.nextSteps.map((step,i)=>(
+              <div key={i} style={{display:'flex',gap:'16px',padding:'16px',border:'1px solid #1a1a1a',borderRadius:'6px'}}>
+                <div style={{width:'24px',height:'24px',borderRadius:'50%',backgroundColor:'#1a1a1a',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'12px',fontWeight:'700',color:'#C8A24A',flexShrink:0}}>{i+1}</div>
+                <div style={{fontSize:'14px',color:'#aaa',lineHeight:'1.6'}}>{step}</div>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div style={{textAlign:'center',padding:'32px',borderTop:'1px solid #1a1a1a',marginTop:'16px'}}>
-          <p style={{fontSize:'12px',color:'#333333'}}>BEI MRI v1.0 — Rules-Based Analysis · Generated {new Date().toLocaleDateString('en-GB')}</p>
+        <div style={{padding:'24px',border:'1px solid #1a1a1a',borderRadius:'6px',backgroundColor:'#080808',marginBottom:'32px'}}>
+          <div style={{fontSize:'12px',color:'#444',lineHeight:'1.8'}}><strong style={{color:'#555'}}>Important:</strong> This report is generated using BEI MRI v1.0 Rules-Based Analysis. Results should be treated as a preliminary assessment only.</div>
         </div>
-
-      </section>
+        <div style={{textAlign:'center',padding:'48px 0'}}>
+          <div style={{fontSize:'20px',fontWeight:'600',marginBottom:'8px'}}>Want a fully verified BEI analysis?</div>
+          <div style={{fontSize:'14px',color:'#666',marginBottom:'24px'}}>Speak with a BEI advisor to move beyond rules-based analysis.</div>
+          <a href="mailto:hello@bei.io" style={{display:'inline-block',padding:'16px 40px',backgroundColor:'#C8A24A',color:'#050505',fontWeight:'700',borderRadius:'4px',textDecoration:'none',fontSize:'14px'}}>Book a BEI Advisory Call</a>
+        </div>
+      </div>
+      <div style={{borderTop:'1px solid #1a1a1a',padding:'24px',textAlign:'center',fontSize:'11px',color:'#333'}}>BEI MRI v1.0 — Rules-Based Analysis — Not a verified BEI output</div>
     </main>
   )
 }
