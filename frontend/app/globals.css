@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -11,34 +9,14 @@
 body {
   background-color: #050505;
   color: #ffffff;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 :root {
+  --bei-gold: #C8A24A;
   --bei-black: #050505;
-  --bei-dark: #0a0a0a;
   --bei-card: #111111;
   --bei-border: #1a1a1a;
-  --bei-gold: #C8A24A;
-  --bei-gold-light: #d4af62;
-  --bei-gold-dim: #8a6e32;
-  --bei-text: #ffffff;
   --bei-muted: #888888;
-}
-
-::selection {
-  background: #C8A24A33;
-  color: #C8A24A;
-}
-
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-::-webkit-scrollbar-thumb {
-  background: #C8A24A44;
-  border-radius: 2px;
 }
