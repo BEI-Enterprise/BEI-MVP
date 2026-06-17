@@ -20,6 +20,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     async function load() {
+      const supabase = createClient()
       const { data } = await supabase
         .from('businesses')
         .select('id, business_name, industry, annual_revenue_band, status, mri_requested, mri_completed, created_at')

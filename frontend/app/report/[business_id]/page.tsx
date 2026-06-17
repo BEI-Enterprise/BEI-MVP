@@ -18,6 +18,7 @@ export default function ReportPage() {
 
   useEffect(() => {
     const load = async () => {
+      const supabase = createClient()
       const { data, error } = await supabase
         .from('businesses')
         .select('business_name, mri_result')

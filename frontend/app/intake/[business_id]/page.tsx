@@ -81,6 +81,7 @@ export default function IntakePage() {
       setLoading(true)
       setError(null)
       try {
+        const supabase = createClient()
         const { error: supabaseError } = await supabase
           .from('businesses')
           .update({ status: 'processing' })
