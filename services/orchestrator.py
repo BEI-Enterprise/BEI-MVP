@@ -13,6 +13,7 @@ from services.detection.engine import detect_constraints
 from services.verification.engine import verify_constraints
 from services.opportunity.engine import calculate_opportunities
 from services.decision.engine import select_primary_constraint
+from services.network.engine import build_constraint_network
 
 
 def run_intelligence(
@@ -48,8 +49,11 @@ def run_intelligence(
     # Step 5 — Calculate Opportunities
     opportunities = calculate_opportunities(verified, twin)
 
-    # Step 6 — Select Primary Constraint
-    decision = select_primary_constraint(opportunities, health)
+    # Step 6 — Build Constraint Network
+    network = build_constraint_network(opportunities, health)
+
+    # Step 7 — Select Primary Constraint
+    decision = select_primary_constraint(opportunities, health, network)
 
     return {
         "business_id": business_id,
