@@ -14,6 +14,7 @@ from services.verification.engine import verify_constraints
 from services.opportunity.engine import calculate_opportunities, calculate_total_opportunity
 from services.decision.engine import select_primary_constraint
 from services.network.engine import build_constraint_network
+from services.deployment.engine import build_deployment_packages
 
 
 def run_intelligence(
@@ -79,3 +80,30 @@ def run_intelligence(
         "twin_data_confidence": twin_record["data_confidence_score"],
         "version": "BEI Intelligence v1.0",
     }
+
+
+def run_intelligence_with_deployment(
+    answers: dict,
+    business_id: str,
+    industry: str,
+    revenue_band: str,
+    connector_updates: dict = None,
+) -> dict:
+    """
+    Full BEI pipeline including deployment packages.
+    Extends run_intelligence with deployment engine output.
+    """
+    result = run_intelligence(answers, business_id, industry, revenue_band, connector_updates)
+
+    primary = result.get("primary_constraint")
+    secondary = result.get("secondary_constraints", [])
+
+    if primary:
+        deployment_packages = build_deployment_packages(
+            primary, secondary, business_id, industry
+        )
+        result["deployment_packages"] = deployment_packages
+    else:
+        result["deployment_packages"] = None
+
+    return result
