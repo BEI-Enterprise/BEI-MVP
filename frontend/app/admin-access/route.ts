@@ -7,7 +7,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
   }
 
-  const response = NextResponse.redirect(new URL('/dashboard', request.url))
+  const redirectUrl = new URL('/dashboard', request.url)
+  redirectUrl.port = ''
+  const response = NextResponse.redirect(redirectUrl)
   response.cookies.set('bei_admin', process.env.ADMIN_SECRET_TOKEN!, {
     httpOnly: true,
     secure: true,
