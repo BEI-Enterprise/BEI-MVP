@@ -200,4 +200,3 @@ export default function ReportPage() {
       <div style={{borderTop:'1px solid #1a1a1a',padding:'24px',textAlign:'center',fontSize:'11px',color:'#333'}}>{version} — Not a verified BEI output</div>
     </main>
   )
-}

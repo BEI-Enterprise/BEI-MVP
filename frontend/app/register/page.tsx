@@ -118,12 +118,22 @@ export default function RegisterPage() {
                 </select>
               </div>
             </div>
-            <button onClick={()=>form.name&&form.email&&form.company&&setSubmitted(true)}
+            <button onClick={async ()=>{
+                if(!form.name||!form.email||!form.company) return
+                const res = await fetch('/api/stripe/checkout', {
+                  method: 'POST',
+                  headers: {'Content-Type':'application/json'},
+                  body: JSON.stringify({ plan: selectedPlan, email: form.email })
+                })
+                const data = await res.json()
+                if (data.url) window.location.href = data.url
+                else setSubmitted(true)
+              }}
               style={{width:'100%',padding:'14px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'6px',border:'none',cursor:'pointer',fontSize:'15px'}}>
-              Request Access →
+              Continue to Payment →
             </button>
             <div style={{marginTop:'16px',textAlign:'center' as const,fontSize:'12px',color:'#444',lineHeight:'1.7'}}>
-              You will not be charged until your account is approved and you complete payment via the secure Stripe link we send you.
+              You will be taken to Stripe to complete your subscription securely. No payment stored by BEI.
             </div>
           </div>
         )}
