@@ -9,10 +9,10 @@ export async function GET(request: NextRequest) {
 
   const response = NextResponse.json({ success: true, message: 'Admin access granted. Cookie set. Navigate to /dashboard.' })
   response.cookies.set('bei_admin', process.env.ADMIN_SECRET_TOKEN!, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'strict',
-    maxAge: 60 * 60 * 24 * 365, // 1 year
+    httpOnly: false,
+    secure: false,
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 365,
     path: '/',
   })
   return response
