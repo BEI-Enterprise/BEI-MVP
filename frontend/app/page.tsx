@@ -1,4 +1,3 @@
-'use client'
 
 export default function LandingPage() {
   const gold = '#C8A24A'
