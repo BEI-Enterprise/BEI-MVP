@@ -7,9 +7,17 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const gold = '#C8A24A'
 
+  const [error, setError] = useState('')
+
   const handleSubmit = async () => {
+    if (!email || !password) { setError('Please enter your email and password.'); return }
     setLoading(true)
-    setTimeout(() => setLoading(false), 1500)
+    setError('')
+    // Simulate auth check — replace with Supabase Auth when keys are connected
+    setTimeout(() => {
+      setLoading(false)
+      setError('No account found for this email. Please request access first.')
+    }, 1200)
   }
 
   return (
@@ -33,6 +41,14 @@ export default function LoginPage() {
             <input value={password} onChange={e=>setPassword(e.target.value)} type="password" placeholder="••••••••"
               style={{width:'100%',padding:'12px 14px',backgroundColor:'#0d0d0d',border:'1px solid #2a2a2a',borderRadius:'6px',color:'#fff',fontSize:'14px',outline:'none',boxSizing:'border-box'}} />
           </div>
+          {error && (
+            <div style={{padding:'12px 14px',backgroundColor:'#1a0a0a',border:'1px solid #cc4444',borderRadius:'6px',fontSize:'13px',color:'#cc4444',marginBottom:'16px',lineHeight:'1.6'}}>
+              {error}{' '}
+              {error.includes('No account') && (
+                <a href="/register" style={{color:'#C8A24A',textDecoration:'none',fontWeight:'600'}}>Request access →</a>
+              )}
+            </div>
+          )}
           <button onClick={handleSubmit} disabled={loading}
             style={{width:'100%',padding:'14px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'6px',border:'none',cursor:'pointer',fontSize:'15px'}}>
             {loading ? 'Signing in...' : 'Sign in →'}
