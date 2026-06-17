@@ -53,7 +53,7 @@ def run_intelligence(
     network = build_constraint_network(opportunities, health)
 
     # Step 7 — Select Primary Constraint
-    decision = select_primary_constraint(opportunities, health, network)
+    decision = select_primary_constraint(opportunities, health, network, industry)
 
     return {
         "business_id": business_id,
@@ -68,6 +68,9 @@ def run_intelligence(
         "unverified_flags": decision["unverified_flags"],
         "decision_explanation": decision["decision_explanation"],
         "confidence": decision["confidence"],
+        "decision_score": decision["decision_score"],
+        "recommended_focus": decision["recommended_focus"],
+        "decision_version": decision["decision_version"],
         "twin_completeness": twin_record["completeness_score"],
         "twin_data_confidence": twin_record["data_confidence_score"],
         "version": "BEI Intelligence v1.0",
