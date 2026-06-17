@@ -2,27 +2,42 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 export default function ReportPage() {
   const params = useParams()
   const businessId = params.business_id as string
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const stored = localStorage.getItem('bei_result_' + businessId)
-    const meta = localStorage.getItem('bei_meta_' + businessId)
-    if (stored) setResult(JSON.parse(stored))
-    if (meta) {
-      const m = JSON.parse(meta)
-      setBusinessName(m.businessName || 'Your Business')
+    const load = async () => {
+      const { data, error } = await supabase
+        .from('businesses')
+        .select('business_name, mri_result')
+        .eq('id', businessId)
+        .single()
+      if (data) {
+        setBusinessName(data.business_name || 'Your Business')
+        if (data.mri_result) setResult(data.mri_result)
+      }
+      setLoading(false)
     }
+    load()
   }, [businessId])
+
+  if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}></main>
 
   if (!result) {
     return (
       <main style={{backgroundColor:'#050505',color:'#ffffff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
-        <p style={{color:'#666'}}>Loading your MRI Report...</p>
+        <p style={{color:'#666'}}>No MRI report found.</p>
       </main>
     )
   }

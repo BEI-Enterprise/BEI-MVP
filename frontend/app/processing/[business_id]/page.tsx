@@ -57,9 +57,6 @@ export default function ProcessingPage() {
 
         const data = await response.json()
 
-        // Store intelligence result in localStorage for report page
-        localStorage.setItem('bei_result_' + businessId, JSON.stringify(data.result))
-
         setStage(stages.length - 1)
         await new Promise(r => setTimeout(r, 500))
         router.push('/report/' + businessId)

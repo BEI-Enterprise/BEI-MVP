@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
         mri_completed: true,
         mri_version: result.confidence === 'high' ? 'v1.1-verified' : 'v1.0-rules-based',
         status: 'mri_complete',
+        mri_result: result,
       })
       .eq('id', business_id)
 

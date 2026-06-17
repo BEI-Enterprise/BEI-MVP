@@ -8,18 +8,28 @@ export default function OutcomesPage() {
   const [businessName, setBusinessName] = useState('Your Business')
 
   useEffect(() => {
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i)
-      if (key?.startsWith('bei_result_')) {
-        const id = key.replace('bei_result_', '')
-        const stored = localStorage.getItem(key)
-        if (stored) setResult(JSON.parse(stored))
-        const meta = localStorage.getItem('bei_meta_' + id)
-        if (meta) setBusinessName(JSON.parse(meta).businessName || 'Your Business')
-        break
-      }
+    const load = async () => {
+      try {
+        const { createClient } = await import('@supabase/supabase-js')
+        const supabase = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        )
+        const { data } = await supabase
+          .from('businesses')
+          .select('id, business_name, mri_result')
+          .eq('status', 'mri_complete')
+          .order('updated_at', { ascending: false })
+          .limit(1)
+          .single()
+        if (data) {
+          setBusinessName(data.business_name || 'Your Business')
+          if (data.mri_result) setResult(data.mri_result)
+        }
+      } catch (e) {}
+      setLoading(false)
     }
-    setLoading(false)
+    load()
   }, [])
 
   const nav = [
