@@ -181,6 +181,15 @@ export default function ReportPage() {
           </div>
         </div>
 
+        {/* Dashboard CTA */}
+        <div style={{padding:'24px',border:'1px solid #2a2a2a',borderRadius:'8px',backgroundColor:'#080808',marginBottom:'24px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <div>
+            <div style={{fontSize:'16px',fontWeight:'600',marginBottom:'4px'}}>Access Your Intelligence Dashboard</div>
+            <div style={{fontSize:'13px',color:'#555'}}>View full constraint analysis, opportunities, deployment actions and outcome tracking.</div>
+          </div>
+          <a href="/dashboard" style={{padding:'12px 24px',backgroundColor:'#C8A24A',color:'#050505',fontWeight:'700',borderRadius:'4px',textDecoration:'none',fontSize:'14px',flexShrink:0,marginLeft:'24px'}}>View Dashboard →</a>
+        </div>
+
         {/* CTA */}
         <div style={{textAlign:'center',padding:'48px 0'}}>
           <div style={{fontSize:'20px',fontWeight:'600',marginBottom:'8px'}}>Want a fully verified BEI analysis?</div>
