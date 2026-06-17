@@ -11,7 +11,7 @@ from services.twin.builder import build_twin_record
 from services.health.engine import calculate_health
 from services.detection.engine import detect_constraints
 from services.verification.engine import verify_constraints
-from services.opportunity.engine import calculate_opportunities
+from services.opportunity.engine import calculate_opportunities, calculate_total_opportunity
 from services.decision.engine import select_primary_constraint
 from services.network.engine import build_constraint_network
 
@@ -47,7 +47,10 @@ def run_intelligence(
     verified = verify_constraints(detected, twin, health)
 
     # Step 5 — Calculate Opportunities
-    opportunities = calculate_opportunities(verified, twin)
+    opportunities = calculate_opportunities(verified, twin, industry, revenue_band)
+
+    # Step 5B — Calculate Total Opportunity
+    total_opportunity = calculate_total_opportunity(opportunities)
 
     # Step 6 — Build Constraint Network
     network = build_constraint_network(opportunities, health)
@@ -71,6 +74,7 @@ def run_intelligence(
         "decision_score": decision["decision_score"],
         "recommended_focus": decision["recommended_focus"],
         "decision_version": decision["decision_version"],
+        "total_opportunity": total_opportunity,
         "twin_completeness": twin_record["completeness_score"],
         "twin_data_confidence": twin_record["data_confidence_score"],
         "version": "BEI Intelligence v1.0",
