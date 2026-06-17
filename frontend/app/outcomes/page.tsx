@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 export default function OutcomesPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
+  const [loading, setLoading] = useState(true)
   const [businessName, setBusinessName] = useState('Your Business')
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function OutcomesPage() {
         break
       }
     }
+    setLoading(false)
   }, [])
 
   const nav = [
@@ -28,6 +30,8 @@ export default function OutcomesPage() {
     { label: 'Deployments', href: '/deployments' },
     { label: 'Outcomes', href: '/outcomes', active: true },
   ]
+
+  if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}></main>
 
   if (!result) return (
     <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>

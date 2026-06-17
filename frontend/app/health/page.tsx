@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 export default function HealthPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
+  const [loading, setLoading] = useState(true)
   const [businessName, setBusinessName] = useState('Your Business')
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function HealthPage() {
         break
       }
     }
+    setLoading(false)
   }, [])
 
   const nav = [
@@ -36,6 +38,8 @@ export default function HealthPage() {
     risk: 'Revenue concentration, trust infrastructure, cash flow and key person risk. How exposed the business is.',
     context: 'Market growth, competition intensity and client retention. The environment the business operates in.',
   }
+
+  if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}></main>
 
   if (!result) {
     return (

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 export default function DashboardPage() {
   const router = useRouter()
   const [result, setResult] = useState<Record<string, any> | null>(null)
+  const [loading, setLoading] = useState(true)
   const [businessName, setBusinessName] = useState('Your Business')
   const [businessId, setBusinessId] = useState('')
 
@@ -23,7 +24,10 @@ export default function DashboardPage() {
         break
       }
     }
+    setLoading(false)
   }, [])
+
+  if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}></main>
 
   if (!result) {
     return (

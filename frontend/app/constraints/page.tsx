@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 export default function ConstraintsPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
+  const [loading, setLoading] = useState(true)
   const [businessName, setBusinessName] = useState('Your Business')
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function ConstraintsPage() {
         break
       }
     }
+    setLoading(false)
   }, [])
 
   const nav = [
@@ -28,6 +30,8 @@ export default function ConstraintsPage() {
     { label: 'Deployments', href: '/deployments' },
     { label: 'Outcomes', href: '/outcomes' },
   ]
+
+  if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}></main>
 
   if (!result) {
     return (
