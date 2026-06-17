@@ -1,7 +1,23 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+// Admin emails — full access to everything, no subscription check
+const ADMIN_EMAILS = [
+  'admin@bei.io',
+  'hello@bei.io',
+]
+
 const PROTECTED_ROUTES = [
+  '/dashboard',
+  '/health',
+  '/constraints',
+  '/opportunities',
+  '/deployments',
+  '/outcomes',
+  '/account',
+]
+
+const SUBSCRIPTION_REQUIRED = [
   '/dashboard',
   '/health',
   '/constraints',
@@ -10,16 +26,9 @@ const PROTECTED_ROUTES = [
   '/outcomes',
 ]
 
-const SUBSCRIPTION_REQUIRED = [
-  '/opportunities',
-  '/deployments',
-  '/outcomes',
-]
-
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Check if this is a protected route
   const isProtected = PROTECTED_ROUTES.some(route => pathname.startsWith(route))
   if (!isProtected) return NextResponse.next()
 
@@ -44,16 +53,27 @@ export async function proxy(request: NextRequest) {
     }
   )
 
+  // Admin device bypass — check for admin cookie
+  const adminCookie = request.cookies.get('bei_admin')
+  if (adminCookie?.value === process.env.ADMIN_SECRET_TOKEN) {
+    return response
+  }
+
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Step 3 — Not authenticated → redirect to login
+  // Not authenticated → redirect to login
   if (!user) {
     const loginUrl = new URL('/login', request.url)
     loginUrl.searchParams.set('redirect', pathname)
     return NextResponse.redirect(loginUrl)
   }
 
-  // Step 4 — Authenticated but check subscription for gated routes
+  // Admin bypass — full access to everything
+  if (ADMIN_EMAILS.includes(user.email || '')) {
+    return response
+  }
+
+  // Subscription check for intelligence routes
   const requiresSubscription = SUBSCRIPTION_REQUIRED.some(route => pathname.startsWith(route))
   if (requiresSubscription) {
     const { data: business } = await supabase
@@ -83,5 +103,6 @@ export const config = {
     '/opportunities/:path*',
     '/deployments/:path*',
     '/outcomes/:path*',
+    '/account/:path*',
   ],
 }
