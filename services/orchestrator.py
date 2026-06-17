@@ -40,7 +40,7 @@ def run_intelligence(
     health = calculate_health(twin, industry)
 
     # Step 3 — Detect Constraints (hypotheses only)
-    detected = detect_constraints(twin, health)
+    detected = detect_constraints(twin, health, industry)
 
     # Step 4 — Verify Constraints (challenge framework)
     verified = verify_constraints(detected, twin, health)
