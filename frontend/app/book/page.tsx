@@ -24,6 +24,7 @@ export default function BookPage() {
     }
     setLoading(true)
     try {
+      const supabase = createClient()
       const { data, error: dbError } = await supabase
         .from('businesses')
         .insert([{
