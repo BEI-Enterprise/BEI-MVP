@@ -1,6 +1,10 @@
 'use client'
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
-export default function PricingPage() {
+function PricingContent() {
+  const searchParams = useSearchParams()
+  const reason = searchParams.get('reason')
   const gold = '#C8A24A'
 
   const plans = [
@@ -90,6 +94,11 @@ export default function PricingPage() {
       </nav>
 
       <section style={{padding:'80px 48px 60px',textAlign:'center' as const}}>
+        {reason === 'subscription_required' && (
+          <div style={{padding:'14px 20px',backgroundColor:'#0d0a04',border:'1px solid rgba(200,162,74,0.3)',borderRadius:'8px',marginBottom:'24px',fontSize:'14px',color:'#C8A24A',textAlign:'center' as const}}>
+            ◈ A subscription is required to access this feature. Select a plan below to unlock full access.
+          </div>
+        )}
         <div style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'6px 16px',backgroundColor:'rgba(200,162,74,0.08)',border:'1px solid rgba(200,162,74,0.25)',borderRadius:'20px',fontSize:'12px',color:gold,fontWeight:'600',marginBottom:'24px',letterSpacing:'0.05em'}}>
           ◈ Launch Offer — 40% off for 12 months · No contract · Cancel anytime
         </div>
@@ -175,4 +184,8 @@ export default function PricingPage() {
       </footer>
     </main>
   )
+}
+
+export default function PricingPage() {
+  return <Suspense fallback={<div style={{backgroundColor:'#050505',minHeight:'100vh'}}/>}><PricingContent /></Suspense>
 }
