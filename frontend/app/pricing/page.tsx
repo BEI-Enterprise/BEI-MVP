@@ -7,6 +7,8 @@ export default function PricingPage() {
     {
       name: 'MRI Analysis',
       price: '£199',
+      originalPrice: '£332',
+      saving: '£1,596',
       period: '/month',
       desc: 'Full constraint intelligence for businesses under £1M revenue.',
       opportunity: '£40k+ avg opportunity identified',
@@ -27,6 +29,8 @@ export default function PricingPage() {
     {
       name: 'Analysis + Opportunity',
       price: '£399',
+      originalPrice: '£665',
+      saving: '£3,192',
       period: '/month',
       desc: 'Full intelligence with quantified opportunity mapping.',
       opportunity: '£200k+ avg opportunity identified',
@@ -47,6 +51,8 @@ export default function PricingPage() {
     {
       name: 'Full Platform',
       price: '£999',
+      originalPrice: '£1,665',
+      saving: '£7,992',
       period: '/month',
       desc: 'Complete intelligence, deployment and outcome tracking.',
       opportunity: '£1.2M+ avg opportunity identified',
@@ -84,11 +90,14 @@ export default function PricingPage() {
       </nav>
 
       <section style={{padding:'80px 48px 60px',textAlign:'center' as const}}>
+        <div style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'6px 16px',backgroundColor:'rgba(200,162,74,0.08)',border:'1px solid rgba(200,162,74,0.25)',borderRadius:'20px',fontSize:'12px',color:gold,fontWeight:'600',marginBottom:'24px',letterSpacing:'0.05em'}}>
+          ◈ Launch Offer — 40% off for 12 months · No contract · Cancel anytime
+        </div>
         <div style={{fontSize:'11px',color:gold,letterSpacing:'0.25em',textTransform:'uppercase' as const,marginBottom:'16px',fontWeight:'600'}}>Pricing</div>
         <h1 style={{fontSize:'48px',fontWeight:'700',letterSpacing:'-0.02em',marginBottom:'16px'}}>Intelligence that pays for itself.</h1>
         <p style={{fontSize:'18px',color:'#666',maxWidth:'560px',margin:'0 auto 16px',lineHeight:'1.7'}}>Every plan starts with a free Business MRI. Subscribe to unlock the full intelligence platform.</p>
         <div style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 20px',border:'1px solid #1a1a1a',borderRadius:'6px',fontSize:'13px',color:'#555',marginTop:'8px'}}>
-          <span style={{color:'#4aaa4a'}}>✓</span> No contract · Cancel anytime · Free MRI included
+          <span style={{color:'#4aaa4a'}}>✓</span> No contract · Cancel anytime · Free MRI included · Prices locked for 12 months
         </div>
       </section>
 
@@ -100,10 +109,15 @@ export default function PricingPage() {
                 <div style={{position:'absolute' as const,top:'-13px',left:'50%',transform:'translateX(-50%)',padding:'4px 18px',backgroundColor:gold,color:'#050505',fontSize:'11px',fontWeight:'700',borderRadius:'20px',letterSpacing:'0.1em'}}>MOST POPULAR</div>
               )}
               <div style={{fontSize:'13px',color:'#888',marginBottom:'6px'}}>{plan.name}</div>
-              <div style={{display:'flex',alignItems:'baseline',gap:'4px',marginBottom:'8px'}}>
+              <div style={{marginBottom:'4px',display:'flex',alignItems:'center',gap:'8px'}}>
+                <span style={{fontSize:'13px',color:'#444',textDecoration:'line-through'}}>{(plan as any).originalPrice}/mo</span>
+                <span style={{fontSize:'11px',padding:'2px 8px',backgroundColor:'rgba(200,162,74,0.12)',color:gold,borderRadius:'3px',fontWeight:'600'}}>40% OFF</span>
+              </div>
+              <div style={{display:'flex',alignItems:'baseline',gap:'4px',marginBottom:'4px'}}>
                 <span style={{fontSize:'44px',fontWeight:'700',color:plan.popular?gold:'#fff'}}>{plan.price}</span>
                 <span style={{fontSize:'14px',color:'#555'}}>{plan.period}</span>
               </div>
+              <div style={{fontSize:'12px',color:'#4aaa4a',marginBottom:'8px'}}>Save {(plan as any).saving}/year</div>
               <div style={{fontSize:'13px',color:'#666',marginBottom:'8px',lineHeight:'1.6'}}>{plan.desc}</div>
               <div style={{padding:'10px 14px',backgroundColor:'#0a0a0a',borderRadius:'6px',border:'1px solid #1a1a1a',marginBottom:'24px'}}>
                 <span style={{fontSize:'12px',color:gold}}>◈ {plan.opportunity}</span>
