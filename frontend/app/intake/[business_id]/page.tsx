@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase'
 import { saveIntakeData } from '@/lib/localStorage'
 import { saveMRIMetaToStorage } from '@/lib/mriStorage'
 
@@ -60,7 +60,7 @@ export default function IntakePage() {
 
   useEffect(() => {
     const fetchBusiness = async () => {
-      const { data } = await supabase.from('businesses').select('name').eq('id', businessId).single()
+      const { data } = await createClient().from('businesses').select('name').eq('id', businessId).single()
       if (data) setBusinessName(data.name)
     }
     fetchBusiness()
