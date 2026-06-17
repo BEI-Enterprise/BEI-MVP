@@ -31,7 +31,7 @@ export function getMetaData(businessId: string): Record<string, any> | null {
   try {
     const item = localStorage.getItem(META_PREFIX + businessId)
     return item ? JSON.parse(item) : null
-n  } catch (e) {
+  } catch (e) {
     console.error('Failed to parse meta data from localStorage', e)
     return null
   }
