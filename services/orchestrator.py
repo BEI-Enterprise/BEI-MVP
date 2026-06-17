@@ -37,7 +37,7 @@ def run_intelligence(
     twin_record = build_twin_record(business_id, answers, revenue_band, connector_updates)
 
     # Step 2 — Calculate Business Health
-    health = calculate_health(twin)
+    health = calculate_health(twin, industry)
 
     # Step 3 — Detect Constraints (hypotheses only)
     detected = detect_constraints(twin, health)
