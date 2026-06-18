@@ -1,142 +1,144 @@
 'use client'
 import { useState } from 'react'
+import { createClient } from '../../lib/supabase'
+import { colors, fontSize, fontWeight, inputStyle, labelStyle, pageWrapper } from '../../lib/design'
+
+const PLANS = [
+  {
+    id: 'analysis',
+    name: 'MRI Analysis',
+    price: '£199',
+    period: '/month',
+    was: '£332',
+    features: ['Business MRI', 'Health Score', 'Primary Constraint', 'Monthly Updates'],
+  },
+  {
+    id: 'opportunity',
+    name: 'Analysis + Opportunity',
+    price: '£399',
+    period: '/month',
+    was: '£665',
+    features: ['Everything in Analysis', 'Opportunity Mapping', 'Prioritisation Engine', 'Opportunity Quantification'],
+    popular: true,
+  },
+  {
+    id: 'platform',
+    name: 'Full Platform',
+    price: '£999',
+    period: '/month',
+    was: '£1,665',
+    features: ['Everything above', 'Deployment Engine', 'Execution Tracking', 'Outcome Monitoring', 'Continuous Optimisation'],
+  },
+]
 
 export default function RegisterPage() {
   const [step, setStep] = useState<'plan' | 'details'>('plan')
   const [selectedPlan, setSelectedPlan] = useState('')
-  const [form, setForm] = useState({ name: '', email: '', company: '', industry: '' })
-  const [submitted, setSubmitted] = useState(false)
-  const gold = '#C8A24A'
+  const [form, setForm] = useState({ name: '', email: '', company: '' })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const plans = [
-    { id: 'analysis', name: 'MRI Analysis', price: '£199', original: '£332', saving: '£1,596', desc: 'Full constraint intelligence — sub £1M revenue' },
-    { id: 'opportunity', name: 'Analysis + Opportunity', price: '£399', original: '£665', saving: '£3,192', desc: 'Full intelligence with opportunity mapping', popular: true },
-    { id: 'platform', name: 'Full Platform', price: '£999', original: '£1,665', saving: '£7,992', desc: 'Complete intelligence, deployment and outcomes' },
-  ]
+  const handleContinue = () => {
+    if (!selectedPlan) { setError('Please select a plan to continue.'); return }
+    setError('')
+    setStep('details')
+  }
 
-  const update = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
-  const inputStyle = { width: '100%', padding: '12px 14px', backgroundColor: '#0d0d0d', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#fff', fontSize: '14px', outline: 'none', boxSizing: 'border-box' as const }
-  const labelStyle = { fontSize: '12px', color: '#666', marginBottom: '6px', display: 'block' as const }
-
-  if (submitted) return (
-    <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
-      <div style={{textAlign:'center',maxWidth:'480px',padding:'0 24px'}}>
-        <div style={{fontSize:'32px',marginBottom:'16px',color:gold}}>◈</div>
-        <div style={{fontSize:'24px',fontWeight:'700',marginBottom:'12px'}}>Request received.</div>
-        <div style={{fontSize:'15px',color:'#666',lineHeight:'1.8',marginBottom:'8px'}}>Selected plan: <strong style={{color:gold}}>{plans.find(p=>p.id===selectedPlan)?.name}</strong></div>
-        <div style={{fontSize:'15px',color:'#666',lineHeight:'1.8',marginBottom:'32px'}}>We will email you within 48 hours with your Stripe payment link to activate your account.</div>
-        <a href="/" style={{padding:'14px 32px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'6px',textDecoration:'none',fontSize:'14px'}}>Return to home</a>
-      </div>
-    </main>
-  )
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.company) { setError('Please complete all fields.'); return }
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: selectedPlan, email: form.email }),
+      })
+      const data = await res.json()
+      if (data.url) { window.location.href = data.url; return }
+      setError(data.error || 'Failed to start checkout. Please try again.')
+    } catch (e) {
+      setError('Something went wrong. Please try again.')
+    }
+    setLoading(false)
+  }
 
   return (
-    <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'40px 24px'}}>
-      <div style={{width:'100%',maxWidth: step==='plan' ? '700px' : '480px'}}>
-        <a href="/" style={{display:'block',fontSize:'22px',fontWeight:'800',color:gold,letterSpacing:'0.12em',textDecoration:'none',marginBottom:'40px',textAlign:'center'}}>BEI</a>
+    <main style={pageWrapper}>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+        <div style={{ width: '100%', maxWidth: step === 'plan' ? '900px' : '480px' }}>
+          <a href='/' style={{ display: 'block', fontSize: '22px', fontWeight: fontWeight.extrabold, color: colors.gold, letterSpacing: '0.12em', textDecoration: 'none', marginBottom: '48px', textAlign: 'center' as const }}>BEI</a>
 
-        {/* Step indicator */}
-        <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'8px',marginBottom:'32px'}}>
-          {['Select Plan','Your Details'].map((s,i) => (
-            <div key={s} style={{display:'flex',alignItems:'center',gap:'8px'}}>
-              <div style={{width:'24px',height:'24px',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',fontWeight:'700',
-                backgroundColor: (i===0&&step==='plan')||(i===1&&step==='details') ? gold : i===0&&step==='details' ? '#4aaa4a' : '#111',
-                color: (i===0&&step==='plan')||(i===1&&step==='details') ? '#050505' : i===0&&step==='details' ? '#050505' : '#444',
-                border: `1px solid ${(i===0&&step==='plan')||(i===1&&step==='details') ? gold : i===0&&step==='details' ? '#4aaa4a' : '#2a2a2a'}`
-              }}>{i===0&&step==='details' ? '✓' : i+1}</div>
-              <span style={{fontSize:'12px',color:(i===0&&step==='plan')||(i===1&&step==='details')?'#fff':'#555'}}>{s}</span>
-              {i===0 && <span style={{color:'#2a2a2a',fontSize:'16px',marginLeft:'4px'}}>→</span>}
+          {step === 'plan' ? (
+            <>
+              <div style={{ textAlign: 'center' as const, marginBottom: '40px' }}>
+                <div style={{ fontSize: '11px', color: colors.gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '8px', fontWeight: fontWeight.semibold }}>Launch Offer — 40% Off</div>
+                <div style={{ fontSize: '28px', fontWeight: fontWeight.bold, marginBottom: '8px' }}>Choose your plan</div>
+                <div style={{ fontSize: fontSize.base, color: colors.textSecondary }}>Select a plan to continue. You will complete payment securely via Stripe.</div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '28px' }}>
+                {PLANS.map(plan => (
+                  <div
+                    key={plan.id}
+                    onClick={() => { setSelectedPlan(plan.id); setError('') }}
+                    style={{ padding: '28px', border: `2px solid ${selectedPlan === plan.id ? colors.gold : colors.borderBase}`, borderRadius: '10px', backgroundColor: selectedPlan === plan.id ? '#0d0a04' : colors.bgCard, cursor: 'pointer', position: 'relative' as const, transition: 'border-color 0.15s' }}
+                  >
+                    {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '3px 14px', backgroundColor: colors.gold, color: '#050505', fontSize: '11px', fontWeight: fontWeight.bold, borderRadius: '20px' }}>MOST POPULAR</div>}
+                    <div style={{ fontSize: fontSize.base, color: colors.textSecondary, marginBottom: '6px' }}>{plan.name}</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
+                      <span style={{ fontSize: '32px', fontWeight: fontWeight.extrabold, color: plan.popular ? colors.gold : colors.textPrimary }}>{plan.price}</span>
+                      <span style={{ fontSize: fontSize.base, color: colors.textMuted }}>{plan.period}</span>
+                    </div>
+                    <div style={{ fontSize: fontSize.sm, color: colors.textDisabled, marginBottom: '20px', textDecoration: 'line-through' }}>was {plan.was}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
+                      {plan.features.map(f => (
+                        <div key={f} style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: fontSize.base, color: colors.textBody }}>
+                          <span style={{ color: colors.success }}>✓</span>{f}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: `1px solid ${colors.errorBorder}`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '16px' }}>{error}</div>}
+              <button onClick={handleContinue} style={{ width: '100%', padding: '16px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: fontSize.md }}>
+                Continue with {PLANS.find(p => p.id === selectedPlan)?.name || 'selected plan'} →
+              </button>
+              <div style={{ marginTop: '16px', textAlign: 'center' as const, fontSize: fontSize.sm, color: colors.textMuted }}>
+                Already have an account?{' '}
+                <a href='/login' style={{ color: colors.gold, textDecoration: 'none' }}>Sign in</a>
+              </div>
+            </>
+          ) : (
+            <div style={{ padding: '40px', border: `1px solid ${colors.borderBase}`, borderRadius: '12px', backgroundColor: colors.bgCard }}>
+              <button onClick={() => setStep('plan')} style={{ background: 'none', border: 'none', color: colors.textMuted, cursor: 'pointer', fontSize: fontSize.base, marginBottom: '24px', padding: '0', display: 'flex', alignItems: 'center', gap: '6px' }}>← Back to plans</button>
+              <div style={{ fontSize: '11px', color: colors.gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '8px', fontWeight: fontWeight.semibold }}>
+                {PLANS.find(p => p.id === selectedPlan)?.name}
+              </div>
+              <div style={{ fontSize: '26px', fontWeight: fontWeight.bold, marginBottom: '8px' }}>Your details</div>
+              <div style={{ fontSize: fontSize.base, color: colors.textSecondary, marginBottom: '32px', lineHeight: '1.6' }}>Complete your details then proceed to secure payment via Stripe.</div>
+              <div style={{ marginBottom: '18px' }}>
+                <label style={labelStyle}>Full name</label>
+                <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder='Your full name' style={inputStyle} />
+              </div>
+              <div style={{ marginBottom: '18px' }}>
+                <label style={labelStyle}>Business email</label>
+                <input value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} type='email' placeholder='you@company.com' style={inputStyle} />
+              </div>
+              <div style={{ marginBottom: '28px' }}>
+                <label style={labelStyle}>Company name</label>
+                <input value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} placeholder='Your company name' style={inputStyle} />
+              </div>
+              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: `1px solid ${colors.errorBorder}`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '18px' }}>{error}</div>}
+              <button onClick={handleSubmit} disabled={loading} style={{ width: '100%', padding: '14px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: fontSize.md, opacity: loading ? 0.7 : 1 }}>
+                {loading ? 'Redirecting to payment...' : 'Continue to Payment →'}
+              </button>
+              <div style={{ marginTop: '16px', textAlign: 'center' as const, fontSize: fontSize.sm, color: colors.textMuted, lineHeight: '1.7' }}>
+                You will be taken to Stripe to complete your subscription securely. No payment stored by BEI.
+              </div>
             </div>
-          ))}
+          )}
         </div>
-
-        {/* Step 1 — Plan selection */}
-        {step === 'plan' && (
-          <div>
-            <div style={{textAlign:'center',marginBottom:'32px'}}>
-              <div style={{fontSize:'24px',fontWeight:'700',marginBottom:'8px'}}>Choose your plan</div>
-              <div style={{fontSize:'14px',color:'#555'}}>Select a plan to continue. You will not be charged until your account is approved.</div>
-              <div style={{marginTop:'12px',display:'inline-flex',alignItems:'center',gap:'6px',padding:'6px 14px',backgroundColor:'rgba(200,162,74,0.08)',border:'1px solid rgba(200,162,74,0.2)',borderRadius:'20px',fontSize:'12px',color:gold}}>
-                ◈ Launch offer — 40% off for 12 months · No contract
-              </div>
-            </div>
-            <div style={{display:'flex',flexDirection:'column' as const,gap:'12px',marginBottom:'24px'}}>
-              {plans.map(plan => (
-                <div key={plan.id} onClick={()=>setSelectedPlan(plan.id)}
-                  style={{padding:'20px 24px',border:`1px solid ${selectedPlan===plan.id ? gold : '#1a1a1a'}`,borderRadius:'8px',backgroundColor:selectedPlan===plan.id?'#0d0a04':'#080808',cursor:'pointer',display:'flex',justifyContent:'space-between',alignItems:'center',position:'relative' as const}}>
-                  {(plan as any).popular && <div style={{position:'absolute' as const,top:'-10px',left:'20px',padding:'2px 12px',backgroundColor:gold,color:'#050505',fontSize:'10px',fontWeight:'700',borderRadius:'10px'}}>MOST POPULAR</div>}
-                  <div style={{display:'flex',alignItems:'center',gap:'14px'}}>
-                    <div style={{width:'20px',height:'20px',borderRadius:'50%',border:`2px solid ${selectedPlan===plan.id?gold:'#333'}`,backgroundColor:selectedPlan===plan.id?gold:'transparent',flexShrink:0,display:'flex',alignItems:'center',justifyContent:'center'}}>
-                      {selectedPlan===plan.id && <div style={{width:'8px',height:'8px',borderRadius:'50%',backgroundColor:'#050505'}}/>}
-                    </div>
-                    <div>
-                      <div style={{fontSize:'15px',fontWeight:'600',marginBottom:'2px'}}>{plan.name}</div>
-                      <div style={{fontSize:'12px',color:'#555'}}>{plan.desc}</div>
-                    </div>
-                  </div>
-                  <div style={{textAlign:'right' as const,flexShrink:0,marginLeft:'16px'}}>
-                    <div style={{fontSize:'12px',color:'#444',textDecoration:'line-through',marginBottom:'2px'}}>{plan.original}/mo</div>
-                    <div style={{fontSize:'20px',fontWeight:'700',color:selectedPlan===plan.id?gold:'#fff'}}>{plan.price}<span style={{fontSize:'12px',color:'#555',fontWeight:'400'}}>/mo</span></div>
-                    <div style={{fontSize:'11px',color:'#4aaa4a'}}>Save {plan.saving}/yr</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {!selectedPlan && (
-              <div style={{padding:'12px 16px',backgroundColor:'#0d0a0a',border:'1px solid #2a1a1a',borderRadius:'6px',fontSize:'13px',color:'#888',marginBottom:'16px',textAlign:'center' as const}}>
-                Please select a plan to continue with account creation.
-              </div>
-            )}
-            <button onClick={()=>selectedPlan && setStep('details')} disabled={!selectedPlan}
-              style={{width:'100%',padding:'14px',backgroundColor:selectedPlan?gold:'#111',color:selectedPlan?'#050505':'#444',fontWeight:'700',borderRadius:'6px',border:`1px solid ${selectedPlan?gold:'#1a1a1a'}`,cursor:selectedPlan?'pointer':'not-allowed',fontSize:'15px',transition:'all 0.2s'}}>
-              Continue with {selectedPlan ? plans.find(p=>p.id===selectedPlan)?.name : 'selected plan'} →
-            </button>
-          </div>
-        )}
-
-        {/* Step 2 — Details */}
-        {step === 'details' && (
-          <div style={{padding:'40px',border:'1px solid #1a1a1a',borderRadius:'12px',backgroundColor:'#080808'}}>
-            <div style={{padding:'12px 16px',backgroundColor:'#0d0a04',border:'1px solid rgba(200,162,74,0.2)',borderRadius:'6px',marginBottom:'24px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-              <span style={{fontSize:'13px',color:'#888'}}>Selected: <strong style={{color:gold}}>{plans.find(p=>p.id===selectedPlan)?.name}</strong> — {plans.find(p=>p.id===selectedPlan)?.price}/mo</span>
-              <button onClick={()=>setStep('plan')} style={{fontSize:'12px',color:'#555',background:'none',border:'none',cursor:'pointer',textDecoration:'underline'}}>Change</button>
-            </div>
-            <div style={{fontSize:'24px',fontWeight:'700',marginBottom:'8px'}}>Your details</div>
-            <div style={{fontSize:'14px',color:'#555',marginBottom:'28px'}}>Tell us about yourself. We will review your request and send a payment link within 48 hours.</div>
-            <div style={{display:'flex',flexDirection:'column' as const,gap:'16px',marginBottom:'24px'}}>
-              <div><label style={labelStyle}>Full name</label><input value={form.name} onChange={e=>update('name',e.target.value)} placeholder="Your name" style={inputStyle}/></div>
-              <div><label style={labelStyle}>Work email</label><input value={form.email} onChange={e=>update('email',e.target.value)} type="email" placeholder="you@company.com" style={inputStyle}/></div>
-              <div><label style={labelStyle}>Company name</label><input value={form.company} onChange={e=>update('company',e.target.value)} placeholder="Your company" style={inputStyle}/></div>
-              <div>
-                <label style={labelStyle}>Industry</label>
-                <select value={form.industry} onChange={e=>update('industry',e.target.value)} style={{...inputStyle,color:form.industry?'#fff':'#555'}}>
-                  <option value="">Select your industry</option>
-                  <option>Estate Agency</option>
-                  <option>Marketing Agency</option>
-                  <option>Accountancy Firm</option>
-                  <option>Other</option>
-                </select>
-              </div>
-            </div>
-            <button onClick={async ()=>{
-                if(!form.name||!form.email||!form.company) return
-                const res = await fetch('/api/stripe/checkout', {
-                  method: 'POST',
-                  headers: {'Content-Type':'application/json'},
-                  body: JSON.stringify({ plan: selectedPlan, email: form.email })
-                })
-                const data = await res.json()
-                if (data.url) window.location.href = data.url
-                else setSubmitted(true)
-              }}
-              style={{width:'100%',padding:'14px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'6px',border:'none',cursor:'pointer',fontSize:'15px'}}>
-              Continue to Payment →
-            </button>
-            <div style={{marginTop:'16px',textAlign:'center' as const,fontSize:'12px',color:'#444',lineHeight:'1.7'}}>
-              You will be taken to Stripe to complete your subscription securely. No payment stored by BEI.
-            </div>
-          </div>
-        )}
       </div>
     </main>
   )

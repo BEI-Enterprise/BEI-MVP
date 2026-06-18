@@ -1,31 +1,21 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createClient } from '../../lib/supabase'
+import { colors, fontSize, fontWeight, navHeight, cardStyle, pageWrapper, contentWrapper } from '../../lib/design'
+
+const supabase = createClient()
 
 export default function OpportunitiesPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
-  const [loading, setLoading] = useState(true)
   const [businessName, setBusinessName] = useState('Your Business')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const load = async () => {
       try {
-        const { createClient } = await import('@supabase/supabase-js')
-        const supabase = createClient(
-          process.env.NEXT_PUBLIC_SUPABASE_URL!,
-          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-        )
-        const { data } = await supabase
-          .from('businesses')
-          .select('id, business_name, mri_result')
-          .eq('status', 'mri_complete')
-          .order('updated_at', { ascending: false })
-          .limit(1)
-          .single()
-        if (data) {
-          setBusinessName(data.business_name || 'Your Business')
-          if (data.mri_result) setResult(data.mri_result)
-        }
+        const { data } = await supabase.from('businesses').select('id, business_name, mri_result').eq('status', 'mri_complete').order('updated_at', { ascending: false }).limit(1).single()
+        if (data) { setBusinessName(data.business_name || 'Your Business'); if (data.mri_result) setResult(data.mri_result) }
       } catch (e) {}
       setLoading(false)
     }
@@ -39,13 +29,24 @@ export default function OpportunitiesPage() {
     { label: 'Opportunities', href: '/opportunities', active: true },
     { label: 'Deployments', href: '/deployments' },
     { label: 'Outcomes', href: '/outcomes' },
+    { label: 'Connect', href: '/connect' },
   ]
 
-  if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}></main>
+  const dimensionLabels: Record<string, string> = {
+    revenue: 'Revenue Opportunity', profit: 'Profit Opportunity', capacity: 'Capacity Opportunity',
+    risk_reduction: 'Risk Reduction', enterprise_value: 'Enterprise Value',
+  }
+  const dimensionColors: Record<string, string> = {
+    revenue: colors.gold, profit: colors.success, capacity: '#6ab0d4',
+    risk_reduction: '#a06ab0', enterprise_value: '#d46a6a',
+  }
 
+  if (loading) return <main style={pageWrapper}></main>
   if (!result) return (
-    <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
-      <a href="/book" style={{padding:'14px 32px',backgroundColor:'#C8A24A',color:'#050505',fontWeight:'700',borderRadius:'4px',textDecoration:'none'}}>Start Your MRI</a>
+    <main style={pageWrapper}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+        <a href='/book' style={{ padding: '14px 32px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '4px', textDecoration: 'none' }}>Start Your MRI</a>
+      </div>
     </main>
   )
 
@@ -54,82 +55,61 @@ export default function OpportunitiesPage() {
   const total = result.total_opportunity || {}
   const allConstraints = [primary, ...secondary].filter(Boolean)
 
-  const dimensionLabels: Record<string, string> = {
-    revenue: 'Revenue Opportunity',
-    profit: 'Profit Opportunity',
-    capacity: 'Capacity Opportunity',
-    risk_reduction: 'Risk Reduction',
-    enterprise_value: 'Enterprise Value',
-  }
-
-  const dimensionColors: Record<string, string> = {
-    revenue: '#C8A24A', profit: '#4aaa4a', capacity: '#6ab0d4',
-    risk_reduction: '#a06ab0', enterprise_value: '#d46a6a',
-  }
-
   return (
-    <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh'}}>
-      <nav style={{padding:'0 48px',borderBottom:'1px solid #1a1a1a',display:'flex',justifyContent:'space-between',alignItems:'center',height:'60px'}}>
-        <span style={{fontSize:'18px',fontWeight:'700',color:'#C8A24A',letterSpacing:'0.1em'}}>BEI</span>
-        <div style={{display:'flex'}}>
+    <main style={pageWrapper}>
+      <nav style={{ padding: '0 48px', borderBottom: `1px solid ${colors.borderSubtle}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: navHeight, backgroundColor: colors.bgBase }}>
+        <span style={{ fontSize: '20px', fontWeight: fontWeight.extrabold, color: colors.gold, letterSpacing: '0.1em' }}>BEI</span>
+        <div style={{ display: 'flex' }}>
           {nav.map(n => (
-            <a key={n.href} href={n.href} style={{padding:'0 20px',height:'60px',display:'flex',alignItems:'center',fontSize:'13px',color:n.active?'#C8A24A':'#555',borderBottom:n.active?'2px solid #C8A24A':'2px solid transparent',textDecoration:'none'}}>{n.label}</a>
+            <a key={n.href} href={n.href} style={{ padding: '0 18px', height: navHeight, display: 'flex', alignItems: 'center', fontSize: fontSize.base, color: (n as any).active ? colors.gold : colors.textMuted, borderBottom: (n as any).active ? `2px solid ${colors.gold}` : '2px solid transparent', textDecoration: 'none', fontWeight: (n as any).active ? fontWeight.semibold : fontWeight.normal }}>{n.label}</a>
           ))}
         </div>
-        <span style={{fontSize:'12px',color:'#333'}}>{businessName}</span>
+        <span style={{ fontSize: fontSize.sm, color: colors.textDisabled }}>{businessName}</span>
       </nav>
-      <div style={{maxWidth:'1100px',margin:'0 auto',padding:'40px 24px'}}>
-        <div style={{fontSize:'24px',fontWeight:'700',marginBottom:'4px'}}>Opportunity Centre</div>
-        <div style={{fontSize:'14px',color:'#555',marginBottom:'40px'}}>Quantified value available from resolving each verified constraint</div>
+
+      <div style={contentWrapper}>
+        <div style={{ fontSize: '28px', fontWeight: fontWeight.bold, marginBottom: '6px' }}>Opportunity Centre</div>
+        <div style={{ fontSize: fontSize.md, color: colors.textSecondary, marginBottom: '36px' }}>Quantified value available from resolving each verified constraint</div>
 
         {/* Total opportunity */}
-        <div style={{padding:'32px',border:'1px solid #2a2a2a',borderRadius:'8px',backgroundColor:'#080808',marginBottom:'32px',display:'flex',gap:'48px',alignItems:'center'}}>
+        <div style={{ ...cardStyle, marginBottom: '28px', display: 'flex', gap: '48px', alignItems: 'center' }}>
           <div>
-            <div style={{fontSize:'11px',color:'#444',letterSpacing:'0.15em',textTransform:'uppercase',marginBottom:'8px'}}>Total Opportunity Range</div>
-            <div style={{fontSize:'40px',fontWeight:'700',color:'#C8A24A'}}>
-              £{Math.round((total.total_low||0)/1000)}k — £{Math.round((total.total_high||0)/1000)}k
+            <div style={{ fontSize: '11px', color: colors.textMuted, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '10px', fontWeight: fontWeight.semibold }}>Total Opportunity Range</div>
+            <div style={{ fontSize: '44px', fontWeight: fontWeight.extrabold, color: colors.gold }}>
+              £{Math.round((total.total_low || 0) / 1000)}k — £{Math.round((total.total_high || 0) / 1000)}k
             </div>
-            <div style={{fontSize:'13px',color:'#555',marginTop:'6px'}}>Annual value available to recover or unlock</div>
+            <div style={{ fontSize: fontSize.base, color: colors.textSecondary, marginTop: '8px' }}>Annual value available to recover or unlock</div>
           </div>
-          <div style={{flex:1,borderLeft:'1px solid #1a1a1a',paddingLeft:'48px'}}>
-            <div style={{fontSize:'13px',color:'#666',lineHeight:'1.8'}}>{total.note}</div>
+          <div style={{ flex: 1, borderLeft: `1px solid ${colors.borderBase}`, paddingLeft: '48px' }}>
+            <div style={{ fontSize: fontSize.base, color: colors.textBody, lineHeight: '1.8' }}>{total.note}</div>
           </div>
         </div>
 
-        {/* Per constraint */}
-        <div style={{fontSize:'16px',fontWeight:'600',marginBottom:'20px'}}>Opportunity By Constraint</div>
-        <div style={{display:'flex',flexDirection:'column',gap:'16px'}}>
+        <div style={{ fontSize: fontSize.md, fontWeight: fontWeight.semibold, marginBottom: '20px', color: colors.textPrimary }}>Opportunity By Constraint</div>
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
           {allConstraints.map((c: any, idx: number) => {
             const opp = c.opportunity || {}
             const dim = opp.dimension || 'revenue'
-            const color = dimensionColors[dim] || '#C8A24A'
+            const color = dimensionColors[dim] || colors.gold
             return (
-              <div key={c.key} style={{padding:'24px',border:'1px solid #1a1a1a',borderRadius:'8px',backgroundColor:'#080808'}}>
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:'16px'}}>
+              <div key={c.key} style={cardStyle}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
                   <div>
-                    {idx === 0 && <div style={{fontSize:'10px',color:'#C8A24A',letterSpacing:'0.15em',marginBottom:'6px'}}>PRIMARY CONSTRAINT</div>}
-                    <div style={{fontSize:'16px',fontWeight:'600',marginBottom:'4px'}}>{c.name}</div>
-                    <div style={{display:'inline-block',padding:'2px 8px',borderRadius:'3px',fontSize:'11px',color,backgroundColor:'#0a0a0a',border:`1px solid ${color}`}}>
+                    {idx === 0 && <div style={{ fontSize: '11px', color: colors.gold, letterSpacing: '0.2em', marginBottom: '8px', fontWeight: fontWeight.semibold }}>PRIMARY CONSTRAINT</div>}
+                    <div style={{ fontSize: fontSize.lg, fontWeight: fontWeight.semibold, marginBottom: '8px' }}>{c.name}</div>
+                    <div style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '3px', fontSize: fontSize.sm, color, backgroundColor: '#0a0a0a', border: `1px solid ${color}` }}>
                       {dimensionLabels[dim] || dim}
                     </div>
                   </div>
-                  <div style={{textAlign:'right'}}>
-                    <div style={{fontSize:'24px',fontWeight:'700',color}}>
-                      £{(opp.value_low||0).toLocaleString()} — £{(opp.value_high||0).toLocaleString()}
-                    </div>
-                    <div style={{fontSize:'11px',color:'#444',marginTop:'4px'}}>Confidence: {opp.confidence || 'indicative'}</div>
+                  <div style={{ textAlign: 'right' as const }}>
+                    <div style={{ fontSize: '28px', fontWeight: fontWeight.extrabold, color }}> £{(opp.value_low || 0).toLocaleString()} — £{(opp.value_high || 0).toLocaleString()}</div>
+                    <div style={{ fontSize: fontSize.sm, color: colors.textMuted, marginTop: '4px' }}>Confidence: {opp.confidence || 'indicative'}</div>
                   </div>
                 </div>
-                <div style={{fontSize:'12px',color:'#555',lineHeight:'1.7'}}>{opp.explanation}</div>
+                <div style={{ fontSize: fontSize.base, color: colors.textBody, lineHeight: '1.75' }}>{opp.explanation}</div>
               </div>
             )
           })}
-        </div>
-
-        <div style={{marginTop:'32px',padding:'16px 20px',border:'1px solid #111',borderRadius:'6px',backgroundColor:'#080808'}}>
-          <div style={{fontSize:'11px',color:'#333',lineHeight:'1.8'}}>
-            <strong style={{color:'#444'}}>Golden Rule 5:</strong> Opportunity Before Deployment. All opportunity values are indicative estimates based on rules-based analysis of your intake responses. Actual impact will vary. Confidence will improve as connector data is added and outcomes are measured.
-          </div>
         </div>
       </div>
     </main>

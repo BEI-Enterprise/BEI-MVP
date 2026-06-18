@@ -1,20 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createClient } from '../../lib/supabase'
+import { colors, fontSize, fontWeight, navHeight, cardStyle, pageWrapper, contentWrapper } from '../../lib/design'
+
+const supabase = createClient()
 
 export default function HealthPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
-  const [loading, setLoading] = useState(true)
   const [businessName, setBusinessName] = useState('Your Business')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const load = async () => {
       try {
-        const { createClient } = await import('@supabase/supabase-js')
-        const supabase = createClient(
-          process.env.NEXT_PUBLIC_SUPABASE_URL!,
-          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-        )
         const { data } = await supabase
           .from('businesses')
           .select('id, business_name, mri_result')
@@ -39,6 +38,7 @@ export default function HealthPage() {
     { label: 'Opportunities', href: '/opportunities' },
     { label: 'Deployments', href: '/deployments' },
     { label: 'Outcomes', href: '/outcomes' },
+    { label: 'Connect', href: '/connect' },
   ]
 
   const pillarDescriptions: Record<string, string> = {
@@ -49,18 +49,16 @@ export default function HealthPage() {
     context: 'Market growth, competition intensity and client retention. The environment the business operates in.',
   }
 
-  if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}></main>
+  if (loading) return <main style={pageWrapper}></main>
 
-  if (!result) {
-    return (
-      <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
-        <div style={{textAlign:'center'}}>
-          <p style={{color:'#666',marginBottom:'24px'}}>No MRI data found.</p>
-          <a href="/book" style={{padding:'14px 32px',backgroundColor:'#C8A24A',color:'#050505',fontWeight:'700',borderRadius:'4px',textDecoration:'none',fontSize:'14px'}}>Start Your MRI</a>
-        </div>
-      </main>
-    )
-  }
+  if (!result) return (
+    <main style={pageWrapper}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', flexDirection: 'column' as const, gap: '24px' }}>
+        <p style={{ color: colors.textSecondary, fontSize: fontSize.md }}>No MRI data found.</p>
+        <a href='/book' style={{ padding: '14px 32px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '4px', textDecoration: 'none', fontSize: fontSize.base }}>Start Your MRI</a>
+      </div>
+    </main>
+  )
 
   const health = result.health || {}
   const overall = health.overall || 0
@@ -68,77 +66,78 @@ export default function HealthPage() {
   const pillars = health.pillars || {}
   const industryBenchmark = health.industry_benchmark || 55
   const vsBenchmark = health.vs_benchmark || 'unknown'
-  const healthColor = overall >= 70 ? '#4aaa4a' : overall >= 45 ? '#C8A24A' : '#cc4444'
+  const healthColor = overall >= 70 ? colors.success : overall >= 45 ? colors.gold : colors.error
 
   return (
-    <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh'}}>
-      <nav style={{padding:'0 48px',borderBottom:'1px solid #1a1a1a',display:'flex',justifyContent:'space-between',alignItems:'center',height:'60px'}}>
-        <span style={{fontSize:'18px',fontWeight:'700',color:'#C8A24A',letterSpacing:'0.1em'}}>BEI</span>
-        <div style={{display:'flex'}}>
+    <main style={pageWrapper}>
+      <nav style={{ padding: '0 48px', borderBottom: `1px solid ${colors.borderSubtle}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: navHeight, backgroundColor: colors.bgBase }}>
+        <span style={{ fontSize: '20px', fontWeight: fontWeight.extrabold, color: colors.gold, letterSpacing: '0.1em' }}>BEI</span>
+        <div style={{ display: 'flex' }}>
           {nav.map(n => (
-            <a key={n.href} href={n.href} style={{padding:'0 20px',height:'60px',display:'flex',alignItems:'center',fontSize:'13px',color:n.active?'#C8A24A':'#555',borderBottom:n.active?'2px solid #C8A24A':'2px solid transparent',textDecoration:'none'}}>{n.label}</a>
+            <a key={n.href} href={n.href} style={{ padding: '0 18px', height: navHeight, display: 'flex', alignItems: 'center', fontSize: fontSize.base, color: (n as any).active ? colors.gold : colors.textMuted, borderBottom: (n as any).active ? `2px solid ${colors.gold}` : '2px solid transparent', textDecoration: 'none', fontWeight: (n as any).active ? fontWeight.semibold : fontWeight.normal }}>{n.label}</a>
           ))}
         </div>
-        <span style={{fontSize:'12px',color:'#333'}}>{businessName}</span>
+        <span style={{ fontSize: fontSize.sm, color: colors.textDisabled }}>{businessName}</span>
       </nav>
 
-      <div style={{maxWidth:'1100px',margin:'0 auto',padding:'40px 24px'}}>
-        <div style={{fontSize:'24px',fontWeight:'700',marginBottom:'4px'}}>Business Health</div>
-        <div style={{fontSize:'14px',color:'#555',marginBottom:'40px'}}>Five pillar assessment benchmarked against your industry</div>
+      <div style={contentWrapper}>
+        <div style={{ fontSize: '28px', fontWeight: fontWeight.bold, marginBottom: '6px' }}>Business Health</div>
+        <div style={{ fontSize: fontSize.md, color: colors.textSecondary, marginBottom: '36px' }}>Five pillar assessment benchmarked against your industry</div>
 
         {/* Overall score */}
-        <div style={{padding:'32px',border:'1px solid #1a1a1a',borderRadius:'8px',backgroundColor:'#080808',marginBottom:'32px',display:'flex',alignItems:'center',gap:'48px'}}>
-          <div style={{textAlign:'center'}}>
-            <div style={{fontSize:'72px',fontWeight:'700',color:healthColor,lineHeight:'1'}}>{overall}</div>
-            <div style={{fontSize:'12px',color:'#555',marginTop:'8px'}}>Overall Score</div>
+        <div style={{ ...cardStyle, marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '48px' }}>
+          <div style={{ textAlign: 'center' as const, minWidth: '120px' }}>
+            <div style={{ fontSize: '80px', fontWeight: fontWeight.extrabold, color: healthColor, lineHeight: '1' }}>{overall}</div>
+            <div style={{ fontSize: fontSize.sm, color: colors.textMuted, marginTop: '8px' }}>Overall Score</div>
           </div>
-          <div style={{flex:1}}>
-            <div style={{display:'flex',alignItems:'center',gap:'12px',marginBottom:'12px'}}>
-              <div style={{fontSize:'20px',fontWeight:'600',textTransform:'capitalize'}}>{band}</div>
-              <div style={{padding:'4px 10px',borderRadius:'4px',fontSize:'11px',fontWeight:'600',
-                color:vsBenchmark==='above'?'#4aaa4a':vsBenchmark==='below'?'#cc4444':'#C8A24A',
-                backgroundColor:vsBenchmark==='above'?'#0a2a0a':vsBenchmark==='below'?'#2a0a0a':'#2a1a00',
-                border:`1px solid ${vsBenchmark==='above'?'#4aaa4a':vsBenchmark==='below'?'#cc4444':'#C8A24A'}`
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
+              <div style={{ fontSize: fontSize.xl, fontWeight: fontWeight.semibold, textTransform: 'capitalize' as const }}>{band}</div>
+              <div style={{ padding: '4px 12px', borderRadius: '4px', fontSize: fontSize.sm, fontWeight: fontWeight.semibold,
+                color: vsBenchmark === 'above' ? colors.success : vsBenchmark === 'below' ? colors.error : colors.gold,
+                backgroundColor: vsBenchmark === 'above' ? colors.successBg : vsBenchmark === 'below' ? colors.errorBg : '#1a1200',
+                border: `1px solid ${vsBenchmark === 'above' ? colors.successBorder : vsBenchmark === 'below' ? colors.errorBorder : '#3a2a00'}`
               }}>
                 {vsBenchmark === 'above' ? '↑ Above' : vsBenchmark === 'below' ? '↓ Below' : '→ At'} Industry Benchmark ({industryBenchmark})
               </div>
             </div>
-            <div style={{fontSize:'14px',color:'#666',lineHeight:'1.7'}}>
+            <div style={{ fontSize: fontSize.base, color: colors.textBody, lineHeight: '1.75' }}>
               {overall >= 70
                 ? 'Your business is in strong health. Focus on maintaining this position while addressing any remaining constraints.'
                 : overall >= 50
                 ? 'Your business has solid foundations with clear areas for improvement. Addressing the primary constraint will have the most impact.'
                 : overall >= 30
                 ? 'Several areas of your business need focused attention. Prioritise the primary constraint before spreading effort.'
-                : 'Your business health is critical. Immediate focus on the primary constraint is essential.'}
+                : 'Your business health requires immediate attention. Focus on the primary constraint as the highest priority action.'}
             </div>
           </div>
         </div>
 
         {/* Pillar breakdown */}
-        <div style={{fontSize:'16px',fontWeight:'600',marginBottom:'20px'}}>Pillar Breakdown</div>
-        <div style={{display:'flex',flexDirection:'column',gap:'16px'}}>
+        <div style={{ fontSize: fontSize.md, fontWeight: fontWeight.semibold, marginBottom: '20px', color: colors.textPrimary }}>Pillar Breakdown</div>
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
           {Object.entries(pillars).map(([name, data]: [string, any]) => {
-            const pillarColor = data.score >= 70 ? '#4aaa4a' : data.score >= 45 ? '#C8A24A' : '#cc4444'
-            const vsText = data.vs_benchmark === 'above' ? `↑ ${data.score - data.benchmark} above` : data.vs_benchmark === 'below' ? `↓ ${data.benchmark - data.score} below` : '→ at'
+            const pillarColor = data.score >= 70 ? colors.success : data.score >= 45 ? colors.gold : colors.error
+            const diff = Math.abs(data.score - data.benchmark)
+            const vsText = data.vs_benchmark === 'above' ? `↑ ${diff} above` : data.vs_benchmark === 'below' ? `↓ ${diff} below` : '→ at'
             return (
-              <div key={name} style={{padding:'24px',border:'1px solid #1a1a1a',borderRadius:'8px',backgroundColor:'#080808'}}>
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:'16px'}}>
+              <div key={name} style={cardStyle}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
                   <div>
-                    <div style={{fontSize:'16px',fontWeight:'600',textTransform:'capitalize',marginBottom:'4px'}}>{name}</div>
-                    <div style={{fontSize:'12px',color:'#555'}}>{pillarDescriptions[name] || ''}</div>
+                    <div style={{ fontSize: fontSize.lg, fontWeight: fontWeight.semibold, textTransform: 'capitalize' as const, marginBottom: '6px' }}>{name}</div>
+                    <div style={{ fontSize: fontSize.base, color: colors.textSecondary, lineHeight: '1.6' }}>{pillarDescriptions[name] || ''}</div>
                   </div>
-                  <div style={{textAlign:'right'}}>
-                    <div style={{fontSize:'28px',fontWeight:'700',color:pillarColor}}>{data.score}</div>
-                    <div style={{fontSize:'11px',color:'#444',marginTop:'2px'}}>benchmark: {data.benchmark}</div>
+                  <div style={{ textAlign: 'right' as const, marginLeft: '24px' }}>
+                    <div style={{ fontSize: '36px', fontWeight: fontWeight.extrabold, color: pillarColor }}>{data.score}</div>
+                    <div style={{ fontSize: fontSize.sm, color: colors.textMuted, marginTop: '2px' }}>benchmark: {data.benchmark}</div>
                   </div>
                 </div>
-                <div style={{height:'8px',backgroundColor:'#111',borderRadius:'4px',overflow:'hidden',marginBottom:'8px'}}>
-                  <div style={{width:data.score+'%',height:'100%',backgroundColor:pillarColor,borderRadius:'4px'}}/>
+                <div style={{ height: '8px', backgroundColor: '#111', borderRadius: '4px', overflow: 'hidden', marginBottom: '10px' }}>
+                  <div style={{ width: data.score + '%', height: '100%', backgroundColor: pillarColor, borderRadius: '4px' }} />
                 </div>
-                <div style={{display:'flex',justifyContent:'space-between'}}>
-                  <div style={{fontSize:'12px',color:pillarColor,fontWeight:'600',textTransform:'capitalize'}}>{data.band}</div>
-                  <div style={{fontSize:'12px',color:data.vs_benchmark==='above'?'#4aaa4a':data.vs_benchmark==='below'?'#cc4444':'#888'}}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ fontSize: fontSize.sm, color: pillarColor, fontWeight: fontWeight.semibold, textTransform: 'capitalize' as const }}>{data.band}</div>
+                  <div style={{ fontSize: fontSize.sm, color: data.vs_benchmark === 'above' ? colors.success : data.vs_benchmark === 'below' ? colors.error : colors.textMuted }}>
                     {vsText} industry benchmark
                   </div>
                 </div>
@@ -147,9 +146,9 @@ export default function HealthPage() {
           })}
         </div>
 
-        <div style={{marginTop:'32px',padding:'20px',border:'1px solid #1a1a1a',borderRadius:'6px',backgroundColor:'#080808'}}>
-          <div style={{fontSize:'12px',color:'#444',lineHeight:'1.8'}}>
-            <strong style={{color:'#555'}}>About this assessment:</strong> Health scores are calculated using BEI Intelligence v1.0 and benchmarked against industry averages for your sector. Scores reflect your intake responses and will improve in accuracy as connector data is added. Health provides visibility — it does not make decisions.
+        <div style={{ marginTop: '32px', ...cardStyle }}>
+          <div style={{ fontSize: fontSize.sm, color: colors.textMuted, lineHeight: '1.8' }}>
+            <strong style={{ color: colors.textSecondary }}>About this assessment:</strong> Health scores are calculated using BEI Intelligence v1.0 and benchmarked against industry averages for your sector. Scores reflect your intake responses and will improve in accuracy as connector data is added.
           </div>
         </div>
       </div>

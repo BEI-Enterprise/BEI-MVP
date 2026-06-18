@@ -1,23 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { createClient } from '../../lib/supabase'
+import { colors, fontSize, fontWeight, navHeight, cardStyle, pageWrapper, contentWrapper } from '../../lib/design'
+
+const supabase = createClient()
 
 export default function DashboardPage() {
-  const router = useRouter()
   const [result, setResult] = useState<Record<string, any> | null>(null)
-  const [loading, setLoading] = useState(true)
   const [businessName, setBusinessName] = useState('Your Business')
-  const [businessId, setBusinessId] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const load = async () => {
       try {
-        const { createClient } = await import('@supabase/supabase-js')
-        const supabase = createClient(
-          process.env.NEXT_PUBLIC_SUPABASE_URL!,
-          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-        )
         const { data } = await supabase
           .from('businesses')
           .select('id, business_name, mri_result')
@@ -35,37 +31,6 @@ export default function DashboardPage() {
     load()
   }, [])
 
-  if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}></main>
-
-  if (!result) {
-    return (
-      <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
-        <div style={{textAlign:'center'}}>
-          <div style={{fontSize:'20px',fontWeight:'700',color:'#C8A24A',marginBottom:'16px'}}>BEI</div>
-          <p style={{color:'#666',marginBottom:'24px'}}>No MRI report found. Complete your Business MRI first.</p>
-          <a href="/book" style={{padding:'14px 32px',backgroundColor:'#C8A24A',color:'#050505',fontWeight:'700',borderRadius:'4px',textDecoration:'none',fontSize:'14px'}}>Start Your MRI</a>
-        </div>
-      </main>
-    )
-  }
-
-  const health = result.health || {}
-  const overall = health.overall || 0
-  const band = health.band || 'unknown'
-  const vsBenchmark = health.vs_benchmark || 'unknown'
-  const pillars = health.pillars || {}
-  const primary = result.primary_constraint
-  const secondary = result.secondary_constraints || []
-  const totalOpp = result.total_opportunity || {}
-  const confidence = result.confidence || 'low'
-  const recommendedFocus = result.recommended_focus || ''
-
-  const healthColor = overall >= 70 ? '#4aaa4a' : overall >= 45 ? '#C8A24A' : '#cc4444'
-  const bandColors: Record<string, string> = {
-    exceptional: '#4aaa4a', strong: '#4aaa4a', moderate: '#C8A24A',
-    weak: '#cc4444', critical: '#cc4444'
-  }
-
   const nav = [
     { label: 'Dashboard', href: '/dashboard', active: true },
     { label: 'Health', href: '/health' },
@@ -73,146 +38,149 @@ export default function DashboardPage() {
     { label: 'Opportunities', href: '/opportunities' },
     { label: 'Deployments', href: '/deployments' },
     { label: 'Outcomes', href: '/outcomes' },
+    { label: 'Connect', href: '/connect' },
   ]
 
-  const s = {
-    page: { backgroundColor: '#050505', color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' },
-    nav: { padding: '0 48px', borderBottom: '1px solid #1a1a1a', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '60px' },
-    navLinks: { display: 'flex', gap: '0' },
-    navLink: (active: boolean) => ({
-      padding: '0 20px', height: '60px', display: 'flex', alignItems: 'center',
-      fontSize: '13px', color: active ? '#C8A24A' : '#555',
-      borderBottom: active ? '2px solid #C8A24A' : '2px solid transparent',
-      textDecoration: 'none', cursor: 'pointer',
-    }),
-    inner: { maxWidth: '1100px', margin: '0 auto', padding: '40px 24px' },
-    greeting: { fontSize: '24px', fontWeight: '700', marginBottom: '4px' },
-    sub: { fontSize: '14px', color: '#555', marginBottom: '40px' },
-    grid3: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '32px' },
-    card: { padding: '24px', border: '1px solid #1a1a1a', borderRadius: '8px', backgroundColor: '#080808' },
-    cardLabel: { fontSize: '11px', color: '#444', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '12px' },
-    bigNum: (color: string) => ({ fontSize: '48px', fontWeight: '700', color, lineHeight: '1' }),
-    cardSub: { fontSize: '13px', color: '#555', marginTop: '8px' },
-    section: { marginBottom: '32px' },
-    sectionTitle: { fontSize: '16px', fontWeight: '600', marginBottom: '20px', color: '#fff' },
-    primaryCard: { padding: '28px', border: '1px solid #2a2a2a', borderRadius: '8px', backgroundColor: '#080808', marginBottom: '20px' },
-    badge: (color: string, bg: string) => ({
-      display: 'inline-block', padding: '4px 10px', borderRadius: '4px',
-      fontSize: '11px', fontWeight: '600', color, backgroundColor: bg,
-      border: `1px solid ${color}`, marginBottom: '12px',
-    }),
-    pillarsGrid: { display: 'flex', flexDirection: 'column' as const, gap: '10px' },
-    pillarRow: { display: 'flex', alignItems: 'center', gap: '12px' },
-    actionCard: { padding: '16px 20px', border: '1px solid #1a1a1a', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', textDecoration: 'none' as const, cursor: 'pointer' as const },
-  }
+  if (loading) return <main style={pageWrapper}></main>
+
+  if (!result) return (
+    <main style={pageWrapper}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', flexDirection: 'column' as const, gap: '24px' }}>
+        <p style={{ color: colors.textSecondary, fontSize: fontSize.md }}>No MRI data found.</p>
+        <a href='/book' style={{ padding: '14px 32px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '4px', textDecoration: 'none', fontSize: fontSize.base }}>Start Your MRI</a>
+      </div>
+    </main>
+  )
+
+  const health = result.health || {}
+  const overall = health.overall || 0
+  const band = health.band || 'unknown'
+  const pillars = health.pillars || {}
+  const primary = result.primary_constraint
+  const secondary = result.secondary_constraints || []
+  const totalOpp = result.total_opportunity || {}
+  const vsBenchmark = health.vs_benchmark || 'unknown'
+  const healthColor = overall >= 70 ? colors.success : overall >= 45 ? colors.gold : colors.error
 
   return (
-    <main style={s.page}>
-      <nav style={s.nav}>
-        <span style={{fontSize:'18px',fontWeight:'700',color:'#C8A24A',letterSpacing:'0.1em'}}>BEI</span>
-        <div style={s.navLinks}>
+    <main style={pageWrapper}>
+      <nav style={{ padding: '0 48px', borderBottom: `1px solid ${colors.borderSubtle}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: navHeight, backgroundColor: colors.bgBase }}>
+        <span style={{ fontSize: fontSize.xl, fontWeight: fontWeight.extrabold, color: colors.gold, letterSpacing: '0.1em' }}>BEI</span>
+        <div style={{ display: 'flex' }}>
           {nav.map(n => (
-            <a key={n.href} href={n.href} style={s.navLink(!!n.active)}>{n.label}</a>
+            <a key={n.href} href={n.href} style={{ padding: '0 18px', height: navHeight, display: 'flex', alignItems: 'center', fontSize: fontSize.base, color: n.active ? colors.gold : colors.textMuted, borderBottom: n.active ? `2px solid ${colors.gold}` : '2px solid transparent', textDecoration: 'none', fontWeight: n.active ? fontWeight.semibold : fontWeight.normal }}>{n.label}</a>
           ))}
         </div>
-        <span style={{fontSize:'12px',color:'#333'}}>{businessName}</span>
+        <span style={{ fontSize: fontSize.sm, color: colors.textDisabled }}>{businessName}</span>
       </nav>
 
-      <div style={s.inner}>
-        <div style={s.greeting}>Good morning, {businessName}</div>
-        <div style={s.sub}>Business Intelligence Dashboard · Last updated today · {confidence.toUpperCase()} confidence</div>
+      <div style={contentWrapper}>
+        <div style={{ fontSize: fontSize['3xl'], fontWeight: fontWeight.bold, marginBottom: '6px' }}>Executive Dashboard</div>
+        <div style={{ fontSize: fontSize.md, color: colors.textSecondary, marginBottom: '36px', lineHeight: '1.6' }}>Your business intelligence summary</div>
 
-        {/* Top stats */}
-        <div style={s.grid3}>
-          <div style={s.card}>
-            <div style={s.cardLabel}>Business Health</div>
-            <div style={s.bigNum(healthColor)}>{overall}</div>
-            <div style={s.cardSub}>{band.charAt(0).toUpperCase() + band.slice(1)} · {vsBenchmark} industry benchmark</div>
-          </div>
-          <div style={s.card}>
-            <div style={s.cardLabel}>Total Opportunity</div>
-            <div style={s.bigNum('#C8A24A')}>£{Math.round((totalOpp.total_low || 0) / 1000)}k–{Math.round((totalOpp.total_high || 0) / 1000)}k</div>
-            <div style={s.cardSub}>Annual value available to recover</div>
-          </div>
-          <div style={s.card}>
-            <div style={s.cardLabel}>Constraints Identified</div>
-            <div style={s.bigNum('#ffffff')}>{result.verified_count || 0}</div>
-            <div style={s.cardSub}>{result.detected_count || 0} detected · {result.verified_count || 0} verified</div>
-          </div>
-        </div>
-
-        {/* Primary Constraint */}
-        {primary && (
-          <div style={s.section}>
-            <div style={s.sectionTitle}>Primary Constraint</div>
-            <div style={s.primaryCard}>
-              <div style={s.badge(
-                primary.severity === 'high' ? '#cc4444' : '#C8A24A',
-                primary.severity === 'high' ? '#2a0a0a' : '#2a1a00'
-              )}>
-                {primary.severity?.toUpperCase()} PRIORITY
-              </div>
-              <div style={{fontSize:'22px',fontWeight:'700',marginBottom:'8px'}}>{primary.name}</div>
-              <div style={{fontSize:'14px',color:'#777',marginBottom:'16px',fontStyle:'italic'}}>{primary.hypothesis}</div>
-              <div style={{fontSize:'13px',color:'#888',marginBottom:'16px',lineHeight:'1.7'}}>{recommendedFocus}</div>
-              <div style={{display:'flex',gap:'32px'}}>
-                <div>
-                  <div style={{fontSize:'11px',color:'#444',marginBottom:'4px'}}>OPPORTUNITY</div>
-                  <div style={{fontSize:'18px',fontWeight:'700',color:'#C8A24A'}}>
-                    £{(primary.opportunity?.value_low || 0).toLocaleString()} — £{(primary.opportunity?.value_high || 0).toLocaleString()}
-                  </div>
-                </div>
-                <div>
-                  <div style={{fontSize:'11px',color:'#444',marginBottom:'4px'}}>VERIFICATION</div>
-                  <div style={{fontSize:'18px',fontWeight:'700',color:'#4aaa4a'}}>{primary.verification_score}/100</div>
-                </div>
-                <div>
-                  <div style={{fontSize:'11px',color:'#444',marginBottom:'4px'}}>TESTS PASSED</div>
-                  <div style={{fontSize:'18px',fontWeight:'700',color:'#fff'}}>{primary.tests_passed}/{primary.total_tests}</div>
-                </div>
-              </div>
+        {/* Health + Primary constraint */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px', marginBottom: '24px' }}>
+          {/* Health score */}
+          <div style={{ ...cardStyle, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', textAlign: 'center' as const }}>
+            <div style={{ fontSize: '11px', color: colors.textMuted, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: fontWeight.semibold }}>Business Health</div>
+            <div style={{ fontSize: '80px', fontWeight: fontWeight.extrabold, color: healthColor, lineHeight: '1', marginBottom: '12px' }}>{overall}</div>
+            <div style={{ fontSize: fontSize.base, fontWeight: fontWeight.semibold, textTransform: 'capitalize' as const, marginBottom: '8px' }}>{band}</div>
+            <div style={{ fontSize: fontSize.sm, color: vsBenchmark === 'above' ? colors.success : vsBenchmark === 'below' ? colors.error : colors.gold, fontWeight: fontWeight.medium }}>
+              {vsBenchmark === 'above' ? '↑ Above' : vsBenchmark === 'below' ? '↓ Below' : '→ At'} industry benchmark
             </div>
           </div>
-        )}
 
-        {/* Health Pillars */}
-        <div style={s.section}>
-          <div style={s.sectionTitle}>Business Health Pillars</div>
-          <div style={s.pillarsGrid}>
-            {Object.entries(pillars).map(([name, data]: [string, any]) => (
-              <div key={name} style={s.pillarRow}>
-                <div style={{width:'100px',fontSize:'13px',color:'#888',textTransform:'capitalize'}}>{name}</div>
-                <div style={{flex:1,height:'6px',backgroundColor:'#111',borderRadius:'3px',overflow:'hidden'}}>
-                  <div style={{width:data.score+'%',height:'100%',backgroundColor:data.score>=70?'#4aaa4a':data.score>=45?'#C8A24A':'#cc4444',borderRadius:'3px'}}/>
+          {/* Primary constraint */}
+          <div style={cardStyle}>
+            <div style={{ fontSize: '11px', color: colors.gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: fontWeight.semibold }}>Primary Constraint</div>
+            {primary ? (
+              <>
+                <div style={{ fontSize: fontSize.xl, fontWeight: fontWeight.bold, marginBottom: '12px', color: colors.textPrimary }}>{primary.name}</div>
+                <div style={{ fontSize: fontSize.base, color: colors.textBody, lineHeight: '1.7', marginBottom: '24px' }}>{primary.hypothesis}</div>
+                <div style={{ display: 'flex', gap: '32px' }}>
+                  <div>
+                    <div style={{ fontSize: '11px', color: colors.textMuted, marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Opportunity</div>
+                    <div style={{ fontSize: fontSize.xl, fontWeight: fontWeight.bold, color: colors.gold }}>
+                      £{((primary.opportunity?.value_low || 0) / 1000).toFixed(0)}k – £{((primary.opportunity?.value_high || 0) / 1000).toFixed(0)}k
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '11px', color: colors.textMuted, marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Verification</div>
+                    <div style={{ fontSize: fontSize.xl, fontWeight: fontWeight.bold, color: colors.success }}>{primary.verification_score}/100</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '11px', color: colors.textMuted, marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Severity</div>
+                    <div style={{ fontSize: fontSize.xl, fontWeight: fontWeight.bold, color: primary.severity === 'high' ? colors.error : colors.gold, textTransform: 'capitalize' as const }}>{primary.severity}</div>
+                  </div>
                 </div>
-                <div style={{width:'36px',fontSize:'13px',color:'#666',textAlign:'right'}}>{data.score}</div>
-                <div style={{width:'80px',fontSize:'11px',color:bandColors[data.band] || '#888'}}>{data.band}</div>
-                <div style={{width:'100px',fontSize:'11px',color:'#444'}}>
-                  {data.vs_benchmark === 'above' ? '↑ above' : data.vs_benchmark === 'below' ? '↓ below' : '→ at'} benchmark
-                </div>
-              </div>
-            ))}
+              </>
+            ) : (
+              <div style={{ fontSize: fontSize.base, color: colors.textSecondary, lineHeight: '1.7' }}>No primary constraint identified. Run a full MRI to generate intelligence.</div>
+            )}
           </div>
         </div>
 
-        {/* Quick actions */}
-        <div style={s.section}>
-          <div style={s.sectionTitle}>Quick Navigation</div>
-          {[
-            { label: 'View full constraint analysis', sub: 'Verification details, network map, root causes', href: '/constraints' },
-            { label: 'See all opportunities', sub: 'Revenue, profit, capacity and risk opportunities', href: '/opportunities' },
-            { label: 'Review deployment actions', sub: 'Automatic actions, approval queue, recommendations', href: '/deployments' },
-            { label: 'Track outcomes', sub: 'Measure what is improving', href: '/outcomes' },
-          ].map(action => (
-            <a key={action.href} href={action.href} style={{...s.actionCard, color:'inherit'}}>
-              <div>
-                <div style={{fontSize:'14px',fontWeight:'600',marginBottom:'3px'}}>{action.label}</div>
-                <div style={{fontSize:'12px',color:'#555'}}>{action.sub}</div>
-              </div>
-              <div style={{color:'#C8A24A',fontSize:'18px'}}>→</div>
-            </a>
-          ))}
+        {/* Health pillars */}
+        <div style={{ ...cardStyle, marginBottom: '24px' }}>
+          <div style={{ fontSize: fontSize.md, fontWeight: fontWeight.semibold, marginBottom: '24px', color: colors.textPrimary }}>Health Pillars</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px' }}>
+            {Object.entries(pillars).map(([name, data]: [string, any]) => {
+              const pillarColor = data.score >= 70 ? colors.success : data.score >= 45 ? colors.gold : colors.error
+              return (
+                <div key={name} style={{ textAlign: 'center' as const }}>
+                  <div style={{ fontSize: fontSize.sm, color: colors.textMuted, textTransform: 'capitalize' as const, marginBottom: '10px', fontWeight: fontWeight.medium }}>{name}</div>
+                  <div style={{ fontSize: fontSize['2xl'], fontWeight: fontWeight.bold, color: pillarColor, marginBottom: '8px' }}>{data.score}</div>
+                  <div style={{ height: '6px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
+                    <div style={{ width: data.score + '%', height: '100%', backgroundColor: pillarColor, borderRadius: '3px' }} />
+                  </div>
+                  <div style={{ fontSize: '11px', color: colors.textDisabled, marginTop: '6px' }}>vs {data.benchmark}</div>
+                </div>
+              )
+            })}
+          </div>
         </div>
+
+        {/* Total opportunity + secondary constraints */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+          <div style={cardStyle}>
+            <div style={{ fontSize: '11px', color: colors.textMuted, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: fontWeight.semibold }}>Total Opportunity</div>
+            <div style={{ fontSize: fontSize['4xl'], fontWeight: fontWeight.extrabold, color: colors.gold, marginBottom: '8px' }}>
+              £{Math.round((totalOpp.total_low || 0) / 1000)}k – £{Math.round((totalOpp.total_high || 0) / 1000)}k
+            </div>
+            <div style={{ fontSize: fontSize.sm, color: colors.textSecondary, lineHeight: '1.7' }}>Annual value available across all verified constraints</div>
+            <div style={{ marginTop: '20px', display: 'flex', gap: '12px' }}>
+              <a href='/opportunities' style={{ padding: '10px 20px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '4px', textDecoration: 'none', fontSize: fontSize.sm }}>View Opportunities</a>
+              <a href='/deployments' style={{ padding: '10px 20px', border: `1px solid ${colors.borderStrong}`, color: colors.textSecondary, borderRadius: '4px', textDecoration: 'none', fontSize: fontSize.sm }}>View Deployments</a>
+            </div>
+          </div>
+
+          <div style={cardStyle}>
+            <div style={{ fontSize: '11px', color: colors.textMuted, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: fontWeight.semibold }}>Secondary Constraints</div>
+            {secondary.length > 0 ? (
+              <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+                {secondary.slice(0, 3).map((c: any) => (
+                  <div key={c.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', backgroundColor: '#0d0d0d', borderRadius: '6px', border: `1px solid ${colors.borderBase}` }}>
+                    <div>
+                      <div style={{ fontSize: fontSize.base, fontWeight: fontWeight.medium, color: colors.textBody, marginBottom: '2px' }}>{c.name}</div>
+                      <div style={{ fontSize: fontSize.sm, color: colors.textMuted }}>Verification: {c.verification_score}/100</div>
+                    </div>
+                    <div style={{ fontSize: fontSize.sm, color: c.severity === 'high' ? colors.error : colors.gold, fontWeight: fontWeight.semibold, textTransform: 'capitalize' as const }}>{c.severity}</div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div style={{ fontSize: fontSize.base, color: colors.textSecondary }}>No secondary constraints detected.</div>
+            )}
+          </div>
+        </div>
+
+        {/* Recommended focus */}
+        {result.recommended_focus && (
+          <div style={{ ...cardStyle, borderColor: colors.borderActive, backgroundColor: '#080f04' }}>
+            <div style={{ fontSize: '11px', color: colors.gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '12px', fontWeight: fontWeight.semibold }}>Recommended Focus</div>
+            <div style={{ fontSize: fontSize.md, color: colors.textBody, lineHeight: '1.75' }}>{result.recommended_focus}</div>
+          </div>
+        )}
       </div>
     </main>
   )
