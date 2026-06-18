@@ -68,3 +68,134 @@ def run_connector():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)
+
+
+# ============================================================
+# OAUTH ENDPOINTS
+# Handle OAuth flows for all connectors that require it.
+# Tokens stored in Supabase connectors table.
+# ============================================================
+
+@app.route('/oauth/<connector_type>/url', methods=['POST'])
+def get_oauth_url(connector_type):
+    """Generate OAuth authorisation URL for a connector."""
+    try:
+        data = request.get_json()
+        client_id = data.get('client_id')
+        redirect_uri = data.get('redirect_uri')
+
+        if not client_id or not redirect_uri:
+            return jsonify({'error': 'Missing client_id or redirect_uri'}), 400
+
+        if connector_type == 'hubspot':
+            from services.connectors.hubspot import get_oauth_url
+            url = get_oauth_url(client_id, redirect_uri)
+
+        elif connector_type == 'xero':
+            from services.connectors.xero import get_oauth_url
+            client_secret = data.get('client_secret', '')
+            url = get_oauth_url(client_id, redirect_uri)
+
+        elif connector_type == 'quickbooks':
+            from services.connectors.quickbooks import get_oauth_url
+            url = get_oauth_url(client_id, redirect_uri)
+
+        elif connector_type == 'salesforce':
+            from services.connectors.salesforce import get_oauth_url
+            url = get_oauth_url(client_id, redirect_uri)
+
+        elif connector_type == 'google_analytics':
+            from services.connectors.google_analytics import get_oauth_url
+            url = get_oauth_url(client_id, redirect_uri)
+
+        else:
+            return jsonify({'error': f'OAuth not supported for {connector_type}'}), 400
+
+        return jsonify({'oauth_url': url})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/oauth/<connector_type>/exchange', methods=['POST'])
+def exchange_oauth_code(connector_type):
+    """Exchange OAuth authorisation code for tokens."""
+    try:
+        data = request.get_json()
+        code = data.get('code')
+        redirect_uri = data.get('redirect_uri')
+        client_id = data.get('client_id')
+        client_secret = data.get('client_secret')
+
+        if not all([code, redirect_uri, client_id, client_secret]):
+            return jsonify({'error': 'Missing required OAuth parameters'}), 400
+
+        if connector_type == 'hubspot':
+            from services.connectors.hubspot import exchange_code_for_tokens
+            tokens = exchange_code_for_tokens(code, redirect_uri, client_id, client_secret)
+
+        elif connector_type == 'xero':
+            from services.connectors.xero import exchange_code_for_tokens
+            tokens = exchange_code_for_tokens(code, redirect_uri, client_id, client_secret)
+
+        elif connector_type == 'quickbooks':
+            from services.connectors.quickbooks import exchange_code_for_tokens
+            realm_id = data.get('realm_id', '')
+            tokens = exchange_code_for_tokens(code, redirect_uri, client_id, client_secret, realm_id)
+
+        elif connector_type == 'salesforce':
+            from services.connectors.salesforce import exchange_code_for_tokens
+            tokens = exchange_code_for_tokens(code, redirect_uri, client_id, client_secret)
+
+        elif connector_type == 'google_analytics':
+            from services.connectors.google_analytics import exchange_code_for_tokens
+            tokens = exchange_code_for_tokens(code, redirect_uri, client_id, client_secret)
+
+        else:
+            return jsonify({'error': f'OAuth not supported for {connector_type}'}), 400
+
+        return jsonify({'success': True, 'tokens': tokens})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/oauth/<connector_type>/refresh', methods=['POST'])
+def refresh_oauth_token(connector_type):
+    """Refresh an expired OAuth access token."""
+    try:
+        data = request.get_json()
+        refresh_token = data.get('refresh_token')
+        client_id = data.get('client_id')
+        client_secret = data.get('client_secret')
+
+        if not all([refresh_token, client_id, client_secret]):
+            return jsonify({'error': 'Missing refresh_token, client_id or client_secret'}), 400
+
+        if connector_type == 'hubspot':
+            from services.connectors.hubspot import refresh_access_token
+            tokens = refresh_access_token(refresh_token, client_id, client_secret)
+
+        elif connector_type == 'xero':
+            from services.connectors.xero import refresh_access_token
+            tokens = refresh_access_token(refresh_token, client_id, client_secret)
+
+        elif connector_type == 'quickbooks':
+            from services.connectors.quickbooks import refresh_access_token
+            tokens = refresh_access_token(refresh_token, client_id, client_secret)
+
+        elif connector_type == 'salesforce':
+            from services.connectors.salesforce import refresh_access_token
+            tokens = refresh_access_token(refresh_token, client_id, client_secret)
+
+        elif connector_type == 'google_analytics':
+            from services.connectors.google_analytics import refresh_access_token
+            tokens = refresh_access_token(refresh_token, client_id, client_secret)
+
+        else:
+            return jsonify({'error': f'Token refresh not supported for {connector_type}'}), 400
+
+        return jsonify({'success': True, 'tokens': tokens})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
