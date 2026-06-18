@@ -1,3 +1,13 @@
+'use client'
+
+import dynamic from 'next/dynamic'
+import { RevealSection, GlowCard, DetectionBarsSection } from '../components/BEIAnimations'
+
+const NetworkGraph = dynamic<{ width: number, height: number, nodeCount: number }>(
+  () => import('../components/BEIAnimations').then(m => ({ default: m.NetworkGraph })),
+  { ssr: false }
+)
+
 
 export default function LandingPage() {
   const gold = '#C8A24A'
