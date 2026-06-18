@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { spawn } from 'child_process'
-import path from 'path'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
 )
+
+const INTELLIGENCE_API = process.env.INTELLIGENCE_API_URL || 'https://mindful-reverence-production-e010.up.railway.app'
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,10 +17,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
-    // Run Python intelligence orchestrator
-    const result = await runPythonOrchestrator(business_id, industry, revenue_band, answers)
+    // Call Railway intelligence server
+    const intelligenceResponse = await fetch(`${INTELLIGENCE_API}/analyse`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ business_id, answers, industry, revenue_band }),
+    })
 
-    // Store result in Supabase
+    if (!intelligenceResponse.ok) {
+      const err = await intelligenceResponse.json()
+      throw new Error(err.error || 'Intelligence server error')
+    }
+
+    const { result } = await intelligenceResponse.json()
+
+    // Save to Supabase
     const { error: updateError } = await supabase
       .from('businesses')
       .update({
@@ -35,52 +46,9 @@ export async function POST(request: NextRequest) {
       console.error('Supabase update error:', updateError)
     }
 
-    return NextResponse.json({ success: true, result })
+    return NextResponse.json({ result, business_id })
 
-  } catch (error) {
-    console.error('Analysis error:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Analysis failed' },
-      { status: 500 }
-    )
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 })
   }
-}
-
-function runPythonOrchestrator(
-  business_id: string,
-  industry: string,
-  revenue_band: string,
-  answers: Record<string, string>
-): Promise<Record<string, unknown>> {
-  return new Promise((resolve, reject) => {
-    const repoRoot = path.resolve(process.cwd(), '..')
-    const scriptPath = path.join(repoRoot, 'services', 'run_intelligence.py')
-
-    const input = JSON.stringify({ business_id, industry, revenue_band, answers })
-
-    const py = spawn('python3', [scriptPath], {
-      cwd: repoRoot,
-    })
-
-    let output = ''
-    let errOutput = ''
-
-    py.stdin.write(input)
-    py.stdin.end()
-
-    py.stdout.on('data', (data) => { output += data.toString() })
-    py.stderr.on('data', (data) => { errOutput += data.toString() })
-
-    py.on('close', (code) => {
-      if (code !== 0) {
-        reject(new Error(`Python error: ${errOutput}`))
-      } else {
-        try {
-          resolve(JSON.parse(output))
-        } catch {
-          reject(new Error(`Invalid JSON from Python: ${output}`))
-        }
-      }
-    })
-  })
 }
