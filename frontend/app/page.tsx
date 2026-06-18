@@ -151,6 +151,7 @@ export default function LandingPage() {
           </div>
           </RevealSection>
         </div>
+          </RevealSection>
       </section>
 
       {/* MRI PREVIEW */}
