@@ -126,15 +126,6 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-              {/* Connection lines SVG */}
-              <svg style={{ position: 'absolute' as const, inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} viewBox="0 0 520 520">
-                <line x1="260" y1="60" x2="260" y2="165" stroke="#C8A24A" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4,4"/>
-                <line x1="60" y1="260" x2="165" y2="260" stroke="#C8A24A" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4,4"/>
-                <line x1="460" y1="260" x2="355" y2="260" stroke="#C8A24A" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4,4"/>
-                <line x1="260" y1="460" x2="260" y2="355" stroke="#C8A24A" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4,4"/>
-              </svg>
-            </div>
-          </div>
         </div>
       </section>
 
