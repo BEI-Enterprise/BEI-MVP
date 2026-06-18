@@ -47,7 +47,7 @@ export default function DeploymentsPage() {
   const tier3 = packages.tier3_recommendation || []
 
   const PackageCard = ({ pkg, tier }: { pkg: any, tier: number }) => {
-    const tierColors = { 1: colors.success, 2: colors.gold, 3: colors.info || '#4a8ab0' }
+    const tierColors = { 1: colors.success, 2: colors.gold, 3: '#4a8ab0' }
     const tierLabels = { 1: 'Automatic', 2: 'Awaiting Approval', 3: 'Recommendation' }
     const tColor = tierColors[tier as keyof typeof tierColors] || colors.gold
     return (
