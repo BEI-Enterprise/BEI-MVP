@@ -10,6 +10,16 @@ export default function DashboardPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
   const [loading, setLoading] = useState(true)
+  const [showWelcome, setShowWelcome] = useState(false)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get('subscribed') === 'true') {
+        setShowWelcome(true)
+        window.history.replaceState({}, '', '/dashboard')
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const load = async () => {
@@ -75,6 +85,16 @@ export default function DashboardPage() {
       </nav>
 
       <div style={contentWrapper}>
+        {showWelcome && (
+          <div style={{ padding: '20px 28px', border: '1px solid #2a3a1a', borderRadius: '10px', backgroundColor: '#080f04', marginBottom: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '11px', color: '#C8A24A', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '6px', fontWeight: '600' }}>Welcome to BEI</div>
+              <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>Your subscription is active. Full intelligence unlocked.</div>
+              <div style={{ fontSize: '15px', color: '#999' }}>Your MRI results are below. Explore your constraints, opportunities and deployment recommendations.</div>
+            </div>
+            <button onClick={() => setShowWelcome(false)} style={{ background: 'none', border: 'none', color: '#777', cursor: 'pointer', fontSize: '24px', padding: '4px 8px' }}>x</button>
+          </div>
+        )}
         <div style={{ fontSize: fontSize['3xl'], fontWeight: fontWeight.bold, marginBottom: '6px' }}>Executive Dashboard</div>
         <div style={{ fontSize: fontSize.md, color: colors.textSecondary, marginBottom: '36px', lineHeight: '1.6' }}>Your business intelligence summary</div>
 

@@ -89,7 +89,7 @@ function PricingContent() {
         <div style={{display:'flex',gap:'32px',alignItems:'center'}}>
           {nav.map(n => <a key={n.href} href={n.href} style={{fontSize:'13px',color:'#666',textDecoration:'none'}}>{n.label}</a>)}
           <a href="/login" style={{fontSize:'13px',color:'#888',textDecoration:'none'}}>Sign in</a>
-          <a href="/book" style={{padding:'8px 20px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'4px',textDecoration:'none',fontSize:'13px'}}>Free MRI →</a>
+          <a href="/register" style={{padding:'8px 20px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'4px',textDecoration:'none',fontSize:'13px'}}>Free MRI →</a>
         </div>
       </nav>
 
@@ -138,7 +138,7 @@ function PricingContent() {
                   </div>
                 ))}
               </div>
-              <a href="/book" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:plan.popular?gold:'transparent',color:plan.popular?'#050505':gold,border:`1px solid ${gold}`,borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
+              <a href="/register" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:plan.popular?gold:'transparent',color:plan.popular?'#050505':gold,border:`1px solid ${gold}`,borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
                 {plan.cta} →
               </a>
             </div>
@@ -170,7 +170,7 @@ function PricingContent() {
       <section style={{padding:'60px 48px 80px',textAlign:'center' as const,borderTop:'1px solid #111'}}>
         <h2 style={{fontSize:'36px',fontWeight:'700',letterSpacing:'-0.02em',marginBottom:'16px'}}>Start with a free MRI.</h2>
         <p style={{fontSize:'16px',color:'#666',marginBottom:'32px'}}>No subscription required. See your primary constraint in under 10 minutes.</p>
-        <a href="/book" style={{display:'inline-block',padding:'16px 48px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'6px',textDecoration:'none',fontSize:'16px'}}>Generate Free MRI →</a>
+        <a href="/register" style={{display:'inline-block',padding:'16px 48px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'6px',textDecoration:'none',fontSize:'16px'}}>Generate Free MRI →</a>
       </section>
 
       <footer style={{padding:'32px 48px',borderTop:'1px solid #111',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -179,7 +179,7 @@ function PricingContent() {
         <div style={{display:'flex',gap:'24px'}}>
           <a href="/" style={{fontSize:'12px',color:'#444',textDecoration:'none'}}>Home</a>
           <a href="/login" style={{fontSize:'12px',color:'#444',textDecoration:'none'}}>Login</a>
-          <a href="/book" style={{fontSize:'12px',color:'#444',textDecoration:'none'}}>Free MRI</a>
+          <a href="/register" style={{fontSize:'12px',color:'#444',textDecoration:'none'}}>Free MRI</a>
         </div>
       </footer>
     </main>
