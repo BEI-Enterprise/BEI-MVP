@@ -59,11 +59,10 @@ export default function LandingPage() {
             <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.4, pointerEvents: 'none' as const }}>
               <NetworkGraph width={560} height={480} nodeCount={20} />
             </div>
-            <div style={{ position: 'relative' as const, width: '100%', border: '1px solid #1e1e1e', borderRadius: '16px', backgroundColor: 'rgba(8,8,8,0.95)', overflow: 'hidden', boxShadow: '0 0 80px rgba(0,0,0,0.8), 0 0 40px rgba(200,162,74,0.04)' }}>
+            <div style={{ position: 'relative' as const, width: '100%', border: '1px solid #1e1e1e', borderRadius: '16px', backgroundColor: 'rgba(8,8,8,0.95)', overflow: 'hidden', boxShadow: '0 0 80px rgba(0,0,0,0.8)' }}>
               <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px' }}>
-                {/* Network graph area */}
-                <div style={{ padding: '20px', position: 'relative' as const }}>
+                <div style={{ padding: '20px' }}>
                   <svg width="100%" viewBox="0 0 420 240" style={{ display: 'block' }}>
                     <defs>
                       <radialGradient id="heroGrad" cx="38%" cy="50%" r="40%">
@@ -78,7 +77,6 @@ export default function LandingPage() {
                     <line x1="160" y1="120" x2="310" y2="130" stroke="#555" strokeWidth="0.6" strokeOpacity="0.35" />
                     <line x1="160" y1="120" x2="80" y2="205" stroke="#333" strokeWidth="0.5" strokeOpacity="0.25" />
                     <line x1="160" y1="120" x2="260" y2="210" stroke="#333" strokeWidth="0.5" strokeOpacity="0.25" />
-                    <line x1="160" y1="120" x2="380" y2="90" stroke="#222" strokeWidth="0.4" strokeOpacity="0.2" />
                     <circle cx="160" cy="120" r="52" fill="rgba(200,162,74,0.06)" stroke="#C8A24A" strokeWidth="1.5" />
                     <circle cx="160" cy="120" r="36" fill="rgba(200,162,74,0.1)" stroke="#C8A24A" strokeWidth="0.8" />
                     <text x="160" y="108" textAnchor="middle" fill="#C8A24A" fontSize="9" fontWeight="600" fontFamily="Inter" letterSpacing="1.5">PRIMARY</text>
@@ -98,11 +96,8 @@ export default function LandingPage() {
                     <text x="80" y="209" textAnchor="middle" fill="#333" fontSize="8" fontFamily="Inter">Risk</text>
                     <circle cx="260" cy="210" r="12" fill="#0a0a0a" stroke="rgba(60,60,60,0.35)" strokeWidth="0.5" />
                     <text x="260" y="214" textAnchor="middle" fill="#333" fontSize="8" fontFamily="Inter">Market</text>
-                    <circle cx="380" cy="90" r="10" fill="#0a0a0a" stroke="rgba(40,40,40,0.3)" strokeWidth="0.5" />
-                    <text x="380" y="94" textAnchor="middle" fill="#222" fontSize="7" fontFamily="Inter">Ops</text>
                   </svg>
                 </div>
-                {/* Right metrics panel */}
                 <div style={{ borderLeft: '1px solid #1a1a1a', padding: '24px 20px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', gap: '16px', backgroundColor: '#060606' }}>
                   <div>
                     <div style={{ fontSize: '9px', color: '#444', marginBottom: '4px', letterSpacing: '0.15em' }}>HEALTH</div>
@@ -126,13 +121,11 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-    </div>
-      </div>
-        </div>
           </div>
+        </div>
       </section>
 
-      {/* PROBLEM SECTION */}
+            {/* PROBLEM SECTION */}
       <section style={{ padding: '100px 48px', borderTop: '1px solid #111' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <RevealSection>
