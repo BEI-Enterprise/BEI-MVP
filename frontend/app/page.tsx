@@ -97,8 +97,8 @@ export default function LandingPage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
               {[
                 { icon: '◈', title: 'Revenue Plateau', desc: 'Growth stalls despite increasing activity. The real constraint is rarely where you think it is.' },
-                { icon: '◈', title: 'Lead Bottleneck', desc: 'Enquiries exist but conversions don't follow. A hidden deficit is blocking your pipeline.' },
-                { icon: '◈', title: 'Capacity Constraint', desc: 'You're turning away work you can't deliver. Growth is physically impossible without resolving this first.' },
+                { icon: '◈', title: 'Lead Bottleneck', desc: "Enquiries exist but conversions don't follow. A hidden deficit is blocking your pipeline." },
+                { icon: '◈', title: 'Capacity Constraint', desc: "You're turning away work you can't deliver. Growth is physically impossible without resolving this first." },
                 { icon: '◈', title: 'Founder Dependency', desc: 'The business cannot function without the founder. This is the most common and most costly constraint.' },
                 { icon: '◈', title: 'Conversion Inefficiency', desc: 'Leads come in but the close rate is chronically low. Something specific is breaking the sale.' },
                 { icon: '◈', title: 'Trust Infrastructure Gap', desc: 'Prospective clients cannot see sufficient proof. Every conversion suffers until this is resolved.' },
