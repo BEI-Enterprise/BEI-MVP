@@ -1,6 +1,11 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
+import { RevealSection, GlowCard, DetectionBarsSection } from '../../components/BEIAnimations'
+
+const NetworkGraph = dynamic(() => import('../../components/BEIAnimations').then(m => ({ default: m.NetworkGraph })), { ssr: false })
+
+import { useEffect, useState } from 'react'
 
 const gold = '#C8A24A'
 const goldDim = 'rgba(200,162,74,0.15)'
@@ -10,32 +15,7 @@ const card = '#0a0a0a'
 const border = '#1e1e1e'
 const borderGold = 'rgba(200,162,74,0.3)'
 
-function useScrollReveal() {
-  const [visible, setVisible] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-  return { ref, visible }
-}
 
-function RevealSection({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) {
-  const { ref, visible } = useScrollReveal()
-  return (
-    <div ref={ref} style={{
-      opacity: visible ? 1 : 0,
-      transform: visible ? 'translateY(0)' : 'translateY(32px)',
-      transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
-    }}>
-      {children}
-    </div>
-  )
-}
 
 const MetricCard = ({ value, label, sub }: { value: string, label: string, sub?: string }) => (
   <div style={{ padding: '28px 24px', border: `1px solid ${border}`, borderRadius: '10px', backgroundColor: card, position: 'relative' as const, overflow: 'hidden' }}>
@@ -96,7 +76,10 @@ export default function PlatformPage() {
 
       {/* HERO */}
       <section style={{ minHeight: '92vh', display: 'flex', alignItems: 'center', padding: '80px 48px', position: 'relative' as const, overflow: 'hidden' }}>
-        {/* Background glow */}
+        {/* Background glow + network */}
+        <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.35, pointerEvents: 'none' as const }}>
+          <NetworkGraph width={1200} height={600} nodeCount={24} />
+        </div>
         <div style={{ position: 'absolute' as const, top: '20%', left: '10%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(200,162,74,0.04) 0%, transparent 70%)', pointerEvents: 'none' as const }} />
         <div style={{ position: 'absolute' as const, top: '40%', right: '5%', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(200,162,74,0.03) 0%, transparent 70%)', pointerEvents: 'none' as const }} />
 
@@ -253,6 +236,18 @@ export default function PlatformPage() {
               </div>
             </div>
           </div>
+          <RevealSection delay={300}>
+          <div style={{ marginTop: '56px', padding: '32px', border: '1px solid #1e1e1e', borderRadius: '12px', backgroundColor: '#080808' }}>
+            <div style={{ fontSize: '11px', color: '#333', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '20px', fontWeight: '600' }}>Intelligence Engine — Constraint Detection</div>
+            <DetectionBarsSection constraints={[
+              { name: 'Trust Infrastructure Deficit', score: 94, color: '#C8A24A' },
+              { name: 'Lead Response Deficit', score: 87, color: '#C8A24A' },
+              { name: 'Founder Dependency', score: 81, color: '#cc6644' },
+              { name: 'Management Bottleneck', score: 73, color: '#888' },
+              { name: 'Capacity Constraint', score: 65, color: '#555' },
+            ]} />
+          </div>
+          </RevealSection>
         </div>
       </section>
 

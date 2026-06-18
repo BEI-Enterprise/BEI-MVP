@@ -45,7 +45,10 @@ export default function LandingPage() {
               ))}
             </div>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' as const }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' as const, minHeight: '480px' }}>
+            <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.6 }}>
+              <NetworkGraph width={560} height={480} nodeCount={20} />
+            </div>
             <div style={{ position: 'absolute' as const, inset: '-40px', background: 'radial-gradient(ellipse at center, rgba(200,162,74,0.06) 0%, transparent 70%)', borderRadius: '50%' }} />
             <div style={{ width: '520px', height: '520px', position: 'relative' as const }}>
               {/* Central intelligence card */}
@@ -85,6 +88,7 @@ export default function LandingPage() {
       {/* PROBLEM SECTION */}
       <section style={{ padding: '100px 48px', borderTop: '1px solid #111' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <RevealSection>
           <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
             <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Why Businesses Plateau</div>
             <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>Every scaling problem has one root cause.</h2>
@@ -99,11 +103,11 @@ export default function LandingPage() {
               { icon: '◈', title: 'Conversion Inefficiency', desc: 'Leads come in but the close rate is chronically low. Something specific is breaking the sale.' },
               { icon: '◈', title: 'Trust Infrastructure Gap', desc: 'Prospective clients cannot see sufficient proof. Every conversion suffers until this is resolved.' },
             ].map(item => (
-              <div key={item.title} style={{ padding: '28px', border: '1px solid #1a1a1a', borderRadius: '8px', backgroundColor: '#080808' }}>
+              <GlowCard key={item.title} style={{ padding: '28px' }}>
                 <div style={{ fontSize: '20px', color: gold, marginBottom: '12px' }}>{item.icon}</div>
                 <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '8px' }}>{item.title}</div>
                 <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.7' }}>{item.desc}</div>
-              </div>
+              </GlowCard>
             ))}
           </div>
         </div>
@@ -112,6 +116,7 @@ export default function LandingPage() {
       {/* HOW IT WORKS */}
       <section style={{ padding: '100px 48px', borderTop: '1px solid #111', backgroundColor: '#030303' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <RevealSection>
           <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
             <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>How BEI Works</div>
             <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>Five stages. One answer.</h2>
@@ -131,6 +136,19 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+
+          <RevealSection delay={200}>
+          <div style={{ marginTop: '48px' }}>
+            <div style={{ fontSize: '11px', color: '#333', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '20px', fontWeight: '600' }}>Constraint Detection Engine — Live</div>
+            <DetectionBarsSection constraints={[
+              { name: 'Trust Infrastructure Deficit', score: 94, color: '#C8A24A' },
+              { name: 'Lead Response Deficit', score: 87, color: '#C8A24A' },
+              { name: 'Founder Dependency', score: 78, color: '#cc6644' },
+              { name: 'Capacity Constraint', score: 65, color: '#888' },
+              { name: 'Pricing Constraint', score: 52, color: '#555' },
+            ]} />
+          </div>
+          </RevealSection>
         </div>
       </section>
 
@@ -204,6 +222,7 @@ export default function LandingPage() {
       {/* PRICING */}
       <section style={{ padding: '100px 48px', borderTop: '1px solid #111', backgroundColor: '#030303' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <RevealSection>
           <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
             <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Pricing</div>
             <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>Intelligence that pays for itself.</h2>
