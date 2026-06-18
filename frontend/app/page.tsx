@@ -151,7 +151,7 @@ export default function LandingPage() {
           </div>
           </RevealSection>
         </div>
-          </RevealSection>
+      </section>
 
       {/* MRI PREVIEW */}
       <section style={{ padding: '100px 48px', borderTop: '1px solid #111' }}>
