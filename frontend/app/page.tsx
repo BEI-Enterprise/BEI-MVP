@@ -12,6 +12,7 @@ export default function LandingPage() {
       <nav style={{ position: 'fixed' as const, top: 0, left: 0, right: 0, zIndex: 100, padding: '0 48px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #111', backgroundColor: 'rgba(5,5,5,0.92)', backdropFilter: 'blur(12px)' }}>
         <div style={{ fontSize: '20px', fontWeight: '800', color: gold, letterSpacing: '0.12em' }}>BEI</div>
         <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+          <a href="/platform" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>Platform</a>
           <a href="/pricing" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>Pricing</a>
           <a href="/example-report" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>Example Report</a>
           <a href="/login" style={{ fontSize: '13px', color: '#888', textDecoration: 'none' }}>Sign in</a>
