@@ -15,6 +15,7 @@ const PROTECTED_ROUTES = [
   '/deployments',
   '/outcomes',
   '/account',
+  '/connect',
 ]
 
 const SUBSCRIPTION_REQUIRED = [
@@ -24,6 +25,7 @@ const SUBSCRIPTION_REQUIRED = [
   '/opportunities',
   '/deployments',
   '/outcomes',
+  '/connect',
 ]
 
 export async function proxy(request: NextRequest) {
@@ -104,5 +106,6 @@ export const config = {
     '/deployments/:path*',
     '/outcomes/:path*',
     '/account/:path*',
+    '/connect/:path*',
   ],
 }

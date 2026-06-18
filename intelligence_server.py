@@ -30,6 +30,41 @@ def analyse():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+@app.route('/connector/run', methods=['POST'])
+def run_connector():
+    try:
+        data = request.get_json()
+        business_id = data.get('business_id')
+        connector_type = data.get('connector_type')
+        credentials = data.get('credentials', {})
+
+        if not business_id or not connector_type:
+            return jsonify({'error': 'Missing business_id or connector_type'}), 400
+
+        from services.connectors.registry import run_connectors
+        result = run_connectors(business_id, [{
+            'connector_type': connector_type,
+            'credentials': credentials,
+        }])
+
+        connector_result = result['results'][0] if result['results'] else {}
+        if connector_result.get('success'):
+            return jsonify({
+                'success': True,
+                'connector_type': connector_type,
+                'data': connector_result.get('data', {}),
+                'synced_at': connector_result.get('synced_at'),
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': connector_result.get('error', 'Connector failed'),
+            }), 422
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)
