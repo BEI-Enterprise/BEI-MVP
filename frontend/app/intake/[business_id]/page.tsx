@@ -60,7 +60,7 @@ export default function IntakePage() {
 
   useEffect(() => {
     const fetchBusiness = async () => {
-      const { data } = await createClient().from('businesses').select('name').eq('id', businessId).single()
+      const { data } = await createClient().from('businesses').select('business_name').eq('id', businessId).single()
       if (data) setBusinessName(data.name)
     }
     fetchBusiness()
