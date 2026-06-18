@@ -56,10 +56,11 @@ export default function LandingPage() {
             </div>
           </div>
           <div style={{ position: 'relative' as const, minHeight: '480px', display: 'flex', alignItems: 'center' }}>
-            <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.4, pointerEvents: 'none' as const }}>
-              <NetworkGraph width={560} height={480} nodeCount={20} />
+            <div style={{ position: 'absolute' as const, top: '-60px', left: '-60px', right: '-60px', bottom: '-60px', opacity: 0.55, pointerEvents: 'none' as const }}>
+              <NetworkGraph width={720} height={600} nodeCount={32} />
             </div>
-            <div style={{ position: 'relative' as const, width: '100%', border: '1px solid #1e1e1e', borderRadius: '16px', backgroundColor: 'rgba(8,8,8,0.95)', overflow: 'hidden', boxShadow: '0 0 80px rgba(0,0,0,0.8)' }}>
+            <div style={{ position: 'absolute' as const, inset: 0, background: 'radial-gradient(ellipse at center, transparent 40%, rgba(5,5,5,0.7) 100%)', pointerEvents: 'none' as const }} />
+            <div style={{ position: 'relative' as const, width: '100%', border: '1px solid rgba(200,162,74,0.25)', borderRadius: '16px', backgroundColor: 'rgba(5,5,5,0.82)', overflow: 'hidden', boxShadow: '0 0 60px rgba(0,0,0,0.5), 0 0 30px rgba(200,162,74,0.05)' }}>
               <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px' }}>
                 <div style={{ padding: '20px' }}>

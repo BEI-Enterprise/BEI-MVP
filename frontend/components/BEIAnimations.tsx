@@ -75,9 +75,9 @@ export function NetworkGraph({ width = 600, height = 400, nodeCount = 18 }: { wi
     const nodes = Array.from({ length: nodeCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      r: Math.random() * 2 + 1.5,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 2.5 + 2,
       pulse: Math.random() * Math.PI * 2,
     }))
 
@@ -86,7 +86,7 @@ export function NetworkGraph({ width = 600, height = 400, nodeCount = 18 }: { wi
       nodes.forEach(n => {
         n.x += n.vx
         n.y += n.vy
-        n.pulse += 0.02
+        n.pulse += 0.018
         if (n.x < 0 || n.x > width) n.vx *= -1
         if (n.y < 0 || n.y > height) n.vy *= -1
       })
@@ -95,26 +95,26 @@ export function NetworkGraph({ width = 600, height = 400, nodeCount = 18 }: { wi
           const dx = nodes[i].x - nodes[j].x
           const dy = nodes[i].y - nodes[j].y
           const dist = Math.sqrt(dx * dx + dy * dy)
-          const maxDist = width * 0.22
+          const maxDist = width * 0.28
           if (dist < maxDist) {
             ctx.beginPath()
             ctx.moveTo(nodes[i].x, nodes[i].y)
             ctx.lineTo(nodes[j].x, nodes[j].y)
-            ctx.strokeStyle = `rgba(200,162,74,${(1 - dist / maxDist) * 0.25})`
-            ctx.lineWidth = 0.5
+            ctx.strokeStyle = `rgba(200,162,74,${(1 - dist / maxDist) * 0.4})`
+            ctx.lineWidth = 0.8
             ctx.stroke()
           }
         }
       }
       nodes.forEach(n => {
-        const pulsed = n.r + Math.sin(n.pulse) * 0.5
+        const pulsed = n.r + Math.sin(n.pulse) * 0.8
         ctx.beginPath()
         ctx.arc(n.x, n.y, pulsed, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(200,162,74,0.75)'
+        ctx.fillStyle = 'rgba(200,162,74,0.85)'
         ctx.fill()
         ctx.beginPath()
-        ctx.arc(n.x, n.y, pulsed * 2.5, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(200,162,74,0.06)'
+        ctx.arc(n.x, n.y, pulsed * 3, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(200,162,74,0.08)'
         ctx.fill()
       })
       animRef.current = requestAnimationFrame(draw)
