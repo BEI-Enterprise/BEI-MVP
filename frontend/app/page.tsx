@@ -110,6 +110,7 @@ export default function LandingPage() {
               </GlowCard>
             ))}
           </div>
+          </RevealSection>
         </div>
       </section>
 
@@ -150,6 +151,7 @@ export default function LandingPage() {
           </div>
           </RevealSection>
         </div>
+          </RevealSection>
       </section>
 
       {/* MRI PREVIEW */}
@@ -251,6 +253,7 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+          </RevealSection>
         </div>
       </section>
 
