@@ -98,7 +98,7 @@ export default function RegisterPage() {
                   <div
                     key={plan.id}
                     onClick={() => { setSelectedPlan(plan.id); setError('') }}
-                    style={{ padding: '28px', border: \`2px solid \${selectedPlan === plan.id ? colors.gold : colors.borderBase}\`, borderRadius: '10px', backgroundColor: selectedPlan === plan.id ? '#0d0a04' : colors.bgCard, cursor: 'pointer', position: 'relative' as const, transition: 'border-color 0.15s' }}
+                    style={{ padding: '28px', border: `2px solid \${selectedPlan === plan.id ? colors.gold : colors.borderBase}`, borderRadius: '10px', backgroundColor: selectedPlan === plan.id ? '#0d0a04' : colors.bgCard, cursor: 'pointer', position: 'relative' as const, transition: 'border-color 0.15s' }}
                   >
                     {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '3px 14px', backgroundColor: colors.gold, color: '#050505', fontSize: '11px', fontWeight: fontWeight.bold, borderRadius: '20px' }}>MOST POPULAR</div>}
                     <div style={{ fontSize: fontSize.base, color: colors.textSecondary, marginBottom: '6px' }}>{plan.name}</div>
@@ -117,7 +117,7 @@ export default function RegisterPage() {
                   </div>
                 ))}
               </div>
-              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: \`1px solid \${colors.errorBorder}\`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '16px' }}>{error}</div>}
+              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: `1px solid \${colors.errorBorder}`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '16px' }}>{error}</div>}
               <button onClick={handleContinue} style={{ width: '100%', padding: '16px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: fontSize.md }}>
                 Continue with {PLANS.find(p => p.id === selectedPlan)?.name || 'selected plan'} →
               </button>
@@ -126,7 +126,7 @@ export default function RegisterPage() {
               </div>
             </>
           ) : (
-            <div style={{ padding: '40px', border: \`1px solid \${colors.borderBase}\`, borderRadius: '12px', backgroundColor: colors.bgCard }}>
+            <div style={{ padding: '40px', border: `1px solid \${colors.borderBase}`, borderRadius: '12px', backgroundColor: colors.bgCard }}>
               <button onClick={() => setStep('plan')} style={{ background: 'none', border: 'none', color: colors.textMuted, cursor: 'pointer', fontSize: fontSize.base, marginBottom: '24px', padding: '0', display: 'flex', alignItems: 'center', gap: '6px' }}>← Back to plans</button>
               <div style={{ fontSize: '11px', color: colors.gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '8px', fontWeight: fontWeight.semibold }}>
                 {PLANS.find(p => p.id === selectedPlan)?.name} — {PLANS.find(p => p.id === selectedPlan)?.price}/month
@@ -151,7 +151,7 @@ export default function RegisterPage() {
                 <label style={labelStyle}>Phone number <span style={{ color: colors.textMuted, fontSize: fontSize.sm }}>(optional)</span></label>
                 <input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} type='tel' placeholder='+44 7700 000000' style={inputStyle} />
               </div>
-              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: \`1px solid \${colors.errorBorder}\`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '18px' }}>{error}</div>}
+              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: `1px solid \${colors.errorBorder}`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '18px' }}>{error}</div>}
               <button onClick={handleSubmit} disabled={loading} style={{ width: '100%', padding: '14px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: fontSize.md, opacity: loading ? 0.7 : 1 }}>
                 {loading ? 'Redirecting to payment...' : 'Continue to Secure Payment →'}
               </button>
