@@ -31,6 +31,7 @@ export default function AccountPage() {
   ]
 
   return (
+    <main style={{ backgroundColor: '#050505', color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
       <Nav />
 
       <div style={{maxWidth:'800px',margin:'0 auto',padding:'48px 24px'}}>

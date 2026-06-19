@@ -88,6 +88,7 @@ function PricingContent() {
   ]
 
   return (
+    <main style={{ backgroundColor: '#050505', color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
       <Nav active="/pricing" />
 
       <section style={{padding:'80px 48px 60px',textAlign:'center' as const}}>
