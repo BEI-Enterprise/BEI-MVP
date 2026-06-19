@@ -1,183 +1,240 @@
 'use client'
 
+import { colors, fontSize, fontWeight, cardStyle, pageWrapper } from '../../lib/design'
+
+const gold = '#C8A24A'
+
+const data = {
+  business: 'Meridian Estate Agency',
+  date: '19 June 2026',
+  sector: 'Estate Agency',
+  revenue: 'Under £250k',
+  version: 'BEI MRI v1.1 — Verified Analysis',
+  confidence: 'high',
+  health: {
+    overall: 47,
+    band: 'Moderate',
+    vs_benchmark: 'below',
+    benchmark: 55,
+    pillars: [
+      { name: 'Growth', score: 58, band: 'Moderate', benchmark: 60, color: '#C8A24A' },
+      { name: 'Operations', score: 38, band: 'Weak', benchmark: 55, color: '#cc4444' },
+      { name: 'Strategy', score: 45, band: 'Moderate', benchmark: 52, color: '#C8A24A' },
+      { name: 'Risk', score: 31, band: 'Critical', benchmark: 50, color: '#cc4444' },
+      { name: 'Context', score: 67, band: 'Moderate', benchmark: 58, color: '#4aaa4a' },
+    ]
+  },
+  primary: {
+    name: 'Trust Infrastructure Deficit',
+    hypothesis: 'Insufficient verified social proof is limiting new client conversion across all acquisition channels. Every lead that encounters this business faces an unresolved trust gap before committing.',
+    severity: 'high',
+    verification_score: 94,
+    evidence: [
+      'Conversion rate of 1-2 in 10 is below industry benchmark of 3-4 in 10 for this sector and revenue band.',
+      'Trust infrastructure score of Very Little indicates insufficient review volume, testimonials or case studies.',
+      'Average deal value of £3,500 suggests pricing is not the barrier — trust is the primary friction point.',
+      'Lead response quality rated Good but conversion remains low, confirming the problem is post-contact not pre-contact.',
+    ],
+    opportunity: { low: 18000, high: 45000, dimension: 'Revenue' },
+  },
+  secondary: [
+    { name: 'Founder Dependency Risk', score: 78, severity: 'high', hypothesis: 'Critical operational knowledge concentrated in the founder creates a growth ceiling and key person risk.' },
+    { name: 'Pricing Confidence Gap', score: 65, severity: 'medium', hypothesis: 'Uncertainty in pricing strategy is limiting average deal value and margin expansion.' },
+    { name: 'Lead Response Optimisation', score: 52, severity: 'medium', hypothesis: 'Response time improvements could yield conversion rate gains of 8-15%.' },
+  ],
+  total_opportunity: { low: 84000, high: 220000 },
+  recommended_focus: 'The highest-value action available to this business is resolving the Trust Infrastructure Deficit. This single constraint is suppressing conversion across every acquisition channel. A 90-day focused effort on verified social proof — reviews, case studies, client testimonials — is projected to recover £18k-£45k in annual revenue.',
+}
+
 export default function ExampleReportPage() {
-  const gold = '#C8A24A'
-
-  const pillars = [
-    { name: 'Growth', score: 58, band: 'Moderate', color: '#C8A24A' },
-    { name: 'Operations', score: 38, band: 'Weak', color: '#cc4444' },
-    { name: 'Strategy', score: 45, band: 'Moderate', color: '#C8A24A' },
-    { name: 'Risk', score: 31, band: 'Critical', color: '#cc4444' },
-    { name: 'Context', score: 67, band: 'Moderate', color: '#C8A24A' },
-  ]
-
-  const LockOverlay = ({ message = 'Unlock Full Access' }: { message?: string }) => (
-    <div style={{ position: 'absolute' as const, inset: 0, backdropFilter: 'blur(6px)', backgroundColor: 'rgba(5,5,5,0.75)', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', borderRadius: '8px', zIndex: 10, gap: '12px' }}>
-      <div style={{ fontSize: '20px', color: gold }}>◈</div>
-      <div style={{ fontSize: '13px', color: '#888', textAlign: 'center' as const, maxWidth: '200px', lineHeight: '1.6' }}>{message}</div>
-      <a href="/register" style={{ padding: '10px 24px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '4px', textDecoration: 'none', fontSize: '13px' }}>Unlock Full Report →</a>
-    </div>
-  )
-
   return (
     <main style={{ backgroundColor: '#050505', color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
-      <nav style={{ padding: '0 48px', borderBottom: '1px solid #111', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '64px', backgroundColor: 'rgba(5,5,5,0.95)', position: 'sticky' as const, top: 0, zIndex: 100 }}>
+
+      {/* Nav */}
+      <nav style={{ padding: '0 48px', borderBottom: '1px solid #161616', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '68px', backgroundColor: 'rgba(5,5,5,0.97)', position: 'sticky' as const, top: 0, zIndex: 100, backdropFilter: 'blur(12px)' }}>
         <a href="/" style={{ fontSize: '20px', fontWeight: '800', color: gold, letterSpacing: '0.12em', textDecoration: 'none' }}>BEI</a>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <span style={{ fontSize: '13px', color: '#555' }}>Example MRI Report — Preview Only</span>
-          <a href="/register" style={{ padding: '8px 20px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '4px', textDecoration: 'none', fontSize: '13px' }}>Get Your Free MRI →</a>
+        <div style={{ display: 'flex', gap: '0', alignItems: 'center' }}>
+          {[{l:'Home',h:'/'},{l:'Platform',h:'/platform'},{l:'Pricing',h:'/pricing'},{l:'Example Report',h:'/example-report',a:true}].map(n => (
+            <a key={n.h} href={n.h} style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: n.a ? gold : '#777', borderBottom: n.a ? '2px solid #C8A24A' : '2px solid transparent', textDecoration: 'none', fontWeight: n.a ? '600' : '400' }}>{n.l}</a>
+          ))}
         </div>
+        <a href="/book" style={{ padding: '10px 22px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Free MRI →</a>
       </nav>
 
       {/* Preview banner */}
-      <div style={{ padding: '14px 48px', backgroundColor: 'rgba(200,162,74,0.06)', borderBottom: '1px solid rgba(200,162,74,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ fontSize: '13px', color: '#888' }}>
-          <span style={{ color: gold, fontWeight: '600' }}>◈ Preview Mode</span> — This is an example report. Some sections are locked. Generate your free MRI to see your real results.
+      <div style={{ padding: '14px 48px', backgroundColor: 'rgba(200,162,74,0.05)', borderBottom: '1px solid rgba(200,162,74,0.12)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: '13px', color: '#777' }}>
+          <span style={{ color: gold, fontWeight: '600' }}>◈ Example Report</span> — Fictional data showing what your real BEI MRI looks like. Every number is illustrative.
         </div>
         <a href="/book" style={{ fontSize: '13px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Generate your free MRI →</a>
       </div>
 
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '48px 24px' }}>
+      <div style={{ maxWidth: '920px', margin: '0 auto', padding: '48px 24px 80px' }}>
 
-        {/* Header */}
-        <div style={{ marginBottom: '48px', paddingBottom: '32px', borderBottom: '1px solid #1a1a1a' }}>
-          <div style={{ fontSize: '11px', fontWeight: '600', letterSpacing: '0.2em', color: gold, marginBottom: '12px', textTransform: 'uppercase' as const }}>Business MRI Report</div>
-          <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>Example Business Ltd</h1>
-          <p style={{ color: '#555', fontSize: '14px', marginBottom: '4px' }}>Generated: 17 June 2026 · Estate Agency · Under £250k revenue</p>
-          <div style={{ marginTop: '16px', display: 'inline-block', padding: '6px 14px', border: '1px solid #4aaa4a', borderRadius: '4px', fontSize: '11px', color: '#4aaa4a', letterSpacing: '0.1em' }}>BEI MRI v1.1 — Verified Analysis</div>
-        </div>
-
-        {/* Health Overview — VISIBLE */}
-        <div style={{ marginBottom: '48px' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '24px' }}>Business Health Overview</h2>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px', marginBottom: '32px' }}>
-            <div style={{ textAlign: 'center' as const }}>
-              <div style={{ fontSize: '64px', fontWeight: '700', color: gold, lineHeight: '1' }}>47</div>
-              <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>Overall Score</div>
-            </div>
-            <div style={{ flex: 1, fontSize: '14px', color: '#888', lineHeight: '1.7' }}>
-              Your business has solid foundations with clear areas needing attention. One primary constraint is limiting your growth — identifying and resolving it is the highest-value action available to you right now.
+        {/* Report header */}
+        <div style={{ marginBottom: '40px', paddingBottom: '32px', borderBottom: '1px solid #1a1a1a', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: '600', letterSpacing: '0.2em', color: gold, marginBottom: '10px', textTransform: 'uppercase' as const }}>Business MRI Report</div>
+            <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-0.01em' }}>{data.business}</h1>
+            <p style={{ color: '#555', fontSize: '14px', marginBottom: '12px' }}>Generated: {data.date} · {data.sector} · {data.revenue} revenue</p>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <div style={{ display: 'inline-block', padding: '5px 14px', border: '1px solid rgba(74,170,74,0.4)', borderRadius: '4px', fontSize: '11px', color: '#4aaa4a', letterSpacing: '0.1em', fontWeight: '600' }}>✓ {data.version}</div>
+              <div style={{ display: 'inline-block', padding: '5px 14px', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '4px', fontSize: '11px', color: gold, letterSpacing: '0.1em' }}>CONFIDENCE: HIGH</div>
             </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
-            {pillars.map(p => (
-              <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{ width: '100px', fontSize: '13px', color: '#888' }}>{p.name}</div>
-                <div style={{ flex: 1, height: '6px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
-                  <div style={{ width: p.score + '%', height: '100%', backgroundColor: p.color, borderRadius: '3px' }} />
-                </div>
-                <div style={{ width: '40px', fontSize: '13px', color: '#666', textAlign: 'right' as const }}>{p.score}</div>
-                <div style={{ width: '80px', fontSize: '12px', color: p.color }}>{p.band}</div>
-              </div>
-            ))}
+          <div style={{ textAlign: 'right' as const }}>
+            <div style={{ fontSize: '11px', color: '#444', marginBottom: '6px', letterSpacing: '0.1em' }}>TOTAL OPPORTUNITY</div>
+            <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>£{(data.total_opportunity.low/1000).toFixed(0)}k–£{(data.total_opportunity.high/1000).toFixed(0)}k</div>
+            <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>Annual value available</div>
           </div>
         </div>
 
-        {/* Primary Constraint — PARTIALLY VISIBLE */}
-        <div style={{ marginBottom: '48px' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>Primary Constraint</h2>
-          <div style={{ padding: '32px', border: '1px solid #2a2a2a', borderRadius: '8px', backgroundColor: '#080808' }}>
-            <div style={{ fontSize: '11px', fontWeight: '600', letterSpacing: '0.2em', color: gold, marginBottom: '12px', textTransform: 'uppercase' as const }}>Verified Root Cause · 5/5 Tests Passed</div>
-            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '8px' }}>Trust Infrastructure Deficit</h2>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-              <div style={{ padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '600', backgroundColor: '#2a0a0a', color: '#cc4444', border: '1px solid #cc4444' }}>HIGH PRIORITY</div>
-              <div style={{ padding: '4px 10px', borderRadius: '4px', fontSize: '11px', color: '#555', border: '1px solid #1a1a1a' }}>Verification: 100/100</div>
-            </div>
-            <div style={{ fontSize: '14px', color: '#777', marginBottom: '20px', fontStyle: 'italic' }}>
-              Insufficient social proof is limiting new client conversion and market credibility.
-            </div>
-            {/* Evidence — visible */}
-            <div style={{ marginBottom: '20px' }}>
-              <div style={{ fontSize: '12px', color: '#555', marginBottom: '8px', textTransform: 'uppercase' as const, letterSpacing: '0.1em' }}>Supporting Evidence</div>
-              {[
-                'Business reported very little proof assets (reviews, case studies, testimonials).',
-                'Risk pillar score: 31/100 — critical level.',
-                'Low trust infrastructure is the primary conversion barrier for estate agencies.',
-              ].map((e, i) => (
-                <div key={i} style={{ fontSize: '14px', color: '#aaa', paddingLeft: '16px', borderLeft: '2px solid #2a2a2a', marginBottom: '8px', lineHeight: '1.6' }}>{e}</div>
-              ))}
-            </div>
-            {/* Opportunity — visible */}
-            <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '4px', border: '1px solid #1a1a1a' }}>
-              <div style={{ fontSize: '11px', color: '#444', marginBottom: '4px' }}>INDICATIVE OPPORTUNITY RANGE</div>
-              <div style={{ fontSize: '20px', fontWeight: '700', color: gold }}>£9,000 — £22,000</div>
-              <div style={{ fontSize: '11px', color: '#444', marginTop: '4px' }}>Annual revenue opportunity from resolving this constraint</div>
-            </div>
+        {/* Health score */}
+        <div style={{ ...cardStyle, marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '48px' }}>
+          <div style={{ textAlign: 'center' as const, minWidth: '140px' }}>
+            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '12px' }}>Overall Health</div>
+            <div style={{ fontSize: '88px', fontWeight: '800', color: gold, lineHeight: '1' }}>{data.health.overall}</div>
+            <div style={{ fontSize: '14px', fontWeight: '600', color: '#888', marginTop: '8px', textTransform: 'capitalize' as const }}>{data.health.band}</div>
+            <div style={{ fontSize: '12px', color: '#cc4444', marginTop: '6px' }}>↓ Below industry benchmark ({data.health.benchmark})</div>
           </div>
-        </div>
-
-        {/* Decision Intelligence — LOCKED */}
-        <div style={{ marginBottom: '48px', position: 'relative' as const }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>Decision Intelligence</h2>
-          <div style={{ padding: '24px', border: '1px solid #1a1a1a', borderRadius: '8px', backgroundColor: '#080808', filter: 'blur(3px)', userSelect: 'none' as const }}>
-            <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>WHY THIS CONSTRAINT WAS SELECTED</div>
-            <div style={{ fontSize: '14px', color: '#666', lineHeight: '1.8' }}>Trust Infrastructure Deficit has been identified as the Primary Constraint for this business. It passed all 5 verification tests with a score of 100/100. Network dominance score: 80/100. This constraint cascades into Lead Response Deficit. Industry weighting for estate agencies confirms elevated importance...</div>
-          </div>
-          <LockOverlay message="Subscribe to see the full decision intelligence explanation" />
-        </div>
-
-        {/* Secondary Constraints — LOCKED */}
-        <div style={{ marginBottom: '48px', position: 'relative' as const }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>Secondary Constraints</h2>
-          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px', filter: 'blur(3px)', userSelect: 'none' as const }}>
-            {['Founder Dependency', 'Revenue Concentration Risk', 'Offer Weakness'].map(c => (
-              <div key={c} style={{ padding: '20px', border: '1px solid #1a1a1a', borderRadius: '6px', display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ fontSize: '15px', fontWeight: '600' }}>{c}</div>
-                <div style={{ fontSize: '12px', color: '#555' }}>Verification: 80/100</div>
-              </div>
-            ))}
-          </div>
-          <LockOverlay message="Subscribe to see all verified constraints" />
-        </div>
-
-        {/* Opportunity Map — LOCKED */}
-        <div style={{ marginBottom: '48px', position: 'relative' as const }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>Full Opportunity Map</h2>
-          <div style={{ padding: '24px', border: '1px solid #1a1a1a', borderRadius: '8px', backgroundColor: '#080808', filter: 'blur(3px)', userSelect: 'none' as const }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              {[
-                { label: 'Revenue Opportunity', value: '£9k–£22k' },
-                { label: 'Profit Opportunity', value: '£12k–£30k' },
-                { label: 'Capacity Opportunity', value: '£8k–£18k' },
-                { label: 'Enterprise Value', value: '£45k–£120k' },
-              ].map(item => (
-                <div key={item.label} style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '6px' }}>
-                  <div style={{ fontSize: '11px', color: '#444', marginBottom: '4px' }}>{item.label}</div>
-                  <div style={{ fontSize: '18px', fontWeight: '700', color: gold }}>{item.value}</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: '13px', color: '#555', marginBottom: '20px', lineHeight: '1.7' }}>
+              This business has solid foundations with clear areas requiring focused attention. One primary constraint is suppressing performance across multiple pillars.
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+              {data.health.pillars.map(p => (
+                <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '80px', fontSize: '13px', color: '#777' }}>{p.name}</div>
+                  <div style={{ flex: 1, height: '8px', backgroundColor: '#111', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ width: p.score + '%', height: '100%', backgroundColor: p.color, borderRadius: '4px' }} />
+                  </div>
+                  <div style={{ fontSize: '13px', fontWeight: '700', color: p.color, width: '32px' }}>{p.score}</div>
+                  <div style={{ fontSize: '11px', color: '#444', width: '60px' }}>bm: {p.benchmark}</div>
                 </div>
               ))}
             </div>
           </div>
-          <LockOverlay message="Analysis + Opportunity plan required" />
         </div>
 
-        {/* Deployment Actions — LOCKED */}
-        <div style={{ marginBottom: '48px', position: 'relative' as const }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>Deployment Actions</h2>
-          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px', filter: 'blur(3px)', userSelect: 'none' as const }}>
+        {/* Primary constraint */}
+        <div style={{ ...cardStyle, borderColor: '#2a3a1a', backgroundColor: '#080f04', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
+            <div>
+              <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '10px', fontWeight: '600' }}>Primary Constraint — Verified</div>
+              <div style={{ fontSize: '24px', fontWeight: '800', color: '#f0f0f0', marginBottom: '8px', letterSpacing: '-0.01em' }}>{data.primary.name}</div>
+              <div style={{ display: 'inline-block', padding: '4px 12px', backgroundColor: '#1a0a0a', border: '1px solid #3a1a1a', borderRadius: '20px', fontSize: '11px', color: '#cc4444', fontWeight: '600' }}>HIGH SEVERITY</div>
+            </div>
+            <div style={{ textAlign: 'right' as const }}>
+              <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px' }}>VERIFICATION SCORE</div>
+              <div style={{ fontSize: '40px', fontWeight: '800', color: '#4aaa4a' }}>{data.primary.verification_score}</div>
+              <div style={{ fontSize: '11px', color: '#444', marginTop: '2px' }}>out of 100</div>
+            </div>
+          </div>
+
+          <div style={{ fontSize: '15px', color: '#ccc', lineHeight: '1.8', marginBottom: '24px' }}>{data.primary.hypothesis}</div>
+
+          <div style={{ marginBottom: '24px' }}>
+            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '14px', fontWeight: '600' }}>Evidence</div>
+            <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
+              {data.primary.evidence.map((e, i) => (
+                <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                  <span style={{ color: gold, flexShrink: 0, marginTop: '3px', fontSize: '12px' }}>◈</span>
+                  <span style={{ fontSize: '14px', color: '#999', lineHeight: '1.6' }}>{e}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ borderTop: '1px solid #1a2a10', paddingTop: '20px', display: 'flex', gap: '40px' }}>
+            <div>
+              <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Opportunity Range</div>
+              <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>£{(data.primary.opportunity.low/1000).toFixed(0)}k – £{(data.primary.opportunity.high/1000).toFixed(0)}k</div>
+              <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>Annual revenue recovery</div>
+            </div>
+            <div>
+              <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Dimension</div>
+              <div style={{ fontSize: '18px', fontWeight: '700', color: '#ccc' }}>{data.primary.opportunity.dimension}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Root Cause</div>
+              <div style={{ fontSize: '18px', fontWeight: '700', color: '#4aaa4a' }}>Confirmed</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Verification bar */}
+        <div style={{ ...cardStyle, marginBottom: '24px' }}>
+          <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>5-Test Verification Framework</div>
+          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
             {[
-              { tier: 'Tier 1 — Automatic', action: 'Activate Review Request System' },
-              { tier: 'Tier 2 — Approval Required', action: 'Build Trust and Social Proof Page' },
-              { tier: 'Tier 3 — Recommendation', action: 'Content and PR Trust Strategy' },
-            ].map(item => (
-              <div key={item.action} style={{ padding: '16px 20px', border: '1px solid #1a1a1a', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontSize: '14px', fontWeight: '600' }}>{item.action}</div>
-                <div style={{ fontSize: '11px', color: '#555' }}>{item.tier}</div>
+              { test: 'Multiple data points confirm constraint', pass: true },
+              { test: 'Root cause identified (not symptom)', pass: true },
+              { test: 'Constraint network impact verified', pass: true },
+              { test: 'Opportunity quantification validated', pass: true },
+              { test: 'Deployment pathway exists', pass: true },
+            ].map((t, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 16px', backgroundColor: '#080808', borderRadius: '6px', border: '1px solid #1a1a1a' }}>
+                <div style={{ width: '20px', height: '20px', borderRadius: '50%', backgroundColor: t.pass ? 'rgba(74,170,74,0.15)' : 'rgba(204,68,68,0.15)', border: t.pass ? '1px solid #4aaa4a' : '1px solid #cc4444', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <span style={{ fontSize: '10px', color: t.pass ? '#4aaa4a' : '#cc4444' }}>{t.pass ? '✓' : '✗'}</span>
+                </div>
+                <span style={{ fontSize: '13px', color: '#888' }}>{t.test}</span>
               </div>
             ))}
           </div>
-          <LockOverlay message="Full Platform plan required" />
         </div>
 
-        {/* CTA */}
-        <div style={{ padding: '40px', border: '1px solid #2a2a2a', borderRadius: '12px', backgroundColor: '#080808', textAlign: 'center' as const }}>
-          <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '16px' }}>Get Your Real MRI Report</div>
-          <h2 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '12px' }}>This was an example.<br />Your results will be specific to your business.</h2>
-          <p style={{ fontSize: '15px', color: '#666', marginBottom: '32px', lineHeight: '1.7', maxWidth: '480px', margin: '0 auto 32px' }}>Your Business MRI will analyse your actual growth, operations, strategy, risk and context — and identify the exact constraint limiting your performance right now.</p>
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' as const }}>
-            <a href="/book" style={{ padding: '16px 40px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Generate Free MRI →</a>
-            <a href="/pricing" style={{ padding: '16px 40px', border: '1px solid #2a2a2a', color: '#888', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Pricing</a>
+        {/* Executive summary */}
+        <div style={{ ...cardStyle, marginBottom: '24px' }}>
+          <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '14px', fontWeight: '600' }}>Executive Summary</div>
+          <div style={{ fontSize: '15px', color: '#ccc', lineHeight: '1.85' }}>{data.recommended_focus}</div>
+        </div>
+
+        {/* Secondary constraints — locked */}
+        <div style={{ position: 'relative' as const, marginBottom: '24px' }}>
+          <div style={{ ...cardStyle, filter: 'blur(4px)', opacity: 0.4, pointerEvents: 'none' as const }}>
+            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Secondary Constraints</div>
+            <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+              {data.secondary.map((c, i) => (
+                <div key={i} style={{ padding: '16px', backgroundColor: '#080808', borderRadius: '6px', border: '1px solid #1a1a1a' }}>
+                  <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '6px' }}>{c.name}</div>
+                  <div style={{ fontSize: '13px', color: '#777' }}>{c.hypothesis}</div>
+                </div>
+              ))}
+            </div>
           </div>
+          <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(5,5,5,0.85)', borderRadius: '8px', backdropFilter: 'blur(2px)', gap: '12px' }}>
+            <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, fontWeight: '600' }}>🔒 3 Secondary Constraints Identified</div>
+            <div style={{ fontSize: '13px', color: '#666', textAlign: 'center' as const, maxWidth: '320px', lineHeight: '1.6' }}>Create your account to unlock constraint network analysis, opportunity map and deployment recommendations.</div>
+            <a href="/book" style={{ padding: '12px 32px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '4px', textDecoration: 'none', fontSize: '14px' }}>Generate Your Free MRI →</a>
+          </div>
+        </div>
+
+        {/* Deployment — locked */}
+        <div style={{ position: 'relative' as const, marginBottom: '40px' }}>
+          <div style={{ ...cardStyle, filter: 'blur(4px)', opacity: 0.4, pointerEvents: 'none' as const }}>
+            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Deployment Recommendations</div>
+            <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+              {['Implement review collection system across all client touchpoints', 'Create 3 detailed case studies from recent successful transactions', 'Build testimonial library with video content from top clients'].map((a, i) => (
+                <div key={i} style={{ padding: '16px', backgroundColor: '#080808', borderRadius: '6px', border: '1px solid #1a1a1a' }}>
+                  <div style={{ fontSize: '14px', color: '#888' }}>{a}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(5,5,5,0.85)', borderRadius: '8px', backdropFilter: 'blur(2px)', gap: '12px' }}>
+            <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, fontWeight: '600' }}>🔒 Deployment Engine Locked</div>
+            <div style={{ fontSize: '13px', color: '#666', textAlign: 'center' as const, maxWidth: '320px', lineHeight: '1.6' }}>Upgrade to access 3-tier deployment recommendations with measurement plans and outcome tracking.</div>
+            <a href="/pricing" style={{ padding: '12px 32px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '4px', textDecoration: 'none', fontSize: '14px' }}>View Plans →</a>
+          </div>
+        </div>
+
+        {/* Bottom CTA */}
+        <div style={{ padding: '40px', border: '2px solid rgba(200,162,74,0.2)', borderRadius: '12px', backgroundColor: 'rgba(200,162,74,0.04)', textAlign: 'center' as const }}>
+          <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '12px', fontWeight: '600' }}>This is an example report</div>
+          <div style={{ fontSize: '24px', fontWeight: '800', marginBottom: '12px', letterSpacing: '-0.01em' }}>See your real constraint in 8 minutes.</div>
+          <div style={{ fontSize: '15px', color: '#666', marginBottom: '28px', maxWidth: '480px', margin: '0 auto 28px', lineHeight: '1.7' }}>Generate your free Business MRI. Real data. Real constraints. Real opportunity. No subscription required.</div>
+          <a href="/book" style={{ padding: '16px 48px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '16px', display: 'inline-block' }}>Generate Free MRI →</a>
+          <div style={{ marginTop: '16px', fontSize: '12px', color: '#444' }}>No credit card required · Free · Takes 8 minutes</div>
         </div>
 
       </div>
