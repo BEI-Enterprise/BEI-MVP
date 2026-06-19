@@ -86,7 +86,7 @@ function PricingContent() {
 
   return (
     <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh'}}>
-      <nav style={{padding:'0 48px',borderBottom:'1px solid #111',display:'flex',justifyContent:'space-between',alignItems:'center',height:'64px',backgroundColor:'rgba(5,5,5,0.95)',position:'sticky' as const,top:0,zIndex:100}}>
+      <nav style={{padding:'0 48px',borderBottom:'1px solid #161616',display:'flex',justifyContent:'space-between',alignItems:'center',height:'64px',backgroundColor:'rgba(5,5,5,0.97)',position:'sticky' as const,top:0,zIndex:100}}>
         <a href="/" style={{fontSize:'20px',fontWeight:'800',color:gold,letterSpacing:'0.12em',textDecoration:'none'}}>BEI</a>
         <div style={{display:'flex',gap:'32px',alignItems:'center'}}>
           {nav.map(n => <a key={n.href} href={n.href} style={{fontSize:'13px',color:'#666',textDecoration:'none'}}>{n.label}</a>)}

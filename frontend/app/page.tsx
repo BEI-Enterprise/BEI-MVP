@@ -21,7 +21,7 @@ export default function LandingPage() {
     <main style={s.page}>
 
       {/* NAV */}
-      <nav style={{ position: 'fixed' as const, top: 0, left: 0, right: 0, zIndex: 100, padding: '0 48px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #111', backgroundColor: 'rgba(5,5,5,0.92)', backdropFilter: 'blur(12px)' }}>
+      <nav style={{ position: 'sticky' as const, top: 0, zIndex: 100, padding: '0 48px', height: '68px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #161616', backgroundColor: 'rgba(5,5,5,0.97)', backdropFilter: 'blur(12px)' }}>
         <div style={{ fontSize: '20px', fontWeight: '800', color: gold, letterSpacing: '0.12em' }}>BEI</div>
         <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
           <a href="/platform" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>Platform</a>
@@ -288,7 +288,7 @@ export default function LandingPage() {
               { q: 'What is a constraint verification score?', a: 'Every detected constraint must pass five verification tests before it influences any recommendation. The verification score reflects how strongly the evidence supports the constraint. Only verified constraints with scores above 60/100 proceed to recommendations.' },
               { q: 'Can I try BEI before subscribing?', a: 'Yes. You can generate a free MRI report which includes your Business Health Score and Primary Constraint identification. A subscription unlocks the full opportunity map, deployment recommendations and outcome tracking.' },
             ].map((item, i) => (
-              <div key={item.q} style={{ padding: '24px 0', borderBottom: '1px solid #111' }}>
+              <div key={item.q} style={{ padding: '24px 0', borderBottom: '1px solid #161616' }}>
                 <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '8px' }}>{item.q}</div>
                 <div style={{ fontSize: '14px', color: '#666', lineHeight: '1.7' }}>{item.a}</div>
               </div>
