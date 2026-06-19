@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
 function PricingContent() {
+  const currency = useCurrency()
   const searchParams = useSearchParams()
   const reason = searchParams.get('reason')
   const gold = '#C8A24A'
@@ -188,6 +189,5 @@ function PricingContent() {
 }
 
 export default function PricingPage() {
-  const currency = useCurrency()
   return <Suspense fallback={<div style={{backgroundColor:'#050505',minHeight:'100vh'}}/>}><PricingContent /></Suspense>
 }
