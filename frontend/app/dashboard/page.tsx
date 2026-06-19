@@ -3,6 +3,12 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 
+import dynamic from 'next/dynamic'
+const NetworkGraph = dynamic<{ width: number, height: number, nodeCount: number }>(
+  () => import('../../components/BEIAnimations').then(m => ({ default: m.NetworkGraph })),
+  { ssr: false }
+)
+
 const supabase = createClient()
 const gold = '#C8A24A'
 const dark = '#050505'
@@ -118,23 +124,58 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* Top nav */}
-      <nav style={{ position: 'sticky' as const, top: 0, zIndex: 100, padding: '0 32px', height: '68px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #161616', backgroundColor: 'rgba(5,5,5,0.97)', backdropFilter: 'blur(12px)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <a href='/' style={{ fontSize: '20px', fontWeight: '800', color: gold, letterSpacing: '0.12em', textDecoration: 'none' }}>BEI</a>
-          <div style={{ fontSize: '12px', color: '#333', letterSpacing: '0.1em' }}>EXECUTIVE HUB</div>
+      {/* Cinematic header — Variant C */}
+      <div style={{ position: 'sticky' as const, top: 0, zIndex: 100, borderBottom: '1px solid #161616' }}>
+        <div style={{ position: 'relative' as const, height: '120px', overflow: 'hidden', backgroundColor: '#030201' }}>
+          <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.3, pointerEvents: 'none' as const }}>
+            <NetworkGraph width={1400} height={120} nodeCount={40} />
+          </div>
+          <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(3,2,1,0.8) 0%, transparent 40%, transparent 60%, rgba(3,2,1,0.8) 100%)', pointerEvents: 'none' as const }} />
+          <div style={{ position: 'relative' as const, zIndex: 1, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 32px' }}>
+            <div>
+              <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>EXECUTIVE HUB</div>
+              <div style={{ fontSize: '24px', fontWeight: '800', color: '#f0f0f0', letterSpacing: '-0.02em' }}>
+                Welcome back, {userName}.
+              </div>
+              <div style={{ fontSize: '12px', color: '#444', marginTop: '5px' }}>
+                {selected?.business_name || 'Your Business'} · {(selected?.subscription_tier || 'analysis').toUpperCase()} Plan
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+              <div style={{ textAlign: 'center' as const }}>
+                <div style={{ fontSize: '28px', fontWeight: '800', color: healthColor }}>{health.overall || '—'}</div>
+                <div style={{ fontSize: '10px', color: '#444', marginTop: '3px' }}>HEALTH</div>
+              </div>
+              <div style={{ width: '1px', height: '32px', backgroundColor: '#1a1a1a' }} />
+              <div style={{ textAlign: 'center' as const }}>
+                <div style={{ fontSize: '28px', fontWeight: '800', color: '#4aaa4a' }}>{primary?.verification_score || '—'}</div>
+                <div style={{ fontSize: '10px', color: '#444', marginTop: '3px' }}>VERIFICATION</div>
+              </div>
+              <div style={{ width: '1px', height: '32px', backgroundColor: '#1a1a1a' }} />
+              <div style={{ textAlign: 'center' as const }}>
+                <div style={{ fontSize: '20px', fontWeight: '800', color: gold }}>
+                  {result?.total_opportunity ? '£' + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k+' : '—'}
+                </div>
+                <div style={{ fontSize: '10px', color: '#444', marginTop: '3px' }}>OPPORTUNITY</div>
+              </div>
+              <div style={{ width: '1px', height: '32px', backgroundColor: '#1a1a1a' }} />
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <a href='/account' style={{ padding: '8px 14px', border: '1px solid #1a1a1a', borderRadius: '4px', fontSize: '12px', color: '#666', textDecoration: 'none', backdropFilter: 'blur(4px)' }}>Account</a>
+                <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/' }} style={{ padding: '8px 14px', border: '1px solid #1a1a1a', borderRadius: '4px', fontSize: '12px', color: '#666', backgroundColor: 'transparent', cursor: 'pointer' }}>Sign out</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ fontSize: '13px', color: '#555' }}>{user?.email}</div>
-          <a href='/account' style={{ padding: '8px 16px', border: '1px solid #1a1a1a', borderRadius: '4px', fontSize: '13px', color: '#666', textDecoration: 'none' }}>Account</a>
-          <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/' }} style={{ padding: '8px 16px', border: '1px solid #1a1a1a', borderRadius: '4px', fontSize: '13px', color: '#666', backgroundColor: 'transparent', cursor: 'pointer' }}>Sign out</button>
-        </div>
-      </nav>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', minHeight: 'calc(100vh - 68px)' }}>
 
-        {/* Sidebar */}
-        <div style={{ borderRight: '1px solid #161616', backgroundColor: '#030303', padding: '28px 0', display: 'flex', flexDirection: 'column' as const }}>
+        {/* Sidebar — Variant B: network graph background */}
+        <div style={{ borderRight: '1px solid #161616', backgroundColor: '#030303', padding: '28px 0', display: 'flex', flexDirection: 'column' as const, position: 'relative' as const, overflow: 'hidden' }}>
+          <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.08, pointerEvents: 'none' as const }}>
+            <NetworkGraph width={260} height={800} nodeCount={15} />
+          </div>
+          <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.6), transparent)' }} />
 
           {/* Business selector */}
           <div style={{ padding: '0 20px 24px', borderBottom: '1px solid #111' }}>
@@ -186,11 +227,25 @@ export default function DashboardPage() {
           {activeTab === 'overview' && (
             <div>
               {/* Health + stats row */}
-              <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '20px', marginBottom: '24px' }}>
                 <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.15em', marginBottom: '12px' }}>HEALTH</div>
-                  <div style={{ fontSize: '64px', fontWeight: '800', color: healthColor, lineHeight: '1' }}>{health.overall || '—'}</div>
+                  <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.15em', marginBottom: '12px' }}>HEALTH SCORE</div>
+                  <svg width="120" height="120" viewBox="0 0 120 120" style={{ display: 'block', margin: '0 auto' }}>
+                    <circle cx="60" cy="60" r="50" fill="none" stroke="#111" strokeWidth="8"/>
+                    <circle cx="60" cy="60" r="50" fill="none" stroke={healthColor} strokeWidth="8"
+                      strokeDasharray={`${(health.overall || 0) * 3.14} 314`}
+                      strokeDashoffset="78" strokeLinecap="round"
+                      transform="rotate(-90 60 60)"
+                      style={{ transition: 'stroke-dasharray 1.5s ease' }}
+                    />
+                    <text x="60" y="65" textAnchor="middle" fill={healthColor} fontSize="28" fontWeight="800" fontFamily="Inter">{health.overall || '—'}</text>
+                  </svg>
                   <div style={{ fontSize: '12px', color: '#555', marginTop: '8px', textTransform: 'capitalize' as const }}>{health.band || 'unknown'}</div>
+                  {health.vs_benchmark && (
+                    <div style={{ fontSize: '11px', color: health.vs_benchmark === 'above' ? '#4aaa4a' : '#cc4444', marginTop: '4px' }}>
+                      {health.vs_benchmark === 'above' ? '↑ Above' : '↓ Below'} benchmark
+                    </div>
+                  )}
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
                   {[
@@ -208,6 +263,25 @@ export default function DashboardPage() {
                   ))}
                 </div>
               </div>
+
+              {/* Detection bars — Variant A */}
+              {primary && (
+                <div style={{ padding: '20px 24px', backgroundColor: '#080808', border: '1px solid #161616', borderRadius: '8px', marginBottom: '20px' }}>
+                  <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>CONSTRAINT DETECTION ENGINE — LIVE</div>
+                  {[
+                    { name: primary.name, score: primary.verification_score || 94, color: '#C8A24A' },
+                    ...(secondary.slice(0,3).map((c: any) => ({ name: c.name, score: c.verification_score || 65, color: c.severity === 'high' ? '#cc4444' : '#666' })))
+                  ].map((c: any, i: number) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                      <div style={{ width: '160px', fontSize: '11px', color: '#666', flexShrink: 0, whiteSpace: 'nowrap' as const, overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.name}</div>
+                      <div style={{ flex: 1, height: '4px', backgroundColor: '#111', borderRadius: '2px', overflow: 'hidden' }}>
+                        <div style={{ width: c.score + '%', height: '100%', backgroundColor: c.color, borderRadius: '2px', transition: 'width 1.2s ease' }} />
+                      </div>
+                      <div style={{ fontSize: '11px', color: c.color, width: '28px', textAlign: 'right' as const }}>{c.score}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Primary constraint */}
               {primary && (
