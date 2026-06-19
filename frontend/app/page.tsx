@@ -51,7 +51,7 @@ export default function LandingPage() {
               <a href="/example-report" style={{ padding: '16px 32px', border: '1px solid #2a2a2a', color: '#888', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Example Report</a>
             </div>
             <div style={{ marginTop: '48px', display: 'flex', gap: '40px' }}>
-              {[{n:'£1.2M+',l:'Constraints Detected'},{n:'100/100',l:'Max Verification Score'},{n:'3 min',l:'Time to First Insight'}].map(item => (
+              {[{n:'£1.2M+',l:'Constraints Detected'},{n:'100/100',l:'Max Verification Score'},{n:'8 min',l:'Time to First Insight'}].map(item => (
                 <div key={item.l}>
                   <div style={{ fontSize: '24px', fontWeight: '700', color: gold }}>{item.n}</div>
                   <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>{item.l}</div>
@@ -265,7 +265,7 @@ export default function LandingPage() {
             ))}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px', border: '1px solid #1a1a1a', borderRadius: '8px', overflow: 'hidden' }}>
-            {[{n:'£40k+',l:'Avg opportunity for sub-£1M businesses'},{n:'98%',l:'Constraint verification accuracy'},{n:'<3min',l:'Time to first intelligence output'},{n:'12',l:'Golden Rules enforced on every analysis'}].map(stat => (
+            {[{n:'£40k+',l:'Avg opportunity for sub-£1M businesses'},{n:'98%',l:'Constraint verification accuracy'},{n:'8 min',l:'Time to first intelligence output'},{n:'12',l:'Golden Rules enforced on every analysis'}].map(stat => (
               <div key={stat.l} style={{ padding: '28px', backgroundColor: '#080808', textAlign: 'center' as const }}>
                 <div style={{ fontSize: '28px', fontWeight: '700', color: gold, marginBottom: '8px' }}>{stat.n}</div>
                 <div style={{ fontSize: '12px', color: '#555' }}>{stat.l}</div>

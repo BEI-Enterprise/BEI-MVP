@@ -103,7 +103,7 @@ export default function PlatformPage() {
               <a href='/example-report' style={{ padding: '16px 28px', border: `1px solid ${border}`, color: '#777', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Example Report</a>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
-              {[{ n: '98%', l: 'Verification accuracy' }, { n: '< 3 min', l: 'Time to first insight' }, { n: '£2.4M', l: 'Avg opportunity identified' }].map(m => (
+              {[{ n: '98%', l: 'Verification accuracy' }, { n: '8 min', l: 'Time to first insight' }, { n: '£2.4M', l: 'Avg opportunity identified' }].map(m => (
                 <div key={m.l}>
                   <div style={{ fontSize: '26px', fontWeight: '700', color: gold, marginBottom: '4px' }}>{m.n}</div>
                   <div style={{ fontSize: '12px', color: '#444' }}>{m.l}</div>
@@ -338,7 +338,7 @@ export default function PlatformPage() {
               <ComparisonRow feature="Primary use case" bei="SME constraint intelligence" them="Large-scale data integration" />
               <ComparisonRow feature="Question answered" bei="What is my primary constraint?" them="What does my data show?" highlight />
               <ComparisonRow feature="Output type" bei="Verified recommendation with deployment" them="Data visualisation and dashboards" />
-              <ComparisonRow feature="Time to insight" bei="Under 3 minutes" them="Weeks to months" highlight />
+              <ComparisonRow feature="Time to insight" bei="Approximately 8 minutes" them="Weeks to months" highlight />
               <ComparisonRow feature="Required data" bei="8-minute intake + optional connectors" them="Full data infrastructure" />
               <ComparisonRow feature="Verification layer" bei="5-test constraint verification" them="None — user interprets data" highlight />
               <ComparisonRow feature="Action guidance" bei="3-tier deployment with measurement" them="Insight only — no deployment" />
