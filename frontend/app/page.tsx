@@ -32,7 +32,7 @@ export default function LandingPage() {
 
       {/* HERO */}
       <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '120px 48px 80px', position: 'relative' as const, overflow: 'hidden' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center', width: '100%' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '48px', alignItems: 'center', width: '100%' }}>
           <div>
             <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '24px', fontWeight: '600' }}>Constraint Intelligence Platform</div>
             <h1 style={{ fontSize: '56px', fontWeight: '800', lineHeight: '1.08', marginBottom: '24px', letterSpacing: '-0.02em' }}>
