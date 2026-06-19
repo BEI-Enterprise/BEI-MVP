@@ -1,6 +1,7 @@
 'use client'
 
 import { colors, fontSize, fontWeight, cardStyle, pageWrapper } from '../../lib/design'
+import Nav from '../components/Nav'
 
 const gold = '#C8A24A'
 
@@ -51,15 +52,7 @@ export default function ExampleReportPage() {
     <main style={{ backgroundColor: '#050505', color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
 
       {/* Nav */}
-      <nav style={{ padding: '0 48px', borderBottom: '1px solid #161616', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '68px', backgroundColor: 'rgba(5,5,5,0.97)', position: 'sticky' as const, top: 0, zIndex: 100, backdropFilter: 'blur(12px)' }}>
-        <a href="/" style={{ fontSize: '20px', fontWeight: '800', color: gold, letterSpacing: '0.12em', textDecoration: 'none' }}>BEI</a>
-        <div style={{ display: 'flex', gap: '0', alignItems: 'center' }}>
-          {[{l:'Home',h:'/'},{l:'Platform',h:'/platform'},{l:'Our Clients',h:'/clients'},{l:'Pricing',h:'/pricing'},{l:'Example Report',h:'/example-report',a:true}].map(n => (
-            <a key={n.h} href={n.h} style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: n.a ? gold : '#777', borderBottom: n.a ? '2px solid #C8A24A' : '2px solid transparent', textDecoration: 'none', fontWeight: n.a ? '600' : '400' }}>{n.l}</a>
-          ))}
-        </div>
-        <a href="/book" style={{ padding: '10px 22px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Free MRI →</a>
-      </nav>
+      <Nav active="/example-report" />
 
       {/* Preview banner */}
       <div style={{ padding: '14px 48px', backgroundColor: 'rgba(200,162,74,0.05)', borderBottom: '1px solid rgba(200,162,74,0.12)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
