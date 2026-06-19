@@ -223,7 +223,7 @@ export default function LandingPage() {
                 {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '4px 16px', backgroundColor: gold, color: '#050505', fontSize: '11px', fontWeight: '700', borderRadius: '20px' }}>MOST POPULAR</div>}
                 <div style={{ fontSize: '14px', color: '#888', marginBottom: '8px' }}>{plan.name}</div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '24px' }}>
-                  <span style={{ fontSize: '40px', fontWeight: '700', color: plan.popular ? gold : '#fff' }}>{plan.price}</span>
+                  <span style={{ fontSize: '40px', fontWeight: '700', color: plan.popular ? gold : '#fff' }}>{formatPrice(plan.price, currency)}</span>
                   <span style={{ fontSize: '14px', color: '#555' }}>{plan.period}</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px', marginBottom: '32px' }}>
