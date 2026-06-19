@@ -11,7 +11,7 @@ function PricingContent() {
   const plans = [
     {
       name: 'MRI Analysis',
-      price: {formatPrice(199, currency)},
+      price: formatPrice(199, currency),
       originalPrice: '£332',
       saving: '£1,596',
       period: '/month',
@@ -33,7 +33,7 @@ function PricingContent() {
     },
     {
       name: 'Analysis + Opportunity',
-      price: {formatPrice(399, currency)},
+      price: formatPrice(399, currency),
       originalPrice: '£665',
       saving: '£3,192',
       period: '/month',
@@ -55,7 +55,7 @@ function PricingContent() {
     },
     {
       name: 'Full Platform',
-      price: {formatPrice(999, currency)},
+      price: formatPrice(999, currency),
       originalPrice: '£1,665',
       saving: '£7,992',
       period: '/month',
