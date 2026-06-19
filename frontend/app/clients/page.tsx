@@ -56,7 +56,7 @@ export default function ClientsPage() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
               {[
-                { n: '£2.4M+', l: 'Average opportunity identified per client', s: 'Across verified primary constraints' },
+                { n: '£1.2M+', l: 'Constraints detected worldwide', s: 'Across all verified client engagements' },
                 { n: '100/100', l: 'Maximum verification score achieved', s: 'On every confirmed primary constraint' },
                 { n: 'Monthly', l: 'MRI refresh cycle for all clients', s: 'With full breakdown and risk alerts' },
                 { n: '< 48hr', l: 'Risk alert response time', s: 'When intelligence detects new signals' },
