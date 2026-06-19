@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
 export async function POST(request: NextRequest) {
@@ -25,18 +25,44 @@ export async function POST(request: NextRequest) {
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session
-      const email = session.customer_email
+      const email = session.customer_email || session.metadata?.email
       const plan = session.metadata?.plan || 'analysis'
+      const business_id = session.metadata?.business_id
+      const stripe_customer_id = session.customer as string
+
       if (email) {
-        await supabase
-          .from('businesses')
-          .update({
-            subscription_tier: plan,
-            subscription_status: 'active',
-            stripe_customer_id: session.customer as string,
-          })
-          .eq('email', email)
+        // Update by business_id if available, otherwise fall back to email
+        if (business_id) {
+          await supabase
+            .from('businesses')
+            .update({
+              subscription_tier: plan,
+              subscription_status: 'active',
+              stripe_customer_id,
+              email,
+            })
+            .eq('id', business_id)
+        } else {
+          // Fallback: match by email
+          await supabase
+            .from('businesses')
+            .update({
+              subscription_tier: plan,
+              subscription_status: 'active',
+              stripe_customer_id,
+            })
+            .eq('email', email)
+        }
       }
+      break
+    }
+    case 'customer.subscription.updated': {
+      const sub = event.data.object as Stripe.Subscription
+      const status = sub.status === 'active' ? 'active' : sub.status === 'past_due' ? 'past_due' : 'inactive'
+      await supabase
+        .from('businesses')
+        .update({ subscription_status: status })
+        .eq('stripe_customer_id', sub.customer as string)
       break
     }
     case 'customer.subscription.deleted': {
