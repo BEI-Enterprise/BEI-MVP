@@ -1,4 +1,5 @@
 'use client'
+import { useCurrency, formatPrice } from '../lib/currency'
 
 import dynamic from 'next/dynamic'
 import { RevealSection, GlowCard, DetectionBarsSection } from '../components/BEIAnimations'
@@ -10,6 +11,7 @@ const NetworkGraph = dynamic<{ width: number, height: number, nodeCount: number 
 
 
 export default function LandingPage() {
+  const currency = useCurrency()
   const gold = '#C8A24A'
   const s = {
     page: { backgroundColor: '#050505', color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', overflowX: 'hidden' as const },
@@ -47,7 +49,7 @@ export default function LandingPage() {
               <a href="/example-report" style={{ padding: '16px 32px', border: '1px solid #2a2a2a', color: '#888', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Example Report</a>
             </div>
             <div style={{ marginTop: '48px', display: 'flex', gap: '40px' }}>
-              {[{n:'98%',l:'Detection Accuracy'},{n:'£40k+',l:'Avg Opportunity Identified'},{n:'3 min',l:'Time to First Insight'}].map(item => (
+              {[{n:'£1.2M+',l:'Constraints Detected'},{n:'100/100',l:'Max Verification Score'},{n:'3 min',l:'Time to First Insight'}].map(item => (
                 <div key={item.l}>
                   <div style={{ fontSize: '24px', fontWeight: '700', color: gold }}>{item.n}</div>
                   <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>{item.l}</div>
@@ -213,9 +215,9 @@ export default function LandingPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
             {[
-              { name: 'MRI Analysis', price: '£199', period: '/month', features: ['Business MRI','Health Score','Constraint Detection','Monthly Updates'], cta: 'Get Started', popular: false },
-              { name: 'Analysis + Opportunity', price: '£399', period: '/month', features: ['Everything in Analysis','Opportunity Mapping','Prioritisation Engine','Opportunity Quantification'], cta: 'Most Popular', popular: true },
-              { name: 'Full Platform', price: '£999', period: '/month', features: ['Everything above','Deployment Recommendations','Execution Tracking','Outcome Monitoring','Continuous Optimisation'], cta: 'Full Access', popular: false },
+              { name: 'MRI Analysis', price: formatPrice(199, currency), period: '/month', features: ['Business MRI','Health Score','Constraint Detection','Monthly Updates'], cta: 'Get Started', popular: false },
+              { name: 'Analysis + Opportunity', price: formatPrice(399, currency), period: '/month', features: ['Everything in Analysis','Opportunity Mapping','Prioritisation Engine','Opportunity Quantification'], cta: 'Most Popular', popular: true },
+              { name: 'Full Platform', price: formatPrice(999, currency), period: '/month', features: ['Everything above','Deployment Recommendations','Execution Tracking','Outcome Monitoring','Continuous Optimisation'], cta: 'Full Access', popular: false },
             ].map(plan => (
               <div key={plan.name} style={{ padding: '32px', border: `1px solid ${plan.popular ? gold : '#1a1a1a'}`, borderRadius: '8px', backgroundColor: plan.popular ? '#0d0a04' : '#080808', position: 'relative' as const }}>
                 {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '4px 16px', backgroundColor: gold, color: '#050505', fontSize: '11px', fontWeight: '700', borderRadius: '20px' }}>MOST POPULAR</div>}

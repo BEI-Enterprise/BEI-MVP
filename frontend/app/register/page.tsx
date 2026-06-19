@@ -1,4 +1,5 @@
 'use client'
+import { useCurrency, formatPrice } from '../../lib/currency'
 import { useState } from 'react'
 import { colors, fontSize, fontWeight, inputStyle, labelStyle, pageWrapper } from '../../lib/design'
 
@@ -6,31 +7,32 @@ const PLANS = [
   {
     id: 'analysis',
     name: 'MRI Analysis',
-    price: '£199',
+    price: formatPrice(199, currency),
     period: '/month',
-    was: '£332',
+    was: formatPrice(332, currency),
     features: ['Business MRI', 'Health Score', 'Primary Constraint', 'Monthly Updates'],
   },
   {
     id: 'opportunity',
     name: 'Analysis + Opportunity',
-    price: '£399',
+    price: formatPrice(399, currency),
     period: '/month',
-    was: '£665',
+    was: formatPrice(665, currency),
     features: ['Everything in Analysis', 'Opportunity Mapping', 'Prioritisation Engine', 'Opportunity Quantification'],
     popular: true,
   },
   {
     id: 'platform',
     name: 'Full Platform',
-    price: '£999',
+    price: formatPrice(999, currency),
     period: '/month',
-    was: '£1,665',
+    was: formatPrice(1665, currency),
     features: ['Everything above', 'Deployment Engine', 'Execution Tracking', 'Outcome Monitoring', 'Continuous Optimisation'],
   },
 ]
 
 export default function RegisterPage() {
+  const currency = useCurrency()
   const [step, setStep] = useState<'plan' | 'details'>('plan')
   const [selectedPlan, setSelectedPlan] = useState('')
   const [form, setForm] = useState({ name: '', email: '', company: '', phone: '' })

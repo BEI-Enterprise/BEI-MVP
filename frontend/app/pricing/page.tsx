@@ -1,4 +1,5 @@
 'use client'
+import { useCurrency, formatPrice } from '../../lib/currency'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
@@ -10,7 +11,7 @@ function PricingContent() {
   const plans = [
     {
       name: 'MRI Analysis',
-      price: '£199',
+      price: {formatPrice(199, currency)},
       originalPrice: '£332',
       saving: '£1,596',
       period: '/month',
@@ -32,7 +33,7 @@ function PricingContent() {
     },
     {
       name: 'Analysis + Opportunity',
-      price: '£399',
+      price: {formatPrice(399, currency)},
       originalPrice: '£665',
       saving: '£3,192',
       period: '/month',
@@ -54,7 +55,7 @@ function PricingContent() {
     },
     {
       name: 'Full Platform',
-      price: '£999',
+      price: {formatPrice(999, currency)},
       originalPrice: '£1,665',
       saving: '£7,992',
       period: '/month',
@@ -187,5 +188,6 @@ function PricingContent() {
 }
 
 export default function PricingPage() {
+  const currency = useCurrency()
   return <Suspense fallback={<div style={{backgroundColor:'#050505',minHeight:'100vh'}}/>}><PricingContent /></Suspense>
 }
