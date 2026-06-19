@@ -15,7 +15,7 @@ export default function DashboardPage() {
   const [selected, setSelected] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [showWelcome, setShowWelcome] = useState(false)
-  const [activeTab, setActiveTab] = useState<'overview'|'reports'|'revenue'|'issues'|'meetings'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview'|'reports'|'revenue'|'issues'|'meetings'|'connectors'>('overview')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -77,6 +77,7 @@ export default function DashboardPage() {
     { id: 'revenue', label: 'Revenue Tracker' },
     { id: 'issues', label: 'Critical Issues' },
     { id: 'meetings', label: 'Meeting Centre' },
+    { id: 'connectors', label: 'Data Connectors' },
   ]
 
   return (
@@ -409,6 +410,97 @@ export default function DashboardPage() {
               </div>
               <div style={{ padding: '20px 24px', backgroundColor: '#080808', border: '1px solid #161616', borderRadius: '8px', fontSize: '13px', color: '#444', lineHeight: '1.7' }}>
                 ◈ Additional strategy sessions, constraint deep-dives and deployment support sessions can be booked at any time. All sessions are conducted by qualified BEI Intelligence specialists.
+              </div>
+            </div>
+          )}
+
+        {/* CONNECTORS TAB */}
+          {activeTab === 'connectors' && (
+            <div>
+              <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>DATA CONNECTORS</div>
+              <div style={{ fontSize: '13px', color: '#555', marginBottom: '28px', lineHeight: '1.7' }}>
+                Connect your business systems to enable real-time data enrichment across your MRI reports. Connected data sources improve constraint detection accuracy and unlock enhanced analysis.
+              </div>
+
+              {/* No connection prompt */}
+              <div style={{ padding: '28px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '10px', marginBottom: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>◈ ENHANCED INTELLIGENCE AVAILABLE</div>
+                  <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '6px' }}>Connect real data for full enhanced MRI analysis</div>
+                  <div style={{ fontSize: '13px', color: '#555', lineHeight: '1.6', maxWidth: '560px' }}>
+                    Your current MRI is based on intake answers. Connect your CRM, accounting software or HR system to pull live data and dramatically improve constraint detection accuracy.
+                  </div>
+                </div>
+                <a href='/connect' style={{ padding: '12px 28px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px', whiteSpace: 'nowrap' as const, marginLeft: '24px' }}>Connect Now →</a>
+              </div>
+
+              {/* CRM connectors */}
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>CRM & SALES</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                  {[
+                    { name: 'HubSpot', desc: 'CRM, deals, contacts and pipeline data', icon: '⬡', status: 'available' },
+                    { name: 'Salesforce', desc: 'Enterprise CRM and opportunity tracking', icon: '⬡', status: 'available' },
+                    { name: 'Manual CRM', desc: 'Import CRM data manually via CSV', icon: '⬡', status: 'available' },
+                  ].map(c => (
+                    <div key={c.name} style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', position: 'relative' as const }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                        <div style={{ fontSize: '15px', fontWeight: '600' }}>{c.name}</div>
+                        <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>AVAILABLE</div>
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.6', marginBottom: '14px' }}>{c.desc}</div>
+                      <a href='/connect' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Connect →</a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Finance connectors */}
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>FINANCE & ACCOUNTING</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                  {[
+                    { name: 'Xero', desc: 'Accounting, invoices, cash flow and P&L', icon: '⬡', status: 'available' },
+                    { name: 'QuickBooks', desc: 'Financial data, revenue and expense tracking', icon: '⬡', status: 'available' },
+                    { name: 'Manual Financial', desc: 'Import financial data manually via CSV', icon: '⬡', status: 'available' },
+                  ].map(c => (
+                    <div key={c.name} style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                        <div style={{ fontSize: '15px', fontWeight: '600' }}>{c.name}</div>
+                        <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>AVAILABLE</div>
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.6', marginBottom: '14px' }}>{c.desc}</div>
+                      <a href='/connect' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Connect →</a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* HR & Operations */}
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>HR, OPERATIONS & ANALYTICS</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                  {[
+                    { name: 'HiBob', desc: 'HR data, headcount, team structure', icon: '⬡', status: 'available' },
+                    { name: 'Workday', desc: 'Enterprise HR, finance and planning', icon: '⬡', status: 'available' },
+                    { name: 'Google Analytics', desc: 'Web traffic, conversions and acquisition data', icon: '⬡', status: 'available' },
+                    { name: 'Companies House', desc: 'UK company data, filings and directors', icon: '⬡', status: 'available' },
+                    { name: 'Manual Staffing', desc: 'Import staffing and HR data manually', icon: '⬡', status: 'available' },
+                  ].map(c => (
+                    <div key={c.name} style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                        <div style={{ fontSize: '15px', fontWeight: '600' }}>{c.name}</div>
+                        <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>AVAILABLE</div>
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.6', marginBottom: '14px' }}>{c.desc}</div>
+                      <a href='/connect' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Connect →</a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ padding: '20px 24px', backgroundColor: '#080808', border: '1px solid #161616', borderRadius: '8px', fontSize: '13px', color: '#444', lineHeight: '1.7' }}>
+                ◈ All connectors use OAuth 2.0 or API key authentication. BEI never stores your credentials — only the data needed to run your intelligence analysis. Data is refreshed on each MRI cycle.
               </div>
             </div>
           )}
