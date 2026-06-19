@@ -26,7 +26,6 @@ export default function LandingPage() {
         <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
           <a href='/platform' style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: '#777777', borderBottom: '2px solid transparent', textDecoration: 'none' }}>Platform</a>
           <a href='/clients' style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: '#777777', borderBottom: '2px solid transparent', textDecoration: 'none' }}>Our Clients</a>
-          <a href="/clients" style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: '#777777', borderBottom: '2px solid transparent', textDecoration: 'none' }}>Our Clients</a>
           <a href="/pricing" style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: '#777777', borderBottom: '2px solid transparent', textDecoration: 'none' }}>Pricing</a>
           <a href="/example-report" style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: '#777777', borderBottom: '2px solid transparent', textDecoration: 'none' }}>Example Report</a>
           <a href="/login" style={{ fontSize: '13px', color: '#888', textDecoration: 'none' }}>Sign in</a>
