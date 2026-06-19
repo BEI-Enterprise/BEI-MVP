@@ -13,7 +13,7 @@ const PRICE_IDS: Record<string, string> = {
 
 export async function POST(request: NextRequest) {
   try {
-    const { plan, email, business_id } = await request.json()
+    const { plan, email, business_id, customer_name, company_name, phone } = await request.json()
 
     const priceId = PRICE_IDS[plan]
     if (!priceId) {
@@ -25,12 +25,15 @@ export async function POST(request: NextRequest) {
       payment_method_types: ['card'],
       customer_email: email,
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `https://officialbei.com/dashboard?subscribed=true`,
-      cancel_url: `https://officialbei.com/pricing?cancelled=true`,
+      success_url: 'https://officialbei.com/dashboard?subscribed=true',
+      cancel_url: 'https://officialbei.com/pricing?cancelled=true',
       metadata: {
         plan,
         email: email || '',
         business_id: business_id || '',
+        customer_name: customer_name || '',
+        company_name: company_name || '',
+        phone: phone || '',
       },
     })
 

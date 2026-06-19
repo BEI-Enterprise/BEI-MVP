@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import { createClient } from '../../lib/supabase'
 import { colors, fontSize, fontWeight, inputStyle, labelStyle, pageWrapper } from '../../lib/design'
 
 const PLANS = [
@@ -34,7 +33,7 @@ const PLANS = [
 export default function RegisterPage() {
   const [step, setStep] = useState<'plan' | 'details'>('plan')
   const [selectedPlan, setSelectedPlan] = useState('')
-  const [form, setForm] = useState({ name: '', email: '', company: '' })
+  const [form, setForm] = useState({ name: '', email: '', company: '', phone: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -45,14 +44,32 @@ export default function RegisterPage() {
   }
 
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.company) { setError('Please complete all fields.'); return }
+    if (!form.name || !form.email || !form.company) { setError('Please complete all required fields.'); return }
     setLoading(true)
     setError('')
     try {
+      let business_id = ''
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i)
+          if (key?.startsWith('bei_meta_')) {
+            business_id = key.replace('bei_meta_', '')
+            break
+          }
+        }
+      } catch (e) {}
+
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: selectedPlan, email: form.email }),
+        body: JSON.stringify({
+          plan: selectedPlan,
+          email: form.email,
+          business_id,
+          customer_name: form.name,
+          company_name: form.company,
+          phone: form.phone,
+        }),
       })
       const data = await res.json()
       if (data.url) { window.location.href = data.url; return }
@@ -66,7 +83,7 @@ export default function RegisterPage() {
   return (
     <main style={pageWrapper}>
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
-        <div style={{ width: '100%', maxWidth: step === 'plan' ? '900px' : '480px' }}>
+        <div style={{ width: '100%', maxWidth: step === 'plan' ? '960px' : '520px' }}>
           <a href='/' style={{ display: 'block', fontSize: '22px', fontWeight: fontWeight.extrabold, color: colors.gold, letterSpacing: '0.12em', textDecoration: 'none', marginBottom: '48px', textAlign: 'center' as const }}>BEI</a>
 
           {step === 'plan' ? (
@@ -81,7 +98,7 @@ export default function RegisterPage() {
                   <div
                     key={plan.id}
                     onClick={() => { setSelectedPlan(plan.id); setError('') }}
-                    style={{ padding: '28px', border: `2px solid ${selectedPlan === plan.id ? colors.gold : colors.borderBase}`, borderRadius: '10px', backgroundColor: selectedPlan === plan.id ? '#0d0a04' : colors.bgCard, cursor: 'pointer', position: 'relative' as const, transition: 'border-color 0.15s' }}
+                    style={{ padding: '28px', border: \`2px solid \${selectedPlan === plan.id ? colors.gold : colors.borderBase}\`, borderRadius: '10px', backgroundColor: selectedPlan === plan.id ? '#0d0a04' : colors.bgCard, cursor: 'pointer', position: 'relative' as const, transition: 'border-color 0.15s' }}
                   >
                     {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '3px 14px', backgroundColor: colors.gold, color: '#050505', fontSize: '11px', fontWeight: fontWeight.bold, borderRadius: '20px' }}>MOST POPULAR</div>}
                     <div style={{ fontSize: fontSize.base, color: colors.textSecondary, marginBottom: '6px' }}>{plan.name}</div>
@@ -100,41 +117,46 @@ export default function RegisterPage() {
                   </div>
                 ))}
               </div>
-              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: `1px solid ${colors.errorBorder}`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '16px' }}>{error}</div>}
+              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: \`1px solid \${colors.errorBorder}\`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '16px' }}>{error}</div>}
               <button onClick={handleContinue} style={{ width: '100%', padding: '16px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: fontSize.md }}>
                 Continue with {PLANS.find(p => p.id === selectedPlan)?.name || 'selected plan'} →
               </button>
               <div style={{ marginTop: '16px', textAlign: 'center' as const, fontSize: fontSize.sm, color: colors.textMuted }}>
-                Already have an account?{' '}
-                <a href='/login' style={{ color: colors.gold, textDecoration: 'none' }}>Sign in</a>
+                Already have an account? <a href='/login' style={{ color: colors.gold, textDecoration: 'none' }}>Sign in</a>
               </div>
             </>
           ) : (
-            <div style={{ padding: '40px', border: `1px solid ${colors.borderBase}`, borderRadius: '12px', backgroundColor: colors.bgCard }}>
+            <div style={{ padding: '40px', border: \`1px solid \${colors.borderBase}\`, borderRadius: '12px', backgroundColor: colors.bgCard }}>
               <button onClick={() => setStep('plan')} style={{ background: 'none', border: 'none', color: colors.textMuted, cursor: 'pointer', fontSize: fontSize.base, marginBottom: '24px', padding: '0', display: 'flex', alignItems: 'center', gap: '6px' }}>← Back to plans</button>
               <div style={{ fontSize: '11px', color: colors.gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '8px', fontWeight: fontWeight.semibold }}>
-                {PLANS.find(p => p.id === selectedPlan)?.name}
+                {PLANS.find(p => p.id === selectedPlan)?.name} — {PLANS.find(p => p.id === selectedPlan)?.price}/month
               </div>
               <div style={{ fontSize: '26px', fontWeight: fontWeight.bold, marginBottom: '8px' }}>Your details</div>
-              <div style={{ fontSize: fontSize.base, color: colors.textSecondary, marginBottom: '32px', lineHeight: '1.6' }}>Complete your details then proceed to secure payment via Stripe.</div>
+              <div style={{ fontSize: fontSize.base, color: colors.textSecondary, marginBottom: '32px', lineHeight: '1.6' }}>
+                Enter your details below. After payment you will receive an email to set up your account and access your dashboard.
+              </div>
               <div style={{ marginBottom: '18px' }}>
-                <label style={labelStyle}>Full name</label>
+                <label style={labelStyle}>Full name <span style={{ color: colors.error }}>*</span></label>
                 <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder='Your full name' style={inputStyle} />
               </div>
               <div style={{ marginBottom: '18px' }}>
-                <label style={labelStyle}>Business email</label>
+                <label style={labelStyle}>Business name <span style={{ color: colors.error }}>*</span></label>
+                <input value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} placeholder='Your company name' style={inputStyle} />
+              </div>
+              <div style={{ marginBottom: '18px' }}>
+                <label style={labelStyle}>Business email <span style={{ color: colors.error }}>*</span></label>
                 <input value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} type='email' placeholder='you@company.com' style={inputStyle} />
               </div>
               <div style={{ marginBottom: '28px' }}>
-                <label style={labelStyle}>Company name</label>
-                <input value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} placeholder='Your company name' style={inputStyle} />
+                <label style={labelStyle}>Phone number <span style={{ color: colors.textMuted, fontSize: fontSize.sm }}>(optional)</span></label>
+                <input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} type='tel' placeholder='+44 7700 000000' style={inputStyle} />
               </div>
-              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: `1px solid ${colors.errorBorder}`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '18px' }}>{error}</div>}
+              {error && <div style={{ padding: '14px 16px', backgroundColor: colors.errorBg, border: \`1px solid \${colors.errorBorder}\`, borderRadius: '6px', fontSize: fontSize.base, color: colors.error, marginBottom: '18px' }}>{error}</div>}
               <button onClick={handleSubmit} disabled={loading} style={{ width: '100%', padding: '14px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: fontSize.md, opacity: loading ? 0.7 : 1 }}>
-                {loading ? 'Redirecting to payment...' : 'Continue to Payment →'}
+                {loading ? 'Redirecting to payment...' : 'Continue to Secure Payment →'}
               </button>
               <div style={{ marginTop: '16px', textAlign: 'center' as const, fontSize: fontSize.sm, color: colors.textMuted, lineHeight: '1.7' }}>
-                You will be taken to Stripe to complete your subscription securely. No payment stored by BEI.
+                After payment you will receive an email to activate your account and set your password. Secure payment via Stripe.
               </div>
             </div>
           )}

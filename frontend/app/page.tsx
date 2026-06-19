@@ -56,71 +56,13 @@ export default function LandingPage() {
             </div>
           </div>
           <div style={{ position: 'relative' as const, minHeight: '480px', display: 'flex', alignItems: 'center' }}>
-            <div style={{ position: 'absolute' as const, top: '-60px', left: '-60px', right: '-60px', bottom: '-60px', opacity: 0.55, pointerEvents: 'none' as const }}>
+            <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.12, pointerEvents: 'none' as const }}>
               <NetworkGraph width={720} height={600} nodeCount={32} />
             </div>
-            <div style={{ position: 'absolute' as const, inset: 0, background: 'radial-gradient(ellipse at center, transparent 40%, rgba(5,5,5,0.7) 100%)', pointerEvents: 'none' as const }} />
-            <div style={{ position: 'relative' as const, width: '100%', border: '1px solid rgba(200,162,74,0.25)', borderRadius: '16px', backgroundColor: 'rgba(5,5,5,0.82)', overflow: 'hidden', boxShadow: '0 0 60px rgba(0,0,0,0.5), 0 0 30px rgba(200,162,74,0.05)' }}>
+            <div style={{ position: 'relative' as const, width: '100%', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)' }}>
               <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px' }}>
-                <div style={{ padding: '20px' }}>
-                  <svg width="100%" viewBox="0 0 420 240" style={{ display: 'block' }}>
-                    <defs>
-                      <radialGradient id="heroGrad" cx="38%" cy="50%" r="40%">
-                        <stop offset="0%" stopColor="#C8A24A" stopOpacity="0.12" />
-                        <stop offset="100%" stopColor="#C8A24A" stopOpacity="0" />
-                      </radialGradient>
-                    </defs>
-                    <circle cx="160" cy="120" r="70" fill="url(#heroGrad)" />
-                    <line x1="160" y1="120" x2="50" y2="45" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.4" />
-                    <line x1="160" y1="120" x2="290" y2="45" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.4" />
-                    <line x1="160" y1="120" x2="30" y2="140" stroke="#555" strokeWidth="0.6" strokeOpacity="0.35" />
-                    <line x1="160" y1="120" x2="310" y2="130" stroke="#555" strokeWidth="0.6" strokeOpacity="0.35" />
-                    <line x1="160" y1="120" x2="80" y2="205" stroke="#333" strokeWidth="0.5" strokeOpacity="0.25" />
-                    <line x1="160" y1="120" x2="260" y2="210" stroke="#333" strokeWidth="0.5" strokeOpacity="0.25" />
-                    <circle cx="160" cy="120" r="52" fill="rgba(200,162,74,0.06)" stroke="#C8A24A" strokeWidth="1.5" />
-                    <circle cx="160" cy="120" r="36" fill="rgba(200,162,74,0.1)" stroke="#C8A24A" strokeWidth="0.8" />
-                    <text x="160" y="108" textAnchor="middle" fill="#C8A24A" fontSize="9" fontWeight="600" fontFamily="Inter" letterSpacing="1.5">PRIMARY</text>
-                    <text x="160" y="122" textAnchor="middle" fill="#f0f0f0" fontSize="12" fontWeight="700" fontFamily="Inter">Trust Deficit</text>
-                    <text x="160" y="137" textAnchor="middle" fill="#4aaa4a" fontSize="10" fontFamily="Inter">Verified 100/100</text>
-                    <circle cx="50" cy="45" r="20" fill="#0a0a0a" stroke="rgba(200,162,74,0.45)" strokeWidth="0.8" />
-                    <text x="50" y="41" textAnchor="middle" fill="#C8A24A" fontSize="8" fontFamily="Inter">Lead</text>
-                    <text x="50" y="52" textAnchor="middle" fill="#C8A24A" fontSize="8" fontFamily="Inter">Response</text>
-                    <circle cx="290" cy="45" r="20" fill="#0a0a0a" stroke="rgba(200,162,74,0.45)" strokeWidth="0.8" />
-                    <text x="290" y="41" textAnchor="middle" fill="#C8A24A" fontSize="8" fontFamily="Inter">Offer</text>
-                    <text x="290" y="52" textAnchor="middle" fill="#C8A24A" fontSize="8" fontFamily="Inter">Weakness</text>
-                    <circle cx="30" cy="140" r="15" fill="#0a0a0a" stroke="rgba(100,100,100,0.4)" strokeWidth="0.6" />
-                    <text x="30" y="144" textAnchor="middle" fill="#555" fontSize="8" fontFamily="Inter">Pricing</text>
-                    <circle cx="310" cy="130" r="15" fill="#0a0a0a" stroke="rgba(100,100,100,0.4)" strokeWidth="0.6" />
-                    <text x="310" y="134" textAnchor="middle" fill="#555" fontSize="8" fontFamily="Inter">Capacity</text>
-                    <circle cx="80" cy="205" r="12" fill="#0a0a0a" stroke="rgba(60,60,60,0.35)" strokeWidth="0.5" />
-                    <text x="80" y="209" textAnchor="middle" fill="#333" fontSize="8" fontFamily="Inter">Risk</text>
-                    <circle cx="260" cy="210" r="12" fill="#0a0a0a" stroke="rgba(60,60,60,0.35)" strokeWidth="0.5" />
-                    <text x="260" y="214" textAnchor="middle" fill="#333" fontSize="8" fontFamily="Inter">Market</text>
-                  </svg>
-                </div>
-                <div style={{ borderLeft: '1px solid #1a1a1a', padding: '24px 20px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', gap: '16px', backgroundColor: '#060606' }}>
-                  <div>
-                    <div style={{ fontSize: '9px', color: '#444', marginBottom: '4px', letterSpacing: '0.15em' }}>HEALTH</div>
-                    <div style={{ fontSize: '36px', fontWeight: '800', color: '#C8A24A', lineHeight: '1' }}>67</div>
-                    <div style={{ height: '3px', backgroundColor: '#111', borderRadius: '2px', marginTop: '8px', overflow: 'hidden' }}>
-                      <div style={{ width: '67%', height: '100%', backgroundColor: '#C8A24A', borderRadius: '2px' }} />
-                    </div>
-                  </div>
-                  <div style={{ borderTop: '1px solid #111', paddingTop: '14px' }}>
-                    <div style={{ fontSize: '9px', color: '#444', marginBottom: '4px', letterSpacing: '0.15em' }}>OPPORTUNITY</div>
-                    <div style={{ fontSize: '22px', fontWeight: '800', color: '#C8A24A' }}>£180k</div>
-                  </div>
-                  <div style={{ borderTop: '1px solid #111', paddingTop: '14px' }}>
-                    <div style={{ fontSize: '9px', color: '#444', marginBottom: '4px', letterSpacing: '0.15em' }}>SEVERITY</div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#cc4444' }}>HIGH</div>
-                  </div>
-                  <div style={{ borderTop: '1px solid #111', paddingTop: '14px' }}>
-                    <div style={{ fontSize: '9px', color: '#444', marginBottom: '4px', letterSpacing: '0.15em' }}>VERIFIED</div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#4aaa4a' }}>5/5 tests</div>
-                  </div>
-                </div>
-              </div>
+              <img src='/bei-hero.png' alt='BEI Business Intelligence' style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '520px', objectFit: 'cover' }} />
+              <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(135deg, transparent 60%, rgba(5,5,5,0.4) 100%)', pointerEvents: 'none' as const }} />
             </div>
           </div>
         </div>
