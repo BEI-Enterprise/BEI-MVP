@@ -53,7 +53,9 @@ export default function PlatformPage() {
   ]
 
   const nav = [
+    { label: 'Home', href: '/' },
     { label: 'Platform', href: '/platform', active: true },
+    { label: 'Our Clients', href: '/clients' },
     { label: 'Pricing', href: '/pricing' },
     { label: 'Example Report', href: '/example-report' },
   ]

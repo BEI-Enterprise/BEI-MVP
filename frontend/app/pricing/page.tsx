@@ -80,7 +80,9 @@ function PricingContent() {
 
   const nav = [
     { label: 'Home', href: '/' },
-    { label: 'Pricing', href: '/pricing' },
+    { label: 'Platform', href: '/platform' },
+    { label: 'Our Clients', href: '/clients' },
+    { label: 'Pricing', href: '/pricing', active: true },
     { label: 'Example Report', href: '/example-report' },
   ]
 
