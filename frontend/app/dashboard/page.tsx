@@ -15,7 +15,7 @@ export default function DashboardPage() {
   const [selected, setSelected] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [showWelcome, setShowWelcome] = useState(false)
-  const [activeTab, setActiveTab] = useState<'overview'|'reports'|'revenue'|'issues'|'meetings'|'connectors'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview'|'reports'|'revenue'|'issues'|'meetings'|'connectors'|'deployment'>('overview')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -78,6 +78,7 @@ export default function DashboardPage() {
     { id: 'issues', label: 'Critical Issues' },
     { id: 'meetings', label: 'Meeting Centre' },
     { id: 'connectors', label: 'Data Connectors' },
+    { id: 'deployment', label: 'Outcome & Deployment' },
   ]
 
   return (
@@ -502,6 +503,131 @@ export default function DashboardPage() {
               <div style={{ padding: '20px 24px', backgroundColor: '#080808', border: '1px solid #161616', borderRadius: '8px', fontSize: '13px', color: '#444', lineHeight: '1.7' }}>
                 ◈ All connectors use OAuth 2.0 or API key authentication. BEI never stores your credentials — only the data needed to run your intelligence analysis. Data is refreshed on each MRI cycle.
               </div>
+            </div>
+          )}
+
+          {/* OUTCOME & DEPLOYMENT CENTRE TAB */}
+          {activeTab === 'deployment' && (
+            <div>
+              <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>OUTCOME & DEPLOYMENT CENTRE</div>
+              <div style={{ fontSize: '13px', color: '#555', marginBottom: '28px', lineHeight: '1.7' }}>
+                Track live deployments, monitor outcomes and measure the impact of constraint resolution across your business.
+              </div>
+
+              {result && result.deployment_packages ? (
+                <>
+                  {/* Opportunity summary */}
+                  {result.total_opportunity && (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '28px' }}>
+                      <div style={{ padding: '20px', backgroundColor: card, border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px' }}>
+                        <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.15em', marginBottom: '8px' }}>TOTAL OPPORTUNITY</div>
+                        <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>£{Math.round((result.total_opportunity.total_low || 0)/1000)}k–£{Math.round((result.total_opportunity.total_high || 0)/1000)}k</div>
+                        <div style={{ fontSize: '11px', color: '#333', marginTop: '4px' }}>Annual value available</div>
+                      </div>
+                      <div style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
+                        <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.15em', marginBottom: '8px' }}>DEPLOYMENTS READY</div>
+                        <div style={{ fontSize: '28px', fontWeight: '800', color: '#f0f0f0' }}>
+                          {((result.deployment_packages.tier1_automatic || []).length + (result.deployment_packages.tier2_approval || []).length + (result.deployment_packages.tier3_recommendation || []).length)}
+                        </div>
+                        <div style={{ fontSize: '11px', color: '#333', marginTop: '4px' }}>Across all tiers</div>
+                      </div>
+                      <div style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
+                        <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.15em', marginBottom: '8px' }}>PRIMARY CONSTRAINT</div>
+                        <div style={{ fontSize: '14px', fontWeight: '700', color: '#cc4444', lineHeight: '1.3' }}>{primary?.name || '—'}</div>
+                        <div style={{ fontSize: '11px', color: '#333', marginTop: '4px' }}>Root cause confirmed</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Tier 1 — Automatic */}
+                  {(result.deployment_packages.tier1_automatic || []).length > 0 && (
+                    <div style={{ marginBottom: '24px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                        <div style={{ fontSize: '10px', color: '#4aaa4a', letterSpacing: '0.2em', fontWeight: '700' }}>TIER 1 — AUTOMATIC DEPLOYMENTS</div>
+                        <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>READY TO EXECUTE</div>
+                      </div>
+                      {(result.deployment_packages.tier1_automatic || []).map((pkg: any, i: number) => (
+                        <div key={i} style={{ padding: '20px 24px', backgroundColor: '#080f04', border: '1px solid #1a3a1a', borderLeft: '3px solid #4aaa4a', borderRadius: '8px', marginBottom: '10px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                            <div style={{ fontSize: '15px', fontWeight: '600' }}>{pkg.title || pkg.action || 'Deployment Action'}</div>
+                            <div style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>AUTO</div>
+                          </div>
+                          <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', marginBottom: '10px' }}>{pkg.description || pkg.rationale || ''}</div>
+                          {pkg.expected_impact && <div style={{ fontSize: '12px', color: gold }}>Expected impact: {pkg.expected_impact}</div>}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Tier 2 — Approval required */}
+                  {(result.deployment_packages.tier2_approval || []).length > 0 && (
+                    <div style={{ marginBottom: '24px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                        <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', fontWeight: '700' }}>TIER 2 — APPROVAL REQUIRED</div>
+                        <div style={{ fontSize: '10px', color: gold, backgroundColor: 'rgba(200,162,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(200,162,74,0.2)' }}>AWAITING SIGN-OFF</div>
+                      </div>
+                      {(result.deployment_packages.tier2_approval || []).map((pkg: any, i: number) => (
+                        <div key={i} style={{ padding: '20px 24px', backgroundColor: '#0f0a04', border: '1px solid #3a2a04', borderLeft: '3px solid #C8A24A', borderRadius: '8px', marginBottom: '10px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                            <div style={{ fontSize: '15px', fontWeight: '600' }}>{pkg.title || pkg.action || 'Deployment Action'}</div>
+                            <div style={{ fontSize: '10px', color: gold, fontWeight: '600' }}>APPROVAL</div>
+                          </div>
+                          <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', marginBottom: '10px' }}>{pkg.description || pkg.rationale || ''}</div>
+                          {pkg.expected_impact && <div style={{ fontSize: '12px', color: gold }}>Expected impact: {pkg.expected_impact}</div>}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Tier 3 — Recommendations */}
+                  {(result.deployment_packages.tier3_recommendation || []).length > 0 && (
+                    <div style={{ marginBottom: '24px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                        <div style={{ fontSize: '10px', color: '#4a8ab0', letterSpacing: '0.2em', fontWeight: '700' }}>TIER 3 — STRATEGIC RECOMMENDATIONS</div>
+                      </div>
+                      {(result.deployment_packages.tier3_recommendation || []).map((pkg: any, i: number) => (
+                        <div key={i} style={{ padding: '20px 24px', backgroundColor: card, border: '1px solid #1a2a3a', borderLeft: '3px solid #4a8ab0', borderRadius: '8px', marginBottom: '10px' }}>
+                          <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '8px' }}>{pkg.title || pkg.action || 'Strategic Recommendation'}</div>
+                          <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6' }}>{pkg.description || pkg.rationale || ''}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Outcome tracking */}
+                  <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
+                    <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>OUTCOME TRACKING</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '16px' }}>
+                      {[
+                        { label: 'Deployments Active', value: '0', color: gold },
+                        { label: 'Outcomes Recorded', value: '0', color: '#4aaa4a' },
+                        { label: 'Constraint Status', value: primary?.name ? 'Active' : 'None', color: '#cc4444' },
+                      ].map(m => (
+                        <div key={m.label} style={{ padding: '16px', backgroundColor: '#080808', borderRadius: '6px', border: '1px solid #161616' }}>
+                          <div style={{ fontSize: '10px', color: '#333', marginBottom: '6px' }}>{m.label.toUpperCase()}</div>
+                          <div style={{ fontSize: '20px', fontWeight: '700', color: m.color }}>{m.value}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ fontSize: '13px', color: '#444', lineHeight: '1.7' }}>
+                      ◈ Outcome tracking activates when deployments are executed. Visit the full
+                      <a href='/deployments' style={{ color: gold, textDecoration: 'none', margin: '0 6px', fontWeight: '600' }}>Deployments</a>
+                      and
+                      <a href='/outcomes' style={{ color: gold, textDecoration: 'none', margin: '0 6px', fontWeight: '600' }}>Outcomes</a>
+                      pages for detailed execution management.
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div style={{ padding: '48px', textAlign: 'center' as const, backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
+                  <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: '600' }}>NO DEPLOYMENTS YET</div>
+                  <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px' }}>Complete your MRI to unlock the deployment engine</div>
+                  <div style={{ fontSize: '13px', color: '#555', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px', lineHeight: '1.7' }}>
+                    Once your Business MRI is complete, BEI will generate verified deployment packages across three tiers — automatic, approval-required and strategic recommendations.
+                  </div>
+                  <a href='/book' style={{ padding: '12px 32px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px' }}>Start Your Free MRI →</a>
+                </div>
+              )}
             </div>
           )}
 
