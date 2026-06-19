@@ -49,6 +49,10 @@ export default function BEIIntelligencePage() {
         </div>
       </section>
 
+      <section style={{ padding: '60px 48px', textAlign: 'center' as const }}>
+        <img src="/bei-intelligence-image.png" alt="BEI Intelligence" style={{ maxWidth: '100%', width: '800px', borderRadius: '12px', border: '1px solid #1e1e1e', display: 'block', margin: '0 auto' }} />
+      </section>
+
       <section style={{ padding: '100px 48px', borderBottom: '1px solid #111' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <RevealSection>
