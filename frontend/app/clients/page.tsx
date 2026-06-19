@@ -1,5 +1,6 @@
 'use client'
 
+import Nav from '../components/Nav'
 import { useState } from 'react'
 import { RevealSection } from '../../components/BEIAnimations'
 
@@ -21,19 +22,7 @@ export default function ClientsPage() {
   return (
     <main style={{ backgroundColor: dark, color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
 
-      {/* NAV */}
-      <nav style={{ position: 'sticky' as const, top: 0, zIndex: 100, padding: '0 48px', height: '68px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #161616', backgroundColor: 'rgba(5,5,5,0.97)', backdropFilter: 'blur(12px)' }}>
-        <a href='/' style={{ fontSize: '20px', fontWeight: '800', color: gold, letterSpacing: '0.12em', textDecoration: 'none' }}>BEI</a>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {nav.map(n => (
-            <a key={n.h} href={n.h} style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: n.active ? gold : '#777777', borderBottom: n.active ? '2px solid #C8A24A' : '2px solid transparent', textDecoration: 'none', fontWeight: n.active ? '600' : '400' }}>{n.l}</a>
-          ))}
-        </div>
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <a href='/login' style={{ fontSize: '15px', color: '#777777', textDecoration: 'none' }}>Sign in</a>
-          <a href='/book' style={{ padding: '10px 22px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Free MRI →</a>
-        </div>
-      </nav>
+      <Nav active="/clients" />
 
       {/* HERO */}
       <section style={{ padding: '100px 48px 80px', borderBottom: '1px solid #111', position: 'relative' as const, overflow: 'hidden' }}>

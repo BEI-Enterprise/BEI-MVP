@@ -1,4 +1,5 @@
 'use client'
+import Nav from '../components/Nav'
 import { useState, useEffect } from 'react'
 import { createClient } from '../../lib/supabase'
 
@@ -30,14 +31,7 @@ export default function AccountPage() {
   ]
 
   return (
-    <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh'}}>
-      <nav style={{padding:'0 48px',borderBottom:'1px solid #161616',display:'flex',justifyContent:'space-between',alignItems:'center',height:'68px',backgroundColor:'rgba(5,5,5,0.97)',backdropFilter:'blur(12px)',position:'sticky' as const,top:0,zIndex:100}}>
-        <a href="/" style={{fontSize:'20px',fontWeight:'800',color:gold,letterSpacing:'0.12em',textDecoration:'none'}}>BEI</a>
-        <div style={{display:'flex',gap:'24px',alignItems:'center'}}>
-          <a href="/dashboard" style={{fontSize:'13px',color:'#666',textDecoration:'none'}}>Dashboard</a>
-          <button onClick={handleSignOut} style={{fontSize:'13px',color:'#666',background:'none',border:'none',cursor:'pointer',padding:0}}>Sign out</button>
-        </div>
-      </nav>
+      <Nav />
 
       <div style={{maxWidth:'800px',margin:'0 auto',padding:'48px 24px'}}>
 

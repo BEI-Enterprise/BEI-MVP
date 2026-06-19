@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Nav from '../components/Nav'
 import { RevealSection, GlowCard, DetectionBarsSection } from '../../components/BEIAnimations'
 
 const NetworkGraph = dynamic(() => import('../../components/BEIAnimations').then(m => ({ default: m.NetworkGraph })), { ssr: false })
@@ -63,17 +64,7 @@ export default function PlatformPage() {
   return (
     <main style={{ backgroundColor: dark, color: '#fff', fontFamily: 'Inter, system-ui, sans-serif', overflowX: 'hidden' }}>
 
-      {/* NAV */}
-      <nav style={{ position: 'sticky' as const, top: 0, zIndex: 100, padding: '0 48px', height: '68px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #161616', backgroundColor: 'rgba(5,5,5,0.97)', backdropFilter: 'blur(12px)' }}>
-        <a href='/' style={{ fontSize: '20px', fontWeight: '800', color: gold, letterSpacing: '0.12em', textDecoration: 'none' }}>BEI</a>
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          {nav.map(n => (
-            <a key={n.href} href={n.href} style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: (n as any).active ? '#C8A24A' : '#777777', borderBottom: (n as any).active ? '2px solid #C8A24A' : '2px solid transparent', textDecoration: 'none', fontWeight: (n as any).active ? '600' : '400' }}>{n.label}</a>
-          ))}
-          <a href='/login' style={{ fontSize: '15px', color: '#777777', textDecoration: 'none', padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center' }}>Sign in</a>
-          <a href='/book' style={{ padding: '10px 22px', backgroundColor: '#C8A24A', color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Free MRI →</a>
-        </div>
-      </nav>
+      <Nav active="/platform" />
 
       {/* HERO */}
       <section style={{ minHeight: '92vh', display: 'flex', alignItems: 'center', padding: '80px 48px', position: 'relative' as const, overflow: 'hidden' }}>

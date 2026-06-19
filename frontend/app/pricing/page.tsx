@@ -1,5 +1,6 @@
 'use client'
 import { useCurrency, formatPrice } from '../../lib/currency'
+import Nav from '../components/Nav'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
@@ -87,15 +88,7 @@ function PricingContent() {
   ]
 
   return (
-    <main style={{backgroundColor:'#050505',color:'#fff',fontFamily:'Inter,system-ui,sans-serif',minHeight:'100vh'}}>
-      <nav style={{padding:'0 48px',borderBottom:'1px solid #161616',display:'flex',justifyContent:'space-between',alignItems:'center',height:'68px',backgroundColor:'rgba(5,5,5,0.97)',position:'sticky' as const,top:0,zIndex:100}}>
-        <a href="/" style={{fontSize:'20px',fontWeight:'800',color:gold,letterSpacing:'0.12em',textDecoration:'none'}}>BEI</a>
-        <div style={{display:'flex',gap:'32px',alignItems:'center'}}>
-          {nav.map(n => <a key={n.href} href={n.href} style={{padding:'0 20px',height:'68px',display:'flex',alignItems:'center',fontSize:'15px',color:(n as any).active?'#C8A24A':'#777777',borderBottom:(n as any).active?'2px solid #C8A24A':'2px solid transparent',textDecoration:'none',fontWeight:(n as any).active?'600':'400'}}>{n.label}</a>)}
-          <a href="/login" style={{fontSize:'13px',color:'#888',textDecoration:'none'}}>Sign in</a>
-          <a href="/register" style={{padding:'8px 20px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'4px',textDecoration:'none',fontSize:'13px'}}>Free MRI →</a>
-        </div>
-      </nav>
+      <Nav active="/pricing" />
 
       <section style={{padding:'80px 48px 60px',textAlign:'center' as const}}>
         {reason === 'subscription_required' && (
