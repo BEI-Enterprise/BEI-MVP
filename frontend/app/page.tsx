@@ -215,9 +215,9 @@ export default function LandingPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
             {[
-              { name: 'MRI Analysis', price: formatPrice(199, currency), period: '/month', features: ['Business MRI','Health Score','Constraint Detection','Monthly Updates'], cta: 'Get Started', popular: false },
-              { name: 'Analysis + Opportunity', price: formatPrice(399, currency), period: '/month', features: ['Everything in Analysis','Opportunity Mapping','Prioritisation Engine','Opportunity Quantification'], cta: 'Most Popular', popular: true },
-              { name: 'Full Platform', price: formatPrice(999, currency), period: '/month', features: ['Everything above','Deployment Recommendations','Execution Tracking','Outcome Monitoring','Continuous Optimisation'], cta: 'Full Access', popular: false },
+              { name: 'MRI Analysis', price: 199, period: '/month', features: ['Business MRI','Health Score','Constraint Detection','Monthly Updates'], cta: 'Get Started', popular: false },
+              { name: 'Analysis + Opportunity', price: 399, period: '/month', features: ['Everything in Analysis','Opportunity Mapping','Prioritisation Engine','Opportunity Quantification'], cta: 'Most Popular', popular: true },
+              { name: 'Full Platform', price: 999, period: '/month', features: ['Everything above','Deployment Recommendations','Execution Tracking','Outcome Monitoring','Continuous Optimisation'], cta: 'Full Access', popular: false },
             ].map(plan => (
               <div key={plan.name} style={{ padding: '32px', border: `1px solid ${plan.popular ? gold : '#1a1a1a'}`, borderRadius: '8px', backgroundColor: plan.popular ? '#0d0a04' : '#080808', position: 'relative' as const }}>
                 {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '4px 16px', backgroundColor: gold, color: '#050505', fontSize: '11px', fontWeight: '700', borderRadius: '20px' }}>MOST POPULAR</div>}

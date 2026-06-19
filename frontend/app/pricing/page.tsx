@@ -11,7 +11,7 @@ function PricingContent() {
   const plans = [
     {
       name: 'MRI Analysis',
-      price: formatPrice(199, currency),
+      price: 199,
       originalPrice: '£332',
       saving: '£1,596',
       period: '/month',
@@ -33,7 +33,7 @@ function PricingContent() {
     },
     {
       name: 'Analysis + Opportunity',
-      price: formatPrice(399, currency),
+      price: 399,
       originalPrice: '£665',
       saving: '£3,192',
       period: '/month',
@@ -55,7 +55,7 @@ function PricingContent() {
     },
     {
       name: 'Full Platform',
-      price: formatPrice(999, currency),
+      price: 999,
       originalPrice: '£1,665',
       saving: '£7,992',
       period: '/month',
@@ -124,7 +124,7 @@ function PricingContent() {
                 <span style={{fontSize:'11px',padding:'2px 8px',backgroundColor:'rgba(200,162,74,0.12)',color:gold,borderRadius:'3px',fontWeight:'600'}}>40% OFF</span>
               </div>
               <div style={{display:'flex',alignItems:'baseline',gap:'4px',marginBottom:'4px'}}>
-                <span style={{fontSize:'44px',fontWeight:'700',color:plan.popular?gold:'#fff'}}>{plan.price}</span>
+                <span style={{fontSize:'44px',fontWeight:'700',color:plan.popular?gold:'#fff'}}>{formatPrice(plan.price, currency)}</span>
                 <span style={{fontSize:'14px',color:'#555'}}>{plan.period}</span>
               </div>
               <div style={{fontSize:'12px',color:'#4aaa4a',marginBottom:'8px'}}>Save {(plan as any).saving}/year</div>
