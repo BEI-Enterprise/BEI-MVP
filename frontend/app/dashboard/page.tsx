@@ -175,24 +175,24 @@ export default function DashboardPage() {
     insight: 'BEI intelligence monitoring is active for your business. Industry-specific benchmarks will increase in precision over successive MRI cycles. Current cross-sector data confirms: trust infrastructure, lead response speed and revenue concentration are the three most common constraint drivers across all SME sectors in 2026.'
   }
   const marketUpdates = isEstate ? [
-    { tag: 'PROPERTY MARKET', title: 'UK buyer demand up in Q2 2026', summary: 'Increased buyer activity across UK property market. Agencies with strong review velocity and fast lead response are capturing disproportionate share of new instructions.', severity: 'opportunity', date: 'Jun 2026' },
-    { tag: 'TRUST SIGNALS', title: 'Google algorithm now excludes sub-4.0★ from best searches', summary: 'Businesses below 4.0★ are excluded from "best estate agent" search results. Review rating and volume now directly impact organic lead generation. 2026 platform average: 224 reviews.', severity: 'alert', date: 'Jun 2026' },
-    { tag: 'LEAD RESPONSE', title: '78% of buyers work with the first responder', summary: 'After-hours enquiries represent 62% of total volume. Agencies without automated response systems are losing the majority of out-of-hours leads to faster competitors.', severity: 'alert', date: 'May 2026' },
-    { tag: 'COMPETITIVE', title: 'Competitor review velocity increasing', summary: 'Review gap widening in competitive local markets. Agencies not actively collecting reviews are losing ground daily. Minimum competitive velocity: 4–8 reviews per month.', severity: 'watch', date: 'Jun 2026' },
+    { tag: 'PROPERTY MARKET', title: 'UK buyer demand up in Q2 2026', summary: 'Increased buyer activity across UK property market. Agencies with strong review velocity and fast lead response are capturing disproportionate share of new instructions.', severity: 'opportunity', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80' },
+    { tag: 'TRUST SIGNALS', title: 'Google excludes sub-4.0★ from best searches', summary: 'Businesses below 4.0★ are excluded from "best estate agent" search results in 2026. Review rating and volume now directly impact organic lead generation. Platform average: 224 reviews.', severity: 'alert', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80' },
+    { tag: 'LEAD RESPONSE', title: '78% of buyers work with the first responder', summary: 'After-hours enquiries represent 62% of total volume. Agencies without automated response systems are losing the majority of out-of-hours leads to faster competitors.', severity: 'alert', date: 'May 2026', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80' },
+    { tag: 'COMPETITIVE', title: 'Review velocity gap widening in local markets', summary: 'Agencies not actively collecting reviews are losing ground daily to competitors. Minimum competitive velocity: 4–8 new Google reviews per month to maintain local search position.', severity: 'watch', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
   ] : isMarketing ? [
-    { tag: 'PRICING PRESSURE', title: 'UK agency NI costs up £8k–£12k on £500k payroll', summary: 'Employer NI rate increase from April 2025 is now fully materialising in 2026 margins. Agencies that have not repriced since 2024 are absorbing these costs directly into net profit.', severity: 'alert', date: 'Jun 2026' },
-    { tag: 'CLIENT RETENTION', title: 'Retainer agencies achieve 56-month avg client lifespan', summary: 'vs 24 months for project-based agencies. Retainer model transition is the single highest-leverage structural change available to most SME agencies in 2026.', severity: 'opportunity', date: 'May 2026' },
-    { tag: 'AI SERVICES', title: 'AI-adjacent service demand up significantly in 2026', summary: 'Agencies with clear AI-assisted positioning are capturing disproportionate new business. Offer clarity around AI services is increasingly determining proposal conversion rates.', severity: 'opportunity', date: 'Jun 2026' },
-    { tag: 'CAPACITY', title: 'Utilisation below 65% sends margin to zero', summary: '2026 benchmark data confirms junior staff should run at 80–85% billable utilisation. Senior leadership above 60% billable is a capacity constraint suppressing strategy and BD work.', severity: 'watch', date: 'May 2026' },
+    { tag: 'PRICING PRESSURE', title: 'UK agency NI costs up £8k–£12k on £500k payroll', summary: 'Employer NI rate increase from April 2025 is now fully materialising in 2026 margins. Agencies that have not repriced since 2024 are absorbing these costs directly into net profit.', severity: 'alert', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80' },
+    { tag: 'CLIENT RETENTION', title: 'Retainer agencies achieve 56-month avg client lifespan', summary: 'vs 24 months for project-based agencies. Retainer model transition is the single highest-leverage structural change available to most SME agencies in 2026.', severity: 'opportunity', date: 'May 2026', img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80' },
+    { tag: 'AI SERVICES', title: 'AI-adjacent service demand up significantly in 2026', summary: 'Agencies with clear AI-assisted positioning are capturing disproportionate new business. Offer clarity around AI services is increasingly determining proposal conversion rates.', severity: 'opportunity', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80' },
+    { tag: 'CAPACITY', title: 'Utilisation below 65% sends agency margin to zero', summary: '2026 benchmark data confirms junior staff should run at 80–85% billable utilisation. Senior leadership above 60% billable is a capacity constraint suppressing strategy and BD work.', severity: 'watch', date: 'May 2026', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80' },
   ] : isAccounting ? [
-    { tag: 'INDUSTRY GROWTH', title: 'UK accounting sector +21.7% client growth YoY', summary: 'Record demand for accounting services across all firm sizes in 2026. Firms not capturing this growth have at least one active constraint — most commonly advisory positioning or partner dependency.', severity: 'opportunity', date: 'Jun 2026' },
-    { tag: 'ADVISORY SHIFT', title: 'Advisory firms generating 3–5× revenue per client', summary: 'Gap between compliance-led and advisory-led firms is widening rapidly. CX-mature firms command 15–20% billing rate premiums. Compliance-only positioning is a strategic constraint.', severity: 'alert', date: 'Jun 2026' },
-    { tag: 'SPECIALISATION', title: 'Specialist accountants commanding +25% pricing premium', summary: 'As client complexity increases, demand for specialist accountants grows. Generalist positioning is a growing strategic risk. Specialisation is the highest-leverage differentiation available in 2026.', severity: 'opportunity', date: 'May 2026' },
-    { tag: 'COMPLIANCE RISK', title: 'HMRC late payment rate 7.75%/yr from Jan 2026', summary: 'Corporation tax interest rate on unpaid amounts increased from January 2026. Compliance risk monitoring across client base is now a standard expectation. MTD Phase 3 advisory opportunity active.', severity: 'watch', date: 'Jan 2026' },
+    { tag: 'INDUSTRY GROWTH', title: 'UK accounting sector +21.7% client growth YoY', summary: 'Record demand for accounting services across all firm sizes in 2026. Firms not capturing this growth have at least one active constraint — most commonly advisory positioning or partner dependency.', severity: 'opportunity', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&q=80' },
+    { tag: 'ADVISORY SHIFT', title: 'Advisory firms generating 3–5× revenue per client', summary: 'Gap between compliance-led and advisory-led firms is widening rapidly. CX-mature firms command 15–20% billing rate premiums. Compliance-only positioning is a strategic constraint.', severity: 'alert', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80' },
+    { tag: 'SPECIALISATION', title: 'Specialist accountants commanding +25% pricing premium', summary: 'As client complexity increases, demand for specialist accountants grows. Generalist positioning is a growing strategic risk. Specialisation is the highest-leverage differentiation in 2026.', severity: 'opportunity', date: 'May 2026', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80' },
+    { tag: 'COMPLIANCE RISK', title: 'HMRC late payment rate 7.75%/yr from Jan 2026', summary: 'Corporation tax interest on unpaid amounts from January 2026. MTD Phase 3 compliance creating advisory opportunity. Firms with structured CX programmes seeing retention improvements of 3–5 points.', severity: 'watch', date: 'Jan 2026', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80' },
   ] : [
-    { tag: 'BEI INTELLIGENCE', title: 'Set your business type to receive targeted market updates', summary: 'Go to Account Settings and select your business category — Estate Agency, Marketing Agency or Accounting & Finance. BEI will then show you verified market intelligence specific to your sector.', severity: 'watch', date: 'Jun 2026' },
-    { tag: 'CROSS-SECTOR', title: 'Trust infrastructure now a primary constraint across all sectors', summary: 'Review volume, response speed and social proof are the most common constraint triggers across all three BEI-covered sectors in 2026. Average Google review count across all businesses: 224.', severity: 'alert', date: 'Jun 2026' },
-    { tag: 'CROSS-SECTOR', title: 'Retainer/advisory models outperforming transactional by 3–5×', summary: 'Across estate, marketing and accounting sectors — businesses operating retainer or advisory models generate 3–5× more revenue per client than transactional counterparts.', severity: 'opportunity', date: 'May 2026' },
+    { tag: 'BEI INTELLIGENCE', title: 'Set your business type to receive targeted market updates', summary: 'Go to Account Settings and select your business category. BEI will show you verified market intelligence specific to your sector.', severity: 'watch', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80' },
+    { tag: 'CROSS-SECTOR', title: 'Trust infrastructure now a primary constraint across all sectors', summary: 'Review volume, response speed and social proof are the most common constraint triggers across all three BEI-covered sectors in 2026. Average Google review count: 224.', severity: 'alert', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80' },
+    { tag: 'CROSS-SECTOR', title: 'Retainer/advisory models outperforming transactional by 3–5×', summary: 'Across estate, marketing and accounting sectors — businesses operating retainer or advisory models generate 3–5× more revenue per client than transactional counterparts.', severity: 'opportunity', date: 'May 2026', img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80' },
   ]
 
   const tabs = [
@@ -463,21 +463,27 @@ export default function DashboardPage() {
                     <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>BEI VERIFIED · JUNE 2026</span>
                   </div>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                  {marketUpdates.map((u, i) => (
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {marketUpdates.map((u: any, i: number) => (
                     <div key={i} style={{
-                      padding: '16px 18px',
-                      backgroundColor: u.severity === 'alert' ? '#0f0a04' : u.severity === 'opportunity' ? '#040f04' : '#111',
+                      backgroundColor: '#111',
                       border: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}`,
-                      borderLeft: `3px solid ${u.severity === 'alert' ? '#cc4444' : u.severity === 'opportunity' ? '#4aaa4a' : gold}`,
-                      borderRadius: '8px'
+                      borderRadius: '10px',
+                      overflow: 'hidden' as const
                     }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <div style={{ fontSize: '9px', color: u.severity === 'alert' ? '#cc4444' : u.severity === 'opportunity' ? '#4aaa4a' : gold, fontWeight: '700', letterSpacing: '0.15em' }}>{u.tag}</div>
-                        <div style={{ fontSize: '9px', color: '#444' }}>{u.date}</div>
+                      <div style={{ position: 'relative' as const, height: '120px', overflow: 'hidden' as const }}>
+                        <img src={u.img} alt={u.title} style={{ width: '100%', height: '120px', objectFit: 'cover', display: 'block', opacity: 0.75 }} onError={(e: any) => { e.target.style.display = 'none' }} />
+                        <div style={{ position: 'absolute' as const, inset: 0, background: `linear-gradient(180deg, transparent 30%, ${u.severity === 'alert' ? 'rgba(15,5,0,0.9)' : u.severity === 'opportunity' ? 'rgba(0,10,0,0.9)' : 'rgba(10,10,10,0.9)'} 100%)` }} />
+                        <div style={{ position: 'absolute' as const, bottom: '10px', left: '12px', right: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div style={{ fontSize: '9px', color: u.severity === 'alert' ? '#ff6b6b' : u.severity === 'opportunity' ? '#6bcf6b' : gold, fontWeight: '700', letterSpacing: '0.15em', backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{u.tag}</div>
+                          <div style={{ fontSize: '9px', color: '#888', backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{u.date}</div>
+                        </div>
+                        <div style={{ position: 'absolute' as const, top: '10px', right: '10px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: u.severity === 'alert' ? '#cc4444' : u.severity === 'opportunity' ? '#4aaa4a' : gold, boxShadow: `0 0 6px ${u.severity === 'alert' ? 'rgba(204,68,68,0.8)' : u.severity === 'opportunity' ? 'rgba(74,170,74,0.8)' : 'rgba(200,162,74,0.8)'}` }} />
                       </div>
-                      <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '5px', lineHeight: '1.3' }}>{u.title}</div>
-                      <div style={{ fontSize: '11px', color: '#666', lineHeight: '1.6' }}>{u.summary}</div>
+                      <div style={{ padding: '14px 16px', borderTop: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}` }}>
+                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#e8e8e8', marginBottom: '6px', lineHeight: '1.3' }}>{u.title}</div>
+                        <div style={{ fontSize: '11px', color: '#777', lineHeight: '1.65' }}>{u.summary}</div>
+                      </div>
                     </div>
                   ))}
                 </div>
