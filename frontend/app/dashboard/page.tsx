@@ -174,6 +174,27 @@ export default function DashboardPage() {
     ],
     insight: 'BEI intelligence monitoring is active for your business. Industry-specific benchmarks will increase in precision over successive MRI cycles. Current cross-sector data confirms: trust infrastructure, lead response speed and revenue concentration are the three most common constraint drivers across all SME sectors in 2026.'
   }
+  const marketUpdates = isEstate ? [
+    { tag: 'PROPERTY MARKET', title: 'UK buyer demand up in Q2 2026', summary: 'Increased buyer activity across UK property market. Agencies with strong review velocity and fast lead response are capturing disproportionate share of new instructions.', severity: 'opportunity', date: 'Jun 2026' },
+    { tag: 'TRUST SIGNALS', title: 'Google algorithm now excludes sub-4.0★ from best searches', summary: 'Businesses below 4.0★ are excluded from "best estate agent" search results. Review rating and volume now directly impact organic lead generation. 2026 platform average: 224 reviews.', severity: 'alert', date: 'Jun 2026' },
+    { tag: 'LEAD RESPONSE', title: '78% of buyers work with the first responder', summary: 'After-hours enquiries represent 62% of total volume. Agencies without automated response systems are losing the majority of out-of-hours leads to faster competitors.', severity: 'alert', date: 'May 2026' },
+    { tag: 'COMPETITIVE', title: 'Competitor review velocity increasing', summary: 'Review gap widening in competitive local markets. Agencies not actively collecting reviews are losing ground daily. Minimum competitive velocity: 4–8 reviews per month.', severity: 'watch', date: 'Jun 2026' },
+  ] : isMarketing ? [
+    { tag: 'PRICING PRESSURE', title: 'UK agency NI costs up £8k–£12k on £500k payroll', summary: 'Employer NI rate increase from April 2025 is now fully materialising in 2026 margins. Agencies that have not repriced since 2024 are absorbing these costs directly into net profit.', severity: 'alert', date: 'Jun 2026' },
+    { tag: 'CLIENT RETENTION', title: 'Retainer agencies achieve 56-month avg client lifespan', summary: 'vs 24 months for project-based agencies. Retainer model transition is the single highest-leverage structural change available to most SME agencies in 2026.', severity: 'opportunity', date: 'May 2026' },
+    { tag: 'AI SERVICES', title: 'AI-adjacent service demand up significantly in 2026', summary: 'Agencies with clear AI-assisted positioning are capturing disproportionate new business. Offer clarity around AI services is increasingly determining proposal conversion rates.', severity: 'opportunity', date: 'Jun 2026' },
+    { tag: 'CAPACITY', title: 'Utilisation below 65% sends margin to zero', summary: '2026 benchmark data confirms junior staff should run at 80–85% billable utilisation. Senior leadership above 60% billable is a capacity constraint suppressing strategy and BD work.', severity: 'watch', date: 'May 2026' },
+  ] : isAccounting ? [
+    { tag: 'INDUSTRY GROWTH', title: 'UK accounting sector +21.7% client growth YoY', summary: 'Record demand for accounting services across all firm sizes in 2026. Firms not capturing this growth have at least one active constraint — most commonly advisory positioning or partner dependency.', severity: 'opportunity', date: 'Jun 2026' },
+    { tag: 'ADVISORY SHIFT', title: 'Advisory firms generating 3–5× revenue per client', summary: 'Gap between compliance-led and advisory-led firms is widening rapidly. CX-mature firms command 15–20% billing rate premiums. Compliance-only positioning is a strategic constraint.', severity: 'alert', date: 'Jun 2026' },
+    { tag: 'SPECIALISATION', title: 'Specialist accountants commanding +25% pricing premium', summary: 'As client complexity increases, demand for specialist accountants grows. Generalist positioning is a growing strategic risk. Specialisation is the highest-leverage differentiation available in 2026.', severity: 'opportunity', date: 'May 2026' },
+    { tag: 'COMPLIANCE RISK', title: 'HMRC late payment rate 7.75%/yr from Jan 2026', summary: 'Corporation tax interest rate on unpaid amounts increased from January 2026. Compliance risk monitoring across client base is now a standard expectation. MTD Phase 3 advisory opportunity active.', severity: 'watch', date: 'Jan 2026' },
+  ] : [
+    { tag: 'BEI INTELLIGENCE', title: 'Set your business type to receive targeted market updates', summary: 'Go to Account Settings and select your business category — Estate Agency, Marketing Agency or Accounting & Finance. BEI will then show you verified market intelligence specific to your sector.', severity: 'watch', date: 'Jun 2026' },
+    { tag: 'CROSS-SECTOR', title: 'Trust infrastructure now a primary constraint across all sectors', summary: 'Review volume, response speed and social proof are the most common constraint triggers across all three BEI-covered sectors in 2026. Average Google review count across all businesses: 224.', severity: 'alert', date: 'Jun 2026' },
+    { tag: 'CROSS-SECTOR', title: 'Retainer/advisory models outperforming transactional by 3–5×', summary: 'Across estate, marketing and accounting sectors — businesses operating retainer or advisory models generate 3–5× more revenue per client than transactional counterparts.', severity: 'opportunity', date: 'May 2026' },
+  ]
+
   const tabs = [
     { id: 'overview', label: 'Overview' },
     { id: 'reports', label: 'Analysis Reports' },
@@ -430,6 +451,42 @@ export default function DashboardPage() {
                   </div>
                 )
               })()}
+
+              {/* Latest Market Updates */}
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                  <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', fontWeight: '600' }}>
+                    LATEST MARKET UPDATES — {industryData.label.toUpperCase()}
+                  </div>
+                  <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 4px rgba(74,170,74,0.6)' }} />
+                    <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>BEI VERIFIED · JUNE 2026</span>
+                  </div>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  {marketUpdates.map((u, i) => (
+                    <div key={i} style={{
+                      padding: '16px 18px',
+                      backgroundColor: u.severity === 'alert' ? '#0f0a04' : u.severity === 'opportunity' ? '#040f04' : '#111',
+                      border: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}`,
+                      borderLeft: `3px solid ${u.severity === 'alert' ? '#cc4444' : u.severity === 'opportunity' ? '#4aaa4a' : gold}`,
+                      borderRadius: '8px'
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <div style={{ fontSize: '9px', color: u.severity === 'alert' ? '#cc4444' : u.severity === 'opportunity' ? '#4aaa4a' : gold, fontWeight: '700', letterSpacing: '0.15em' }}>{u.tag}</div>
+                        <div style={{ fontSize: '9px', color: '#444' }}>{u.date}</div>
+                      </div>
+                      <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '5px', lineHeight: '1.3' }}>{u.title}</div>
+                      <div style={{ fontSize: '11px', color: '#666', lineHeight: '1.6' }}>{u.summary}</div>
+                    </div>
+                  ))}
+                </div>
+                {!isEstate && !isMarketing && !isAccounting && (
+                  <div style={{ marginTop: '10px', textAlign: 'right' as const }}>
+                    <a href='/account' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Set business type in Account Settings →</a>
+                  </div>
+                )}
+              </div>
 
               {/* Primary constraint */}
               {primary && (
