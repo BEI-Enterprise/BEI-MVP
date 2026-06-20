@@ -161,7 +161,7 @@ function PricingContent() {
 
       <section style={{padding:'0 48px 80px'}}>
         <div style={{maxWidth:'1400px',margin:'0 auto'}}><div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'24px',marginBottom:'24px'}}>
-          {plans.map((plan: any) => (
+          {plans.slice(0,3).map((plan: any) => (
             <div key={plan.name} style={{padding:'36px',border:`1px solid ${plan.enquire?'rgba(200,162,74,0.4)':plan.popular?gold:plan.badge?'rgba(200,162,74,0.2)':'#1a1a1a'}`,borderRadius:'12px',backgroundColor:plan.enquire?'#0d0a04':plan.popular?'#0d0a04':plan.badge?'#09080a':'#080808',position:'relative' as const,display:'flex',flexDirection:'column' as const}}>
               {(plan.popular || plan.badge) && (
                 <div style={{position:'absolute' as const,top:'-12px',left:'50%',transform:'translateX(-50%)',padding:'4px 16px',backgroundColor:plan.enquire?'#1a1000':gold,border:`1px solid ${gold}`,borderRadius:'20px',fontSize:'11px',fontWeight:'700',color:plan.enquire?gold:'#050505',whiteSpace:'nowrap' as const,letterSpacing:'0.1em'}}>
