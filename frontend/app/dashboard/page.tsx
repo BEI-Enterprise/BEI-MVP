@@ -788,7 +788,7 @@ export default function DashboardPage() {
 
               {/* Hero image + header */}
               <div style={{ position: 'relative' as const, borderRadius: '16px', overflow: 'hidden', marginBottom: '28px', border: '1px solid rgba(200,162,74,0.2)' }}>
-                <img src='/bei-intel-dashboard.png' alt='BEI Intelligence' style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block', opacity: 0.7 }} />
+                <img src='/bei-intel-dashboard.png' alt='BEI Intelligence' style={{ width: '100%', height: '220px', objectFit: 'cover', objectPosition: 'center center', display: 'block', opacity: 0.85 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(3,2,1,0.95) 0%, rgba(3,2,1,0.6) 50%, transparent 100%)' }} />
                 <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
                 <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', padding: '32px' }}>
