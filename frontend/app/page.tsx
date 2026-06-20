@@ -1,8 +1,6 @@
 'use client'
 import { CurrencyProvider, useCurrencyContext } from './context/CurrencyContext'
 import CurrencyToggle from './components/CurrencyToggle'
-import { CurrencyProvider, useCurrencyContext } from './context/CurrencyContext'
-import CurrencyToggle from './components/CurrencyToggle'
 import { useCurrency, formatPrice } from '../lib/currency'
 
 import dynamic from 'next/dynamic'
