@@ -63,6 +63,12 @@ export default function AccountPage() {
 
       <div style={{maxWidth:'800px',margin:'0 auto',padding:'48px 24px'}}>
 
+        {/* Back to dashboard */}
+        <div style={{marginBottom:'24px'}}>
+          <a href='/dashboard' style={{display:'inline-flex',alignItems:'center',gap:'6px',fontSize:'13px',color:'#555',textDecoration:'none',padding:'8px 16px',border:'1px solid #1a1a1a',borderRadius:'4px',backgroundColor:'#080808'}}>
+            ← Back to Dashboard
+          </a>
+        </div>
         {/* Account header */}
         <div style={{marginBottom:'48px'}}>
           <div style={{fontSize:'11px',color:gold,letterSpacing:'0.2em',textTransform:'uppercase' as const,marginBottom:'8px'}}>Account</div>
