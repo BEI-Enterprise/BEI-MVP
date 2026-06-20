@@ -381,6 +381,56 @@ export default function DashboardPage() {
                 </div>
               )}
 
+              {/* Data connection to-do list */}
+              {(() => {
+                const connectors = [
+                  { id: 'crm', label: 'CRM Connected', desc: 'HubSpot, Salesforce or manual CRM', href: '/dashboard' },
+                  { id: 'finance', label: 'Finance Connected', desc: 'Xero, QuickBooks or manual financial data', href: '/dashboard' },
+                  { id: 'hr', label: 'HR / Staffing Connected', desc: 'HiBob, Workday or manual staffing data', href: '/dashboard' },
+                  { id: 'analytics', label: 'Google Analytics Connected', desc: 'Website traffic and conversion data', href: '/dashboard' },
+                  { id: 'reviews', label: 'Review Platform Connected', desc: 'Google Business Profile or review data', href: '/dashboard' },
+                  { id: 'companies', label: 'Companies House Connected', desc: 'UK company filing and director data', href: '/dashboard' },
+                ]
+                const connected = 0
+                const total = connectors.length
+                if (connected >= total) return null
+                return (
+                  <div style={{ padding: '24px', backgroundColor: '#080808', border: '1px solid #1a1a1a', borderRadius: '10px', marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+                      <div>
+                        <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>◈ DATA CONNECTION STATUS</div>
+                        <div style={{ fontSize: '15px', fontWeight: '700', color: '#f0f0f0', marginBottom: '4px' }}>Connect your business data</div>
+                        <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.6' }}>Your MRI is currently based on intake answers only. Connect live data sources to unlock enhanced constraint detection and higher verification accuracy.</div>
+                      </div>
+                      <div style={{ textAlign: 'right' as const, flexShrink: 0, marginLeft: '20px' }}>
+                        <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>{connected}/{total}</div>
+                        <div style={{ fontSize: '10px', color: '#444', marginTop: '2px' }}>connected</div>
+                      </div>
+                    </div>
+                    <div style={{ width: '100%', height: '4px', backgroundColor: '#111', borderRadius: '2px', marginBottom: '16px' }}>
+                      <div style={{ width: `${(connected/total)*100}%`, height: '100%', backgroundColor: gold, borderRadius: '2px', transition: 'width 1s ease' }} />
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '16px' }}>
+                      {connectors.map((c, i) => (
+                        <div key={c.id} style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px 12px', backgroundColor: '#0a0a0a', border: '1px solid #161616', borderRadius: '6px' }}>
+                          <div style={{ width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #333', backgroundColor: 'transparent', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#222' }} />
+                          </div>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: '12px', fontWeight: '600', color: '#666', whiteSpace: 'nowrap' as const, overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.label}</div>
+                            <div style={{ fontSize: '10px', color: '#333', marginTop: '1px' }}>{c.desc}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <a href='/connect' style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 24px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '13px' }}>
+                      Connect Your Business Data →
+                    </a>
+                    <span style={{ fontSize: '12px', color: '#444', marginLeft: '16px' }}>Takes 2–5 minutes per connector</span>
+                  </div>
+                )
+              })()}
+
               {/* Primary constraint */}
               {primary && (
                 <div style={{ padding: '28px', backgroundColor: '#080f04', border: '1px solid #2a3a1a', borderRadius: '10px', marginBottom: '20px' }}>
