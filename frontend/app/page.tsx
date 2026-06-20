@@ -25,6 +25,7 @@ function LandingPage() {
     <main style={s.page}>
 
       <Nav />
+      <div style={{ position: "fixed", top: "16px", right: "200px", zIndex: 200 }}><CurrencyToggle /></div>
 
       {/* HERO */}
       <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '120px 48px 80px', position: 'relative' as const, overflow: 'hidden' }}>
