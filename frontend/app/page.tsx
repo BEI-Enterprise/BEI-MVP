@@ -54,7 +54,7 @@ export default function LandingPage() {
             </div>
             <div style={{ position: 'relative' as const, width: '100%', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)' }}>
               <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
-              <img src='/bei-hero.png' alt='BEI Business Intelligence' style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '520px', objectFit: 'cover' }} />
+              <img src='/bei-hero.png' alt='BEI Business Intelligence' style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '680px', objectFit: 'cover' }} />
               <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(135deg, transparent 60%, rgba(5,5,5,0.4) 100%)', pointerEvents: 'none' as const }} />
             </div>
           </div>
@@ -204,31 +204,65 @@ export default function LandingPage() {
             <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Pricing</div>
             <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>Intelligence that pays for itself.</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+          {/* Row 1 */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '20px' }}>
             {[
-              { name: 'MRI Analysis', price: 199, period: '/month', features: ['Business MRI','Health Score','Constraint Detection','Monthly Updates'], cta: 'Get Started', popular: false },
-              { name: 'Analysis + Opportunity', price: 399, period: '/month', features: ['Everything in Analysis','Opportunity Mapping','Prioritisation Engine','Opportunity Quantification'], cta: 'Most Popular', popular: true },
-              { name: 'Full Platform', price: 999, period: '/month', features: ['Everything above','Deployment Engine','Outcome Tracking','Learning Engine'], cta: 'Full Access', popular: false },
-              { name: 'Corporate Group', price: 1599, period: '/month', features: ['Everything in Full Platform','Up to 3 businesses','Portfolio dashboard','Group risk overview','Executive briefing pack'], cta: 'Corporate Access', popular: false, badge: 'MULTI-BUSINESS' },
-              { name: 'Enterprise', price: null, period: null, features: ['Everything in Corporate','Custom benchmark system','Unlimited businesses','Dedicated intelligence team','Board-level reporting'], cta: 'Enquire Now', popular: false, badge: 'ENTERPRISE', enquire: true, priceRange: '£2,500–£25,000/month' },
-            ].map(plan => (
-              <div key={plan.name} style={{ padding: '32px', border: `1px solid ${plan.popular ? gold : '#1a1a1a'}`, borderRadius: '8px', backgroundColor: plan.popular ? '#0d0a04' : '#080808', position: 'relative' as const }}>
+              { name: 'MRI Analysis', price: 199, desc: 'Full constraint intelligence for businesses under £1M.', features: ['Business MRI — full 6-step intake','Health Score — 5 pillars','Constraint Detection — all 10 types','Primary Constraint identification','Monthly MRI refresh'], cta: 'Get Started', popular: false },
+              { name: 'Analysis + Opportunity', price: 399, desc: 'Full intelligence with quantified opportunity mapping.', features: ['Everything in MRI Analysis','Opportunity Engine — 5 dimensions','Revenue & profit mapping','Risk reduction quantification','Prioritisation Engine'], cta: 'Most Popular', popular: true },
+              { name: 'Full Platform', price: 999, desc: 'Complete intelligence, deployment and outcome tracking.', features: ['Everything in Analysis + Opportunity','Deployment Engine — 3-tier system','Automatic deployment execution','Outcome measurement tracking','Learning Engine'], cta: 'Full Access', popular: false },
+            ].map((plan: any) => (
+              <div key={plan.name} style={{ padding: '32px', border: `1px solid ${plan.popular ? gold : '#1a1a1a'}`, borderRadius: '12px', backgroundColor: plan.popular ? '#0d0a04' : '#080808', position: 'relative' as const, display: 'flex', flexDirection: 'column' as const }}>
+                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: plan.popular ? `linear-gradient(90deg, transparent, ${gold}, transparent)` : 'linear-gradient(90deg, transparent, rgba(200,162,74,0.15), transparent)' }} />
                 {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '4px 16px', backgroundColor: gold, color: '#050505', fontSize: '11px', fontWeight: '700', borderRadius: '20px' }}>MOST POPULAR</div>}
-                <div style={{ fontSize: '14px', color: '#888', marginBottom: '8px' }}>{plan.name}</div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '24px' }}>
-                  <span style={{ fontSize: '40px', fontWeight: '700', color: (plan as any).popular ? gold : (plan as any).badge ? gold : '#fff' }}>{(plan as any).enquire ? 'Custom' : formatPrice(plan.price as number, currency)}</span>
-                  <span style={{ fontSize: '14px', color: '#555' }}>{plan.period}</span>
+                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '6px' }}>{plan.name}</div>
+                <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', marginBottom: '16px' }}>{plan.desc}</div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '16px' }}>
+                  <span style={{ fontSize: '44px', fontWeight: '800', color: plan.popular ? gold : '#f0f0f0', letterSpacing: '-0.02em' }}>{formatPrice(plan.price, currency)}</span>
+                  <span style={{ fontSize: '14px', color: '#555' }}>/month</span>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px', marginBottom: '32px' }}>
-                  {plan.features.map(f => (
-                    <div key={f} style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '13px', color: '#888' }}>
-                      <span style={{ color: '#4aaa4a' }}>✓</span>{f}
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, gap: '10px', marginBottom: '24px' }}>
+                  {plan.features.map((f: string) => (
+                    <div key={f} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '13px', color: '#888' }}>
+                      <span style={{ color: '#4aaa4a', flexShrink: 0 }}>✓</span>{f}
                     </div>
                   ))}
                 </div>
-                {(plan as any).badge && <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', fontWeight: '700', marginBottom: '8px' }}>{(plan as any).badge}</div>}
-                {(plan as any).enquire && <div style={{ fontSize: '12px', color: '#777', marginBottom: '8px' }}>£2,500–£25,000/month · Scope dependent</div>}
-                <a href={(plan as any).enquire ? '/book' : '/register'} style={{ display: 'block', textAlign: 'center' as const, padding: '14px', backgroundColor: (plan as any).popular || (plan as any).enquire ? gold : 'transparent', color: (plan as any).popular || (plan as any).enquire ? '#050505' : gold, border: `1px solid ${gold}`, borderRadius: '6px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>{plan.cta} →</a>
+                <a href='/register' style={{ display: 'block', textAlign: 'center' as const, padding: '14px', backgroundColor: plan.popular ? gold : 'transparent', color: plan.popular ? '#050505' : gold, border: `1px solid ${gold}`, borderRadius: '6px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>{plan.cta} →</a>
+              </div>
+            ))}
+          </div>
+          {/* Row 2 */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', maxWidth: '900px', margin: '0 auto' }}>
+            {[
+              { name: 'Corporate Group', price: 1599, desc: 'Full platform across up to 3 businesses simultaneously.', features: ['Everything in Full Platform','Up to 3 connected businesses','Portfolio health dashboard','Group risk overview & alerts','Executive briefing pack monthly'], cta: 'Corporate Access', badge: 'MULTI-BUSINESS' },
+              { name: 'Enterprise', price: null, desc: 'Custom intelligence for enterprises valued £100M–£5B.', features: ['Everything in Corporate Group','Custom enterprise benchmark system','Unlimited connected businesses','Dedicated intelligence team','Board-level reporting suite'], cta: 'Enquire Now', badge: 'ENTERPRISE', enquire: true },
+            ].map((plan: any) => (
+              <div key={plan.name} style={{ padding: '32px', border: `1px solid ${plan.enquire ? 'rgba(200,162,74,0.35)' : 'rgba(200,162,74,0.2)'}`, borderRadius: '12px', backgroundColor: plan.enquire ? '#0d0a04' : '#09080a', position: 'relative' as const, display: 'flex', flexDirection: 'column' as const }}>
+                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.4), transparent)' }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                  <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const }}>{plan.name}</div>
+                  <div style={{ fontSize: '10px', color: gold, backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.25)', padding: '2px 8px', borderRadius: '10px', fontWeight: '700' }}>{plan.badge}</div>
+                </div>
+                <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', marginBottom: '16px' }}>{plan.desc}</div>
+                {plan.enquire ? (
+                  <div style={{ marginBottom: '20px' }}>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>Custom Pricing</div>
+                    <div style={{ fontSize: '13px', color: '#666', marginTop: '4px' }}>£2,500–£25,000/month · Scope dependent</div>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '20px' }}>
+                    <span style={{ fontSize: '44px', fontWeight: '800', color: gold, letterSpacing: '-0.02em' }}>{formatPrice(plan.price as number, currency)}</span>
+                    <span style={{ fontSize: '14px', color: '#555' }}>/month</span>
+                  </div>
+                )}
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, gap: '10px', marginBottom: '24px' }}>
+                  {plan.features.map((f: string) => (
+                    <div key={f} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '13px', color: '#888' }}>
+                      <span style={{ color: '#4aaa4a', flexShrink: 0 }}>✓</span>{f}
+                    </div>
+                  ))}
+                </div>
+                <a href={plan.enquire ? '/book' : '/register'} style={{ display: 'block', textAlign: 'center' as const, padding: '14px', backgroundColor: gold, color: '#050505', borderRadius: '6px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>{plan.cta} →</a>
               </div>
             ))}
           </div>
