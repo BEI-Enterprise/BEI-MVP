@@ -606,6 +606,9 @@ export default function DashboardPage() {
                   </div>
                 )}
               </div>
+              <div style={{ marginBottom: '20px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)' }}>
+                <img src='/BEISCREEN.png' alt='BEI Analysis' style={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center top', display: 'block', opacity: 0.85 }} />
+              </div>
               <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', fontSize: '13px', color: '#666', lineHeight: '1.7' }}>
                 ◈ Monthly MRI reports are generated automatically on your renewal date. Historical reports will appear here as your subscription progresses.
               </div>
