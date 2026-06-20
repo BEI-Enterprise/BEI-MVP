@@ -299,7 +299,7 @@ export default function DashboardPage() {
 
           {/* Bottom links */}
           <div style={{ marginTop: 'auto', padding: '20px', borderTop: '1px solid #111' }}>
-            {[['Connect Data', '/connect'], ['Account', '/account'], ['Book Session', '/book']].map(([label, href]) => (
+            {[['Account', '/account'], ['Book Session', '/book']].map(([label, href]) => (
               <a key={href} href={href} style={{ display: 'block', padding: '8px 0', fontSize: '13px', color: '#666', textDecoration: 'none' }}>{label}</a>
             ))}
           </div>
