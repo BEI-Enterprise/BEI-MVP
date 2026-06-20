@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
+import MeetingCentre from '../components/MeetingCentre'
 
 import dynamic from 'next/dynamic'
 const NetworkGraph = dynamic<{ width: number, height: number, nodeCount: number }>(
@@ -535,7 +536,31 @@ export default function DashboardPage() {
           {/* ANALYSIS REPORTS TAB */}
           {activeTab === 'reports' && (
             <div>
-              <div style={{ fontSize: '11px', color: '#666', letterSpacing: '0.2em', marginBottom: '24px', fontWeight: '600' }}>ANALYSIS REPORTS</div>
+              <div style={{ fontSize: '11px', color: '#666', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>ANALYSIS REPORTS</div>
+              <div style={{ fontSize: '13px', color: '#777', marginBottom: '24px', lineHeight: '1.7' }}>View your MRI report history and generate a new MRI for any connected business.</div>
+              <div style={{ padding: '24px 28px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '10px', marginBottom: '24px', position: 'relative' as const, overflow: 'hidden' }}>
+                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '24px' }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>◈ GENERATE NEW MRI REPORT</div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '6px' }}>Run a fresh MRI on your business</div>
+                    <div style={{ fontSize: '13px', color: '#777', lineHeight: '1.6', marginBottom: '16px' }}>Generate an updated Business MRI report. Your Business Twin will be refreshed and all constraints re-verified against the latest intelligence.</div>
+                    {businesses.length > 1 && (
+                      <div style={{ marginBottom: '8px' }}>
+                        <div style={{ fontSize: '11px', color: '#666', marginBottom: '8px', letterSpacing: '0.1em' }}>SELECT BUSINESS TO ANALYSE</div>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' as const }}>
+                          {businesses.map((b: any) => (
+                            <button key={b.id} onClick={() => setSelected(b)} style={{ padding: '8px 16px', backgroundColor: selected?.id === b.id ? 'rgba(200,162,74,0.12)' : '#141414', border: `1px solid ${selected?.id === b.id ? 'rgba(200,162,74,0.4)' : '#2a2a2a'}`, borderRadius: '6px', fontSize: '13px', color: selected?.id === b.id ? gold : '#888', cursor: 'pointer', fontWeight: selected?.id === b.id ? '600' : '400' }}>
+                              {b.business_name || 'Unnamed'}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <a href={selected?.id ? `/intake/${selected.id}` : '/book'} style={{ padding: '14px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px', whiteSpace: 'nowrap' as const, flexShrink: 0, alignSelf: 'center' as const }}>Generate New MRI →</a>
+                </div>
+              </div>
               <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div>
@@ -755,40 +780,7 @@ export default function DashboardPage() {
 
           {/* MEETING CENTRE TAB */}
           {activeTab === 'meetings' && (
-            <div>
-              <div style={{ fontSize: '11px', color: '#666', letterSpacing: '0.2em', marginBottom: '24px', fontWeight: '600' }}>BEI MEETING EXECUTION CENTRE</div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
-                <div style={{ padding: '28px', backgroundColor: card, border: '1px solid rgba(200,162,74,0.2)', borderRadius: '10px', position: 'relative' as const, overflow: 'hidden' }}>
-                  <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.4), transparent)' }} />
-                  <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: '600' }}>ONBOARDING SESSION</div>
-                  <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>Welcome to BEI — System Briefing</div>
-                  <div style={{ fontSize: '13px', color: '#777', lineHeight: '1.6', marginBottom: '20px' }}>Your dedicated 90-minute onboarding with your BEI Intelligence specialist. Full system briefing, first MRI review and 90-day action plan.</div>
-                  <a href='/book' style={{ padding: '10px 24px', backgroundColor: gold, color: dark, borderRadius: '4px', fontSize: '13px', fontWeight: '700', textDecoration: 'none', display: 'inline-block' }}>Book Now →</a>
-                </div>
-                <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-                  <div style={{ fontSize: '11px', color: '#666', letterSpacing: '0.2em', marginBottom: '12px', fontWeight: '600' }}>MONTHLY MRI REVIEW</div>
-                  <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>Monthly Intelligence Debrief</div>
-                  <div style={{ fontSize: '13px', color: '#777', lineHeight: '1.6', marginBottom: '20px' }}>Review your latest MRI report with your BEI Account Manager. Constraint updates, progress review and next 30-day priorities.</div>
-                  <a href='/book' style={{ padding: '10px 24px', border: '1px solid rgba(200,162,74,0.3)', color: gold, borderRadius: '4px', fontSize: '13px', fontWeight: '600', textDecoration: 'none', display: 'inline-block' }}>Schedule →</a>
-                </div>
-              </div>
-              <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '16px' }}>
-                <div style={{ fontSize: '11px', color: '#666', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>YOUR BEI ACCOUNT MANAGER</div>
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0 }}>◈</div>
-                  <div>
-                    <div style={{ fontSize: '15px', fontWeight: '700', marginBottom: '4px' }}>BEI Intelligence Team</div>
-                    <div style={{ fontSize: '13px', color: '#777', lineHeight: '1.6', marginBottom: '12px' }}>Your dedicated BEI Intelligence specialist is a real human expert who monitors your business performance, reviews your MRI reports and is available to support your strategic decisions.</div>
-                    <div style={{ fontSize: '12px', color: '#555', padding: '12px 16px', backgroundColor: '#141414', borderRadius: '6px', border: '1px solid #2a2a2a', lineHeight: '1.7' }}>
-                      To contact your Account Manager directly, email <span style={{ color: gold }}>intelligence@officialbei.com</span> with your business name and query. Response within 24 hours.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', fontSize: '13px', color: '#666', lineHeight: '1.7' }}>
-                ◈ Additional strategy sessions, constraint deep-dives and deployment support sessions can be booked at any time. All sessions are conducted by qualified BEI Intelligence specialists.
-              </div>
-            </div>
+            <MeetingCentre gold={gold} card={card} border={border} dark={dark} />
           )}
 
         {/* CONNECTORS TAB */}
