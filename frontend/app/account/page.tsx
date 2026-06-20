@@ -26,7 +26,6 @@ export default function AccountPage() {
           .eq('email', data.user.email)
           .order('updated_at', { ascending: false })
           .limit(1)
-          .single()
         if (biz) {
           setBusiness(biz)
           setIndustryValue(biz.industry || '')
