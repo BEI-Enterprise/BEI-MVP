@@ -50,6 +50,11 @@ export default function OutcomeDeploymentPage() {
           </RevealSection>
         </div>
       </section>
+      <section style={{ padding: '60px 48px', borderBottom: '1px solid #1e1e1e' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.2)', boxShadow: '0 0 60px rgba(0,0,0,0.5)' }}>
+          <img src='/BEI EYE.png' alt='BEI Outcome' style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '700px', objectFit: 'cover', objectPosition: 'center' }} />
+        </div>
+      </section>
 
       {/* THREE DEPLOYMENT TIERS */}
       <section style={{ padding: '100px 48px', borderBottom: '1px solid #111' }}>
