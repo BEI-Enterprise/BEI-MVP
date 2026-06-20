@@ -160,7 +160,7 @@ function PricingContent() {
       </section>
 
       <section style={{padding:'0 48px 80px'}}>
-        <div style={{maxWidth:'1100px',margin:'0 auto',display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:'24px'}}>
+        <div style={{maxWidth:'1400px',margin:'0 auto'}}><div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'24px',marginBottom:'24px'}}>
           {plans.map((plan: any) => (
             <div key={plan.name} style={{padding:'36px',border:`1px solid ${plan.enquire?'rgba(200,162,74,0.4)':plan.popular?gold:plan.badge?'rgba(200,162,74,0.2)':'#1a1a1a'}`,borderRadius:'12px',backgroundColor:plan.enquire?'#0d0a04':plan.popular?'#0d0a04':plan.badge?'#09080a':'#080808',position:'relative' as const,display:'flex',flexDirection:'column' as const}}>
               {(plan.popular || plan.badge) && (
@@ -206,6 +206,55 @@ function PricingContent() {
               )}
             </div>
           ))}
+          </div>
+          {/* Second row: Corporate + Enterprise centred */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'24px',maxWidth:'900px',margin:'0 auto'}}>
+          {plans.slice(3).map((plan: any) => (
+            <div key={plan.name} style={{padding:'36px',border:`1px solid ${(plan as any).enquire?'rgba(200,162,74,0.4)':(plan as any).badge?'rgba(200,162,74,0.2)':'#1a1a1a'}`,borderRadius:'12px',backgroundColor:(plan as any).enquire?'#0d0a04':(plan as any).badge?'#09080a':'#080808',position:'relative' as const,display:'flex',flexDirection:'column' as const}}>
+              {((plan as any).badge) && (
+                <div style={{position:'absolute' as const,top:'-12px',left:'50%',transform:'translateX(-50%)',padding:'4px 16px',backgroundColor:(plan as any).enquire?'#1a1000':'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.4)',borderRadius:'20px',fontSize:'11px',fontWeight:'700',color:'#C8A24A',whiteSpace:'nowrap' as const,letterSpacing:'0.1em'}}>
+                  {(plan as any).badge}
+                </div>
+              )}
+              <div style={{marginBottom:'8px',fontSize:'11px',color:'#555',letterSpacing:'0.15em',textTransform:'uppercase' as const}}>{plan.name}</div>
+              <div style={{marginBottom:'16px',fontSize:'13px',color:'#666',lineHeight:'1.6'}}>{plan.desc}</div>
+              <div style={{marginBottom:'20px'}}>
+                {(plan as any).enquire ? (
+                  <div>
+                    <div style={{fontSize:'24px',color:'#C8A24A',fontWeight:'800',marginBottom:'4px'}}>Custom Pricing</div>
+                    <div style={{fontSize:'13px',color:'#888'}}>{(plan as any).priceRange}</div>
+                  </div>
+                ) : (
+                  <div style={{display:'flex',alignItems:'baseline',gap:'4px'}}>
+                    <span style={{fontSize:'44px',fontWeight:'700',color:'#C8A24A'}}>{formatPrice(plan.price, currency)}</span>
+                    <span style={{fontSize:'14px',color:'#555'}}>/month</span>
+                  </div>
+                )}
+                {plan.originalPrice && !(plan as any).enquire && <div style={{fontSize:'12px',color:'#444',marginTop:'4px'}}>Value: {plan.originalPrice}/month · Annual saving: {plan.saving}</div>}
+              </div>
+              <div style={{padding:'10px 14px',backgroundColor:'rgba(200,162,74,0.06)',border:'1px solid rgba(200,162,74,0.15)',borderRadius:'6px',marginBottom:'20px',fontSize:'12px',color:'#C8A24A',fontWeight:'600'}}>
+                {plan.opportunity}
+              </div>
+              <div style={{flex:1,marginBottom:'24px'}}>
+                {plan.features.map((f: string) => (
+                  <div key={f} style={{display:'flex',gap:'10px',alignItems:'flex-start',marginBottom:'10px'}}>
+                    <span style={{color:'#4aaa4a',fontSize:'12px',marginTop:'2px',flexShrink:0}}>✓</span>
+                    <span style={{fontSize:'13px',color:'#888',lineHeight:'1.5'}}>{f}</span>
+                  </div>
+                ))}
+              </div>
+              {(plan as any).enquire ? (
+                <a href="/book" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:'transparent',color:'#C8A24A',border:'1px solid #C8A24A',borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
+                  {plan.cta} →
+                </a>
+              ) : (
+                <a href="/register" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:'#C8A24A',color:'#050505',border:'1px solid #C8A24A',borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
+                  {plan.cta} →
+                </a>
+              )}
+            </div>
+          ))}
+          </div>
         </div>
       </section>
 
