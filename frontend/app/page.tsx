@@ -14,6 +14,7 @@ const NetworkGraph = dynamic<{ width: number, height: number, nodeCount: number 
 
 
 function LandingPage() {
+  const { sym, fmt } = useCurrencyContext()
   const currency = useCurrency()
   const gold = '#C8A24A'
   const s = {
@@ -353,4 +354,4 @@ function LandingPage() {
   )
 }
 
-export default function Home() { return <CurrencyProvider><HomeInner /></CurrencyProvider> }
+export default function Home() { return <CurrencyProvider><LandingPage /></CurrencyProvider> }
