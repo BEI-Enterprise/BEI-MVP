@@ -6,15 +6,42 @@ import { createClient } from '../../lib/supabase'
 export default function AccountPage() {
   const gold = '#C8A24A'
   const [user, setUser] = useState<any>(null)
+  const [business, setBusiness] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [industryValue, setIndustryValue] = useState('')
+  const [industrySaving, setIndustrySaving] = useState(false)
+  const [industrySaved, setIndustrySaved] = useState(false)
 
   useEffect(() => {
     const supabase = createClient()
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(async ({ data }) => {
       setUser(data.user)
+      if (data.user) {
+        const { data: biz } = await supabase
+          .from('businesses')
+          .select('id, business_name, industry, subscription_tier, subscription_status')
+          .eq('email', data.user.email)
+          .order('updated_at', { ascending: false })
+          .limit(1)
+          .single()
+        if (biz) {
+          setBusiness(biz)
+          setIndustryValue(biz.industry || '')
+        }
+      }
       setLoading(false)
     })
   }, [])
+
+  const saveIndustry = async () => {
+    if (!business || !industryValue) return
+    setIndustrySaving(true)
+    const supabase = createClient()
+    await supabase.from('businesses').update({ industry: industryValue }).eq('id', business.id)
+    setIndustrySaving(false)
+    setIndustrySaved(true)
+    setTimeout(() => setIndustrySaved(false), 3000)
+  }
 
   const handleSignOut = async () => {
     const supabase = createClient()
@@ -41,6 +68,33 @@ export default function AccountPage() {
           <div style={{fontSize:'11px',color:gold,letterSpacing:'0.2em',textTransform:'uppercase' as const,marginBottom:'8px'}}>Account</div>
           <h1 style={{fontSize:'32px',fontWeight:'700',marginBottom:'8px'}}>Your Account</h1>
           <div style={{fontSize:'14px',color:'#555'}}>{user?.email}</div>
+        </div>
+
+        {/* Business type selector */}
+        <div style={{marginBottom:'32px',padding:'28px',border:'1px solid #1a1a1a',borderRadius:'8px',backgroundColor:'#0a0a0a'}}>
+          <div style={{fontSize:'11px',color:gold,letterSpacing:'0.2em',textTransform:'uppercase' as const,marginBottom:'6px'}}>Business Intelligence Settings</div>
+          <div style={{fontSize:'16px',fontWeight:'700',marginBottom:'4px'}}>Business Type</div>
+          <div style={{fontSize:'13px',color:'#555',marginBottom:'20px',lineHeight:'1.6'}}>Select your business category. This tells BEI which industry benchmarks, market signals and intelligence framework to apply to your MRI reports and dashboard.</div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px',marginBottom:'20px'}}>
+            {[
+              { value: 'Estate Agency', label: 'Estate Agency', desc: 'Property sales, lettings, valuations' },
+              { value: 'Marketing Agency', label: 'Marketing Agency', desc: 'Digital, creative, performance agencies' },
+              { value: 'Accounting', label: 'Accounting & Finance', desc: 'Accountancy firms, bookkeeping, advisory' },
+            ].map(opt => (
+              <button key={opt.value} onClick={() => setIndustryValue(opt.value)} style={{padding:'16px',backgroundColor:industryValue===opt.value?'rgba(200,162,74,0.08)':'#080808',border:`1px solid ${industryValue===opt.value?'rgba(200,162,74,0.4)':'#1a1a1a'}`,borderRadius:'8px',textAlign:'left' as const,cursor:'pointer'}}>
+                <div style={{fontSize:'14px',fontWeight:'700',color:industryValue===opt.value?gold:'#ccc',marginBottom:'4px'}}>{opt.label}</div>
+                <div style={{fontSize:'11px',color:'#555',lineHeight:'1.5'}}>{opt.desc}</div>
+                {industryValue===opt.value && <div style={{fontSize:'10px',color:gold,marginTop:'6px',fontWeight:'600'}}>◈ SELECTED</div>}
+              </button>
+            ))}
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
+            <button onClick={saveIndustry} disabled={industrySaving||!industryValue} style={{padding:'10px 24px',backgroundColor:industryValue?gold:'#1a1a1a',color:industryValue?'#050505':'#444',fontWeight:'700',borderRadius:'4px',border:'none',cursor:industryValue?'pointer':'not-allowed',fontSize:'13px'}}>
+              {industrySaving?'Saving...':'Save Business Type'}
+            </button>
+            {industrySaved && <div style={{fontSize:'12px',color:'#4aaa4a',fontWeight:'600'}}>✓ Saved — dashboard intelligence updated</div>}
+            {business?.industry && !industrySaved && <div style={{fontSize:'12px',color:'#555'}}>Current: {business.industry}</div>}
+          </div>
         </div>
 
         {/* Current subscription */}
