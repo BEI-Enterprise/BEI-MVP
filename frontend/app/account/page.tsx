@@ -41,7 +41,7 @@ export default function AccountPage() {
     if (!business || !locationValue) return
     setLocationSaving(true)
     const supabase = createClient()
-    await supabase.from('businesses').update({ location_country: locationValue }).eq('id', business.id)
+    const { error: locErr } = await supabase.from('businesses').update({ location_country: locationValue }).eq('id', business.id); if (locErr) console.error('Location save error:', locErr)
     setLocationSaving(false)
     setLocationSaved(true)
     setTimeout(() => setLocationSaved(false), 3000)
@@ -51,7 +51,7 @@ export default function AccountPage() {
     if (!business || !industryValue) return
     setIndustrySaving(true)
     const supabase = createClient()
-    await supabase.from('businesses').update({ industry: industryValue }).eq('id', business.id)
+    const { error: indErr } = await supabase.from('businesses').update({ industry: industryValue }).eq('id', business.id); if (indErr) console.error('Industry save error:', indErr)
     setIndustrySaving(false)
     setIndustrySaved(true)
     setTimeout(() => setIndustrySaved(false), 3000)
