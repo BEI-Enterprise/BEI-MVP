@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
-import { useCurrency, formatPrice } from '../../lib/currency'
+import { useCurrency, formatPrice, getCurrencySymbol } from '../../lib/currency'
 import MeetingCentre from '../components/MeetingCentre'
 
 import dynamic from 'next/dynamic'
@@ -277,7 +277,7 @@ export default function DashboardPage() {
               <div style={{ width: '1px', height: '32px', backgroundColor: '#1a1a1a' }} />
               <div style={{ textAlign: 'center' as const }}>
                 <div style={{ fontSize: '20px', fontWeight: '800', color: gold }}>
-                  {result?.total_opportunity ? '£' + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k+' : '—'}
+                  {result?.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k+' : '—'}
                 </div>
                 <div style={{ fontSize: '10px', color: '#666', marginTop: '3px' }}>OPPORTUNITY</div>
               </div>
@@ -374,7 +374,7 @@ export default function DashboardPage() {
                   {[
                     { label: 'Primary Constraint', value: primary?.name || 'None detected', color: '#cc4444' },
                     { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a' },
-                    { label: 'Total Opportunity', value: result?.total_opportunity ? '£' + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k–£' + Math.round((result.total_opportunity.total_high || 0)/1000) + 'k' : '—', color: gold },
+                    { label: 'Total Opportunity', value: result?.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k–' + getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_high || 0)/1000) + 'k' : '—', color: gold },
                     { label: 'Secondary Constraints', value: secondary.length + ' identified', color: '#888' },
                     { label: 'Confidence', value: (result?.confidence || 'low').toUpperCase(), color: result?.confidence === 'high' ? '#4aaa4a' : '#888' },
                     { label: 'Subscription', value: (selected?.subscription_tier || 'analysis').toUpperCase(), color: gold },
@@ -679,7 +679,7 @@ export default function DashboardPage() {
                     {[
                       { label: 'Primary Constraint', value: primary?.name || 'None detected', color: primary ? '#cc4444' : '#4aaa4a', sub: primary ? 'Active — verified' : 'No constraint detected' },
                       { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', sub: 'Constraint verification' },
-                      { label: 'Total Opportunity', value: result.total_opportunity ? '£' + Math.round((result.total_opportunity.total_low||0)/1000) + 'k–£' + Math.round((result.total_opportunity.total_high||0)/1000) + 'k' : '—', color: gold, sub: 'Annual value available' },
+                      { label: 'Total Opportunity', value: result.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low||0)/1000) + 'k–' + getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_high||0)/1000) + 'k' : '—', color: gold, sub: 'Annual value available' },
                       { label: 'Revenue Band', value: result.inputs?.monthly_revenue || '—', color: '#888', sub: 'Current reported revenue' },
                       { label: 'Revenue Trend', value: result.inputs?.revenue_trend || '—', color: '#888', sub: 'Self-reported direction' },
                       { label: 'Confidence Level', value: (result.confidence || 'low').toUpperCase(), color: result.confidence === 'high' ? '#4aaa4a' : '#888', sub: 'Intelligence confidence' },
@@ -699,12 +699,12 @@ export default function DashboardPage() {
                       <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-end' }}>
                         <div>
                           <div style={{ fontSize: '10px', color: '#666', marginBottom: '6px' }}>CONSERVATIVE UPLIFT</div>
-                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>£{Math.round((result.total_opportunity.total_low||0)/1000)}k</div>
+                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>${getCurrencySymbol(currency)}${Math.round((result.total_opportunity.total_low||0)/1000)}k</div>
                           <div style={{ fontSize: '11px', color: '#666', marginTop: '4px' }}>Annual revenue gain</div>
                         </div>
                         <div>
                           <div style={{ fontSize: '10px', color: '#666', marginBottom: '6px' }}>OPTIMISTIC UPLIFT</div>
-                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>£{Math.round((result.total_opportunity.total_high||0)/1000)}k</div>
+                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>${getCurrencySymbol(currency)}${Math.round((result.total_opportunity.total_high||0)/1000)}k</div>
                           <div style={{ fontSize: '11px', color: '#666', marginTop: '4px' }}>Annual revenue gain</div>
                         </div>
                         <div style={{ flex: 1, paddingLeft: '20px', borderLeft: '1px solid #161616' }}>
@@ -779,7 +779,7 @@ export default function DashboardPage() {
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #2a1a1a' }}>
                       {result?.total_opportunity && (
                         <div style={{ fontSize: '12px', color: gold }}>
-                          Opportunity: £{Math.round((result.total_opportunity.total_low||0)/1000)}k–£{Math.round((result.total_opportunity.total_high||0)/1000)}k annual uplift on resolution
+                          Opportunity: ${getCurrencySymbol(currency)}${Math.round((result.total_opportunity.total_low||0)/1000)}k–${getCurrencySymbol(currency)}${Math.round((result.total_opportunity.total_high||0)/1000)}k annual uplift on resolution
                         </div>
                       )}
                       <a href={`/report/${selected?.id}`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600', marginLeft: 'auto' }}>View full analysis →</a>
