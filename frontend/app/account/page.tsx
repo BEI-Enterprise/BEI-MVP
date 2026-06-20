@@ -20,13 +20,14 @@ export default function AccountPage() {
     supabase.auth.getUser().then(async ({ data }) => {
       setUser(data.user)
       if (data.user) {
-        const { data: biz } = await supabase
+        const { data: bizArr } = await supabase
           .from('businesses')
           .select('id, business_name, industry, subscription_tier, subscription_status, location_country')
           .eq('email', data.user.email)
           .order('updated_at', { ascending: false })
           .limit(1)
-        if (biz) {
+        const biz = Array.isArray(bizArr) && bizArr.length > 0 ? bizArr[0] : bizArr
+        if (biz && biz.id) {
           setBusiness(biz)
           setIndustryValue(biz.industry || '')
           setLocationValue(biz.location_country || '')
