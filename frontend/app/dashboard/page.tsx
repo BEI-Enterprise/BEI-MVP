@@ -177,8 +177,8 @@ export default function DashboardPage() {
   const tabs = [
     { id: 'overview', label: 'Overview' },
     { id: 'reports', label: 'Analysis Reports' },
-    { id: 'revenue', label: 'Revenue Tracker' },
-    { id: 'issues', label: 'Critical Issues' },
+    { id: 'revenue', label: 'Business Health' },
+    { id: 'issues', label: 'Issues & Constraints' },
     { id: 'meetings', label: 'Meeting Centre' },
     { id: 'connectors', label: 'Data Connectors' },
     { id: 'deployment', label: 'Outcome & Deployment' },
@@ -299,7 +299,7 @@ export default function DashboardPage() {
 
           {/* Bottom links */}
           <div style={{ marginTop: 'auto', padding: '20px', borderTop: '1px solid #111' }}>
-            {[['Health', '/health'], ['Constraints', '/constraints'], ['Opportunities', '/opportunities'], ['Deployments', '/deployments'], ['Outcomes', '/outcomes']].map(([label, href]) => (
+            {[['Connect Data', '/connect'], ['Account', '/account'], ['Book Session', '/book']].map(([label, href]) => (
               <a key={href} href={href} style={{ display: 'block', padding: '8px 0', fontSize: '13px', color: '#444', textDecoration: 'none' }}>{label}</a>
             ))}
           </div>
@@ -511,69 +511,160 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {/* REVENUE TRACKER TAB */}
+          {/* BUSINESS HEALTH TAB */}
           {activeTab === 'revenue' && (
             <div>
-              <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.2em', marginBottom: '24px', fontWeight: '600' }}>BUSINESS REVENUE TRACKER</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '24px' }}>
-                {[
-                  { label: 'Current Revenue Band', value: result?.inputs?.monthly_revenue || '—', sub: 'From MRI intake' },
-                  { label: 'Revenue Trend', value: result?.inputs?.revenue_trend || '—', sub: 'Self-reported' },
-                  { label: 'Avg Client Value', value: result?.inputs?.avg_client_value || '—', sub: 'From MRI intake' },
-                ].map(m => (
-                  <div key={m.label} style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
-                    <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.15em', marginBottom: '8px' }}>{m.label.toUpperCase()}</div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', color: gold, marginBottom: '4px' }}>{m.value}</div>
-                    <div style={{ fontSize: '11px', color: '#333' }}>{m.sub}</div>
+              <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>BUSINESS HEALTH</div>
+              <div style={{ fontSize: '13px', color: '#555', marginBottom: '24px', lineHeight: '1.7' }}>
+                A full breakdown of your connected business health across all five BEI pillars — Growth, Operations, Strategy, Risk and Context.
+              </div>
+
+              {result ? (
+                <>
+                  {/* Overall health + pillar grid */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '20px', marginBottom: '24px' }}>
+                    <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', textAlign: 'center' as const, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.15em', marginBottom: '12px' }}>OVERALL HEALTH</div>
+                      <svg width="120" height="120" viewBox="0 0 120 120" style={{ display: 'block', margin: '0 auto' }}>
+                        <circle cx="60" cy="60" r="50" fill="none" stroke="#111" strokeWidth="8"/>
+                        <circle cx="60" cy="60" r="50" fill="none" stroke={healthColor} strokeWidth="8"
+                          strokeDasharray={`${(health.overall || 0) * 3.14} 314`}
+                          strokeDashoffset="78" strokeLinecap="round"
+                          transform="rotate(-90 60 60)"
+                        />
+                        <text x="60" y="65" textAnchor="middle" fill={healthColor} fontSize="28" fontWeight="800" fontFamily="Inter">{health.overall || '—'}</text>
+                      </svg>
+                      <div style={{ fontSize: '12px', color: '#555', marginTop: '8px', textTransform: 'capitalize' as const }}>{health.band || 'unknown'}</div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px', justifyContent: 'center' }}>
+                      {health.pillars && Object.entries(health.pillars).map(([name, data]: [string, any]) => {
+                        const c = data.score >= 70 ? '#4aaa4a' : data.score >= 45 ? gold : '#cc4444'
+                        const label = name.charAt(0).toUpperCase() + name.slice(1)
+                        return (
+                          <div key={name}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                              <div style={{ fontSize: '12px', color: '#666', fontWeight: '600' }}>{label}</div>
+                              <div style={{ fontSize: '12px', fontWeight: '700', color: c }}>{data.score}/100</div>
+                            </div>
+                            <div style={{ height: '6px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
+                              <div style={{ width: data.score + '%', height: '100%', backgroundColor: c, borderRadius: '3px', transition: 'width 1s ease' }} />
+                            </div>
+                            {data.band && <div style={{ fontSize: '10px', color: '#333', marginTop: '3px', textTransform: 'capitalize' as const }}>{data.band}</div>}
+                          </div>
+                        )
+                      })}
+                    </div>
                   </div>
-                ))}
-              </div>
-              <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '16px' }}>
-                <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>OPPORTUNITY IMPACT ON REVENUE</div>
-                {result?.total_opportunity ? (
-                  <div style={{ display: 'flex', gap: '40px' }}>
-                    <div>
-                      <div style={{ fontSize: '11px', color: '#444', marginBottom: '6px' }}>CONSERVATIVE</div>
-                      <div style={{ fontSize: '32px', fontWeight: '800', color: gold }}>£{Math.round((result.total_opportunity.total_low || 0)/1000)}k</div>
-                      <div style={{ fontSize: '12px', color: '#444', marginTop: '4px' }}>Annual uplift</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '11px', color: '#444', marginBottom: '6px' }}>OPTIMISTIC</div>
-                      <div style={{ fontSize: '32px', fontWeight: '800', color: gold }}>£{Math.round((result.total_opportunity.total_high || 0)/1000)}k</div>
-                      <div style={{ fontSize: '12px', color: '#444', marginTop: '4px' }}>Annual uplift</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '11px', color: '#444', marginBottom: '6px' }}>PRIMARY SOURCE</div>
-                      <div style={{ fontSize: '16px', fontWeight: '700', color: '#f0f0f0' }}>{primary?.name || '—'}</div>
-                      <div style={{ fontSize: '12px', color: '#444', marginTop: '4px' }}>Constraint resolution</div>
-                    </div>
+
+                  {/* Health context cards */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '20px' }}>
+                    {[
+                      { label: 'Primary Constraint', value: primary?.name || 'None detected', color: primary ? '#cc4444' : '#4aaa4a', sub: primary ? 'Active — verified' : 'No constraint detected' },
+                      { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', sub: 'Constraint verification' },
+                      { label: 'Total Opportunity', value: result.total_opportunity ? '£' + Math.round((result.total_opportunity.total_low||0)/1000) + 'k–£' + Math.round((result.total_opportunity.total_high||0)/1000) + 'k' : '—', color: gold, sub: 'Annual value available' },
+                      { label: 'Revenue Band', value: result.inputs?.monthly_revenue || '—', color: '#888', sub: 'Current reported revenue' },
+                      { label: 'Revenue Trend', value: result.inputs?.revenue_trend || '—', color: '#888', sub: 'Self-reported direction' },
+                      { label: 'Confidence Level', value: (result.confidence || 'low').toUpperCase(), color: result.confidence === 'high' ? '#4aaa4a' : '#888', sub: 'Intelligence confidence' },
+                    ].map(s => (
+                      <div key={s.label} style={{ padding: '16px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
+                        <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.15em', marginBottom: '6px' }}>{s.label.toUpperCase()}</div>
+                        <div style={{ fontSize: '14px', fontWeight: '700', color: s.color, lineHeight: '1.3', marginBottom: '4px' }}>{s.value}</div>
+                        <div style={{ fontSize: '11px', color: '#333' }}>{s.sub}</div>
+                      </div>
+                    ))}
                   </div>
-                ) : (
-                  <div style={{ fontSize: '13px', color: '#444' }}>Revenue opportunity data will appear after your first MRI is complete.</div>
-                )}
-              </div>
-              <div style={{ padding: '20px 24px', backgroundColor: '#080808', border: '1px solid #161616', borderRadius: '8px', fontSize: '13px', color: '#444', lineHeight: '1.7' }}>
-                ◈ Connect your accounting software via the Connect page to enable live revenue tracking and automatic MRI updates.
-                <a href='/connect' style={{ color: gold, textDecoration: 'none', marginLeft: '8px', fontWeight: '600' }}>Connect data sources →</a>
-              </div>
+
+                  {/* Opportunity breakdown */}
+                  {result.total_opportunity && (
+                    <div style={{ padding: '24px', backgroundColor: card, border: '1px solid rgba(200,162,74,0.2)', borderRadius: '10px', marginBottom: '16px' }}>
+                      <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>OPPORTUNITY IMPACT ON HEALTH</div>
+                      <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-end' }}>
+                        <div>
+                          <div style={{ fontSize: '10px', color: '#444', marginBottom: '6px' }}>CONSERVATIVE UPLIFT</div>
+                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>£{Math.round((result.total_opportunity.total_low||0)/1000)}k</div>
+                          <div style={{ fontSize: '11px', color: '#444', marginTop: '4px' }}>Annual revenue gain</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '10px', color: '#444', marginBottom: '6px' }}>OPTIMISTIC UPLIFT</div>
+                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>£{Math.round((result.total_opportunity.total_high||0)/1000)}k</div>
+                          <div style={{ fontSize: '11px', color: '#444', marginTop: '4px' }}>Annual revenue gain</div>
+                        </div>
+                        <div style={{ flex: 1, paddingLeft: '20px', borderLeft: '1px solid #161616' }}>
+                          <div style={{ fontSize: '10px', color: '#444', marginBottom: '8px' }}>PRIMARY CONSTRAINT RESOLUTION</div>
+                          <div style={{ fontSize: '15px', fontWeight: '700', color: '#f0f0f0', marginBottom: '6px' }}>{primary?.name || '—'}</div>
+                          <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.6' }}>Resolving this constraint is the highest-leverage action available to improve your overall health score and unlock the identified opportunity.</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div style={{ padding: '16px 20px', backgroundColor: '#080808', border: '1px solid #161616', borderRadius: '8px', fontSize: '13px', color: '#444', lineHeight: '1.7' }}>
+                    ◈ Connect your accounting and CRM data to enable live health score updates and automatic MRI recalculation.
+                    <a href='/connect' style={{ color: gold, textDecoration: 'none', marginLeft: '8px', fontWeight: '600' }}>Connect data sources →</a>
+                  </div>
+                </>
+              ) : (
+                <div style={{ padding: '48px', textAlign: 'center' as const, backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
+                  <div style={{ fontSize: '13px', color: '#444', marginBottom: '20px' }}>Complete your MRI to see your full business health breakdown.</div>
+                  <a href='/book' style={{ padding: '12px 32px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px' }}>Start Your Free MRI →</a>
+                </div>
+              )}
             </div>
           )}
 
-          {/* CRITICAL ISSUES TAB */}
+          {/* ISSUES & CONSTRAINTS TAB */}
           {activeTab === 'issues' && (
             <div>
-              <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.2em', marginBottom: '24px', fontWeight: '600' }}>OPEN CRITICAL ISSUES</div>
+              <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>ISSUES & CONSTRAINTS</div>
+              <div style={{ fontSize: '13px', color: '#555', marginBottom: '24px', lineHeight: '1.7' }}>
+                All detected and verified constraints across your connected business. Ranked by severity, verification score and estimated impact on revenue and growth.
+              </div>
               {primary ? (
                 <>
+                  {/* Constraint summary stats */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '20px' }}>
+                    {[
+                      { label: 'Primary Constraint', value: '1', color: '#cc4444', sub: 'Verified active' },
+                      { label: 'Secondary Constraints', value: String(secondary.length), color: gold, sub: 'Identified' },
+                      { label: 'High Severity', value: String(secondary.filter((c: any) => c.severity === 'high').length + 1), color: '#cc4444', sub: 'Require action' },
+                      { label: 'Verification Score', value: (primary?.verification_score || 0) + '/100', color: '#4aaa4a', sub: 'Primary constraint' },
+                    ].map(s => (
+                      <div key={s.label} style={{ padding: '14px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
+                        <div style={{ fontSize: '10px', color: '#444', marginBottom: '6px', letterSpacing: '0.1em' }}>{s.label.toUpperCase()}</div>
+                        <div style={{ fontSize: '20px', fontWeight: '800', color: s.color, marginBottom: '3px' }}>{s.value}</div>
+                        <div style={{ fontSize: '11px', color: '#333' }}>{s.sub}</div>
+                      </div>
+                    ))}
+                  </div>
+
                   <div style={{ padding: '24px', backgroundColor: '#1a0a0a', border: '1px solid #3a1a1a', borderLeft: '3px solid #cc4444', borderRadius: '8px', marginBottom: '12px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-                      <div style={{ fontSize: '10px', color: '#cc4444', letterSpacing: '0.2em', fontWeight: '700' }}>CRITICAL — PRIMARY CONSTRAINT</div>
-                      <div style={{ fontSize: '11px', color: '#555' }}>Verification: {primary.verification_score}/100</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                      <div style={{ fontSize: '10px', color: '#cc4444', letterSpacing: '0.2em', fontWeight: '700' }}>CRITICAL — PRIMARY CONSTRAINT — VERIFIED</div>
+                      <div style={{ display: 'flex', gap: '12px' }}>
+                        <div style={{ fontSize: '11px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.08)', padding: '2px 8px', borderRadius: '8px', border: '1px solid rgba(74,170,74,0.15)' }}>✓ {primary.verification_score}/100 verified</div>
+                        <div style={{ fontSize: '11px', color: '#cc4444', fontWeight: '600', textTransform: 'uppercase' as const }}>{primary.severity || 'high'}</div>
+                      </div>
                     </div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>{primary.name}</div>
-                    <div style={{ fontSize: '13px', color: '#777', lineHeight: '1.6' }}>{primary.hypothesis}</div>
-                    <div style={{ marginTop: '14px' }}>
-                      <a href={`/report/${selected?.id}`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>View full analysis →</a>
+                    <div style={{ fontSize: '18px', fontWeight: '800', marginBottom: '10px', letterSpacing: '-0.01em' }}>{primary.name}</div>
+                    <div style={{ fontSize: '13px', color: '#888', lineHeight: '1.75', marginBottom: '14px' }}>{primary.hypothesis}</div>
+                    {primary.evidence && primary.evidence.length > 0 && (
+                      <div style={{ marginBottom: '14px' }}>
+                        <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.15em', marginBottom: '8px' }}>EVIDENCE</div>
+                        {primary.evidence.slice(0,3).map((e: string, i: number) => (
+                          <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
+                            <span style={{ color: '#cc4444', fontSize: '10px', marginTop: '3px', flexShrink: 0 }}>◈</span>
+                            <span style={{ fontSize: '12px', color: '#666', lineHeight: '1.6' }}>{e}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #2a1a1a' }}>
+                      {result?.total_opportunity && (
+                        <div style={{ fontSize: '12px', color: gold }}>
+                          Opportunity: £{Math.round((result.total_opportunity.total_low||0)/1000)}k–£{Math.round((result.total_opportunity.total_high||0)/1000)}k annual uplift on resolution
+                        </div>
+                      )}
+                      <a href={`/report/${selected?.id}`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600', marginLeft: 'auto' }}>View full analysis →</a>
                     </div>
                   </div>
                   {secondary.filter((c: any) => c.severity === 'high').map((c: any) => (
