@@ -785,88 +785,140 @@ export default function DashboardPage() {
           {/* BEI INTELLIGENCE TAB */}
           {activeTab === 'intelligence' && (
             <div>
-              <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>BEI INTELLIGENCE — {industryData.label.toUpperCase()}</div>
-              <div style={{ fontSize: '13px', color: '#555', marginBottom: '28px', lineHeight: '1.7', maxWidth: '680px' }}>
-                The BEI intelligence team never stops working. Human judgement and machine speed combine to maintain accuracy that neither could achieve alone.
+
+              {/* Hero image + header */}
+              <div style={{ position: 'relative' as const, borderRadius: '16px', overflow: 'hidden', marginBottom: '28px', border: '1px solid rgba(200,162,74,0.2)' }}>
+                <img src='/bei-intelligence-image.png' alt='BEI Intelligence' style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block', opacity: 0.7 }} />
+                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(3,2,1,0.95) 0%, rgba(3,2,1,0.6) 50%, transparent 100%)' }} />
+                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
+                <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', padding: '32px' }}>
+                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '10px', fontWeight: '600' }}>BEI INTELLIGENCE OPERATION</div>
+                  <div style={{ fontSize: '26px', fontWeight: '800', color: '#f0f0f0', letterSpacing: '-0.02em', marginBottom: '8px', maxWidth: '500px', lineHeight: '1.2' }}>
+                    The BEI intelligence team<br />never stops working.
+                  </div>
+                  <div style={{ fontSize: '13px', color: '#777', maxWidth: '480px', lineHeight: '1.7' }}>
+                    Human judgement and machine speed in permanent unison — monitoring the signals that matter across every client market sector.
+                  </div>
+                  <div style={{ display: 'flex', gap: '20px', marginTop: '16px' }}>
+                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
+                      <span style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING ACTIVE</span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: gold }} />
+                      <span style={{ fontSize: '11px', color: gold, fontWeight: '600' }}>{industryData.label.toUpperCase()}</span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#555' }} />
+                      <span style={{ fontSize: '11px', color: '#555' }}>48HR ALERT WINDOW</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* 4-step process */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px', backgroundColor: '#161616', border: '1px solid #161616', borderRadius: '10px', overflow: 'hidden', marginBottom: '28px' }}>
                 {[
-                  { n: '01', title: 'AI scans continuously', desc: 'Machine systems monitor growth signals, risk indicators and sector data across all client market areas — 24 hours a day.' },
-                  { n: '02', title: 'Signals are flagged and scored', desc: 'Every detected signal is scored for severity, relevance to your Business Twin and potential impact on your primary constraint.' },
-                  { n: '03', title: 'BEI team validates', desc: 'The intelligence team reviews every flagged signal. Human judgement determines whether it warrants a client alert.' },
-                  { n: '04', title: 'Client is notified', desc: 'If a signal crosses the alert threshold, you are notified within 48 hours with context, explanation and recommended action.' },
+                  { n: '01', title: 'AI scans continuously', desc: 'Machine systems monitor growth signals, risk indicators and sector data across all client market areas — 24 hours a day, without gaps.' },
+                  { n: '02', title: 'Signals flagged and scored', desc: 'Every detected signal is scored for severity, relevance to your Business Twin and potential impact on your primary constraint status.' },
+                  { n: '03', title: 'BEI team validates', desc: 'The intelligence team reviews every flagged signal. Human judgement determines whether it warrants a client alert or MRI re-evaluation.' },
+                  { n: '04', title: 'Client notified', desc: 'If a signal crosses the alert threshold, you are notified within 48 hours with context, explanation and recommended action. Verified — not raw data.' },
                 ].map((step, i) => (
-                  <div key={step.n} style={{ padding: '20px', backgroundColor: card }}>
-                    <div style={{ fontSize: '11px', color: gold, fontWeight: '700', letterSpacing: '0.15em', marginBottom: '10px' }}>{step.n}</div>
-                    <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px', color: '#e0e0e0' }}>{step.title}</div>
-                    <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.65' }}>{step.desc}</div>
+                  <div key={step.n} style={{ padding: '24px 20px', backgroundColor: card, position: 'relative' as const }}>
+                    <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: i === 0 ? 'linear-gradient(90deg, #C8A24A, transparent)' : 'transparent' }} />
+                    <div style={{ fontSize: '22px', fontWeight: '800', color: 'rgba(200,162,74,0.15)', marginBottom: '12px', fontFamily: 'monospace' }}>{step.n}</div>
+                    <div style={{ fontSize: '13px', fontWeight: '700', marginBottom: '8px', color: '#e0e0e0' }}>{step.title}</div>
+                    <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.7' }}>{step.desc}</div>
                   </div>
                 ))}
               </div>
 
-              {/* Industry insight */}
-              <div style={{ padding: '20px 24px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '8px', marginBottom: '24px' }}>
-                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>◈ {industryData.label.toUpperCase()} INTELLIGENCE INSIGHT</div>
-                <div style={{ fontSize: '14px', color: '#ccc', lineHeight: '1.75' }}>{industryData.insight}</div>
+              {/* Industry insight banner */}
+              <div style={{ padding: '24px 28px', background: 'linear-gradient(135deg, rgba(200,162,74,0.06) 0%, rgba(200,162,74,0.02) 100%)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '10px', marginBottom: '24px', position: 'relative' as const, overflow: 'hidden' }}>
+                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.4), transparent)' }} />
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '10px', fontWeight: '600' }}>◈ {industryData.label.toUpperCase()} — INTELLIGENCE INSIGHT</div>
+                <div style={{ fontSize: '15px', color: '#ccc', lineHeight: '1.8', fontWeight: '400' }}>{industryData.insight}</div>
               </div>
 
-              {/* Live signals */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>LIVE INTELLIGENCE SIGNALS — VERIFIED BY BEI TEAM</div>
-                <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
-                  {industryData.signals.map((s: any, i: number) => (
-                    <div key={i} style={{ padding: '16px 20px', backgroundColor: s.severity === 'high' ? '#0f0a04' : card, border: `1px solid ${s.severity === 'high' ? '#3a2a04' : border}`, borderLeft: `3px solid ${s.severity === 'high' ? '#cc4444' : s.severity === 'medium' ? gold : '#333'}`, borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '6px' }}>
-                          <div style={{ fontSize: '10px', color: s.severity === 'high' ? '#cc4444' : gold, fontWeight: '700', letterSpacing: '0.15em' }}>{s.domain.toUpperCase()}</div>
-                          <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '1px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>✓ VERIFIED</div>
+              {/* Signals + Benchmarks side by side */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+
+                {/* Live signals */}
+                <div style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
+                  <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>LIVE SIGNALS — VERIFIED</div>
+                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
+                    {industryData.signals.map((s: any, i: number) => (
+                      <div key={i} style={{ padding: '12px 14px', backgroundColor: s.severity === 'high' ? '#0f0a04' : '#080808', border: `1px solid ${s.severity === 'high' ? '#3a2a04' : '#161616'}`, borderLeft: `2px solid ${s.severity === 'high' ? '#cc4444' : s.severity === 'medium' ? gold : '#333'}`, borderRadius: '6px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
+                          <div style={{ fontSize: '10px', color: s.severity === 'high' ? '#cc4444' : gold, fontWeight: '700', letterSpacing: '0.15em' }}>{s.domain}</div>
+                          <div style={{ fontSize: '9px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.08)', padding: '1px 6px', borderRadius: '8px', border: '1px solid rgba(74,170,74,0.15)' }}>✓ VERIFIED</div>
                         </div>
-                        <div style={{ fontSize: '13px', color: '#ccc', lineHeight: '1.6' }}>{s.signal}</div>
+                        <div style={{ fontSize: '12px', color: '#888', lineHeight: '1.5' }}>{s.signal}</div>
                       </div>
-                      <div style={{ fontSize: '10px', color: s.severity === 'high' ? '#cc4444' : s.severity === 'medium' ? gold : '#555', fontWeight: '600', whiteSpace: 'nowrap' as const, textTransform: 'uppercase' as const }}>{s.severity}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Industry benchmarks */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>INDUSTRY BENCHMARKS — {industryData.label.toUpperCase()}</div>
-                <div style={{ border: '1px solid ' + border, borderRadius: '8px', overflow: 'hidden' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', backgroundColor: '#080808', borderBottom: '1px solid ' + border }}>
-                    <div style={{ padding: '10px 16px', fontSize: '10px', color: '#333', fontWeight: '600', letterSpacing: '0.1em', borderRight: '1px solid ' + border }}>METRIC</div>
-                    <div style={{ padding: '10px 16px', fontSize: '10px', color: '#333', fontWeight: '600', letterSpacing: '0.1em', borderRight: '1px solid ' + border }}>INDUSTRY VALUE</div>
-                    <div style={{ padding: '10px 16px', fontSize: '10px', color: '#333', fontWeight: '600', letterSpacing: '0.1em' }}>CONTEXT</div>
+                    ))}
                   </div>
-                  {industryData.benchmarks.map((b: any, i: number) => (
-                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', borderBottom: i < industryData.benchmarks.length - 1 ? '1px solid ' + border : 'none', backgroundColor: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)' }}>
-                      <div style={{ padding: '12px 16px', fontSize: '13px', color: '#777', borderRight: '1px solid ' + border }}>{b.metric}</div>
-                      <div style={{ padding: '12px 16px', fontSize: '13px', fontWeight: '600', color: gold, borderRight: '1px solid ' + border }}>{b.value}</div>
-                      <div style={{ padding: '12px 16px', fontSize: '12px', color: '#444' }}>{b.bei}</div>
+                </div>
+
+                {/* Benchmarks */}
+                <div style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
+                  <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>INDUSTRY BENCHMARKS</div>
+                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '0' }}>
+                    {industryData.benchmarks.map((b: any, i: number) => (
+                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '10px 0', borderBottom: i < industryData.benchmarks.length - 1 ? '1px solid #111' : 'none' }}>
+                        <div style={{ fontSize: '12px', color: '#555', flex: 1, paddingRight: '12px', lineHeight: '1.4' }}>{b.metric}</div>
+                        <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
+                          <div style={{ fontSize: '13px', fontWeight: '700', color: gold }}>{b.value}</div>
+                          <div style={{ fontSize: '10px', color: '#333', marginTop: '2px' }}>{b.bei}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Signal domain bars */}
+              <div style={{ padding: '20px 24px', backgroundColor: '#080808', border: '1px solid #161616', borderRadius: '10px', marginBottom: '20px' }}>
+                <div style={{ fontSize: '10px', color: '#333', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>MONITORING COVERAGE — 4 SIGNAL DOMAINS</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+                  {[
+                    { domain: 'Growth Signals', coverage: 94, color: '#4aaa4a' },
+                    { domain: 'Operational Risk', coverage: 88, color: gold },
+                    { domain: 'Financial Risk', coverage: 91, color: gold },
+                    { domain: 'Strategic Risk', coverage: 86, color: '#4a8ab0' },
+                  ].map(d => (
+                    <div key={d.domain} style={{ textAlign: 'center' as const }}>
+                      <svg width="64" height="64" viewBox="0 0 64 64" style={{ display: 'block', margin: '0 auto 8px' }}>
+                        <circle cx="32" cy="32" r="26" fill="none" stroke="#111" strokeWidth="5"/>
+                        <circle cx="32" cy="32" r="26" fill="none" stroke={d.color} strokeWidth="5"
+                          strokeDasharray={`${d.coverage * 1.634} 163.4`}
+                          strokeDashoffset="40.8" strokeLinecap="round"
+                          transform="rotate(-90 32 32)"
+                        />
+                        <text x="32" y="37" textAnchor="middle" fill={d.color} fontSize="13" fontWeight="700" fontFamily="Inter">{d.coverage}%</text>
+                      </svg>
+                      <div style={{ fontSize: '11px', color: '#555', lineHeight: '1.4' }}>{d.domain}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Team status */}
-              <div style={{ padding: '20px 24px', backgroundColor: '#080808', border: '1px solid #161616', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              {/* Team status bar */}
+              <div style={{ padding: '18px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.6)' }} />
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 8px rgba(74,170,74,0.7)' }} />
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '2px' }}>BEI Intelligence Team — Active</div>
-                    <div style={{ fontSize: '11px', color: '#444' }}>Monitoring {industryData.label} signals · Human-verified intelligence · 48hr alert window</div>
+                    <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '3px' }}>BEI Intelligence Team — Active</div>
+                    <div style={{ fontSize: '11px', color: '#444' }}>Monitoring {industryData.label} · Human-verified intelligence · No alert sent without BEI team validation</div>
                   </div>
                 </div>
                 <div style={{ fontSize: '11px', color: '#333', textAlign: 'right' as const }}>
-                  <div>Last updated</div>
-                  <div style={{ color: '#555', marginTop: '2px' }}>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                  <div style={{ color: '#444', marginBottom: '2px' }}>Last updated</div>
+                  <div style={{ color: gold }}>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                 </div>
               </div>
+
             </div>
           )}
-
         </div>
       </div>
     </main>
