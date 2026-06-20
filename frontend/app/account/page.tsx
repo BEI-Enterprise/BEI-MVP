@@ -26,11 +26,11 @@ export default function AccountPage() {
           .eq('email', data.user.email)
           .order('updated_at', { ascending: false })
           .limit(1)
-        const biz = Array.isArray(bizArr) && bizArr.length > 0 ? bizArr[0] : bizArr
-        if (biz && biz.id) {
+        const biz = Array.isArray(bizArr) && bizArr.length > 0 ? bizArr[0] : null
+        if (biz && (biz as any).id) {
           setBusiness(biz)
-          setIndustryValue(biz.industry || '')
-          setLocationValue(biz.location_country || '')
+          setIndustryValue((biz as any).industry || '')
+          setLocationValue((biz as any).location_country || '')
         }
       }
       setLoading(false)
