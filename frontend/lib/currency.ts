@@ -3,17 +3,21 @@ import { useState, useEffect } from 'react'
 
 export type Currency = 'GBP' | 'USD'
 
-export function useCurrency(): Currency {
+export function useCurrency(savedLocation?: string): Currency {
   const [currency, setCurrency] = useState<Currency>('GBP')
   useEffect(() => {
+    if (savedLocation) {
+      setCurrency(savedLocation === 'United States' ? 'USD' : 'GBP')
+      return
+    }
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-      const locale = navigator.language || ''
+      const locale = navigator.language
       if (tz.startsWith('America/') || locale.startsWith('en-US')) {
         setCurrency('USD')
       }
-    } catch (e) {}
-  }, [])
+    } catch {}
+  }, [savedLocation])
   return currency
 }
 

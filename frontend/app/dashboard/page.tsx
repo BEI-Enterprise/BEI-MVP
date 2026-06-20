@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
+import { useCurrency, formatPrice } from '../../lib/currency'
 import MeetingCentre from '../components/MeetingCentre'
 
 import dynamic from 'next/dynamic'
@@ -42,7 +43,7 @@ export default function DashboardPage() {
         if (user) {
           const { data } = await supabase
             .from('businesses')
-            .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at')
+            .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at, industry, location_country')
             .eq('email', user.email)
             .order('updated_at', { ascending: false })
           if (data && data.length > 0) {
@@ -77,6 +78,8 @@ export default function DashboardPage() {
   const secondary = result?.secondary_constraints || []
   const healthColor = (health.overall || 0) >= 70 ? '#4aaa4a' : (health.overall || 0) >= 45 ? gold : '#cc4444'
   const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'there'
+  const locationCountry = selected?.location_country || ''
+  const currency = useCurrency(locationCountry)
 
   // Industry detection
   const industry = (selected?.industry || '').toLowerCase()
@@ -415,6 +418,17 @@ export default function DashboardPage() {
                   <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING</span>
                 </div>
               </div>
+
+              {/* Location not set prompt */}
+              {!locationCountry && (
+                <div style={{ padding: '16px 20px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '8px', marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>◈ LOCATION NOT SET</div>
+                    <div style={{ fontSize: '13px', color: '#777' }}>Set your location in Account Settings to display the correct currency (£ or $) across your dashboard.</div>
+                  </div>
+                  <a href='/account' style={{ padding: '8px 16px', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '4px', fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600', flexShrink: 0, marginLeft: '16px' }}>Set Location →</a>
+                </div>
+              )}
 
               {/* Data connection to-do list */}
               {(() => {
