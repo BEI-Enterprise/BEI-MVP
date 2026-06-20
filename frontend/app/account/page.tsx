@@ -22,7 +22,7 @@ export default function AccountPage() {
       if (data.user) {
         const { data: biz } = await supabase
           .from('businesses')
-          .select('id, business_name, industry, subscription_tier, subscription_status')
+          .select('id, business_name, industry, subscription_tier, subscription_status, location_country')
           .eq('email', data.user.email)
           .order('updated_at', { ascending: false })
           .limit(1)
