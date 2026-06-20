@@ -13,7 +13,7 @@ const NetworkGraph = dynamic<{ width: number, height: number, nodeCount: number 
 )
 
 
-export default function LandingPage() {
+function LandingPage() {
   const currency = useCurrency()
   const gold = '#C8A24A'
   const s = {
