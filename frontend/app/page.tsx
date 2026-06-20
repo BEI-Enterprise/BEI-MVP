@@ -208,13 +208,15 @@ export default function LandingPage() {
             {[
               { name: 'MRI Analysis', price: 199, period: '/month', features: ['Business MRI','Health Score','Constraint Detection','Monthly Updates'], cta: 'Get Started', popular: false },
               { name: 'Analysis + Opportunity', price: 399, period: '/month', features: ['Everything in Analysis','Opportunity Mapping','Prioritisation Engine','Opportunity Quantification'], cta: 'Most Popular', popular: true },
-              { name: 'Full Platform', price: 999, period: '/month', features: ['Everything above','Deployment Recommendations','Execution Tracking','Outcome Monitoring','Continuous Optimisation'], cta: 'Full Access', popular: false },
+              { name: 'Full Platform', price: 999, period: '/month', features: ['Everything above','Deployment Engine','Outcome Tracking','Learning Engine'], cta: 'Full Access', popular: false },
+              { name: 'Corporate Group', price: 1599, period: '/month', features: ['Everything in Full Platform','Up to 3 businesses','Portfolio dashboard','Group risk overview','Executive briefing pack'], cta: 'Corporate Access', popular: false, badge: 'MULTI-BUSINESS' },
+              { name: 'Enterprise', price: null, period: null, features: ['Everything in Corporate','Custom benchmark system','Unlimited businesses','Dedicated intelligence team','Board-level reporting'], cta: 'Enquire Now', popular: false, badge: 'ENTERPRISE', enquire: true, priceRange: '£2,500–£25,000/month' },
             ].map(plan => (
               <div key={plan.name} style={{ padding: '32px', border: `1px solid ${plan.popular ? gold : '#1a1a1a'}`, borderRadius: '8px', backgroundColor: plan.popular ? '#0d0a04' : '#080808', position: 'relative' as const }}>
                 {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '4px 16px', backgroundColor: gold, color: '#050505', fontSize: '11px', fontWeight: '700', borderRadius: '20px' }}>MOST POPULAR</div>}
                 <div style={{ fontSize: '14px', color: '#888', marginBottom: '8px' }}>{plan.name}</div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '24px' }}>
-                  <span style={{ fontSize: '40px', fontWeight: '700', color: plan.popular ? gold : '#fff' }}>{formatPrice(plan.price, currency)}</span>
+                  <span style={{ fontSize: '40px', fontWeight: '700', color: (plan as any).popular ? gold : (plan as any).badge ? gold : '#fff' }}>{(plan as any).enquire ? 'Custom' : formatPrice(plan.price, currency)}</span>
                   <span style={{ fontSize: '14px', color: '#555' }}>{plan.period}</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px', marginBottom: '32px' }}>
@@ -224,7 +226,9 @@ export default function LandingPage() {
                     </div>
                   ))}
                 </div>
-                <a href="/book" style={{ display: 'block', textAlign: 'center' as const, padding: '14px', backgroundColor: plan.popular ? gold : 'transparent', color: plan.popular ? '#050505' : gold, border: `1px solid ${gold}`, borderRadius: '6px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>{plan.cta} →</a>
+                {(plan as any).badge && <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', fontWeight: '700', marginBottom: '8px' }}>{(plan as any).badge}</div>}
+                {(plan as any).enquire && <div style={{ fontSize: '12px', color: '#777', marginBottom: '8px' }}>£2,500–£25,000/month · Scope dependent</div>}
+                <a href={(plan as any).enquire ? '/book' : '/register'} style={{ display: 'block', textAlign: 'center' as const, padding: '14px', backgroundColor: (plan as any).popular || (plan as any).enquire ? gold : 'transparent', color: (plan as any).popular || (plan as any).enquire ? '#050505' : gold, border: `1px solid ${gold}`, borderRadius: '6px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>{plan.cta} →</a>
               </div>
             ))}
           </div>

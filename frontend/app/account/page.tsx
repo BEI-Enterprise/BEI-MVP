@@ -55,6 +55,8 @@ export default function AccountPage() {
     { id: 'analysis', name: 'MRI Analysis', price: '£199', features: ['Full MRI Report', 'Health Score', 'Constraint Detection', 'Monthly Updates'] },
     { id: 'opportunity', name: 'Analysis + Opportunity', price: '£399', features: ['Everything in Analysis', 'Opportunity Mapping', 'Prioritisation Engine'], popular: true },
     { id: 'platform', name: 'Full Platform', price: '£999', features: ['Everything above', 'Deployment Engine', 'Outcome Tracking', 'Learning Engine'] },
+    { id: 'corporate', name: 'Corporate Group', price: '£1,599', features: ['Everything in Full Platform', 'Up to 3 businesses', 'Portfolio dashboard', 'Group risk overview', 'Executive briefing pack'], badge: 'MULTI-BUSINESS' },
+    { id: 'enterprise', name: 'Enterprise', price: '£2,500–£25,000', features: ['Everything in Corporate', 'Custom benchmark system', 'Unlimited businesses', 'Dedicated intelligence team', 'Board-level reporting'], badge: 'ENTERPRISE', enquire: true },
   ]
 
   return (
@@ -124,7 +126,7 @@ export default function AccountPage() {
                 <div>
                   <div style={{display:'flex',alignItems:'center',gap:'8px',marginBottom:'4px'}}>
                     <div style={{fontSize:'15px',fontWeight:'600'}}>{plan.name}</div>
-                    {(plan as any).popular && <div style={{fontSize:'10px',padding:'2px 8px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'10px'}}>POPULAR</div>}
+                    {(plan as any).popular && <div style={{fontSize:'10px',padding:'2px 8px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'10px'}}>POPULAR</div>}{(plan as any).badge && !(plan as any).popular && <div style={{fontSize:'10px',padding:'2px 8px',backgroundColor:'rgba(200,162,74,0.15)',color:gold,fontWeight:'700',borderRadius:'10px',border:'1px solid rgba(200,162,74,0.3)'}}>{(plan as any).badge}</div>}
                   </div>
                   <div style={{display:'flex',gap:'12px',flexWrap:'wrap' as const}}>
                     {plan.features.map(f => (
@@ -133,7 +135,7 @@ export default function AccountPage() {
                   </div>
                 </div>
                 <div style={{textAlign:'right' as const,flexShrink:0,marginLeft:'24px'}}>
-                  <div style={{fontSize:'20px',fontWeight:'700',color:(plan as any).popular?gold:'#fff',marginBottom:'8px'}}>{plan.price}/mo</div>
+                  <div style={{fontSize:'20px',fontWeight:'700',color:(plan as any).popular||(plan as any).badge?gold:'#fff',marginBottom:'8px'}}>{(plan as any).enquire?'Custom':(plan as any).badge&&plan.id==='corporate'?'£1,599/mo':plan.price+'/mo'}</div>
                   <a href="/pricing" style={{padding:'8px 20px',border:`1px solid ${gold}`,color:gold,borderRadius:'4px',textDecoration:'none',fontSize:'12px',fontWeight:'600'}}>Select →</a>
                 </div>
               </div>
