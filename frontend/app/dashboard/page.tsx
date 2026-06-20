@@ -57,6 +57,8 @@ export default function DashboardPage() {
     load()
   }, [])
 
+  const locationCountry = selected?.location_country || ''
+  const currency = useCurrency(locationCountry)
   if (loading) return (
     <main style={{ backgroundColor: '#0c0c0c', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ fontSize: '13px', color: '#666', letterSpacing: '0.1em' }}>Loading your intelligence...</div>
@@ -78,8 +80,6 @@ export default function DashboardPage() {
   const secondary = result?.secondary_constraints || []
   const healthColor = (health.overall || 0) >= 70 ? '#4aaa4a' : (health.overall || 0) >= 45 ? gold : '#cc4444'
   const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'there'
-  const locationCountry = selected?.location_country || ''
-  const currency = useCurrency(locationCountry)
 
   // Industry detection
   const industry = (selected?.industry || '').toLowerCase()
