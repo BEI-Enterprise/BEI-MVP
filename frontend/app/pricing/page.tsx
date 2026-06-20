@@ -77,6 +77,57 @@ function PricingContent() {
       popular: false,
       color: '#fff',
     },
+    {
+      name: 'Corporate Group',
+      price: 1599,
+      originalPrice: '£2,665',
+      saving: '£12,792',
+      period: '/month',
+      desc: 'Full platform intelligence across up to 3 businesses simultaneously.',
+      opportunity: '£3M+ avg opportunity across portfolio',
+      features: [
+        'Everything in Full Platform',
+        'Up to 3 connected businesses',
+        'Portfolio-level health dashboard',
+        'Cross-business constraint comparison',
+        'Group risk overview and alerts',
+        'Consolidated MRI reporting',
+        'Multi-business deployment engine',
+        'Group-level BEI advisor',
+        'Executive briefing pack monthly',
+      ],
+      cta: 'Corporate Access',
+      popular: false,
+      color: '#fff',
+      badge: 'MULTI-BUSINESS',
+    },
+    {
+      name: 'Enterprise',
+      price: null,
+      originalPrice: null,
+      saving: null,
+      period: null,
+      desc: 'Custom intelligence infrastructure for enterprises valued £100M–£5B.',
+      opportunity: 'Custom benchmarking specific to your enterprise',
+      features: [
+        'Everything in Corporate Group',
+        'Custom enterprise benchmark system',
+        'Bespoke intelligence framework build',
+        'Unlimited connected businesses',
+        'Enterprise-grade data connectors',
+        'Dedicated intelligence team',
+        'Board-level reporting suite',
+        'Custom deployment architecture',
+        'SLA-backed response times',
+        'Strategic advisory retainer',
+      ],
+      cta: 'Enquire Now',
+      popular: false,
+      color: gold,
+      badge: 'ENTERPRISE',
+      enquire: true,
+      priceRange: '£2,500–£25,000/month',
+    },
   ]
 
   const nav = [
@@ -109,36 +160,50 @@ function PricingContent() {
       </section>
 
       <section style={{padding:'0 48px 80px'}}>
-        <div style={{maxWidth:'1100px',margin:'0 auto',display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'24px'}}>
-          {plans.map(plan => (
-            <div key={plan.name} style={{padding:'36px',border:`1px solid ${plan.popular?gold:'#1a1a1a'}`,borderRadius:'12px',backgroundColor:plan.popular?'#0d0a04':'#080808',position:'relative' as const,display:'flex',flexDirection:'column' as const}}>
-              {plan.popular && (
-                <div style={{position:'absolute' as const,top:'-13px',left:'50%',transform:'translateX(-50%)',padding:'4px 18px',backgroundColor:gold,color:'#050505',fontSize:'11px',fontWeight:'700',borderRadius:'20px',letterSpacing:'0.1em'}}>MOST POPULAR</div>
+        <div style={{maxWidth:'1100px',margin:'0 auto',display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:'24px'}}>
+          {plans.map((plan: any) => (
+            <div key={plan.name} style={{padding:'36px',border:`1px solid ${plan.enquire?'rgba(200,162,74,0.4)':plan.popular?gold:plan.badge?'rgba(200,162,74,0.2)':'#1a1a1a'}`,borderRadius:'12px',backgroundColor:plan.enquire?'#0d0a04':plan.popular?'#0d0a04':plan.badge?'#09080a':'#080808',position:'relative' as const,display:'flex',flexDirection:'column' as const}}>
+              {(plan.popular || plan.badge) && (
+                <div style={{position:'absolute' as const,top:'-12px',left:'50%',transform:'translateX(-50%)',padding:'4px 16px',backgroundColor:plan.enquire?'#1a1000':gold,border:`1px solid ${gold}`,borderRadius:'20px',fontSize:'11px',fontWeight:'700',color:plan.enquire?gold:'#050505',whiteSpace:'nowrap' as const,letterSpacing:'0.1em'}}>
+                  {plan.badge || 'MOST POPULAR'}
+                </div>
               )}
-              <div style={{fontSize:'13px',color:'#888',marginBottom:'6px'}}>{plan.name}</div>
-              <div style={{marginBottom:'4px',display:'flex',alignItems:'center',gap:'8px'}}>
-                <span style={{fontSize:'13px',color:'#444',textDecoration:'line-through'}}>{(plan as any).originalPrice}/mo</span>
-                <span style={{fontSize:'11px',padding:'2px 8px',backgroundColor:'rgba(200,162,74,0.12)',color:gold,borderRadius:'3px',fontWeight:'600'}}>40% OFF</span>
+              <div style={{marginBottom:'8px',fontSize:'11px',color:'#555',letterSpacing:'0.15em',textTransform:'uppercase' as const}}>{plan.name}</div>
+              <div style={{marginBottom:'16px',fontSize:'13px',color:'#666',lineHeight:'1.6'}}>{plan.desc}</div>
+              <div style={{marginBottom:'20px'}}>
+                {plan.enquire ? (
+                  <div>
+                    <div style={{fontSize:'14px',color:gold,fontWeight:'700',marginBottom:'4px'}}>Custom Pricing</div>
+                    <div style={{fontSize:'13px',color:'#888'}}>{plan.priceRange}</div>
+                  </div>
+                ) : (
+                  <div style={{display:'flex',alignItems:'baseline',gap:'4px'}}>
+                    <span style={{fontSize:'44px',fontWeight:'700',color:plan.popular?gold:plan.badge?gold:'#fff'}}>{formatPrice(plan.price, currency)}</span>
+                    <span style={{fontSize:'14px',color:'#555'}}>/month</span>
+                  </div>
+                )}
+                {plan.originalPrice && !plan.enquire && <div style={{fontSize:'12px',color:'#444',marginTop:'4px'}}>Value: {plan.originalPrice}/month · Annual saving: {plan.saving}</div>}
               </div>
-              <div style={{display:'flex',alignItems:'baseline',gap:'4px',marginBottom:'4px'}}>
-                <span style={{fontSize:'44px',fontWeight:'700',color:plan.popular?gold:'#fff'}}>{formatPrice(plan.price, currency)}</span>
-                <span style={{fontSize:'14px',color:'#555'}}>{plan.period}</span>
+              <div style={{padding:'10px 14px',backgroundColor:'rgba(200,162,74,0.06)',border:'1px solid rgba(200,162,74,0.15)',borderRadius:'6px',marginBottom:'20px',fontSize:'12px',color:gold,fontWeight:'600'}}>
+                {plan.opportunity}
               </div>
-              <div style={{fontSize:'12px',color:'#4aaa4a',marginBottom:'8px'}}>Save {(plan as any).saving}/year</div>
-              <div style={{fontSize:'13px',color:'#666',marginBottom:'8px',lineHeight:'1.6'}}>{plan.desc}</div>
-              <div style={{padding:'10px 14px',backgroundColor:'#0a0a0a',borderRadius:'6px',border:'1px solid #1a1a1a',marginBottom:'24px'}}>
-                <span style={{fontSize:'12px',color:gold}}>◈ {plan.opportunity}</span>
-              </div>
-              <div style={{display:'flex',flexDirection:'column' as const,gap:'10px',marginBottom:'32px',flex:1}}>
-                {plan.features.map(f => (
-                  <div key={f} style={{display:'flex',gap:'10px',alignItems:'flex-start',fontSize:'13px',color:'#888'}}>
-                    <span style={{color:'#4aaa4a',flexShrink:0,marginTop:'1px'}}>✓</span>{f}
+              <div style={{flex:1,marginBottom:'24px'}}>
+                {plan.features.map((f: string) => (
+                  <div key={f} style={{display:'flex',gap:'10px',alignItems:'flex-start',marginBottom:'10px'}}>
+                    <span style={{color:'#4aaa4a',fontSize:'12px',marginTop:'2px',flexShrink:0}}>✓</span>
+                    <span style={{fontSize:'13px',color:'#888',lineHeight:'1.5'}}>{f}</span>
                   </div>
                 ))}
               </div>
-              <a href="/register" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:plan.popular?gold:'transparent',color:plan.popular?'#050505':gold,border:`1px solid ${gold}`,borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
-                {plan.cta} →
-              </a>
+              {plan.enquire ? (
+                <a href="/book" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:'transparent',color:gold,border:`1px solid ${gold}`,borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
+                  {plan.cta} →
+                </a>
+              ) : (
+                <a href="/register" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:plan.popular?gold:plan.badge?gold:'transparent',color:plan.popular?'#050505':plan.badge?'#050505':gold,border:`1px solid ${gold}`,borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
+                  {plan.cta} →
+                </a>
+              )}
             </div>
           ))}
         </div>
