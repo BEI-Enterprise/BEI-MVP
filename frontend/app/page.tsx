@@ -255,7 +255,7 @@ function LandingPage() {
                   </div>
                 ) : (
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '20px' }}>
-                    <span style={{ fontSize: '44px', fontWeight: '800', color: gold, letterSpacing: '-0.02em' }}>{formatPrice(plan.price as number, currency)}</span>
+                    <span style={{ fontSize: '44px', fontWeight: '800', color: gold, letterSpacing: '-0.02em' }}>{fmt(plan.price as number)}</span>
                     <span style={{ fontSize: '14px', color: '#555' }}>/month</span>
                   </div>
                 )}
