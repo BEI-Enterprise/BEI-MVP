@@ -865,7 +865,7 @@ export default function DashboardPage() {
 
           {/* MEETING CENTRE TAB */}
           {activeTab === 'meetings' && (
-            <MeetingCentre gold={gold} card={card} border={border} dark={dark} />
+            <MeetingCentre gold={gold} card={card} border={border} dark={dark} businessId={selected?.id} />
           )}
 
         {/* CONNECTORS TAB */}

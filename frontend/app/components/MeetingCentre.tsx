@@ -1,10 +1,14 @@
 'use client'
 import { useState } from 'react'
+import { createClient } from '../../lib/supabase'
 
-export default function MeetingCentre({ gold, card, border, dark }: { gold: string, card: string, border: string, dark: string }) {
+export default function MeetingCentre({ gold, card, border, dark, businessId }: { gold: string, card: string, border: string, dark: string, businessId?: string }) {
   const [meetingNote, setMeetingNote] = useState('')
   const [noteSaved, setNoteSaved] = useState(false)
+  const [saving, setSaving] = useState(false)
   const [selectedMeeting, setSelectedMeeting] = useState('')
+  const [booking, setBooking] = useState(false)
+  const [bookedMeetingId, setBookedMeetingId] = useState<string | null>(null)
 
   const today = new Date()
   const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December']
@@ -86,9 +90,40 @@ export default function MeetingCentre({ gold, card, border, dark }: { gold: stri
             ))}
           </div>
           {selectedMeeting && (
-            <a href='/book' style={{ display: 'block', marginTop: '14px', padding: '12px', backgroundColor: gold, color: '#050505', borderRadius: '6px', textDecoration: 'none', fontWeight: '700', fontSize: '13px', textAlign: 'center' as const }}>
-              Book {meetingTypes.find(m => m.id === selectedMeeting)?.label} →
-            </a>
+            <button
+              disabled={booking || !businessId}
+              onClick={async () => {
+                if (!businessId) return
+                setBooking(true)
+                try {
+                  const supabase = createClient()
+                  const { data, error } = await supabase
+                    .from('meetings')
+                    .insert([{
+                      business_id: businessId,
+                      meeting_type: selectedMeeting,
+                      status: 'requested',
+                      notes: meetingNote || null,
+                    }])
+                    .select()
+                    .single()
+                  if (error) throw error
+                  setBookedMeetingId(data.id)
+                } catch (err) {
+                  console.error('Meeting booking error:', err)
+                } finally {
+                  setBooking(false)
+                }
+              }}
+              style={{ display: 'block', width: '100%', marginTop: '14px', padding: '12px', backgroundColor: booking ? '#8a6e32' : gold, color: '#050505', borderRadius: '6px', border: 'none', fontWeight: '700', fontSize: '13px', textAlign: 'center' as const, cursor: booking || !businessId ? 'not-allowed' : 'pointer' }}
+            >
+              {booking ? 'Booking...' : `Book ${meetingTypes.find(m => m.id === selectedMeeting)?.label} →`}
+            </button>
+          )}
+          {bookedMeetingId && (
+            <div style={{ marginTop: '10px', fontSize: '12px', color: '#4aaa4a', textAlign: 'center' as const }}>
+              ✓ Request sent — your account manager will confirm a time.
+            </div>
           )}
         </div>
       </div>
@@ -124,8 +159,33 @@ export default function MeetingCentre({ gold, card, border, dark }: { gold: stri
           <div style={{ fontSize: '12px', color: '#555' }}>Notes are visible to your BEI account manager only.</div>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             {noteSaved && <div style={{ fontSize: '12px', color: '#4aaa4a', fontWeight: '600' }}>✓ Notes saved</div>}
-            <button onClick={() => { if (meetingNote.trim()) { setNoteSaved(true); setTimeout(() => setNoteSaved(false), 3000) } }} style={{ padding: '10px 20px', backgroundColor: meetingNote.trim() ? gold : '#1a1a1a', color: meetingNote.trim() ? '#050505' : '#444', fontWeight: '700', borderRadius: '4px', border: 'none', cursor: meetingNote.trim() ? 'pointer' : 'not-allowed', fontSize: '13px' }}>
-              Save Notes
+            <button
+              disabled={!meetingNote.trim() || saving || !businessId}
+              onClick={async () => {
+                if (!meetingNote.trim() || !businessId) return
+                setSaving(true)
+                try {
+                  const supabase = createClient()
+                  const { error } = await supabase
+                    .from('meetings')
+                    .insert([{
+                      business_id: businessId,
+                      meeting_type: selectedMeeting || 'monthly',
+                      status: 'requested',
+                      notes: meetingNote,
+                    }])
+                  if (error) throw error
+                  setNoteSaved(true)
+                  setTimeout(() => setNoteSaved(false), 3000)
+                } catch (err) {
+                  console.error('Note save error:', err)
+                } finally {
+                  setSaving(false)
+                }
+              }}
+              style={{ padding: '10px 20px', backgroundColor: meetingNote.trim() && !saving ? gold : '#1a1a1a', color: meetingNote.trim() && !saving ? '#050505' : '#444', fontWeight: '700', borderRadius: '4px', border: 'none', cursor: meetingNote.trim() && !saving ? 'pointer' : 'not-allowed', fontSize: '13px' }}
+            >
+              {saving ? 'Saving...' : 'Save Notes'}
             </button>
           </div>
         </div>

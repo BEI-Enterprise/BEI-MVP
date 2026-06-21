@@ -16,6 +16,7 @@ const PROTECTED_ROUTES = [
   '/outcomes',
   '/account',
   '/connect',
+  '/admin',
 ]
 
 const SUBSCRIPTION_REQUIRED = [
@@ -70,6 +71,14 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
+  // Admin-only route — only admins may pass, everyone else redirected
+  if (pathname.startsWith('/admin')) {
+    if (ADMIN_EMAILS.includes(user.email || '')) {
+      return response
+    }
+    return NextResponse.redirect(new URL('/dashboard', request.url))
+  }
+
   // Admin bypass — full access to everything
   if (ADMIN_EMAILS.includes(user.email || '')) {
     return response
@@ -107,5 +116,6 @@ export const config = {
     '/outcomes/:path*',
     '/account/:path*',
     '/connect/:path*',
+    '/admin/:path*',
   ],
 }
