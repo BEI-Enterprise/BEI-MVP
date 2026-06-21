@@ -340,7 +340,7 @@ export default function DashboardPage() {
           {/* Nav tabs */}
           <div style={{ padding: '20px 0' }}>
             {tabs.map(tab => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id as any)} style={{ width: '100%', padding: '12px 20px', backgroundColor: activeTab === tab.id ? 'rgba(200,162,74,0.06)' : 'transparent', border: 'none', borderLeft: activeTab === tab.id ? '2px solid #C8A24A' : '2px solid transparent', textAlign: 'left' as const, cursor: 'pointer', fontSize: '14px', color: activeTab === tab.id ? gold : '#555', fontWeight: activeTab === tab.id ? '600' : '400' }}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id as any)} style={{ width: '100%', padding: '12px 20px', backgroundColor: activeTab === tab.id ? 'rgba(200,162,74,0.06)' : 'transparent', border: 'none', borderLeft: activeTab === tab.id ? '2px solid #C8A24A' : '2px solid transparent', textAlign: 'left' as const, cursor: 'pointer', fontSize: '14px', color: activeTab === tab.id ? gold : '#ccc', fontWeight: activeTab === tab.id ? '600' : '400' }}>
                 {tab.label}
               </button>
             ))}
