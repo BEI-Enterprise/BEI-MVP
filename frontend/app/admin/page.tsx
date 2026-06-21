@@ -56,7 +56,13 @@ function NetworkGraph() {
     draw()
     return () => cancelAnimationFrame(raf)
   }, [])
-  return <canvas ref={canvasRef} style={{ position: 'absolute' as const, inset: 0, width: '100%', height: '100%', opacity: 0.4 }} />
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+  }, [])
+  return <canvas ref={canvasRef} style={{ position: 'absolute' as const, inset: 0, width: '100vw', height: '100vh', opacity: 0.2 }} />
 }
 
 function GlowCard({ label, value, color, sub }: { label: string, value: string, color: string, sub?: string }) {
