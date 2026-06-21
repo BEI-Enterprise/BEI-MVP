@@ -180,32 +180,6 @@ export default function AccountPage() {
           </div>
         </div>
 
-        {/* Location selector */}
-        <div style={{marginBottom:'32px',padding:'28px',border:'1px solid #1a1a1a',borderRadius:'8px',backgroundColor:'#0a0a0a'}}>
-          <div style={{fontSize:'11px',color:gold,letterSpacing:'0.2em',textTransform:'uppercase' as const,marginBottom:'6px'}}>Location Settings</div>
-          <div style={{fontSize:'16px',fontWeight:'700',marginBottom:'4px'}}>Your Location</div>
-          <div style={{fontSize:'13px',color:'#555',marginBottom:'20px',lineHeight:'1.6'}}>Select your location. This sets your currency display across the entire platform — UK shows £ and US shows $.</div>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'12px',marginBottom:'20px'}}>
-            {[
-              { value: 'United Kingdom', label: '🇬🇧 United Kingdom', desc: sym === '$' ? 'All prices shown in $ USD' : 'All prices shown in £ GBP' },
-              { value: 'United States', label: '🇺🇸 United States', desc: 'All prices shown in $ USD' },
-            ].map(opt => (
-              <button key={opt.value} onClick={() => setLocationValue(opt.value)} style={{padding:'16px',backgroundColor:locationValue===opt.value?'rgba(200,162,74,0.08)':'#080808',border:`1px solid ${locationValue===opt.value?'rgba(200,162,74,0.4)':'#1a1a1a'}`,borderRadius:'8px',textAlign:'left' as const,cursor:'pointer'}}>
-                <div style={{fontSize:'16px',fontWeight:'700',color:locationValue===opt.value?gold:'#ccc',marginBottom:'4px'}}>{opt.label}</div>
-                <div style={{fontSize:'11px',color:'#555',lineHeight:'1.5'}}>{opt.desc}</div>
-                {locationValue===opt.value && <div style={{fontSize:'10px',color:gold,marginTop:'6px',fontWeight:'600'}}>◈ SELECTED</div>}
-              </button>
-            ))}
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
-            <button onClick={saveLocation} disabled={locationSaving||!locationValue} style={{padding:'10px 24px',backgroundColor:locationValue?gold:'#1a1a1a',color:locationValue?'#050505':'#444',fontWeight:'700',borderRadius:'4px',border:'none',cursor:locationValue?'pointer':'not-allowed',fontSize:'13px'}}>
-              {locationSaving?'Saving...':'Save Location'}
-            </button>
-            {locationSaved && <div style={{fontSize:'12px',color:'#4aaa4a',fontWeight:'600'}}>✓ Saved — currency updated across platform</div>}
-            {business?.location_country && !locationSaved && <div style={{fontSize:'12px',color:'#555'}}>Current: {business.location_country}</div>}
-          </div>
-        </div>
-
         {/* Current subscription */}
         <div style={{marginBottom:'48px',padding:'28px',border:'1px solid #1a1a1a',borderRadius:'8px',backgroundColor:'#080808'}}>
           <div style={{fontSize:'11px',color:'#555',letterSpacing:'0.15em',textTransform:'uppercase' as const,marginBottom:'16px'}}>Current Plan</div>
