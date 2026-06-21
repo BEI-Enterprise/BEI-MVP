@@ -15,6 +15,7 @@ from services.opportunity.engine import calculate_opportunities, calculate_total
 from services.decision.engine import select_primary_constraint
 from services.network.engine import build_constraint_network
 from services.deployment.engine import build_deployment_packages
+from services.benchmarks.engine import BenchmarkEngine
 
 
 def run_intelligence(
@@ -59,6 +60,28 @@ def run_intelligence(
     # Step 7 — Select Primary Constraint
     decision = select_primary_constraint(opportunities, health, network, industry)
 
+    # Step 8 — Attach sector benchmark comparison (read-only, display only)
+    # Does not influence detection, verification, scoring or decision in any way.
+    benchmark_engine = BenchmarkEngine()
+    constraint_frequency = benchmark_engine.get_constraint_frequency(industry)
+    benchmark_confidence = benchmark_engine.get_confidence(industry)
+
+    def _attach_benchmark(constraint):
+        if not constraint:
+            return constraint
+        key = constraint.get("key", "")
+        freq = constraint_frequency.get(key)
+        if freq is not None:
+            constraint["sector_benchmark"] = {
+                "frequency": freq,
+                "frequency_pct": round(freq * 100),
+                "confidence": benchmark_confidence,
+            }
+        return constraint
+
+    primary_constraint = _attach_benchmark(decision["primary_constraint"])
+    secondary_constraints = [_attach_benchmark(c) for c in decision["secondary_constraints"]]
+
     return {
         "business_id": business_id,
         "industry": industry,
@@ -67,8 +90,8 @@ def run_intelligence(
         "health": health,
         "detected_count": len(detected),
         "verified_count": len([c for c in verified if c.get("verified")]),
-        "primary_constraint": decision["primary_constraint"],
-        "secondary_constraints": decision["secondary_constraints"],
+        "primary_constraint": primary_constraint,
+        "secondary_constraints": secondary_constraints,
         "unverified_flags": decision["unverified_flags"],
         "decision_explanation": decision["decision_explanation"],
         "confidence": decision["confidence"],
