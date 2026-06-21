@@ -385,39 +385,48 @@ export default function DashboardPage() {
                   <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING</span>
                 </div>
               </div>
-              {/* Health + stats row */}
-              <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '20px', marginBottom: '24px' }}>
-                <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '11px', color: '#666', letterSpacing: '0.15em', marginBottom: '12px' }}>HEALTH SCORE</div>
-                  <svg width="120" height="120" viewBox="0 0 120 120" style={{ display: 'block', margin: '0 auto' }}>
-                    <circle cx="60" cy="60" r="50" fill="none" stroke="#111" strokeWidth="8"/>
-                    <circle cx="60" cy="60" r="50" fill="none" stroke={healthColor} strokeWidth="8"
-                      strokeDasharray={`${(health.overall || 0) * 3.14} 314`}
-                      strokeDashoffset="78" strokeLinecap="round"
-                      transform="rotate(-90 60 60)"
+              {/* Health + stats row — glow on hover, Option 3 */}
+              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '20px', marginBottom: '24px' }}>
+                <div
+                  style={{ background: 'radial-gradient(circle at 50% 30%, #151515, ' + card + ')', border: '1px solid ' + border, borderRadius: '10px', padding: '24px', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', transition: 'all 0.25s cubic-bezier(0.2,0.8,0.2,1)', cursor: 'default' }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(200,162,74,0.2)' }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+                >
+                  <div style={{ fontSize: '9px', color: '#666', letterSpacing: '0.2em', marginBottom: '14px' }}>OVERALL HEALTH</div>
+                  <svg width="130" height="130" viewBox="0 0 130 130" style={{ display: 'block' }}>
+                    <circle cx="65" cy="65" r="54" fill="none" stroke="#1a1a1a" strokeWidth="8"/>
+                    <circle cx="65" cy="65" r="54" fill="none" stroke={healthColor} strokeWidth="8"
+                      strokeDasharray={`${(health.overall || 0) * 3.39} 339`}
+                      strokeDashoffset="85" strokeLinecap="round"
+                      transform="rotate(-90 65 65)"
                       style={{ transition: 'stroke-dasharray 1.5s ease' }}
                     />
-                    <text x="60" y="65" textAnchor="middle" fill={healthColor} fontSize="28" fontWeight="800" fontFamily="Inter">{health.overall || '—'}</text>
+                    <text x="65" y="73" textAnchor="middle" fill={healthColor} fontSize="30" fontWeight="800" fontFamily="Inter">{health.overall || '—'}</text>
                   </svg>
-                  <div style={{ fontSize: '12px', color: '#777', marginTop: '8px', textTransform: 'capitalize' as const }}>{health.band || 'unknown'}</div>
+                  <div style={{ fontSize: '13px', color: '#777', marginTop: '10px', textTransform: 'capitalize' as const }}>{health.band || 'unknown'}</div>
                   {health.vs_benchmark && (
-                    <div style={{ fontSize: '11px', color: health.vs_benchmark === 'above' ? '#4aaa4a' : '#cc4444', marginTop: '4px' }}>
+                    <div style={{ fontSize: '11px', color: health.vs_benchmark === 'above' ? '#4aaa4a' : '#cc4444', marginTop: '5px' }}>
                       {health.vs_benchmark === 'above' ? '↑ Above' : '↓ Below'} benchmark
                     </div>
                   )}
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr 1fr', gap: '10px' }}>
                   {[
-                    { label: 'Primary Constraint', value: primary?.name || 'None detected', color: '#cc4444' },
-                    { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a' },
-                    { label: 'Total Opportunity', value: result?.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k–' + getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_high || 0)/1000) + 'k' : '—', color: gold },
-                    { label: 'Secondary Constraints', value: secondary.length + ' identified', color: '#888' },
-                    { label: 'Confidence', value: (result?.confidence || 'low').toUpperCase(), color: result?.confidence === 'high' ? '#4aaa4a' : '#888' },
-                    { label: 'Subscription', value: (selected?.subscription_tier || 'analysis').toUpperCase(), color: gold },
+                    { label: 'Primary Constraint', value: primary?.name || 'None detected', color: '#cc4444', glow: 'rgba(204,68,68,0.4)' },
+                    { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', glow: 'rgba(74,170,74,0.4)' },
+                    { label: 'Total Opportunity', value: result?.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k–' + getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_high || 0)/1000) + 'k' : '—', color: gold, glow: 'rgba(200,162,74,0.4)' },
+                    { label: 'Secondary Constraints', value: secondary.length + ' identified', color: '#888', glow: 'rgba(120,120,120,0.3)' },
+                    { label: 'Confidence', value: (result?.confidence || 'low').toUpperCase(), color: result?.confidence === 'high' ? '#4aaa4a' : '#888', glow: result?.confidence === 'high' ? 'rgba(74,170,74,0.4)' : 'rgba(120,120,120,0.3)' },
+                    { label: 'Subscription', value: (selected?.subscription_tier || 'analysis').toUpperCase(), color: gold, glow: 'rgba(200,162,74,0.4)' },
                   ].map(s => (
-                    <div key={s.label} style={{ padding: '16px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
-                      <div style={{ fontSize: '10px', color: '#666', letterSpacing: '0.15em', marginBottom: '6px' }}>{s.label.toUpperCase()}</div>
-                      <div style={{ fontSize: '14px', fontWeight: '700', color: s.color, lineHeight: '1.3' }}>{s.value}</div>
+                    <div
+                      key={s.label}
+                      style={{ backgroundColor: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '16px', transition: 'all 0.25s cubic-bezier(0.2,0.8,0.2,1)', cursor: 'default' }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(-3px)'; el.style.boxShadow = '0 8px 24px ' + s.glow; el.style.backgroundColor = '#131313' }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(0)'; el.style.boxShadow = 'none'; el.style.backgroundColor = '#0e0e0e' }}
+                    >
+                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '8px' }}>{s.label.toUpperCase()}</div>
+                      <div style={{ fontSize: s.label === 'Primary Constraint' ? '13px' : '20px', fontWeight: '700', color: s.color, lineHeight: '1.3' }}>{s.value}</div>
                     </div>
                   ))}
                 </div>
