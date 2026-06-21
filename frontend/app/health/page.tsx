@@ -53,9 +53,7 @@ export default function HealthPage() {
   if (loading) return <main style={pageWrapper}></main>
 
   if (!result) return (
-    <>
-      <Nav />
-      <main style={pageWrapper}>
+    <main style={pageWrapper}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', flexDirection: 'column' as const, gap: '24px' }}>
         <p style={{ color: colors.textSecondary, fontSize: fontSize.md }}>No MRI data found.</p>
         <a href='/book' style={{ padding: '14px 32px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '4px', textDecoration: 'none', fontSize: fontSize.base }}>Start Your MRI</a>
@@ -69,21 +67,11 @@ export default function HealthPage() {
   const pillars = health.pillars || {}
   const industryBenchmark = health.industry_benchmark || 55
   const vsBenchmark = health.vs_benchmark || 'unknown'
-  const healthColor = overall >= 70 ? colors.success : overall >= 45 ? colors.gold : colors.error
+  const healthColor = overall >= 70 ? colors.success : (overall >= 45 ? colors.gold : colors.error)
 
   return (
-    <>
+    <main style={pageWrapper}>
       <Nav />
-      <main style={pageWrapper}>
-      <nav style={{ padding: '0 48px', borderBottom: `1px solid ${colors.borderSubtle}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: navHeight, backgroundColor: colors.bgBase }}>
-        <span style={{ fontSize: '20px', fontWeight: fontWeight.extrabold, color: colors.gold, letterSpacing: '0.1em' }}>BEI</span>
-        <div style={{ display: 'flex' }}>
-          {nav.map(n => (
-            <a key={n.href} href={n.href} style={{ padding: '0 18px', height: navHeight, display: 'flex', alignItems: 'center', fontSize: fontSize.base, color: (n as any).active ? colors.gold : colors.textMuted, borderBottom: (n as any).active ? `2px solid ${colors.gold}` : '2px solid transparent', textDecoration: 'none', fontWeight: (n as any).active ? fontWeight.semibold : fontWeight.normal }}>{n.label}</a>
-          ))}
-        </div>
-        <span style={{ fontSize: fontSize.sm, color: colors.textDisabled }}>{businessName}</span>
-      </nav>
 
       <div style={contentWrapper}>
         <div style={{ fontSize: '28px', fontWeight: fontWeight.bold, marginBottom: '6px' }}>Business Health</div>
@@ -158,7 +146,5 @@ export default function HealthPage() {
         </div>
       </div>
     </main>
-    </main>
-    </>
   )
 }
