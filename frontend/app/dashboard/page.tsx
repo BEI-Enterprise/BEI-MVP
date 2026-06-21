@@ -228,10 +228,10 @@ export default function DashboardPage() {
     { id: 'reports', label: 'Analysis Reports' },
     { id: 'revenue', label: 'Business Health' },
     { id: 'issues', label: 'Issues & Constraints' },
-    { id: 'meetings', label: 'Meeting Centre' },
-    { id: 'connectors', label: 'Data Connectors' },
     { id: 'deployment', label: 'Outcome & Deployment' },
     { id: 'intelligence', label: 'BEI Intelligence' },
+    { id: 'meetings', label: 'Meeting Centre' },
+    { id: 'connectors', label: 'Data Connectors' },
   ]
 
   return (
