@@ -2,13 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { createClient } from '@supabase/supabase-js'
+import { createClient as createSupabaseClient } from '../../../lib/supabase'
 import { colors, fontSize, fontWeight, cardStyle, pageWrapper } from '../../../lib/design'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
 
 const gold = '#C8A24A'
 
@@ -23,6 +18,7 @@ export default function ReportPage() {
 
   useEffect(() => {
     const load = async () => {
+      const supabase = createSupabaseClient()
       const { data } = await supabase
         .from('businesses')
         .select('business_name, mri_result')
