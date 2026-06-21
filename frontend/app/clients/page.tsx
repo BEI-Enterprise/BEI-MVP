@@ -1,4 +1,5 @@
 'use client'
+import { useCurrency, getCurrencySymbol } from '../../lib/currency'
 
 import Nav from '../components/Nav'
 import { useState } from 'react'
@@ -10,6 +11,8 @@ const card = '#0a0a0a'
 const border = '#1e1e1e'
 
 export default function ClientsPage() {
+  const currency = useCurrency()
+  const sym = getCurrencySymbol(currency)
 
   const nav = [
     { l: 'Home', h: '/' },
@@ -45,7 +48,7 @@ export default function ClientsPage() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
               {[
-                { n: '£1.2M+', l: 'Constraints detected worldwide', s: 'Across all verified client engagements' },
+                { n: sym + '1.2M+', l: 'Constraints detected worldwide', s: 'Across all verified client engagements' },
                 { n: '100/100', l: 'Maximum verification score achieved', s: 'On every confirmed primary constraint' },
                 { n: 'Monthly', l: 'MRI refresh cycle for all clients', s: 'With full breakdown and risk alerts' },
                 { n: '< 48hr', l: 'Risk alert response time', s: 'When intelligence detects new signals' },
@@ -84,20 +87,20 @@ export default function ClientsPage() {
               {[
                 {
                   title: 'Scale-Up Businesses',
-                  range: '£250k – £5M revenue',
+                  range: sym + '250k – ' + sym + '5M revenue',
                   desc: 'Growing businesses that have outgrown gut instinct and need verified intelligence to identify the single constraint limiting their next stage of growth.',
                   points: ['Primary constraint identification', 'Monthly health score tracking', 'Opportunity quantification', 'Risk monitoring'],
                 },
                 {
                   title: 'Mid-Market Enterprises',
-                  range: '£5M – £50M revenue',
+                  range: sym + '5M – ' + sym + '50M revenue',
                   desc: 'Established businesses where one unresolved constraint can cost millions annually. BEI provides the intelligence layer between strategy and execution.',
                   points: ['Full constraint network analysis', 'Multi-pillar health tracking', 'Enterprise deployment engine', 'Board-level reporting'],
                   featured: true,
                 },
                 {
                   title: 'Corporate Groups',
-                  range: '£50M+ revenue',
+                  range: sym + '50M+ revenue',
                   desc: 'Large organisations operating across multiple units that need consistent, verified intelligence applied across their portfolio of businesses.',
                   points: ['Portfolio-level intelligence', 'Comparative constraint analysis', 'Group risk dashboard', 'Executive briefings'],
                 },
@@ -190,7 +193,7 @@ export default function ClientsPage() {
                   { label: 'Health Score Movement', value: '47 → 54', change: '+7', up: true },
                   { label: 'Primary Constraint', value: 'Trust Infrastructure Deficit', change: 'Active', up: null },
                   { label: 'Verification Score', value: '94/100', change: 'Confirmed', up: null },
-                  { label: 'Opportunity Range', value: '£18k – £45k', change: 'Annual', up: null },
+                  { label: 'Opportunity Range', value: sym + '18k – ' + sym + '45k', change: 'Annual', up: null },
                   { label: 'Secondary Constraints', value: '3 identified', change: '1 resolved', up: true },
                   { label: 'Risk Alerts', value: '0 active', change: 'All clear', up: true },
                 ].map(row => (
@@ -303,7 +306,7 @@ export default function ClientsPage() {
                 { feature: 'Verification framework', bei: '5-test automated verification', them: 'Consultant judgement', highlight: true },
                 { feature: 'Monthly reporting', bei: 'Included — automated MRI', them: 'Additional billing required' },
                 { feature: 'Risk monitoring', bei: 'Continuous — 48hr alert window', them: 'Not included as standard', highlight: true },
-                { feature: 'Cost (SME)', bei: 'From £199/month', them: '£5,000–£50,000/engagement' },
+                { feature: 'Cost (SME)', bei: 'From ' + sym + '199/month', them: sym + '5,000–' + sym + '50,000/engagement' },
                 { feature: 'Scalability', bei: 'Same intelligence for any size business', them: 'Cost scales with complexity', highlight: true },
               ].map(row => (
                 <div key={row.feature} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', borderBottom: '1px solid ' + border, backgroundColor: row.highlight ? 'rgba(200,162,74,0.03)' : 'transparent' }}>

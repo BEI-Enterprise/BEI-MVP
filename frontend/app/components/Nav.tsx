@@ -21,7 +21,6 @@ export default function Nav({ active }: NavProps) {
     setCurrencyState(c)
     localStorage.setItem('bei_currency', c)
     window.dispatchEvent(new CustomEvent('bei_currency_change', { detail: c }))
-    window.location.reload()
   }
 
   const links = [

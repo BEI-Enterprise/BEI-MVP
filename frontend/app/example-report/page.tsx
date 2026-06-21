@@ -1,4 +1,5 @@
 'use client'
+import { useCurrency, getCurrencySymbol, formatPrice } from '../../lib/currency'
 
 import { colors, fontSize, fontWeight, cardStyle, pageWrapper } from '../../lib/design'
 import Nav from '../components/Nav'
@@ -48,6 +49,8 @@ const data = {
 }
 
 export default function ExampleReportPage() {
+  const currency = useCurrency()
+  const sym = getCurrencySymbol(currency)
   return (
     <main style={{ backgroundColor: '#050505', color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
 
@@ -77,7 +80,7 @@ export default function ExampleReportPage() {
           </div>
           <div style={{ textAlign: 'right' as const }}>
             <div style={{ fontSize: '11px', color: '#444', marginBottom: '6px', letterSpacing: '0.1em' }}>TOTAL OPPORTUNITY</div>
-            <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>£{(data.total_opportunity.low/1000).toFixed(0)}k–£{(data.total_opportunity.high/1000).toFixed(0)}k</div>
+            <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{sym}{(data.total_opportunity.low/1000).toFixed(0)}k–{sym}{(data.total_opportunity.high/1000).toFixed(0)}k</div>
             <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>Annual value available</div>
           </div>
         </div>
@@ -141,7 +144,7 @@ export default function ExampleReportPage() {
           <div style={{ borderTop: '1px solid #1a2a10', paddingTop: '20px', display: 'flex', gap: '40px' }}>
             <div>
               <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Opportunity Range</div>
-              <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>£{(data.primary.opportunity.low/1000).toFixed(0)}k – £{(data.primary.opportunity.high/1000).toFixed(0)}k</div>
+              <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>{sym}{(data.primary.opportunity.low/1000).toFixed(0)}k – {sym}{(data.primary.opportunity.high/1000).toFixed(0)}k</div>
               <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>Annual revenue recovery</div>
             </div>
             <div>

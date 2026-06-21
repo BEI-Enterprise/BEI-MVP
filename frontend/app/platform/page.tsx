@@ -1,4 +1,5 @@
 'use client'
+import { useCurrency, getCurrencySymbol } from '../../lib/currency'
 
 import dynamic from 'next/dynamic'
 import Nav from '../components/Nav'
@@ -38,6 +39,8 @@ const ComparisonRow = ({ feature, bei, them, highlight }: { feature: string, bei
 )
 
 export default function PlatformPage() {
+  const currency = useCurrency()
+  const sym = getCurrencySymbol(currency)
   const [activeStep, setActiveStep] = useState(0)
 
   useEffect(() => {
@@ -371,7 +374,7 @@ export default function PlatformPage() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
             {[
-              { n: '£199', l: 'Starting price', s: 'Per month. No setup fee.' },
+              { n: sym + '199', l: 'Starting price', s: 'Per month. No setup fee.' },
               { n: '8 min', l: 'MRI intake time', s: 'Full diagnostic in minutes.' },
               { n: '100/100', l: 'Max verification score', s: 'Achieved on verified constraints.' },
               { n: '12', l: 'Golden Rules', s: 'Enforced on every analysis.' },
