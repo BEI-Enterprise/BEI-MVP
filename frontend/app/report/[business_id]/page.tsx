@@ -184,6 +184,16 @@ export default function ReportPage() {
               </div>
             )}
 
+            {isLoggedIn && hasSubscription && primary.sector_benchmark && (
+              <div style={{ marginBottom: '24px', padding: '16px 20px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '8px' }}>
+                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '8px', fontWeight: '600' }}>Sector Benchmark</div>
+                <div style={{ fontSize: '15px', color: '#ccc', lineHeight: '1.6' }}>
+                  <span style={{ color: gold, fontWeight: '700' }}>{primary.sector_benchmark.frequency_pct}%</span> of businesses in your sector show this same constraint
+                </div>
+                <div style={{ fontSize: '11px', color: '#555', marginTop: '6px', textTransform: 'capitalize' as const }}>Benchmark confidence: {primary.sector_benchmark.confidence}</div>
+              </div>
+            )}
+
             {primary.opportunity && (
               <div style={{ borderTop: '1px solid #1a2a10', paddingTop: '20px', display: 'flex', gap: '40px' }}>
                 <div>
@@ -268,7 +278,12 @@ export default function ReportPage() {
                         <div style={{ fontSize: '15px', fontWeight: '600', color: '#f0f0f0' }}>{c.name}</div>
                         <div style={{ fontSize: '13px', color: c.verification_score >= 80 ? '#4aaa4a' : gold, fontWeight: '700' }}>{c.verification_score}/100</div>
                       </div>
-                      <div style={{ fontSize: '13px', color: '#777', lineHeight: '1.6' }}>{c.hypothesis}</div>
+                      <div style={{ fontSize: '13px', color: '#777', lineHeight: '1.6', marginBottom: c.sector_benchmark ? '8px' : '0' }}>{c.hypothesis}</div>
+                      {c.sector_benchmark && (
+                        <div style={{ fontSize: '11px', color: gold, paddingTop: '8px', borderTop: '1px solid #161616' }}>
+                          {c.sector_benchmark.frequency_pct}% of businesses in your sector show this constraint
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
