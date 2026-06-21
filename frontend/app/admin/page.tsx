@@ -242,8 +242,8 @@ export default function AdminPage() {
   return (
     <main style={{ backgroundColor: dark, color: '#fff', minHeight: '100vh', fontFamily: 'Inter,system-ui,sans-serif', position: 'relative' as const }}>
       {/* Animated background */}
-      <div style={{ position: 'fixed' as const, inset: 0, zIndex: 0, pointerEvents: 'none' as const }}>
-        <canvas ref={bgCanvasRef} style={{ width: '100%', height: '100%', opacity: 0.15 }} />
+      <div style={{ position: 'fixed' as const, inset: 0, zIndex: 0, pointerEvents: 'none' as const, overflow: 'hidden' }}>
+        <NetworkGraph />
       </div>
       <div style={{ position: 'relative' as const, zIndex: 1 }}>
 
