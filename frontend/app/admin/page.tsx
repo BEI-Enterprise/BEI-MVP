@@ -94,6 +94,7 @@ export default function AdminPage() {
   const [sortBy, setSortBy] = useState('created_at')
   const [expandedRow, setExpandedRow] = useState<string | null>(null)
   const [railwayStatus, setRailwayStatus] = useState<'checking'|'online'|'offline'>('checking')
+  const [pageViews, setPageViews] = useState<any[]>([])
   const bgCanvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -152,6 +153,12 @@ export default function AdminPage() {
         .limit(100)
       setMeetings(meetData || [])
       setLoading(false)
+      const { data: pvData } = await supabase
+        .from('page_views')
+        .select('page, session_id, created_at')
+        .order('created_at', { ascending: false })
+        .limit(1000)
+      setPageViews(pvData || [])
       // Ping Railway
       try {
         const r = await fetch('/api/admin/railway-health', { cache: 'no-store' })
@@ -243,6 +250,7 @@ export default function AdminPage() {
     { id: 'users', label: 'Users (' + businesses.length + ')' },
     { id: 'meetings', label: 'Meetings' + (unreviewed.length > 0 ? ' · ' + unreviewed.length + ' new' : '') },
     { id: 'health', label: 'Platform Health' },
+    { id: 'analytics', label: 'Analytics' },
   ]
 
   return (
@@ -586,6 +594,58 @@ export default function AdminPage() {
         )}
 
       </div>
+
+        {/* ANALYTICS */}
+        {activeTab === 'analytics' && (
+          <div>
+            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '24px', fontWeight: '600' }}>SITE ANALYTICS — LAST 1000 PAGE VIEWS</div>
+
+            {/* Stats row */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '28px' }}>
+              {[
+                { label: 'TOTAL VIEWS', value: pageViews.length.toString(), color: gold },
+                { label: 'UNIQUE SESSIONS', value: new Set(pageViews.map(p => p.session_id)).size.toString(), color: '#4aaa4a' },
+                { label: 'PAGES TRACKED', value: new Set(pageViews.map(p => p.page)).size.toString(), color: '#4a8ab0' },
+                { label: 'TODAY', value: pageViews.filter(p => new Date(p.created_at).toDateString() === new Date().toDateString()).length.toString(), color: '#cc4444' },
+              ].map(s => (
+                <div key={s.label} style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderLeft: '3px solid ' + s.color, borderRadius: '8px' }}>
+                  <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.15em', marginBottom: '10px' }}>{s.label}</div>
+                  <div style={{ fontSize: '32px', fontWeight: '800', color: s.color }}>{s.value}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Top pages */}
+            <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '20px' }}>
+              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>TOP PAGES</div>
+              {Object.entries(
+                pageViews.reduce((acc: any, p) => { acc[p.page] = (acc[p.page] || 0) + 1; return acc }, {})
+              ).sort((a: any, b: any) => b[1] - a[1]).slice(0, 10).map(([page, count]: any) => (
+                <div key={page} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #111' }}>
+                  <div style={{ fontSize: '13px', color: '#ccc', fontFamily: 'monospace' }}>{page}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '120px', height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
+                      <div style={{ width: (count / pageViews.length * 100) + '%', height: '100%', backgroundColor: gold, borderRadius: '2px' }} />
+                    </div>
+                    <div style={{ fontSize: '13px', color: gold, fontWeight: '600', minWidth: '30px', textAlign: 'right' as const }}>{count}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Recent views */}
+            <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
+              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>RECENT ACTIVITY</div>
+              {pageViews.slice(0, 20).map((p, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #0d0d0d' }}>
+                  <div style={{ fontSize: '12px', color: '#ccc', fontFamily: 'monospace' }}>{p.page}</div>
+                  <div style={{ fontSize: '11px', color: '#555' }}>{new Date(p.created_at).toLocaleString('en-GB')}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </main>
   )
