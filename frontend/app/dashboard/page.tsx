@@ -672,7 +672,11 @@ export default function DashboardPage() {
                 <>
                   {/* Overall health + pillar grid */}
                   <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '20px', marginBottom: '24px' }}>
-                    <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', textAlign: 'center' as const, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center' }}>
+                    <div
+                      style={{ background: 'radial-gradient(circle at 50% 30%, #151515, ' + card + ')', border: '1px solid ' + border, borderRadius: '10px', padding: '24px', textAlign: 'center' as const, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', transition: 'all 0.25s cubic-bezier(0.2,0.8,0.2,1)', cursor: 'default' }}
+                      onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(200,162,74,0.2)' }}
+                      onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+                    >
                       <div style={{ fontSize: '10px', color: '#666', letterSpacing: '0.15em', marginBottom: '12px' }}>OVERALL HEALTH</div>
                       <svg width="120" height="120" viewBox="0 0 120 120" style={{ display: 'block', margin: '0 auto' }}>
                         <circle cx="60" cy="60" r="50" fill="none" stroke="#111" strokeWidth="8"/>
@@ -708,14 +712,19 @@ export default function DashboardPage() {
                   {/* Health context cards */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '20px' }}>
                     {[
-                      { label: 'Primary Constraint', value: primary?.name || 'None detected', color: primary ? '#cc4444' : '#4aaa4a', sub: primary ? 'Active — verified' : 'No constraint detected' },
-                      { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', sub: 'Constraint verification' },
-                      { label: 'Total Opportunity', value: result.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low||0)/1000) + 'k–' + getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_high||0)/1000) + 'k' : '—', color: gold, sub: 'Annual value available' },
-                      { label: 'Revenue Band', value: result.inputs?.monthly_revenue || '—', color: '#888', sub: 'Current reported revenue' },
-                      { label: 'Revenue Trend', value: result.inputs?.revenue_trend || '—', color: '#888', sub: 'Self-reported direction' },
-                      { label: 'Confidence Level', value: (result.confidence || 'low').toUpperCase(), color: result.confidence === 'high' ? '#4aaa4a' : '#888', sub: 'Intelligence confidence' },
+                      { label: 'Primary Constraint', value: primary?.name || 'None detected', color: primary ? '#cc4444' : '#4aaa4a', sub: primary ? 'Active — verified' : 'No constraint detected', glow: primary ? 'rgba(204,68,68,0.4)' : 'rgba(74,170,74,0.4)' },
+                      { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', sub: 'Constraint verification', glow: 'rgba(74,170,74,0.4)' },
+                      { label: 'Total Opportunity', value: result.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low||0)/1000) + 'k–' + getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_high||0)/1000) + 'k' : '—', color: gold, sub: 'Annual value available', glow: 'rgba(200,162,74,0.4)' },
+                      { label: 'Revenue Band', value: result.inputs?.monthly_revenue || '—', color: '#888', sub: 'Current reported revenue', glow: 'rgba(120,120,120,0.3)' },
+                      { label: 'Revenue Trend', value: result.inputs?.revenue_trend || '—', color: '#888', sub: 'Self-reported direction', glow: 'rgba(120,120,120,0.3)' },
+                      { label: 'Confidence Level', value: (result.confidence || 'low').toUpperCase(), color: result.confidence === 'high' ? '#4aaa4a' : '#888', sub: 'Intelligence confidence', glow: result.confidence === 'high' ? 'rgba(74,170,74,0.4)' : 'rgba(120,120,120,0.3)' },
                     ].map(s => (
-                      <div key={s.label} style={{ padding: '16px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
+                      <div
+                        key={s.label}
+                        style={{ backgroundColor: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '16px', transition: 'all 0.25s cubic-bezier(0.2,0.8,0.2,1)', cursor: 'default' }}
+                        onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(-3px)'; el.style.boxShadow = '0 8px 24px ' + s.glow; el.style.backgroundColor = '#131313' }}
+                        onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(0)'; el.style.boxShadow = 'none'; el.style.backgroundColor = '#0e0e0e' }}
+                      >
                         <div style={{ fontSize: '10px', color: '#666', letterSpacing: '0.15em', marginBottom: '6px' }}>{s.label.toUpperCase()}</div>
                         <div style={{ fontSize: '14px', fontWeight: '700', color: s.color, lineHeight: '1.3', marginBottom: '4px' }}>{s.value}</div>
                         <div style={{ fontSize: '11px', color: '#555' }}>{s.sub}</div>
