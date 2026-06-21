@@ -451,16 +451,24 @@ export default function DashboardPage() {
                 </div>
               )}
 
-
-
-              {/* Location not set prompt */}
-              {!locationCountry && (
-                <div style={{ padding: '16px 20px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '8px', marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>◈ LOCATION NOT SET</div>
-                    <div style={{ fontSize: '13px', color: '#777' }}>Set your location in Account Settings to display the correct currency (£ or $) across your dashboard.</div>
+              {/* Pillars */}
+              {health.pillars && Object.keys(health.pillars).length > 0 && (
+                <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '20px' }}>
+                  <div style={{ fontSize: '10px', color: '#666', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>PILLAR SCORES</div>
+                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
+                    {Object.entries(health.pillars).map(([name, data]: [string, any]) => {
+                      const c = data.score >= 70 ? '#4aaa4a' : data.score >= 45 ? gold : '#cc4444'
+                      return (
+                        <div key={name} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <div style={{ width: '80px', fontSize: '12px', color: '#777', textTransform: 'capitalize' as const }}>{name}</div>
+                          <div style={{ flex: 1, height: '6px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
+                            <div style={{ width: data.score + '%', height: '100%', backgroundColor: c, borderRadius: '3px' }} />
+                          </div>
+                          <div style={{ fontSize: '13px', fontWeight: '700', color: c, width: '28px' }}>{data.score}</div>
+                        </div>
+                      )
+                    })}
                   </div>
-                  <a href='/account' style={{ padding: '8px 16px', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '4px', fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600', flexShrink: 0, marginLeft: '16px' }}>Set Location →</a>
                 </div>
               )}
 
@@ -571,26 +579,6 @@ export default function DashboardPage() {
                 </div>
               )}
 
-              {/* Pillars */}
-              {health.pillars && Object.keys(health.pillars).length > 0 && (
-                <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-                  <div style={{ fontSize: '10px', color: '#666', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>PILLAR SCORES</div>
-                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
-                    {Object.entries(health.pillars).map(([name, data]: [string, any]) => {
-                      const c = data.score >= 70 ? '#4aaa4a' : data.score >= 45 ? gold : '#cc4444'
-                      return (
-                        <div key={name} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                          <div style={{ width: '80px', fontSize: '12px', color: '#777', textTransform: 'capitalize' as const }}>{name}</div>
-                          <div style={{ flex: 1, height: '6px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
-                            <div style={{ width: data.score + '%', height: '100%', backgroundColor: c, borderRadius: '3px' }} />
-                          </div>
-                          <div style={{ fontSize: '13px', fontWeight: '700', color: c, width: '28px' }}>{data.score}</div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-              )}
             </div>
           )}
 
