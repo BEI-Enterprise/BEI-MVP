@@ -2,9 +2,12 @@
 import Nav from '../components/Nav'
 import { useState, useEffect } from 'react'
 import { createClient } from '../../lib/supabase'
+import { useCurrency, getCurrencySymbol } from '../../lib/currency'
 
 export default function AccountPage() {
   const gold = '#C8A24A'
+  const currency = useCurrency()
+  const sym = getCurrencySymbol(currency)
   const [user, setUser] = useState<any>(null)
   const [business, setBusiness] = useState<any>(null)
   const [allBusinesses, setAllBusinesses] = useState<any[]>([])
@@ -124,11 +127,11 @@ export default function AccountPage() {
   if (loading) return <main style={{backgroundColor:'#050505',minHeight:'100vh'}}/>
 
   const plans = [
-    { id: 'analysis', name: 'MRI Analysis', price: '£199', features: ['Full MRI Report', 'Health Score', 'Constraint Detection', 'Monthly Updates'] },
-    { id: 'opportunity', name: 'Analysis + Opportunity', price: '£399', features: ['Everything in Analysis', 'Opportunity Mapping', 'Prioritisation Engine'], popular: true },
-    { id: 'platform', name: 'Full Platform', price: '£999', features: ['Everything above', 'Deployment Engine', 'Outcome Tracking', 'Learning Engine'] },
-    { id: 'corporate', name: 'Corporate Group', price: '£1,599', features: ['Everything in Full Platform', 'Up to 3 businesses', 'Portfolio dashboard', 'Group risk overview', 'Executive briefing pack'], badge: 'MULTI-BUSINESS' },
-    { id: 'enterprise', name: 'Enterprise', price: '£2,500–£25,000', features: ['Everything in Corporate', 'Custom benchmark system', 'Unlimited businesses', 'Dedicated intelligence team', 'Board-level reporting'], badge: 'ENTERPRISE', enquire: true },
+    { id: 'analysis', name: 'MRI Analysis', price: 199, features: ['Full MRI Report', 'Health Score', 'Constraint Detection', 'Monthly Updates'] },
+    { id: 'opportunity', name: 'Analysis + Opportunity', price: 399, features: ['Everything in Analysis', 'Opportunity Mapping', 'Prioritisation Engine'], popular: true },
+    { id: 'platform', name: 'Full Platform', price: 999, features: ['Everything above', 'Deployment Engine', 'Outcome Tracking', 'Learning Engine'] },
+    { id: 'corporate', name: 'Corporate Group', price: 1599, features: ['Everything in Full Platform', 'Up to 3 businesses', 'Portfolio dashboard', 'Group risk overview', 'Executive briefing pack'], badge: 'MULTI-BUSINESS' },
+    { id: 'enterprise', name: 'Enterprise', price: null, features: ['Everything in Corporate', 'Custom benchmark system', 'Unlimited businesses', 'Dedicated intelligence team', 'Board-level reporting'], badge: 'ENTERPRISE', enquire: true },
   ]
 
   return (
@@ -184,7 +187,7 @@ export default function AccountPage() {
           <div style={{fontSize:'13px',color:'#555',marginBottom:'20px',lineHeight:'1.6'}}>Select your location. This sets your currency display across the entire platform — UK shows £ and US shows $.</div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'12px',marginBottom:'20px'}}>
             {[
-              { value: 'United Kingdom', label: '🇬🇧 United Kingdom', desc: 'All prices shown in £ GBP' },
+              { value: 'United Kingdom', label: '🇬🇧 United Kingdom', desc: sym === '$' ? 'All prices shown in $ USD' : 'All prices shown in £ GBP' },
               { value: 'United States', label: '🇺🇸 United States', desc: 'All prices shown in $ USD' },
             ].map(opt => (
               <button key={opt.value} onClick={() => setLocationValue(opt.value)} style={{padding:'16px',backgroundColor:locationValue===opt.value?'rgba(200,162,74,0.08)':'#080808',border:`1px solid ${locationValue===opt.value?'rgba(200,162,74,0.4)':'#1a1a1a'}`,borderRadius:'8px',textAlign:'left' as const,cursor:'pointer'}}>
@@ -233,7 +236,7 @@ export default function AccountPage() {
                   </div>
                 </div>
                 <div style={{textAlign:'right' as const,flexShrink:0,marginLeft:'24px'}}>
-                  <div style={{fontSize:'20px',fontWeight:'700',color:(plan as any).popular||(plan as any).badge?gold:'#fff',marginBottom:'8px'}}>{(plan as any).enquire?'Custom':(plan as any).badge&&plan.id==='corporate'?'£1,599/mo':plan.price+'/mo'}</div>
+                  <div style={{fontSize:'20px',fontWeight:'700',color:(plan as any).popular||(plan as any).badge?gold:'#fff',marginBottom:'8px'}}>{(plan as any).enquire?'Custom ':sym}{(plan as any).enquire?'2,500–'+sym+'25,000/mo':(plan.price as number).toLocaleString()+'/mo'}</div>
                   <a href="/pricing" style={{padding:'8px 20px',border:`1px solid ${gold}`,color:gold,borderRadius:'4px',textDecoration:'none',fontSize:'12px',fontWeight:'600'}}>Select →</a>
                 </div>
               </div>
