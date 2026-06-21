@@ -97,7 +97,7 @@ export default function PlatformPage() {
               <a href='/example-report' style={{ padding: '16px 28px', border: `1px solid ${border}`, color: '#777', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Example Report</a>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
-              {[{ n: '98%', l: 'Verification accuracy' }, { n: '8 min', l: 'Time to first insight' }, { n: '£2.4M', l: 'Avg opportunity identified' }].map(m => (
+              {[{ n: '98%', l: 'Verification accuracy' }, { n: '8 min', l: 'Time to first insight' }, { n: sym + '2.4M', l: 'Avg opportunity identified' }].map(m => (
                 <div key={m.l}>
                   <div style={{ fontSize: '26px', fontWeight: '700', color: gold, marginBottom: '4px' }}>{m.n}</div>
                   <div style={{ fontSize: '12px', color: '#444' }}>{m.l}</div>
@@ -309,7 +309,7 @@ export default function PlatformPage() {
               <ComparisonRow feature="Setup time" bei="8 minutes" them="3–6 months implementation" highlight />
               <ComparisonRow feature="Primary output" bei="Verified root constraint + opportunity" them="Process inefficiency maps" />
               <ComparisonRow feature="Methodology" bei="12 Golden Rules enforcement" them="Event log analysis" highlight />
-              <ComparisonRow feature="Pricing" bei="From £199/month" them="£100k+ annual contract" />
+              <ComparisonRow feature="Pricing" bei='From ' + sym + '199/month' them=sym + '100k+ annual contract' />
               <ComparisonRow feature="Constraint verification" bei="5-test verification framework" them="Not applicable" highlight />
               <ComparisonRow feature="Deployment engine" bei="3-tier automated deployment" them="Manual process redesign" />
               <ComparisonRow feature="Learning model" bei="Continuous — improves with every business" them="Static per implementation" highlight />
@@ -341,7 +341,7 @@ export default function PlatformPage() {
               <ComparisonRow feature="Required data" bei="8-minute intake + optional connectors" them="Full data infrastructure" />
               <ComparisonRow feature="Verification layer" bei="5-test constraint verification" them="None — user interprets data" highlight />
               <ComparisonRow feature="Action guidance" bei="3-tier deployment with measurement" them="Insight only — no deployment" />
-              <ComparisonRow feature="Entry price" bei="£199/month" them="Multi-million annual contract" highlight />
+              <ComparisonRow feature="Entry price" bei=sym + '199/month' them='Multi-million annual contract' highlight />
             </div>
           </RevealSection>
         </div>

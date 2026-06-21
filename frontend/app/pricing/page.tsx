@@ -1,11 +1,12 @@
 'use client'
-import { useCurrency, formatPrice } from '../../lib/currency'
+import { useCurrency, formatPrice, getCurrencySymbol } from '../../lib/currency'
 import Nav from '../components/Nav'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
 function PricingContent() {
   const currency = useCurrency()
+  const sym = getCurrencySymbol(currency)
   const searchParams = useSearchParams()
   const reason = searchParams.get('reason')
   const gold = '#C8A24A'
@@ -14,11 +15,11 @@ function PricingContent() {
     {
       name: 'MRI Analysis',
       price: 199,
-      originalPrice: '£332',
-      saving: '£1,596',
+      originalPrice: sym + '332',
+      saving: sym + '1,596',
       period: '/month',
-      desc: 'Full constraint intelligence for businesses under £1M revenue.',
-      opportunity: '£40k+ avg opportunity identified',
+      desc: 'Full constraint intelligence for businesses under ' + sym + '1M revenue.',
+      opportunity: sym + '40k+ avg opportunity identified',
       features: [
         'Business MRI — full 6-step intake',
         'Business Health Score — 5 pillars',
@@ -36,11 +37,11 @@ function PricingContent() {
     {
       name: 'Analysis + Opportunity',
       price: 399,
-      originalPrice: '£665',
-      saving: '£3,192',
+      originalPrice: sym + '665',
+      saving: sym + '3,192',
       period: '/month',
       desc: 'Full intelligence with quantified opportunity mapping.',
-      opportunity: '£200k+ avg opportunity identified',
+      opportunity: sym + '200k+ avg opportunity identified',
       features: [
         'Everything in MRI Analysis',
         'Opportunity Engine — 5 dimensions',
@@ -58,11 +59,11 @@ function PricingContent() {
     {
       name: 'Full Platform',
       price: 999,
-      originalPrice: '£1,665',
-      saving: '£7,992',
+      originalPrice: sym + '1,665',
+      saving: sym + '7,992',
       period: '/month',
       desc: 'Complete intelligence, deployment and outcome tracking.',
-      opportunity: '£1.2M+ avg opportunity identified',
+      opportunity: sym + '1.2M+ avg opportunity identified',
       features: [
         'Everything in Analysis + Opportunity',
         'Deployment Engine — 3-tier system',
@@ -81,10 +82,10 @@ function PricingContent() {
       name: 'Corporate Group',
       price: 1599,
       originalPrice: '£2,665',
-      saving: '£12,792',
+      saving: sym + '12,792',
       period: '/month',
       desc: 'Full platform intelligence across up to 3 businesses simultaneously.',
-      opportunity: '£3M+ avg opportunity across portfolio',
+      opportunity: sym + '3M+ avg opportunity across portfolio',
       features: [
         'Everything in Full Platform',
         'Up to 3 connected businesses',
