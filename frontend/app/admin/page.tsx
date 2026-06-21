@@ -109,8 +109,9 @@ export default function AdminPage() {
       setLoading(false)
       // Ping Railway
       try {
-        const r = await fetch('https://mindful-reverence-production-e010.up.railway.app/health', { signal: AbortSignal.timeout(5000) })
-        setRailwayStatus(r.ok ? 'online' : 'offline')
+        const r = await fetch('/api/admin/railway-health', { cache: 'no-store' })
+        const d = await r.json()
+        setRailwayStatus(d.status === 'online' ? 'online' : 'offline')
       } catch { setRailwayStatus('offline') }
     }
     load()
