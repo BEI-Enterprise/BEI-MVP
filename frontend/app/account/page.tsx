@@ -236,7 +236,7 @@ export default function AccountPage() {
                   </div>
                 </div>
                 <div style={{textAlign:'right' as const,flexShrink:0,marginLeft:'24px'}}>
-                  <div style={{fontSize:'20px',fontWeight:'700',color:(plan as any).popular||(plan as any).badge?gold:'#fff',marginBottom:'8px'}}>{(plan as any).enquire?'Custom ':sym}{(plan as any).enquire?'2,500–'+sym+'25,000/mo':(plan.price as number).toLocaleString()+'/mo'}</div>
+                  <div style={{fontSize:'20px',fontWeight:'700',color:(plan as any).popular||(plan as any).badge?gold:'#fff',marginBottom:'8px'}}>{(plan as any).enquire?'':sym}{(plan as any).enquire?sym+'2,500–'+sym+'25,000/mo':(plan.price as number).toLocaleString()+'/mo'}</div>
                   <a href="/pricing" style={{padding:'8px 20px',border:`1px solid ${gold}`,color:gold,borderRadius:'4px',textDecoration:'none',fontSize:'12px',fontWeight:'600'}}>Select →</a>
                 </div>
               </div>
