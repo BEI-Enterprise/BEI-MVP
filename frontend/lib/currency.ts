@@ -3,20 +3,19 @@ import { useState, useEffect } from 'react'
 
 export type Currency = 'GBP' | 'USD'
 
-function getStoredCurrency(): Currency {
-  if (typeof window === 'undefined') return 'GBP'
-  const stored = localStorage.getItem('bei_currency')
-  return stored === 'USD' ? 'USD' : 'GBP'
-}
-
 export function useCurrency(savedLocation?: string): Currency {
-  const [currency, setCurrency] = useState<Currency>(getStoredCurrency)
+  const [currency, setCurrency] = useState<Currency>(() => {
+    if (typeof window === 'undefined') return 'GBP'
+    const stored = localStorage.getItem('bei_currency')
+    if (stored === 'USD' || stored === 'GBP') return stored
+    if (savedLocation === 'United States') return 'USD'
+    return 'GBP'
+  })
 
   useEffect(() => {
-    const handler = (e: any) => setCurrency(e.detail as Currency)
-    window.addEventListener('bei_currency_change', handler)
-    return () => window.removeEventListener('bei_currency_change', handler)
-  }, [])
+    const stored = localStorage.getItem('bei_currency')
+    if (stored === 'USD' || stored === 'GBP') setCurrency(stored)
+  }, [savedLocation])
 
   return currency
 }
