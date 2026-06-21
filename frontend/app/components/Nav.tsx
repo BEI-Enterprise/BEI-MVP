@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const gold = '#C8A24A'
 
@@ -10,6 +10,19 @@ type NavProps = {
 
 export default function Nav({ active }: NavProps) {
   const [productsOpen, setProductsOpen] = useState(false)
+  const [currency, setCurrencyState] = useState<'GBP' | 'USD'>('GBP')
+
+  useEffect(() => {
+    const saved = localStorage.getItem('bei_currency')
+    if (saved === 'USD') setCurrencyState('USD')
+  }, [])
+
+  const toggleCurrency = (c: 'GBP' | 'USD') => {
+    setCurrencyState(c)
+    localStorage.setItem('bei_currency', c)
+    window.dispatchEvent(new CustomEvent('bei_currency_change', { detail: c }))
+    window.location.reload()
+  }
 
   const links = [
     { l: 'Platform', h: '/platform' },
@@ -108,6 +121,14 @@ export default function Nav({ active }: NavProps) {
       </div>
 
       <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2px', padding: '3px', backgroundColor: '#0a0a0a', border: '1px solid #2a2a2a', borderRadius: '20px' }}>
+          <button onClick={() => toggleCurrency('GBP')} style={{ padding: '4px 10px', borderRadius: '16px', border: 'none', backgroundColor: currency === 'GBP' ? gold : 'transparent', color: currency === 'GBP' ? '#050505' : '#666', fontSize: '12px', fontWeight: currency === 'GBP' ? '700' : '400', cursor: 'pointer' }}>
+            🇬🇧 £
+          </button>
+          <button onClick={() => toggleCurrency('USD')} style={{ padding: '4px 10px', borderRadius: '16px', border: 'none', backgroundColor: currency === 'USD' ? gold : 'transparent', color: currency === 'USD' ? '#050505' : '#666', fontSize: '12px', fontWeight: currency === 'USD' ? '700' : '400', cursor: 'pointer' }}>
+            🇺🇸 $
+          </button>
+        </div>
         <a href='/login' style={{ fontSize: '15px', color: '#777777', textDecoration: 'none' }}>Sign in</a>
         <a href='/book' style={{ padding: '10px 22px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Free MRI →</a>
       </div>
