@@ -587,7 +587,7 @@ export default function DashboardPage() {
             <div>
               {/* BEISCREEN image — top of Analysis Reports tab */}
               <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
-                <img src='/BEISCREEN.png' alt='BEI Analysis' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.8 }} />
+                <img src='/123NEW.png' alt='BEI Analysis' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.8 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
                 <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
                   <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BEI ANALYSIS ENGINE — ACTIVE</div>
