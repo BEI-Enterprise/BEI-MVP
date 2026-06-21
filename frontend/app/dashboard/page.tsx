@@ -597,6 +597,18 @@ export default function DashboardPage() {
           {/* ANALYSIS REPORTS TAB */}
           {activeTab === 'reports' && (
             <div>
+              {/* BEISCREEN image — top of Analysis Reports tab */}
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+                <img src='/BEISCREEN.png' alt='BEI Analysis' style={{ width: '100%', height: '180px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.8 }} />
+                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
+                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
+                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BEI ANALYSIS ENGINE — ACTIVE</div>
+                </div>
+                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
+                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING</span>
+                </div>
+              </div>
               <div style={{ fontSize: '11px', color: '#666', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>ANALYSIS REPORTS</div>
               <div style={{ fontSize: '13px', color: '#777', marginBottom: '24px', lineHeight: '1.7' }}>View your MRI report history and generate a new MRI for any connected business.</div>
               <div style={{ padding: '24px 28px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '10px', marginBottom: '24px', position: 'relative' as const, overflow: 'hidden' }}>
@@ -653,9 +665,6 @@ export default function DashboardPage() {
                     </div>
                   </div>
                 )}
-              </div>
-              <div style={{ marginBottom: '20px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)' }}>
-                <img src='/BEISCREEN.png' alt='BEI Analysis' style={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center top', display: 'block', opacity: 0.85 }} />
               </div>
               <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', fontSize: '13px', color: '#666', lineHeight: '1.7' }}>
                 ◈ Monthly MRI reports are generated automatically on your renewal date. Historical reports will appear here as your subscription progresses.
