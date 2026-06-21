@@ -88,6 +88,45 @@ export default function AdminPage() {
   const [sortBy, setSortBy] = useState('created_at')
   const [expandedRow, setExpandedRow] = useState<string | null>(null)
   const [railwayStatus, setRailwayStatus] = useState<'checking'|'online'|'offline'>('checking')
+  const bgCanvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = bgCanvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight }
+    resize()
+    window.addEventListener('resize', resize)
+    const nodes = Array.from({ length: 40 }, () => ({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, r: Math.random() * 2 + 1
+    }))
+    let raf: number
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      nodes.forEach(n => {
+        n.x += n.vx; n.y += n.vy
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1
+      })
+      nodes.forEach((a, i) => nodes.slice(i + 1).forEach(b => {
+        const d = Math.hypot(a.x - b.x, a.y - b.y)
+        if (d < 150) {
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y)
+          ctx.strokeStyle = \`rgba(200,162,74,\${0.15 * (1 - d / 150)})\`
+          ctx.lineWidth = 0.5; ctx.stroke()
+        }
+      }))
+      nodes.forEach(n => {
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(200,162,74,0.4)'; ctx.fill()
+      })
+      raf = requestAnimationFrame(draw)
+    }
+    draw()
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize) }
+  }, [])
 
   useEffect(() => {
     const load = async () => {
@@ -156,6 +195,16 @@ export default function AdminPage() {
     toast('Meeting updated')
   }
 
+  const changeTier = async (id: string, newTier: string, name: string) => {
+    setActioning(id)
+    const supabase = createClient()
+    const newStatus = newTier === 'free' ? 'inactive' : 'active'
+    await supabase.from('businesses').update({ subscription_tier: newTier, subscription_status: newStatus }).eq('id', id)
+    setBusinesses(prev => prev.map(b => b.id === id ? { ...b, subscription_tier: newTier, subscription_status: newStatus } : b))
+    toast(name + ' moved to ' + newTier + ' plan')
+    setActioning(null)
+  }
+
   if (loading) return <main style={{ backgroundColor: dark, color: '#fff', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter,system-ui,sans-serif' }}><div style={{ fontSize: '13px', color: '#555' }}>Loading...</div></main>
   if (unauthorized) return <main style={{ backgroundColor: dark, color: '#fff', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter,system-ui,sans-serif' }}><div style={{ textAlign: 'center' as const }}><div style={{ fontSize: '11px', color: '#cc4444', letterSpacing: '0.2em', marginBottom: '12px' }}>ACCESS DENIED</div><a href="/dashboard" style={{ color: gold, textDecoration: 'none' }}>← Dashboard</a></div></main>
 
@@ -191,7 +240,12 @@ export default function AdminPage() {
   ]
 
   return (
-    <main style={{ backgroundColor: dark, color: '#fff', minHeight: '100vh', fontFamily: 'Inter,system-ui,sans-serif' }}>
+    <main style={{ backgroundColor: dark, color: '#fff', minHeight: '100vh', fontFamily: 'Inter,system-ui,sans-serif', position: 'relative' as const }}>
+      {/* Animated background */}
+      <div style={{ position: 'fixed' as const, inset: 0, zIndex: 0, pointerEvents: 'none' as const }}>
+        <canvas ref={bgCanvasRef} style={{ width: '100%', height: '100%', opacity: 0.15 }} />
+      </div>
+      <div style={{ position: 'relative' as const, zIndex: 1 }}>
 
       {/* Cinematic header */}
       <div style={{ position: 'relative' as const, height: '140px', overflow: 'hidden', borderBottom: '1px solid #161616' }}>
@@ -385,6 +439,14 @@ export default function AdminPage() {
                       ))}
                       <div style={{ gridColumn: 'span 4', paddingTop: '12px', borderTop: '1px solid #1a1a1a', display: 'flex', gap: '10px' }}>
                         <a href={'/report/' + b.id} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>View MRI Report →</a>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '20px' }}>
+                        <div style={{ fontSize: '11px', color: '#555' }}>CHANGE TIER:</div>
+                        {['free', 'analysis', 'opportunity', 'platform', 'corporate'].map(tier => (
+                          <button key={tier} onClick={() => changeTier(b.id, tier, b.business_name)} disabled={actioning === b.id || b.subscription_tier === tier} style={{ padding: '5px 12px', backgroundColor: b.subscription_tier === tier ? (TIER_COLORS[tier] || '#555') : 'transparent', color: b.subscription_tier === tier ? '#050505' : (TIER_COLORS[tier] || '#555'), border: '1px solid ' + (TIER_COLORS[tier] || '#555'), borderRadius: '4px', fontSize: '11px', cursor: b.subscription_tier === tier ? 'default' : 'pointer', fontWeight: '600', opacity: actioning === b.id ? 0.5 : 1, textTransform: 'capitalize' as const }}>
+                            {tier}
+                          </button>
+                        ))}
+                      </div>
                       </div>
                     </div>
                   )}
@@ -517,6 +579,7 @@ export default function AdminPage() {
           </div>
         )}
 
+      </div>
       </div>
     </main>
   )
