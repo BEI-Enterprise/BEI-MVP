@@ -7,6 +7,8 @@ export default function AccountPage() {
   const gold = '#C8A24A'
   const [user, setUser] = useState<any>(null)
   const [business, setBusiness] = useState<any>(null)
+  const [allBusinesses, setAllBusinesses] = useState<any[]>([])
+  const [selectedBusinessIds, setSelectedBusinessIds] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
   const [industryValue, setIndustryValue] = useState('')
   const [industrySaving, setIndustrySaving] = useState(false)
@@ -28,8 +30,9 @@ export default function AccountPage() {
           .select('id, business_name, industry, subscription_tier, subscription_status, location_country')
           .eq('email', data.user.email)
           .order('updated_at', { ascending: false })
-          .limit(1)
-        const biz = Array.isArray(bizArr) && bizArr.length > 0 ? bizArr[0] : null
+        const bizList = Array.isArray(bizArr) ? bizArr : []
+        setAllBusinesses(bizList)
+        const biz = bizList.length > 0 ? bizList[0] : null
         if (biz && (biz as any).id) {
           setBusiness(biz)
           setIndustryValue((biz as any).industry || '')
@@ -60,13 +63,30 @@ export default function AccountPage() {
     setTimeout(() => setIndustrySaved(false), 3000)
   }
 
+  const toggleSelectBusiness = (id: string) => {
+    setSelectedBusinessIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    )
+  }
+
+  const selectAllBusinesses = () => {
+    if (selectedBusinessIds.length === allBusinesses.length) {
+      setSelectedBusinessIds([])
+    } else {
+      setSelectedBusinessIds(allBusinesses.map((b: any) => b.id))
+    }
+  }
+
   const deleteBusiness = async () => {
-    if (!business) return
+    if (selectedBusinessIds.length === 0) return
     setDeleting(true)
     const supabase = createClient()
-    await supabase.from('businesses').delete().eq('id', business.id)
+    for (const id of selectedBusinessIds) {
+      await supabase.from('businesses').delete().eq('id', id)
+    }
     setDeleting(false)
     setDeleteBusinessConfirm(false)
+    setSelectedBusinessIds([])
     window.location.href = '/dashboard'
   }
 
@@ -235,23 +255,54 @@ export default function AccountPage() {
         <div style={{padding:'24px',border:'1px solid #2a1a1a',borderRadius:'8px',backgroundColor:'#0a0808'}}>
           <div style={{fontSize:'13px',color:'#555',marginBottom:'16px'}}>Sign out of your BEI account on this device.</div>
           {/* Delete business */}
-          {business && (
+          {allBusinesses.length > 0 && (
             <div style={{marginBottom:'32px',padding:'28px',border:'1px solid rgba(204,68,68,0.3)',borderRadius:'8px',backgroundColor:'rgba(204,68,68,0.03)'}}>
               <div style={{fontSize:'11px',color:'#cc4444',letterSpacing:'0.2em',textTransform:'uppercase' as const,marginBottom:'8px',fontWeight:'600'}}>Danger Zone</div>
-              <div style={{fontSize:'16px',fontWeight:'700',marginBottom:'6px'}}>Delete Business</div>
+              <div style={{fontSize:'16px',fontWeight:'700',marginBottom:'4px'}}>Delete Businesses</div>
               <div style={{fontSize:'13px',color:'#555',marginBottom:'20px',lineHeight:'1.6'}}>
-                Permanently remove {business.business_name || 'this business'} and all associated MRI data. This cannot be undone.
+                Select one or more businesses to permanently delete. All associated MRI data will be removed. This cannot be undone.
               </div>
+
+              {/* Select all toggle */}
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'12px'}}>
+                <div style={{fontSize:'12px',color:'#555'}}>{selectedBusinessIds.length} of {allBusinesses.length} selected</div>
+                <button onClick={selectAllBusinesses} style={{padding:'6px 14px',backgroundColor:'transparent',color:'#666',border:'1px solid #333',borderRadius:'4px',cursor:'pointer',fontSize:'12px'}}>
+                  {selectedBusinessIds.length === allBusinesses.length ? 'Deselect All' : 'Select All'}
+                </button>
+              </div>
+
+              {/* Business list with checkboxes */}
+              <div style={{display:'flex',flexDirection:'column' as const,gap:'8px',marginBottom:'20px'}}>
+                {allBusinesses.map((b: any) => (
+                  <div key={b.id} onClick={() => toggleSelectBusiness(b.id)} style={{display:'flex',alignItems:'center',gap:'12px',padding:'12px 16px',backgroundColor:selectedBusinessIds.includes(b.id)?'rgba(204,68,68,0.08)':'#0a0a0a',border:`1px solid ${selectedBusinessIds.includes(b.id)?'rgba(204,68,68,0.4)':'#1a1a1a'}`,borderRadius:'6px',cursor:'pointer'}}>
+                    <div style={{width:'18px',height:'18px',borderRadius:'4px',border:`2px solid ${selectedBusinessIds.includes(b.id)?'#cc4444':'#333'}`,backgroundColor:selectedBusinessIds.includes(b.id)?'#cc4444':'transparent',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                      {selectedBusinessIds.includes(b.id) && <span style={{color:'#fff',fontSize:'11px',fontWeight:'700'}}>✓</span>}
+                    </div>
+                    <div style={{flex:1}}>
+                      <div style={{fontSize:'14px',fontWeight:'600',color:selectedBusinessIds.includes(b.id)?'#f0f0f0':'#888'}}>{b.business_name || 'Unnamed Business'}</div>
+                      <div style={{fontSize:'11px',color:'#444',marginTop:'2px'}}>{b.industry || 'No industry set'} · {b.subscription_tier || 'analysis'} plan</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Delete button */}
               {!deleteBusinessConfirm ? (
-                <button onClick={() => setDeleteBusinessConfirm(true)} style={{padding:'10px 20px',backgroundColor:'transparent',color:'#cc4444',border:'1px solid #cc4444',borderRadius:'4px',cursor:'pointer',fontSize:'13px',fontWeight:'600'}}>
-                  Delete {business.business_name || 'This Business'}
+                <button
+                  onClick={() => selectedBusinessIds.length > 0 && setDeleteBusinessConfirm(true)}
+                  disabled={selectedBusinessIds.length === 0}
+                  style={{padding:'10px 20px',backgroundColor:'transparent',color:selectedBusinessIds.length>0?'#cc4444':'#444',border:`1px solid ${selectedBusinessIds.length>0?'#cc4444':'#333'}`,borderRadius:'4px',cursor:selectedBusinessIds.length>0?'pointer':'not-allowed',fontSize:'13px',fontWeight:'600'}}
+                >
+                  Delete {selectedBusinessIds.length > 0 ? `${selectedBusinessIds.length} Business${selectedBusinessIds.length>1?'es':''}` : 'Selected'}
                 </button>
               ) : (
                 <div style={{padding:'16px',backgroundColor:'rgba(204,68,68,0.06)',border:'1px solid rgba(204,68,68,0.2)',borderRadius:'6px'}}>
-                  <div style={{fontSize:'13px',color:'#cc4444',fontWeight:'700',marginBottom:'8px'}}>Are you sure? This is permanent and cannot be undone.</div>
+                  <div style={{fontSize:'13px',color:'#cc4444',fontWeight:'700',marginBottom:'8px'}}>
+                    Are you sure? This will permanently delete {selectedBusinessIds.length} business{selectedBusinessIds.length>1?'es':''} and all their data.
+                  </div>
                   <div style={{display:'flex',gap:'10px',marginTop:'12px'}}>
                     <button onClick={deleteBusiness} disabled={deleting} style={{padding:'10px 20px',backgroundColor:'#cc4444',color:'#fff',border:'none',borderRadius:'4px',cursor:'pointer',fontSize:'13px',fontWeight:'700'}}>
-                      {deleting ? 'Deleting...' : 'Yes, Delete Business'}
+                      {deleting ? 'Deleting...' : `Yes, Delete ${selectedBusinessIds.length} Business${selectedBusinessIds.length>1?'es':''}`}
                     </button>
                     <button onClick={() => setDeleteBusinessConfirm(false)} style={{padding:'10px 16px',backgroundColor:'transparent',color:'#666',border:'1px solid #333',borderRadius:'4px',cursor:'pointer',fontSize:'13px'}}>
                       Cancel
