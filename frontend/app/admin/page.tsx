@@ -85,7 +85,7 @@ export default function AdminPage() {
   const [meetings, setMeetings] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [unauthorized, setUnauthorized] = useState(false)
-  const [activeTab, setActiveTab] = useState<'overview'|'users'|'meetings'|'health'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview'|'users'|'meetings'|'health'|'analytics'>('overview')
   const [actionMsg, setActionMsg] = useState('')
   const [actioning, setActioning] = useState<string | null>(null)
   const [search, setSearch] = useState('')
