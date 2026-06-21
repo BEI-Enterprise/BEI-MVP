@@ -72,9 +72,9 @@ function GlowCard({ label, value, color, sub }: { label: string, value: string, 
       onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 0 24px rgba(200,162,74,0.15)'; el.style.backgroundColor = '#0d0d0d' }}
       onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'none'; el.style.backgroundColor = card }}
     >
-      <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.15em', marginBottom: '10px' }}>{label}</div>
+      <div style={{ fontSize: '10px', color: '#888', letterSpacing: '0.15em', marginBottom: '10px' }}>{label}</div>
       <div style={{ fontSize: '28px', fontWeight: '800', color }}>{value}</div>
-      {sub && <div style={{ fontSize: '11px', color: '#444', marginTop: '6px' }}>{sub}</div>}
+      {sub && <div style={{ fontSize: '11px', color: '#aaa', marginTop: '6px' }}>{sub}</div>}
     </div>
   )
 }
@@ -211,7 +211,7 @@ export default function AdminPage() {
     setActioning(null)
   }
 
-  if (loading) return <main style={{ backgroundColor: dark, color: '#fff', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter,system-ui,sans-serif' }}><div style={{ fontSize: '13px', color: '#555' }}>Loading...</div></main>
+  if (loading) return <main style={{ backgroundColor: dark, color: '#fff', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter,system-ui,sans-serif' }}><div style={{ fontSize: '13px', color: '#888' }}>Loading...</div></main>
   if (unauthorized) return <main style={{ backgroundColor: dark, color: '#fff', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter,system-ui,sans-serif' }}><div style={{ textAlign: 'center' as const }}><div style={{ fontSize: '11px', color: '#cc4444', letterSpacing: '0.2em', marginBottom: '12px' }}>ACCESS DENIED</div><a href="/dashboard" style={{ color: gold, textDecoration: 'none' }}>← Dashboard</a></div></main>
 
   // Stats
@@ -261,7 +261,7 @@ export default function AdminPage() {
           <div>
             <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.3em', marginBottom: '8px', fontWeight: '600' }}>BEI — ADMIN INTERFACE</div>
             <div style={{ fontSize: '28px', fontWeight: '800', letterSpacing: '-0.01em' }}>Platform Command Centre</div>
-            <div style={{ fontSize: '13px', color: '#555', marginTop: '4px' }}>{user?.email}</div>
+            <div style={{ fontSize: '13px', color: '#888', marginTop: '4px' }}>{user?.email}</div>
           </div>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <div style={{ display: 'flex', gap: '6px', alignItems: 'center', padding: '6px 14px', backgroundColor: 'rgba(74,170,74,0.1)', border: '1px solid rgba(74,170,74,0.2)', borderRadius: '20px' }}>
@@ -269,7 +269,7 @@ export default function AdminPage() {
               <span style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>LIVE</span>
             </div>
             <a href="/account" style={{ fontSize: '13px', color: gold, textDecoration: 'none', fontWeight: '600', padding: '8px 16px', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px' }}>User View →</a>
-            <a href="/dashboard" style={{ padding: '8px 18px', border: '1px solid #2a2a2a', borderRadius: '6px', fontSize: '13px', color: '#777', textDecoration: 'none' }}>Dashboard</a>
+            <a href="/dashboard" style={{ padding: '8px 18px', border: '1px solid #2a2a2a', borderRadius: '6px', fontSize: '13px', color: '#aaa', textDecoration: 'none' }}>Dashboard</a>
           </div>
         </div>
       </div>
@@ -314,7 +314,7 @@ export default function AdminPage() {
 
             {/* Revenue chart */}
             <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '24px' }}>
-              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '24px', fontWeight: '600' }}>REVENUE BY TIER</div>
+              <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '24px', fontWeight: '600' }}>REVENUE BY TIER</div>
               <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', height: '160px' }}>
                 {['analysis', 'opportunity', 'platform', 'corporate'].map(tier => {
                   const count = businesses.filter(b => b.subscription_tier === tier && b.subscription_status === 'active').length
@@ -325,8 +325,8 @@ export default function AdminPage() {
                     <div key={tier} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '8px', height: '100%', justifyContent: 'flex-end' }}>
                       <div style={{ fontSize: '12px', color: TIER_COLORS[tier], fontWeight: '700' }}>£{rev.toLocaleString()}</div>
                       <div style={{ width: '100%', height: pct + '%', backgroundColor: TIER_COLORS[tier], borderRadius: '4px 4px 0 0', opacity: count > 0 ? 0.85 : 0.15, transition: 'height 0.5s ease', minHeight: '4px' }} />
-                      <div style={{ fontSize: '10px', color: '#555', textTransform: 'capitalize' as const, letterSpacing: '0.05em' }}>{tier}</div>
-                      <div style={{ fontSize: '11px', color: '#444' }}>{count} active</div>
+                      <div style={{ fontSize: '10px', color: '#888', textTransform: 'capitalize' as const, letterSpacing: '0.05em' }}>{tier}</div>
+                      <div style={{ fontSize: '11px', color: '#aaa' }}>{count} active</div>
                     </div>
                   )
                 })}
@@ -335,12 +335,12 @@ export default function AdminPage() {
 
             {/* Recent businesses */}
             <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>RECENT SIGNUPS</div>
+              <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>RECENT SIGNUPS</div>
               {businesses.slice(0, 6).map(b => (
                 <div key={b.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #111' }}>
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: '600', color: '#e0e0e0' }}>{b.business_name}</div>
-                    <div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>{b.email} · {new Date(b.created_at).toLocaleDateString('en-GB')}</div>
+                    <div style={{ fontSize: '11px', color: '#888', marginTop: '2px' }}>{b.email} · {new Date(b.created_at).toLocaleDateString('en-GB')}</div>
                   </div>
                   <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                     <span style={{ fontSize: '11px', color: TIER_COLORS[b.subscription_tier] || '#555', fontWeight: '600', textTransform: 'capitalize' as const }}>{b.subscription_tier || 'free'}</span>
@@ -389,14 +389,14 @@ export default function AdminPage() {
                 <option value="plan">Sort: Plan Value</option>
                 <option value="mri">Sort: MRI Status</option>
               </select>
-              <div style={{ fontSize: '13px', color: '#555', display: 'flex', alignItems: 'center' }}>{filtered.length} results</div>
+              <div style={{ fontSize: '13px', color: '#888', display: 'flex', alignItems: 'center' }}>{filtered.length} results</div>
             </div>
 
             {/* Table */}
             <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', overflow: 'hidden' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1.2fr 1fr 0.8fr 0.8fr 160px', padding: '12px 20px', backgroundColor: '#111', borderBottom: '1px solid #1a1a1a' }}>
                 {['Business', 'Industry', 'Plan', 'Status', 'MRI', 'Actions'].map(h => (
-                  <div key={h} style={{ fontSize: '10px', color: '#555', letterSpacing: '0.15em', fontWeight: '600' }}>{h.toUpperCase()}</div>
+                  <div key={h} style={{ fontSize: '10px', color: '#888', letterSpacing: '0.15em', fontWeight: '600' }}>{h.toUpperCase()}</div>
                 ))}
               </div>
               {filtered.map(b => (
@@ -409,9 +409,9 @@ export default function AdminPage() {
                   >
                     <div>
                       <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0' }}>{b.business_name}</div>
-                      <div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>{b.email}</div>
+                      <div style={{ fontSize: '11px', color: '#888', marginTop: '2px' }}>{b.email}</div>
                     </div>
-                    <div style={{ fontSize: '12px', color: '#777', textTransform: 'capitalize' as const }}>{(b.industry || '').replace(/_/g, ' ')}</div>
+                    <div style={{ fontSize: '12px', color: '#aaa', textTransform: 'capitalize' as const }}>{(b.industry || '').replace(/_/g, ' ')}</div>
                     <div style={{ fontSize: '12px', color: TIER_COLORS[b.subscription_tier] || '#555', fontWeight: '600', textTransform: 'capitalize' as const }}>{b.subscription_tier || 'free'}</div>
                     <div><span style={{ fontSize: '11px', padding: '3px 8px', borderRadius: '10px', backgroundColor: b.status === 'active' ? 'rgba(74,170,74,0.1)' : 'rgba(204,68,68,0.1)', color: b.status === 'active' ? '#4aaa4a' : '#cc4444', fontWeight: '600' }}>{b.status || 'active'}</span></div>
                     <div style={{ fontSize: '12px', color: b.mri_completed ? '#4aaa4a' : '#555' }}>{b.mri_completed ? '✓' : '—'}</div>
@@ -439,14 +439,14 @@ export default function AdminPage() {
                         { label: 'Business ID', value: b.id.slice(0, 16) + '...' },
                       ].map(f => (
                         <div key={f.label}>
-                          <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em', marginBottom: '4px' }}>{f.label.toUpperCase()}</div>
+                          <div style={{ fontSize: '10px', color: '#888', letterSpacing: '0.1em', marginBottom: '4px' }}>{f.label.toUpperCase()}</div>
                           <div style={{ fontSize: '13px', color: '#999' }}>{f.value}</div>
                         </div>
                       ))}
                       <div style={{ gridColumn: 'span 4', paddingTop: '12px', borderTop: '1px solid #1a1a1a', display: 'flex', gap: '10px' }}>
                         <a href={'/report/' + b.id} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>View MRI Report →</a>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '20px' }}>
-                        <div style={{ fontSize: '11px', color: '#555' }}>CHANGE TIER:</div>
+                        <div style={{ fontSize: '11px', color: '#888' }}>CHANGE TIER:</div>
                         {['free', 'analysis', 'opportunity', 'platform', 'corporate'].map(tier => (
                           <button key={tier} onClick={() => changeTier(b.id, tier, b.business_name)} disabled={actioning === b.id || b.subscription_tier === tier} style={{ padding: '5px 12px', backgroundColor: b.subscription_tier === tier ? (TIER_COLORS[tier] || '#555') : 'transparent', color: b.subscription_tier === tier ? '#050505' : (TIER_COLORS[tier] || '#555'), border: '1px solid ' + (TIER_COLORS[tier] || '#555'), borderRadius: '4px', fontSize: '11px', cursor: b.subscription_tier === tier ? 'default' : 'pointer', fontWeight: '600', opacity: actioning === b.id ? 0.5 : 1, textTransform: 'capitalize' as const }}>
                             {tier}
@@ -458,7 +458,7 @@ export default function AdminPage() {
                   )}
                 </div>
               ))}
-              {filtered.length === 0 && <div style={{ padding: '40px', textAlign: 'center' as const, fontSize: '13px', color: '#444' }}>No businesses match your filters.</div>}
+              {filtered.length === 0 && <div style={{ padding: '40px', textAlign: 'center' as const, fontSize: '13px', color: '#aaa' }}>No businesses match your filters.</div>}
             </div>
           </div>
         )}
@@ -468,11 +468,11 @@ export default function AdminPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '24px' }}>
             {/* Calendar */}
             <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', alignSelf: 'start' }}>
-              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>
+              <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>
                 {now.toLocaleString('default', { month: 'long' }).toUpperCase()} {now.getFullYear()}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '2px', marginBottom: '6px' }}>
-                {['M','T','W','T','F','S','S'].map((d, i) => <div key={i} style={{ fontSize: '10px', color: '#555', textAlign: 'center' as const, padding: '4px 0', fontWeight: '600' }}>{d}</div>)}
+                {['M','T','W','T','F','S','S'].map((d, i) => <div key={i} style={{ fontSize: '10px', color: '#888', textAlign: 'center' as const, padding: '4px 0', fontWeight: '600' }}>{d}</div>)}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '2px' }}>
                 {Array.from({ length: adjFirst }, (_, i) => <div key={'e' + i} />)}
@@ -485,15 +485,15 @@ export default function AdminPage() {
               <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #1a1a1a' }}>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '6px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: gold }} />
-                  <span style={{ fontSize: '11px', color: '#555' }}>Today</span>
+                  <span style={{ fontSize: '11px', color: '#888' }}>Today</span>
                 </div>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: 'rgba(200,162,74,0.3)' }} />
-                  <span style={{ fontSize: '11px', color: '#555' }}>Has meetings</span>
+                  <span style={{ fontSize: '11px', color: '#888' }}>Has meetings</span>
                 </div>
               </div>
               <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #1a1a1a' }}>
-                <div style={{ fontSize: '10px', color: '#555', marginBottom: '8px', letterSpacing: '0.1em' }}>SUMMARY</div>
+                <div style={{ fontSize: '10px', color: '#888', marginBottom: '8px', letterSpacing: '0.1em' }}>SUMMARY</div>
                 <div style={{ fontSize: '13px', color: '#888', marginBottom: '4px' }}>{meetings.length} total requests</div>
                 <div style={{ fontSize: '13px', color: unreviewed.length > 0 ? gold : '#555' }}>{unreviewed.length} unreviewed</div>
               </div>
@@ -501,14 +501,14 @@ export default function AdminPage() {
 
             {/* Meeting cards */}
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
-              {meetings.length === 0 && <div style={{ padding: '40px', textAlign: 'center' as const, backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', fontSize: '13px', color: '#444' }}>No meeting requests yet.</div>}
+              {meetings.length === 0 && <div style={{ padding: '40px', textAlign: 'center' as const, backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', fontSize: '13px', color: '#aaa' }}>No meeting requests yet.</div>}
               {meetings.map(m => (
                 <div key={m.id} style={{ padding: '20px 24px', backgroundColor: card, border: '1px solid ' + (m.reviewed_by_admin ? border : 'rgba(200,162,74,0.3)'), borderRadius: '8px', position: 'relative' as const }}>
                   {!m.reviewed_by_admin && <div style={{ position: 'absolute' as const, top: '14px', right: '14px', fontSize: '10px', color: gold, backgroundColor: 'rgba(200,162,74,0.1)', padding: '3px 10px', borderRadius: '10px', fontWeight: '600' }}>NEW</div>}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px', paddingRight: m.reviewed_by_admin ? '0' : '60px' }}>
                     <div>
                       <div style={{ fontSize: '14px', fontWeight: '700', color: '#e0e0e0', marginBottom: '4px' }}>{(m.businesses as any)?.business_name || 'Unknown'}</div>
-                      <div style={{ fontSize: '12px', color: '#555' }}>{(m.businesses as any)?.email} · {m.meeting_type} · {new Date(m.requested_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                      <div style={{ fontSize: '12px', color: '#888' }}>{(m.businesses as any)?.email} · {m.meeting_type} · {new Date(m.requested_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                     </div>
                     <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '10px', flexShrink: 0, backgroundColor: m.status === 'completed' ? 'rgba(74,170,74,0.1)' : m.status === 'scheduled' ? 'rgba(74,138,176,0.1)' : m.status === 'cancelled' ? 'rgba(204,68,68,0.1)' : 'rgba(200,162,74,0.1)', color: m.status === 'completed' ? '#4aaa4a' : m.status === 'scheduled' ? '#4a8ab0' : m.status === 'cancelled' ? '#cc4444' : gold, fontWeight: '600' }}>{m.status.toUpperCase()}</span>
                   </div>
@@ -541,44 +541,44 @@ export default function AdminPage() {
               </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>INTELLIGENCE SERVER</div>
+              <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>INTELLIGENCE SERVER</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: railwayStatus === 'online' ? '#4aaa4a' : railwayStatus === 'offline' ? '#cc4444' : '#888', boxShadow: railwayStatus === 'online' ? '0 0 8px rgba(74,170,74,0.8)' : 'none' }} />
                 <div style={{ fontSize: '16px', fontWeight: '700', color: railwayStatus === 'online' ? '#4aaa4a' : railwayStatus === 'offline' ? '#cc4444' : '#888' }}>
                   {railwayStatus === 'online' ? 'Online' : railwayStatus === 'offline' ? 'Offline' : 'Checking...'}
                 </div>
               </div>
-              <div style={{ fontSize: '12px', color: '#555', marginBottom: '8px' }}>Railway — Python Intelligence Server</div>
-              <div style={{ fontSize: '11px', color: '#444' }}>mindful-reverence-production-e010.up.railway.app</div>
+              <div style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>Railway — Python Intelligence Server</div>
+              <div style={{ fontSize: '11px', color: '#aaa' }}>mindful-reverence-production-e010.up.railway.app</div>
             </div>
 
             <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>SUPABASE</div>
+              <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>SUPABASE</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 8px rgba(74,170,74,0.8)' }} />
                 <div style={{ fontSize: '16px', fontWeight: '700', color: '#4aaa4a' }}>Connected</div>
               </div>
-              <div style={{ fontSize: '12px', color: '#555', marginBottom: '8px' }}>Database — businesses, meetings, audit_log</div>
-              <div style={{ fontSize: '11px', color: '#444' }}>{businesses.length} business records loaded</div>
+              <div style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>Database — businesses, meetings, audit_log</div>
+              <div style={{ fontSize: '11px', color: '#aaa' }}>{businesses.length} business records loaded</div>
             </div>
 
             <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>STRIPE</div>
+              <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>STRIPE</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: activeSubs.length > 0 ? '#4aaa4a' : '#888', boxShadow: activeSubs.length > 0 ? '0 0 8px rgba(74,170,74,0.8)' : 'none' }} />
                 <div style={{ fontSize: '16px', fontWeight: '700', color: activeSubs.length > 0 ? '#4aaa4a' : '#888' }}>{activeSubs.length > 0 ? 'Active' : 'No active subs'}</div>
               </div>
-              <div style={{ fontSize: '12px', color: '#555', marginBottom: '8px' }}>{activeSubs.length} active subscriptions</div>
-              <div style={{ fontSize: '11px', color: '#444' }}>MRR: £{mrr.toLocaleString()} · ARR: £{(mrr * 12).toLocaleString()}</div>
+              <div style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>{activeSubs.length} active subscriptions</div>
+              <div style={{ fontSize: '11px', color: '#aaa' }}>MRR: £{mrr.toLocaleString()} · ARR: £{(mrr * 12).toLocaleString()}</div>
             </div>
 
             <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-              <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>VERCEL</div>
+              <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>VERCEL</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 8px rgba(74,170,74,0.8)' }} />
                 <div style={{ fontSize: '16px', fontWeight: '700', color: '#4aaa4a' }}>Live</div>
               </div>
-              <div style={{ fontSize: '12px', color: '#555', marginBottom: '8px' }}>officialbei.com — Next.js 16</div>
+              <div style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>officialbei.com — Next.js 16</div>
               <a href="https://vercel.com/bei-enterprise" target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: gold, textDecoration: 'none' }}>Open Vercel Dashboard →</a>
             </div>
           </div>

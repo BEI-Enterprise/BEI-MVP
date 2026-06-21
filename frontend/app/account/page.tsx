@@ -192,7 +192,7 @@ export default function AccountPage() {
             <div style={{ fontSize: '32px', fontWeight: '800', marginBottom: '6px', letterSpacing: '-0.01em' }}>
               {user?.email?.split('@')[0] || 'Account'}
             </div>
-            <div style={{ fontSize: '13px', color: '#555', marginBottom: '20px' }}>{user?.email}</div>
+            <div style={{ fontSize: '13px', color: '#888', marginBottom: '20px' }}>{user?.email}</div>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' as const }}>
               <div style={{ padding: '6px 16px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '20px', fontSize: '12px', color: gold, fontWeight: '600' }}>
                 {(business?.subscription_tier || 'free').toUpperCase()} PLAN
@@ -212,7 +212,7 @@ export default function AccountPage() {
         <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 48px' }}>
 
           {/* Back to dashboard */}
-          <a href="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#555', textDecoration: 'none', marginBottom: '32px' }}>
+          <a href="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#888', textDecoration: 'none', marginBottom: '32px' }}>
             ← Back to Dashboard
           </a>
 
@@ -228,7 +228,7 @@ export default function AccountPage() {
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = '#0d0d0d'; el.style.boxShadow = '0 0 24px rgba(200,162,74,0.1)' }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = '#0a0a0a'; el.style.boxShadow = 'none' }}
               >
-                <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.15em', marginBottom: '10px' }}>{s.label.toUpperCase()}</div>
+                <div style={{ fontSize: '10px', color: '#888', letterSpacing: '0.15em', marginBottom: '10px' }}>{s.label.toUpperCase()}</div>
                 <div style={{ fontSize: '20px', fontWeight: '700', color: s.color, textTransform: 'capitalize' as const }}>{s.value}</div>
               </div>
             ))}
@@ -236,7 +236,7 @@ export default function AccountPage() {
 
           {/* Industry selector */}
           <div style={{ padding: '28px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', marginBottom: '20px' }}>
-            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>BUSINESS TYPE</div>
+            <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>BUSINESS TYPE</div>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' as const, marginBottom: '16px' }}>
               {[
                 { value: 'estate_agency', label: '🏠 Estate Agency' },
@@ -260,13 +260,13 @@ export default function AccountPage() {
 
           {/* Current subscription */}
           <div style={{ padding: '28px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', marginBottom: '20px' }}>
-            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>CURRENT SUBSCRIPTION</div>
+            <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>CURRENT SUBSCRIPTION</div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' as const, gap: '16px' }}>
               <div>
                 <div style={{ fontSize: '22px', fontWeight: '800', color: gold, marginBottom: '4px', textTransform: 'capitalize' as const }}>
                   {business?.subscription_tier || 'Free'} Plan
                 </div>
-                <div style={{ fontSize: '13px', color: '#555' }}>
+                <div style={{ fontSize: '13px', color: '#888' }}>
                   Status: <span style={{ color: business?.subscription_status === 'active' ? '#4aaa4a' : '#888', fontWeight: '600' }}>{business?.subscription_status || 'inactive'}</span>
                 </div>
               </div>
@@ -278,7 +278,7 @@ export default function AccountPage() {
 
           {/* Plan cards */}
           <div style={{ marginBottom: '20px' }}>
-            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>AVAILABLE PLANS</div>
+            <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>AVAILABLE PLANS</div>
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
               {[
                 { id: 'analysis', name: 'MRI Analysis', price: 199, features: ['Full MRI Report', 'Health Score', 'Constraint Detection', 'Monthly Updates'] },
@@ -300,7 +300,7 @@ export default function AccountPage() {
                     </div>
                     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' as const }}>
                       {plan.features.slice(0, 3).map(f => (
-                        <span key={f} style={{ fontSize: '11px', color: '#555' }}>✓ {f}</span>
+                        <span key={f} style={{ fontSize: '11px', color: '#888' }}>✓ {f}</span>
                       ))}
                     </div>
                   </div>
@@ -319,19 +319,19 @@ export default function AccountPage() {
 
           {/* Account details */}
           <div style={{ padding: '28px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', marginBottom: '20px' }}>
-            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>ACCOUNT DETAILS</div>
+            <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>ACCOUNT DETAILS</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.1em', marginBottom: '6px' }}>EMAIL</div>
+                <div style={{ fontSize: '10px', color: '#aaa', letterSpacing: '0.1em', marginBottom: '6px' }}>EMAIL</div>
                 <div style={{ fontSize: '14px', color: '#888' }}>{user?.email}</div>
               </div>
               <div>
-                <div style={{ fontSize: '10px', color: '#444', letterSpacing: '0.1em', marginBottom: '6px' }}>MEMBER SINCE</div>
+                <div style={{ fontSize: '10px', color: '#aaa', letterSpacing: '0.1em', marginBottom: '6px' }}>MEMBER SINCE</div>
                 <div style={{ fontSize: '14px', color: '#888' }}>{user?.created_at ? new Date(user.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'}</div>
               </div>
             </div>
             <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid #1a1a1a', display: 'flex', gap: '10px' }}>
-              <button onClick={handleSignOut} style={{ padding: '10px 20px', backgroundColor: 'transparent', color: '#666', border: '1px solid #2a2a2a', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontFamily: 'Inter,system-ui,sans-serif' }}>
+              <button onClick={handleSignOut} style={{ padding: '10px 20px', backgroundColor: 'transparent', color: '#999', border: '1px solid #2a2a2a', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontFamily: 'Inter,system-ui,sans-serif' }}>
                 Sign Out
               </button>
             </div>
@@ -343,10 +343,10 @@ export default function AccountPage() {
               <div style={{ marginBottom: '20px', padding: '28px', border: '1px solid rgba(204,68,68,0.3)', borderRadius: '10px', backgroundColor: 'rgba(204,68,68,0.03)' }}>
                 <div style={{ fontSize: '11px', color: '#cc4444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>DANGER ZONE</div>
                 <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '6px' }}>Delete Businesses</div>
-                <div style={{ fontSize: '13px', color: '#555', marginBottom: '20px', lineHeight: '1.6' }}>Select one or more businesses to permanently delete. All MRI data will be removed. This cannot be undone.</div>
+                <div style={{ fontSize: '13px', color: '#888', marginBottom: '20px', lineHeight: '1.6' }}>Select one or more businesses to permanently delete. All MRI data will be removed. This cannot be undone.</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <div style={{ fontSize: '12px', color: '#555' }}>{selectedBusinessIds.length} of {allBusinesses.length} selected</div>
-                  <button onClick={selectAllBusinesses} style={{ padding: '6px 14px', backgroundColor: 'transparent', color: '#666', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', fontSize: '12px', fontFamily: 'Inter,system-ui,sans-serif' }}>
+                  <div style={{ fontSize: '12px', color: '#888' }}>{selectedBusinessIds.length} of {allBusinesses.length} selected</div>
+                  <button onClick={selectAllBusinesses} style={{ padding: '6px 14px', backgroundColor: 'transparent', color: '#999', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', fontSize: '12px', fontFamily: 'Inter,system-ui,sans-serif' }}>
                     {selectedBusinessIds.length === allBusinesses.length ? 'Deselect All' : 'Select All'}
                   </button>
                 </div>
@@ -359,7 +359,7 @@ export default function AccountPage() {
                       </div>
                       <div style={{ flex: 1 }}>
                         <div style={{ fontSize: '14px', fontWeight: '600', color: selectedBusinessIds.includes(b.id) ? '#f0f0f0' : '#888' }}>{b.business_name || 'Unnamed Business'}</div>
-                        <div style={{ fontSize: '11px', color: '#444', marginTop: '2px' }}>{b.industry || 'No industry set'} · {b.subscription_tier || 'analysis'} plan</div>
+                        <div style={{ fontSize: '11px', color: '#aaa', marginTop: '2px' }}>{b.industry || 'No industry set'} · {b.subscription_tier || 'analysis'} plan</div>
                       </div>
                     </div>
                   ))}
@@ -376,7 +376,7 @@ export default function AccountPage() {
                       <button onClick={deleteBusiness} disabled={deleting} style={{ padding: '10px 20px', backgroundColor: '#cc4444', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontWeight: '700', fontFamily: 'Inter,system-ui,sans-serif' }}>
                         {deleting ? 'Deleting...' : 'Yes, Delete'}
                       </button>
-                      <button onClick={() => setDeleteBusinessConfirm(false)} style={{ padding: '10px 16px', backgroundColor: 'transparent', color: '#666', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontFamily: 'Inter,system-ui,sans-serif' }}>Cancel</button>
+                      <button onClick={() => setDeleteBusinessConfirm(false)} style={{ padding: '10px 16px', backgroundColor: 'transparent', color: '#999', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontFamily: 'Inter,system-ui,sans-serif' }}>Cancel</button>
                     </div>
                   </div>
                 )}
@@ -386,7 +386,7 @@ export default function AccountPage() {
             <div style={{ padding: '28px', border: '1px solid rgba(204,68,68,0.3)', borderRadius: '10px', backgroundColor: 'rgba(204,68,68,0.03)' }}>
               <div style={{ fontSize: '11px', color: '#cc4444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>DELETE ACCOUNT</div>
               <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '6px' }}>Permanently Delete Your Account</div>
-              <div style={{ fontSize: '13px', color: '#555', marginBottom: '20px', lineHeight: '1.6' }}>This will permanently delete your account, all business data, MRI reports and login credentials. This cannot be undone.</div>
+              <div style={{ fontSize: '13px', color: '#888', marginBottom: '20px', lineHeight: '1.6' }}>This will permanently delete your account, all business data, MRI reports and login credentials. This cannot be undone.</div>
               {!deleteAccountConfirm ? (
                 <button onClick={() => setDeleteAccountConfirm(true)} style={{ padding: '10px 20px', backgroundColor: 'transparent', color: '#cc4444', border: '1px solid #cc4444', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontWeight: '600', fontFamily: 'Inter,system-ui,sans-serif' }}>
                   Delete My Account
@@ -398,7 +398,7 @@ export default function AccountPage() {
                     <button onClick={deleteAccount} disabled={deleting} style={{ padding: '10px 20px', backgroundColor: '#cc4444', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontWeight: '700', fontFamily: 'Inter,system-ui,sans-serif' }}>
                       {deleting ? 'Deleting...' : 'Yes, delete everything permanently'}
                     </button>
-                    <button onClick={() => setDeleteAccountConfirm(false)} style={{ padding: '10px 16px', backgroundColor: 'transparent', color: '#666', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontFamily: 'Inter,system-ui,sans-serif' }}>Cancel</button>
+                    <button onClick={() => setDeleteAccountConfirm(false)} style={{ padding: '10px 16px', backgroundColor: 'transparent', color: '#999', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', fontFamily: 'Inter,system-ui,sans-serif' }}>Cancel</button>
                   </div>
                 </div>
               )}

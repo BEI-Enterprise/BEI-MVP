@@ -23,12 +23,12 @@ export default function OutcomeDeploymentPage() {
             <h1 style={{ fontSize: '56px', fontWeight: '800', lineHeight: '1.08', letterSpacing: '-0.02em', marginBottom: '24px', maxWidth: '820px' }}>
               Intelligence is only valuable<br /><span style={{ color: gold }}>when it becomes action.</span>
             </h1>
-            <p style={{ fontSize: '18px', color: '#666', lineHeight: '1.8', maxWidth: '620px', marginBottom: '40px' }}>
+            <p style={{ fontSize: '18px', color: '#999', lineHeight: '1.8', maxWidth: '620px', marginBottom: '40px' }}>
               The Outcome & Deployment Centre™ is where BEI intelligence becomes business transformation. Once your primary constraint is identified and verified, BEI delivers a structured deployment plan — tiered by resource, sequenced by impact, and tracked against measurable outcomes.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <a href='/book' style={{ padding: '16px 36px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px', boxShadow: '0 0 40px rgba(200,162,74,0.2)' }}>Book Onboarding Call →</a>
-              <a href='/pricing' style={{ padding: '16px 24px', border: '1px solid #2a2a2a', color: '#777', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Plans</a>
+              <a href='/pricing' style={{ padding: '16px 24px', border: '1px solid #2a2a2a', color: '#aaa', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Plans</a>
             </div>
           </RevealSection>
 
@@ -43,7 +43,7 @@ export default function OutcomeDeploymentPage() {
                 <div key={m.l} style={{ padding: '28px', backgroundColor: card, textAlign: 'center' }}>
                   <div style={{ fontSize: '28px', fontWeight: '700', color: gold, marginBottom: '8px' }}>{m.n}</div>
                   <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600', marginBottom: '4px' }}>{m.l}</div>
-                  <div style={{ fontSize: '12px', color: '#444' }}>{m.s}</div>
+                  <div style={{ fontSize: '12px', color: '#aaa' }}>{m.s}</div>
                 </div>
               ))}
             </div>
@@ -63,7 +63,7 @@ export default function OutcomeDeploymentPage() {
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>Deployment Tiers</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>Three tiers. One sequenced path to resolution.</h2>
-              <p style={{ fontSize: '16px', color: '#555', maxWidth: '600px', margin: '0 auto' }}>BEI does not deliver a report and leave. Every verified constraint comes with a three-tier deployment plan — structured around your resources, your timeline, and your risk tolerance.</p>
+              <p style={{ fontSize: '16px', color: '#888', maxWidth: '600px', margin: '0 auto' }}>BEI does not deliver a report and leave. Every verified constraint comes with a three-tier deployment plan — structured around your resources, your timeline, and your risk tolerance.</p>
             </div>
           </RevealSection>
           <RevealSection delay={100}>
@@ -98,12 +98,12 @@ export default function OutcomeDeploymentPage() {
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', backgroundColor: item.color, opacity: 0.4 }} />
                   <div style={{ fontSize: '11px', color: item.color, letterSpacing: '0.2em', fontWeight: '600', marginBottom: '8px' }}>{item.tier} · {item.timeline}</div>
                   <div style={{ fontSize: '22px', fontWeight: '700', color: '#e0e0e0', marginBottom: '16px' }}>{item.title}</div>
-                  <p style={{ fontSize: '14px', color: '#555', lineHeight: '1.7', marginBottom: '24px' }}>{item.desc}</p>
+                  <p style={{ fontSize: '14px', color: '#888', lineHeight: '1.7', marginBottom: '24px' }}>{item.desc}</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {item.items.map(i => (
                       <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                         <span style={{ color: item.color, fontSize: '12px', marginTop: '2px', flexShrink: 0 }}>✓</span>
-                        <span style={{ fontSize: '13px', color: '#666' }}>{i}</span>
+                        <span style={{ fontSize: '13px', color: '#999' }}>{i}</span>
                       </div>
                     ))}
                   </div>
@@ -121,7 +121,7 @@ export default function OutcomeDeploymentPage() {
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>What BEI Delivers</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>Everything you need. Nothing you don't.</h2>
-              <p style={{ fontSize: '16px', color: '#555', maxWidth: '560px', margin: '0 auto' }}>BEI is not a suite of tools. It is a complete intelligence programme — delivering verified analysis, structured deployment, and continuous monitoring in one integrated system.</p>
+              <p style={{ fontSize: '16px', color: '#888', maxWidth: '560px', margin: '0 auto' }}>BEI is not a suite of tools. It is a complete intelligence programme — delivering verified analysis, structured deployment, and continuous monitoring in one integrated system.</p>
             </div>
           </RevealSection>
           <RevealSection delay={100}>
@@ -139,7 +139,7 @@ export default function OutcomeDeploymentPage() {
                 <div key={item.title} style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.25), transparent)' }} />
                   <div style={{ fontSize: '15px', fontWeight: '700', color: gold, marginBottom: '10px' }}>{item.title}</div>
-                  <div style={{ fontSize: '14px', color: '#555', lineHeight: '1.7' }}>{item.desc}</div>
+                  <div style={{ fontSize: '14px', color: '#888', lineHeight: '1.7' }}>{item.desc}</div>
                 </div>
               ))}
             </div>
@@ -155,10 +155,10 @@ export default function OutcomeDeploymentPage() {
               <div>
                 <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>Outcome Tracking</div>
                 <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '20px' }}>Intelligence that measures its own impact.</h2>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8', marginBottom: '24px' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8', marginBottom: '24px' }}>
                   BEI does not deliver a recommendation and move on. Every deployment plan comes with defined outcome metrics — specific, measurable indicators that confirm whether the constraint is resolving as expected.
                 </p>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8' }}>
                   Your monthly MRI refresh tracks these metrics directly. If resolution is stalling, the intelligence engine flags it and re-evaluates the deployment plan. If a new constraint emerges as primary, you are notified before it costs you.
                 </p>
               </div>
@@ -174,7 +174,7 @@ export default function OutcomeDeploymentPage() {
                   { label: 'Next MRI Refresh', value: '12 days', status: 'Scheduled', up: null },
                 ].map(row => (
                   <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #111' }}>
-                    <div style={{ fontSize: '13px', color: '#555' }}>{row.label}</div>
+                    <div style={{ fontSize: '13px', color: '#888' }}>{row.label}</div>
                     <div style={{ textAlign: 'right' }}>
                       <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0' }}>{row.value}</div>
                       <div style={{ fontSize: '11px', color: row.up ? '#4aaa4a' : '#444', marginTop: '2px' }}>{row.status}</div>
@@ -195,12 +195,12 @@ export default function OutcomeDeploymentPage() {
           <h2 style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px', lineHeight: '1.1' }}>
             Identify the constraint.<br /><span style={{ color: gold }}>Then deploy against it.</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#555', marginBottom: '40px', lineHeight: '1.75' }}>
+          <p style={{ fontSize: '17px', color: '#888', marginBottom: '40px', lineHeight: '1.75' }}>
             Book your onboarding call. Generate your first MRI. Receive your deployment plan, your outcome metrics, and your first monthly refresh — from day one.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
             <a href='/book' style={{ padding: '18px 48px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '8px', textDecoration: 'none', fontSize: '16px', boxShadow: '0 0 60px rgba(200,162,74,0.2)' }}>Book Onboarding Call →</a>
-            <a href='/products/bei-intelligence' style={{ padding: '18px 28px', border: '1px solid #2a2a2a', color: '#666', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>BEI Intelligence™ →</a>
+            <a href='/products/bei-intelligence' style={{ padding: '18px 28px', border: '1px solid #2a2a2a', color: '#999', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>BEI Intelligence™ →</a>
           </div>
         </div>
       </section>

@@ -347,22 +347,22 @@ export default function ConnectPage() {
             <a key={n.href} href={n.href} style={{ padding: '0 16px', height: '60px', display: 'flex', alignItems: 'center', fontSize: '13px', color: (n as any).active ? gold : '#555', borderBottom: (n as any).active ? `2px solid ${gold}` : '2px solid transparent', textDecoration: 'none' }}>{n.label}</a>
           ))}
         </div>
-        <span style={{ fontSize: '12px', color: '#333' }}>{businessName}</span>
+        <span style={{ fontSize: '12px', color: '#aaa' }}>{businessName}</span>
       </nav>
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '40px 24px' }}>
         <div style={{ fontSize: '24px', fontWeight: '700', marginBottom: '4px' }}>Connect Your Business</div>
-        <div style={{ fontSize: '14px', color: '#555', marginBottom: '40px' }}>Connect real data sources to upgrade your Business Twin from intake-only to verified intelligence</div>
+        <div style={{ fontSize: '14px', color: '#888', marginBottom: '40px' }}>Connect real data sources to upgrade your Business Twin from intake-only to verified intelligence</div>
 
         {/* Twin completeness */}
         <div style={{ padding: '24px 32px', border: `1px solid ${border}`, borderRadius: '8px', backgroundColor: dark, marginBottom: '40px', display: 'flex', alignItems: 'center', gap: '32px' }}>
           <div style={{ textAlign: 'center' as const, minWidth: '80px' }}>
             <div style={{ fontSize: '40px', fontWeight: '700', color: completenessColor }}>{twinCompleteness}%</div>
-            <div style={{ fontSize: '11px', color: '#444', marginTop: '4px' }}>Twin Completeness</div>
+            <div style={{ fontSize: '11px', color: '#aaa', marginTop: '4px' }}>Twin Completeness</div>
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <span style={{ fontSize: '13px', color: '#666' }}>Business Twin Confidence</span>
+              <span style={{ fontSize: '13px', color: '#999' }}>Business Twin Confidence</span>
               <span style={{ fontSize: '12px', color: completenessColor }}>
                 {twinCompleteness >= 80 ? 'High Confidence — Real Data' : twinCompleteness >= 65 ? 'Medium Confidence' : 'Intake Only — 60% Confidence'}
               </span>
@@ -370,7 +370,7 @@ export default function ConnectPage() {
             <div style={{ height: '8px', backgroundColor: '#111', borderRadius: '4px', overflow: 'hidden' }}>
               <div style={{ width: twinCompleteness + '%', height: '100%', backgroundColor: completenessColor, borderRadius: '4px', transition: 'width 0.5s ease' }} />
             </div>
-            <div style={{ fontSize: '12px', color: '#444', marginTop: '8px' }}>
+            <div style={{ fontSize: '12px', color: '#aaa', marginTop: '8px' }}>
               Each connector replaces intake form estimates with real verified data. Intelligence accuracy improves from 60% to 85%+ with full connectivity.
             </div>
           </div>
@@ -381,7 +381,7 @@ export default function ConnectPage() {
           <div key={group.group} style={{ marginBottom: '40px' }}>
             <div style={{ marginBottom: '16px' }}>
               <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '4px' }}>{group.group}</div>
-              <div style={{ fontSize: '12px', color: '#555' }}>{group.description} — Twin Impact: <span style={{ color: gold }}>{group.twin_impact}</span></div>
+              <div style={{ fontSize: '12px', color: '#888' }}>{group.description} — Twin Impact: <span style={{ color: gold }}>{group.twin_impact}</span></div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -412,11 +412,11 @@ export default function ConnectPage() {
                             {connector.name}
                             {isActive && <span style={{ fontSize: '10px', color: '#4aaa4a', border: '1px solid #2a3a1a', padding: '1px 6px', borderRadius: '3px' }}>CONNECTED</span>}
                             {isError && <span style={{ fontSize: '10px', color: '#cc4444', border: '1px solid #3a1a1a', padding: '1px 6px', borderRadius: '3px' }}>ERROR</span>}
-                            {isOAuth && !isActive && <span style={{ fontSize: '10px', color: '#555', border: '1px solid #222', padding: '1px 6px', borderRadius: '3px' }}>OAuth</span>}
-                            {isManual && <span style={{ fontSize: '10px', color: '#555', border: '1px solid #222', padding: '1px 6px', borderRadius: '3px' }}>Manual</span>}
+                            {isOAuth && !isActive && <span style={{ fontSize: '10px', color: '#888', border: '1px solid #222', padding: '1px 6px', borderRadius: '3px' }}>OAuth</span>}
+                            {isManual && <span style={{ fontSize: '10px', color: '#888', border: '1px solid #222', padding: '1px 6px', borderRadius: '3px' }}>Manual</span>}
                           </div>
                           {isActive && state?.last_synced_at && (
-                            <div style={{ fontSize: '11px', color: '#444', marginTop: '2px' }}>
+                            <div style={{ fontSize: '11px', color: '#aaa', marginTop: '2px' }}>
                               Last synced: {new Date(state.last_synced_at).toLocaleString()}
                             </div>
                           )}
@@ -427,7 +427,7 @@ export default function ConnectPage() {
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                         <div style={{ fontSize: '13px', fontWeight: '700', color: gold }}>{connector.confidence_boost}</div>
-                        <div style={{ fontSize: '14px', color: '#333', transform: isExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▼</div>
+                        <div style={{ fontSize: '14px', color: '#aaa', transform: isExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▼</div>
                       </div>
                     </div>
 
@@ -436,7 +436,7 @@ export default function ConnectPage() {
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '16px' }}>
                           {connector.fields.map((field: any) => (
                             <div key={field.key}>
-                              <label style={{ display: 'block', fontSize: '11px', color: '#666', marginBottom: '4px' }}>{field.label}</label>
+                              <label style={{ display: 'block', fontSize: '11px', color: '#999', marginBottom: '4px' }}>{field.label}</label>
                               <input
                                 type={field.secret ? 'password' : field.inputType || 'text'}
                                 placeholder={field.placeholder}
@@ -472,7 +472,7 @@ export default function ConnectPage() {
                           {isActive && (
                             <button
                               onClick={() => disconnect(connector.id)}
-                              style={{ padding: '9px 20px', backgroundColor: 'transparent', color: '#666', fontWeight: '600', borderRadius: '4px', border: '1px solid #2a2a2a', cursor: 'pointer', fontSize: '12px' }}
+                              style={{ padding: '9px 20px', backgroundColor: 'transparent', color: '#999', fontWeight: '600', borderRadius: '4px', border: '1px solid #2a2a2a', cursor: 'pointer', fontSize: '12px' }}
                             >
                               Disconnect
                             </button>
@@ -488,8 +488,8 @@ export default function ConnectPage() {
         ))}
 
         <div style={{ padding: '20px', border: `1px solid #111`, borderRadius: '6px', backgroundColor: dark }}>
-          <div style={{ fontSize: '12px', color: '#333', lineHeight: '1.8' }}>
-            <strong style={{ color: '#444' }}>Data integrity:</strong> Every connector pulls real data directly from your systems. No data is fabricated or estimated. Connector data replaces intake form estimates in your Business Twin, improving intelligence accuracy from 60% to 85%+. Credentials are stored securely in Supabase and never shared.
+          <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.8' }}>
+            <strong style={{ color: '#aaa' }}>Data integrity:</strong> Every connector pulls real data directly from your systems. No data is fabricated or estimated. Connector data replaces intake form estimates in your Business Twin, improving intelligence accuracy from 60% to 85%+. Credentials are stored securely in Supabase and never shared.
           </div>
         </div>
       </div>

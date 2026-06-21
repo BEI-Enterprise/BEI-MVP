@@ -23,12 +23,12 @@ export default function BusinessMRIPage() {
             <h1 style={{ fontSize: '56px', fontWeight: '800', lineHeight: '1.08', letterSpacing: '-0.02em', marginBottom: '24px', maxWidth: '800px' }}>
               The Business MRI™.<br /><span style={{ color: gold }}>Your constraint, identified and verified.</span>
             </h1>
-            <p style={{ fontSize: '18px', color: '#666', lineHeight: '1.8', maxWidth: '620px', marginBottom: '40px' }}>
+            <p style={{ fontSize: '18px', color: '#999', lineHeight: '1.8', maxWidth: '620px', marginBottom: '40px' }}>
               The Business MRI™ is BEI's core intelligence product. In approximately 8 minutes of structured intake, the BEI intelligence system builds a complete model of your business, detects every active constraint, verifies the primary one, and delivers a verified recommendation with a quantified opportunity — in under 60 seconds.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <a href='/book' style={{ padding: '16px 36px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px', boxShadow: '0 0 40px rgba(200,162,74,0.2)' }}>Generate Your Free MRI →</a>
-              <a href='/example-report' style={{ padding: '16px 24px', border: '1px solid #2a2a2a', color: '#777', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Example Report</a>
+              <a href='/example-report' style={{ padding: '16px 24px', border: '1px solid #2a2a2a', color: '#aaa', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Example Report</a>
             </div>
           </RevealSection>
 
@@ -43,7 +43,7 @@ export default function BusinessMRIPage() {
                 <div key={m.l} style={{ padding: '28px', backgroundColor: card, textAlign: 'center' }}>
                   <div style={{ fontSize: '28px', fontWeight: '700', color: gold, marginBottom: '8px' }}>{m.n}</div>
                   <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600', marginBottom: '4px' }}>{m.l}</div>
-                  <div style={{ fontSize: '12px', color: '#444' }}>{m.s}</div>
+                  <div style={{ fontSize: '12px', color: '#aaa' }}>{m.s}</div>
                 </div>
               ))}
             </div>
@@ -63,10 +63,10 @@ export default function BusinessMRIPage() {
               <div>
                 <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>What It Is</div>
                 <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '20px' }}>Not a report. An intelligence output.</h2>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8', marginBottom: '24px' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8', marginBottom: '24px' }}>
                   A traditional business report describes what has happened. The Business MRI™ identifies what is happening beneath the surface — the structural constraint that is silently limiting your growth, revenue, and operational performance right now.
                 </p>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8' }}>
                   It is built on a proprietary intelligence architecture: a Business Twin model, a 10-category constraint detection engine, a 5-test verification framework, and a decision intelligence layer that produces a single, verified, actionable output — your primary constraint and the quantified opportunity its resolution represents.
                 </p>
               </div>
@@ -80,7 +80,7 @@ export default function BusinessMRIPage() {
                   <div key={item.title} style={{ padding: '20px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', position: 'relative', overflow: 'hidden' }}>
                     <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.25), transparent)' }} />
                     <div style={{ fontSize: '14px', fontWeight: '700', color: gold, marginBottom: '6px' }}>{item.title}</div>
-                    <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.7' }}>{item.desc}</div>
+                    <div style={{ fontSize: '13px', color: '#999', lineHeight: '1.7' }}>{item.desc}</div>
                   </div>
                 ))}
               </div>
@@ -96,7 +96,7 @@ export default function BusinessMRIPage() {
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>The Process</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>8 minutes in. Verified intelligence out.</h2>
-              <p style={{ fontSize: '16px', color: '#555', maxWidth: '560px', margin: '0 auto' }}>The MRI intake is structured in six steps. Each step builds a layer of your Business Twin. Nothing is skipped. Nothing is estimated.</p>
+              <p style={{ fontSize: '16px', color: '#888', maxWidth: '560px', margin: '0 auto' }}>The MRI intake is structured in six steps. Each step builds a layer of your Business Twin. Nothing is skipped. Nothing is estimated.</p>
             </div>
           </RevealSection>
           <RevealSection delay={100}>
@@ -114,7 +114,7 @@ export default function BusinessMRIPage() {
                   <div style={{ fontSize: '32px', fontWeight: '800', color: 'rgba(200,162,74,0.2)', lineHeight: '1', flexShrink: 0 }}>{item.step}</div>
                   <div>
                     <div style={{ fontSize: '16px', fontWeight: '700', color: '#e0e0e0', marginBottom: '8px' }}>{item.title}</div>
-                    <div style={{ fontSize: '14px', color: '#555', lineHeight: '1.7' }}>{item.desc}</div>
+                    <div style={{ fontSize: '14px', color: '#888', lineHeight: '1.7' }}>{item.desc}</div>
                   </div>
                 </div>
               ))}
@@ -130,7 +130,7 @@ export default function BusinessMRIPage() {
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>Business Health Score</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>Five pillars. One score. Complete picture.</h2>
-              <p style={{ fontSize: '16px', color: '#555', maxWidth: '560px', margin: '0 auto' }}>Every MRI produces a Business Health Score across five pillars — giving you a precise, comparable measure of business health that updates with every monthly refresh.</p>
+              <p style={{ fontSize: '16px', color: '#888', maxWidth: '560px', margin: '0 auto' }}>Every MRI produces a Business Health Score across five pillars — giving you a precise, comparable measure of business health that updates with every monthly refresh.</p>
             </div>
           </RevealSection>
           <RevealSection delay={100}>
@@ -145,8 +145,8 @@ export default function BusinessMRIPage() {
                 <div key={item.pillar} style={{ padding: '28px 20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.3), transparent)' }} />
                   <div style={{ fontSize: '15px', fontWeight: '700', color: gold, marginBottom: '6px' }}>{item.pillar}</div>
-                  <div style={{ fontSize: '12px', color: '#444', marginBottom: '12px' }}>{item.score} pts</div>
-                  <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.6' }}>{item.desc}</div>
+                  <div style={{ fontSize: '12px', color: '#aaa', marginBottom: '12px' }}>{item.score} pts</div>
+                  <div style={{ fontSize: '12px', color: '#888', lineHeight: '1.6' }}>{item.desc}</div>
                 </div>
               ))}
             </div>
@@ -162,10 +162,10 @@ export default function BusinessMRIPage() {
               <div>
                 <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>Constraint Verification</div>
                 <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '20px' }}>Nothing is recommended unverified.</h2>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8', marginBottom: '24px' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8', marginBottom: '24px' }}>
                   Every primary constraint identified by BEI is subjected to a 5-test verification framework before a recommendation is made. This is what separates BEI from every other intelligence tool — we do not surface insights, we verify them.
                 </p>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8' }}>
                   A constraint must pass all five tests to be confirmed as primary. Partial matches are classified as secondary constraints and tracked — but never presented as the primary recommendation.
                 </p>
               </div>
@@ -181,7 +181,7 @@ export default function BusinessMRIPage() {
                     <div style={{ fontSize: '11px', color: gold, fontWeight: '700', flexShrink: 0, paddingTop: '2px' }}>{item.test}</div>
                     <div>
                       <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '4px' }}>{item.title}</div>
-                      <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.6' }}>{item.desc}</div>
+                      <div style={{ fontSize: '12px', color: '#888', lineHeight: '1.6' }}>{item.desc}</div>
                     </div>
                   </div>
                 ))}
@@ -199,12 +199,12 @@ export default function BusinessMRIPage() {
           <h2 style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px', lineHeight: '1.1' }}>
             Your constraint is already there.<br /><span style={{ color: gold }}>Find it in 8 minutes.</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#555', marginBottom: '40px', lineHeight: '1.75' }}>
+          <p style={{ fontSize: '17px', color: '#888', marginBottom: '40px', lineHeight: '1.75' }}>
             Generate your free Business MRI™. No commitment required. Your primary constraint identified, verified, and quantified — delivered in under 60 seconds.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
             <a href='/book' style={{ padding: '18px 48px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '8px', textDecoration: 'none', fontSize: '16px', boxShadow: '0 0 60px rgba(200,162,74,0.2)' }}>Generate Free MRI →</a>
-            <a href='/products/outcome-deployment' style={{ padding: '18px 28px', border: '1px solid #2a2a2a', color: '#666', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>Outcome & Deployment Centre →</a>
+            <a href='/products/outcome-deployment' style={{ padding: '18px 28px', border: '1px solid #2a2a2a', color: '#999', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>Outcome & Deployment Centre →</a>
           </div>
         </div>
       </section>

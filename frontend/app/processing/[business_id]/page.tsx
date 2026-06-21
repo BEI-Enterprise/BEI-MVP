@@ -86,7 +86,7 @@ export default function ProcessingPage() {
       fontSize: '14px',
       color: done ? '#4aaa4a' : active ? '#ffffff' : '#444',
     }),
-    footer: { fontSize: '11px', color: '#333', marginTop: '40px', letterSpacing: '0.1em' },
+    footer: { fontSize: '11px', color: '#aaa', marginTop: '40px', letterSpacing: '0.1em' },
     error: { color: '#cc4444', fontSize: '14px', marginTop: '24px', padding: '16px', border: '1px solid #cc4444', borderRadius: '6px' },
   }
 

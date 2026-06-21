@@ -74,7 +74,7 @@ export default function Nav({ active }: NavProps) {
                 fontWeight: active === 'products' ? '600' : '400',
               }}>
                 Products
-                <span style={{ fontSize: '10px', color: '#555', marginTop: '1px' }}>▼</span>
+                <span style={{ fontSize: '10px', color: '#888', marginTop: '1px' }}>▼</span>
               </button>
 
               {productsOpen && (
@@ -102,7 +102,7 @@ export default function Nav({ active }: NavProps) {
                     onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
                       <div style={{ fontSize: '14px', fontWeight: '600', color: '#f0f0f0', marginBottom: '3px' }}>{p.l}</div>
-                      <div style={{ fontSize: '12px', color: '#555' }}>{p.desc}</div>
+                      <div style={{ fontSize: '12px', color: '#888' }}>{p.desc}</div>
                     </a>
                   ))}
                 </div>

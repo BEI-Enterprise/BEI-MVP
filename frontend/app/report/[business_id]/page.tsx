@@ -102,7 +102,7 @@ export default function ReportPage() {
             <a href='/dashboard' style={{ padding: '10px 20px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '4px', textDecoration: 'none', fontSize: '15px' }}>Go to Dashboard →</a>
           ) : (
             <>
-              <a href='/login' style={{ fontSize: '15px', color: '#777', textDecoration: 'none' }}>Sign in</a>
+              <a href='/login' style={{ fontSize: '15px', color: '#aaa', textDecoration: 'none' }}>Sign in</a>
               <a href={'/register?business_id=' + businessId} style={{ padding: '10px 22px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Unlock Full Report →</a>
             </>
           )}
@@ -121,7 +121,7 @@ export default function ReportPage() {
                 {confidence === 'high' ? '✓ ' : ''}{version}
               </div>
               {fullAccess && twinDataConfidence != null && (
-                <div style={{ display: 'inline-block', padding: '5px 14px', border: '1px solid #2a2a2a', borderRadius: '4px', fontSize: '11px', color: '#777', letterSpacing: '0.1em', fontWeight: '600' }}>
+                <div style={{ display: 'inline-block', padding: '5px 14px', border: '1px solid #2a2a2a', borderRadius: '4px', fontSize: '11px', color: '#aaa', letterSpacing: '0.1em', fontWeight: '600' }}>
                   DATA CONFIDENCE: {Math.round(twinDataConfidence)}%
                 </div>
               )}
@@ -129,9 +129,9 @@ export default function ReportPage() {
           </div>
           {totalOpp.total_high > 0 && (
             <div style={{ textAlign: 'right' as const }}>
-              <div style={{ fontSize: '11px', color: '#444', marginBottom: '6px', letterSpacing: '0.1em' }}>TOTAL OPPORTUNITY</div>
+              <div style={{ fontSize: '11px', color: '#aaa', marginBottom: '6px', letterSpacing: '0.1em' }}>TOTAL OPPORTUNITY</div>
               <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>£{Math.round((totalOpp.total_low || 0)/1000)}k–£{Math.round((totalOpp.total_high || 0)/1000)}k</div>
-              <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>Annual value available</div>
+              <div style={{ fontSize: '12px', color: '#888', marginTop: '4px' }}>Annual value available</div>
             </div>
           )}
         </div>
@@ -139,7 +139,7 @@ export default function ReportPage() {
         {/* Health score */}
         <GlowCard style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '48px', flexWrap: 'wrap' as const }} glow={'rgba(200,162,74,0.15)'}>
           <div style={{ textAlign: 'center' as const, minWidth: '140px' }}>
-            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '12px' }}>Overall Health</div>
+            <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '12px' }}>Overall Health</div>
             <div style={{ fontSize: '88px', fontWeight: '800', color: healthColor, lineHeight: '1' }}>{overall}</div>
             <div style={{ fontSize: '14px', fontWeight: '600', color: '#888', marginTop: '8px', textTransform: 'capitalize' as const }}>{health.band || 'unknown'}</div>
             {health.vs_benchmark && (
@@ -154,12 +154,12 @@ export default function ReportPage() {
                 const c = data.score >= 70 ? '#4aaa4a' : data.score >= 45 ? gold : '#cc4444'
                 return (
                   <div key={name} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '80px', fontSize: '13px', color: '#777', textTransform: 'capitalize' as const }}>{name}</div>
+                    <div style={{ width: '80px', fontSize: '13px', color: '#aaa', textTransform: 'capitalize' as const }}>{name}</div>
                     <div style={{ flex: 1, height: '8px', backgroundColor: '#111', borderRadius: '4px', overflow: 'hidden' }}>
                       <div style={{ width: data.score + '%', height: '100%', backgroundColor: c, borderRadius: '4px' }} />
                     </div>
                     <div style={{ fontSize: '13px', fontWeight: '700', color: c, width: '32px' }}>{data.score}</div>
-                    <div style={{ fontSize: '11px', color: '#444', width: '60px' }}>bm: {data.benchmark}</div>
+                    <div style={{ fontSize: '11px', color: '#aaa', width: '60px' }}>bm: {data.benchmark}</div>
                   </div>
                 )
               })}
@@ -175,17 +175,17 @@ export default function ReportPage() {
             {result.decision_score != null && (
               <div style={{ display: 'flex', gap: '24px', marginTop: '20px', paddingTop: '16px', borderTop: '1px solid #1a1a1a', flexWrap: 'wrap' as const }}>
                 <div>
-                  <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em', marginBottom: '4px' }}>DECISION SCORE</div>
+                  <div style={{ fontSize: '10px', color: '#888', letterSpacing: '0.1em', marginBottom: '4px' }}>DECISION SCORE</div>
                   <div style={{ fontSize: '18px', fontWeight: '700', color: gold }}>{result.decision_score}</div>
                 </div>
                 {result.decision_version && (
                   <div>
-                    <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em', marginBottom: '4px' }}>DECISION MODEL</div>
+                    <div style={{ fontSize: '10px', color: '#888', letterSpacing: '0.1em', marginBottom: '4px' }}>DECISION MODEL</div>
                     <div style={{ fontSize: '14px', fontWeight: '600', color: '#999' }}>{result.decision_version}</div>
                   </div>
                 )}
                 <div>
-                  <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em', marginBottom: '4px' }}>CONSTRAINTS REVIEWED</div>
+                  <div style={{ fontSize: '10px', color: '#888', letterSpacing: '0.1em', marginBottom: '4px' }}>CONSTRAINTS REVIEWED</div>
                   <div style={{ fontSize: '14px', fontWeight: '600', color: '#999' }}>{result.detected_count || 0} detected · {result.verified_count || 0} verified</div>
                 </div>
               </div>
@@ -212,9 +212,9 @@ export default function ReportPage() {
                 </div>
               </div>
               <div style={{ textAlign: 'right' as const }}>
-                <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px' }}>VERIFICATION</div>
+                <div style={{ fontSize: '11px', color: '#888', marginBottom: '6px' }}>VERIFICATION</div>
                 <div style={{ fontSize: '40px', fontWeight: '800', color: '#4aaa4a' }}>{primary.verification_score}</div>
-                <div style={{ fontSize: '11px', color: '#444', marginTop: '2px' }}>out of 100</div>
+                <div style={{ fontSize: '11px', color: '#aaa', marginTop: '2px' }}>out of 100</div>
               </div>
             </div>
 
@@ -222,7 +222,7 @@ export default function ReportPage() {
 
             {primary.evidence && primary.evidence.length > 0 && (
               <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '14px', fontWeight: '600' }}>Evidence ({primary.evidence.length})</div>
+                <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '14px', fontWeight: '600' }}>Evidence ({primary.evidence.length})</div>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
                   {primary.evidence.map((e: string, i: number) => (
                     <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
@@ -236,7 +236,7 @@ export default function ReportPage() {
 
             {fullAccess && primary.sector_benchmark && (
               <div style={{ marginBottom: '24px', padding: '16px 20px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '8px' }}>
-                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '8px', fontWeight: '600' }}>Sector Benchmark</div>
+                <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '8px', fontWeight: '600' }}>Sector Benchmark</div>
                 <div style={{ fontSize: '15px', color: '#ccc', lineHeight: '1.6' }}>
                   <span style={{ color: gold, fontWeight: '700' }}>{primary.sector_benchmark.frequency_pct}%</span> of businesses in your sector show this same constraint
                 </div>
@@ -247,15 +247,15 @@ export default function ReportPage() {
             {primary.opportunity && (
               <div style={{ borderTop: '1px solid #1a2a10', paddingTop: '20px', display: 'flex', gap: '40px', flexWrap: 'wrap' as const }}>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Opportunity Range</div>
+                  <div style={{ fontSize: '11px', color: '#888', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Opportunity Range</div>
                   <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>£{((primary.opportunity.value_low || 0)/1000).toFixed(0)}k – £{((primary.opportunity.value_high || 0)/1000).toFixed(0)}k</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Dimension</div>
+                  <div style={{ fontSize: '11px', color: '#888', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Dimension</div>
                   <div style={{ fontSize: '18px', fontWeight: '700', color: '#ccc', textTransform: 'capitalize' as const }}>{(primary.opportunity.dimension || '').replace('_', ' ')}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Root Cause</div>
+                  <div style={{ fontSize: '11px', color: '#888', marginBottom: '6px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Root Cause</div>
                   <div style={{ fontSize: '18px', fontWeight: '700', color: primary.is_root_cause ? '#4aaa4a' : '#888' }}>{primary.is_root_cause ? 'Confirmed' : 'Likely'}</div>
                 </div>
               </div>
@@ -263,7 +263,7 @@ export default function ReportPage() {
 
             {fullAccess && primary.opportunity?.explanation && (
               <div style={{ borderTop: '1px solid #1a2a10', paddingTop: '20px', marginTop: '20px' }}>
-                <div style={{ fontSize: '11px', color: '#555', marginBottom: '10px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Opportunity Explanation</div>
+                <div style={{ fontSize: '11px', color: '#888', marginBottom: '10px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Opportunity Explanation</div>
                 <div style={{ fontSize: '14px', color: '#999', lineHeight: '1.75' }}>{primary.opportunity.explanation}</div>
               </div>
             )}
@@ -273,7 +273,7 @@ export default function ReportPage() {
         {/* Executive summary */}
         {result.recommended_focus && (
           <GlowCard style={{ marginBottom: '24px' }}>
-            <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '14px', fontWeight: '600' }}>Executive Summary — What Should Happen Next</div>
+            <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '14px', fontWeight: '600' }}>Executive Summary — What Should Happen Next</div>
             <div style={{ fontSize: '15px', color: '#ccc', lineHeight: '1.85' }}>{result.recommended_focus}</div>
           </GlowCard>
         )}
@@ -284,17 +284,17 @@ export default function ReportPage() {
             <div style={{ padding: '36px', border: '2px solid rgba(200,162,74,0.25)', borderRadius: '12px', backgroundColor: 'rgba(200,162,74,0.04)', textAlign: 'center' as const, marginBottom: '24px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '12px', fontWeight: '600' }}>Your Report Is Ready</div>
               <div style={{ fontSize: '24px', fontWeight: '800', marginBottom: '12px' }}>Create your account to unlock your full MRI</div>
-              <div style={{ fontSize: '15px', color: '#666', marginBottom: '28px', maxWidth: '480px', margin: '0 auto 28px', lineHeight: '1.7' }}>
+              <div style={{ fontSize: '15px', color: '#999', marginBottom: '28px', maxWidth: '480px', margin: '0 auto 28px', lineHeight: '1.7' }}>
                 Your Health Score and Primary Constraint are visible above. Create a free account to save your results and unlock the full analysis.
               </div>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' as const, flexWrap: 'wrap' as const }}>
                 <a href={'/register?business_id=' + businessId} style={{ padding: '14px 36px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Create Account — Free →</a>
-                <a href='/login' style={{ padding: '14px 24px', border: '1px solid #2a2a2a', color: '#777', borderRadius: '6px', textDecoration: 'none', fontSize: '14px' }}>Already have an account?</a>
+                <a href='/login' style={{ padding: '14px 24px', border: '1px solid #2a2a2a', color: '#aaa', borderRadius: '6px', textDecoration: 'none', fontSize: '14px' }}>Already have an account?</a>
               </div>
             </div>
             <div style={{ position: 'relative' as const, marginBottom: '24px' }}>
               <div style={{ ...cardStyle, filter: 'blur(4px)', opacity: 0.35, pointerEvents: 'none' as const, minHeight: '200px' }}>
-                <div style={{ fontSize: '11px', color: '#555', marginBottom: '16px' }}>Secondary Constraints & Opportunity Map</div>
+                <div style={{ fontSize: '11px', color: '#888', marginBottom: '16px' }}>Secondary Constraints & Opportunity Map</div>
                 <div style={{ height: '120px', backgroundColor: '#0a0a0a', borderRadius: '6px' }} />
               </div>
               <LockOverlay message="Full analysis requires account" cta="Create Free Account →" href={'/register?business_id=' + businessId} />
@@ -310,7 +310,7 @@ export default function ReportPage() {
                 <div style={{ fontSize: '17px', fontWeight: '600', marginBottom: '4px' }}>
                   {primary?.name} — £{((primary?.opportunity?.value_low || 0)/1000).toFixed(0)}k–£{((primary?.opportunity?.value_high || 0)/1000).toFixed(0)}k opportunity
                 </div>
-                <div style={{ fontSize: '14px', color: '#666' }}>Upgrade to access full constraint breakdown, sector benchmarks and deployment engine</div>
+                <div style={{ fontSize: '14px', color: '#999' }}>Upgrade to access full constraint breakdown, sector benchmarks and deployment engine</div>
               </div>
               <a href='/pricing' style={{ padding: '12px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '4px', textDecoration: 'none', fontSize: '15px', whiteSpace: 'nowrap' as const }}>Upgrade to Full Access →</a>
             </div>
@@ -328,24 +328,24 @@ export default function ReportPage() {
             {/* Secondary Constraints — full depth */}
             {secondary.length > 0 && (
               <GlowCard style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Secondary Constraints ({secondary.length})</div>
+                <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Secondary Constraints ({secondary.length})</div>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '14px' }}>
                   {secondary.map((c: any) => (
                     <div key={c.key} style={{ padding: '18px', backgroundColor: '#080808', borderRadius: '6px', border: '1px solid #1a1a1a' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px', flexWrap: 'wrap' as const, gap: '8px' }}>
                         <div style={{ fontSize: '15px', fontWeight: '600', color: '#f0f0f0' }}>{c.name}</div>
                         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                          <div style={{ fontSize: '10px', color: '#777', textTransform: 'uppercase' as const, fontWeight: '600' }}>{c.severity || 'medium'}</div>
+                          <div style={{ fontSize: '10px', color: '#aaa', textTransform: 'uppercase' as const, fontWeight: '600' }}>{c.severity || 'medium'}</div>
                           <div style={{ fontSize: '13px', color: c.verification_score >= 80 ? '#4aaa4a' : gold, fontWeight: '700' }}>{c.verification_score}/100</div>
                         </div>
                       </div>
-                      <div style={{ fontSize: '13px', color: '#777', lineHeight: '1.6', marginBottom: '10px' }}>{c.hypothesis}</div>
+                      <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.6', marginBottom: '10px' }}>{c.hypothesis}</div>
                       {c.evidence && c.evidence.length > 0 && (
                         <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '6px', marginBottom: c.sector_benchmark || c.opportunity ? '10px' : '0' }}>
                           {c.evidence.map((e: string, i: number) => (
                             <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                              <span style={{ color: '#555', fontSize: '10px', marginTop: '3px', flexShrink: 0 }}>◈</span>
-                              <span style={{ fontSize: '12px', color: '#777', lineHeight: '1.6' }}>{e}</span>
+                              <span style={{ color: '#888', fontSize: '10px', marginTop: '3px', flexShrink: 0 }}>◈</span>
+                              <span style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6' }}>{e}</span>
                             </div>
                           ))}
                         </div>
@@ -369,8 +369,8 @@ export default function ReportPage() {
             {/* Unverified Flags */}
             {unverifiedFlags.length > 0 && (
               <GlowCard style={{ marginBottom: '24px', borderColor: '#2a2a2a' }}>
-                <div style={{ fontSize: '11px', color: '#777', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '10px', fontWeight: '600' }}>Detected, Not Verified ({unverifiedFlags.length})</div>
-                <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.7', marginBottom: '16px' }}>
+                <div style={{ fontSize: '11px', color: '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '10px', fontWeight: '600' }}>Detected, Not Verified ({unverifiedFlags.length})</div>
+                <div style={{ fontSize: '13px', color: '#999', lineHeight: '1.7', marginBottom: '16px' }}>
                   These were flagged as possible constraints but did not pass BEI's verification challenge. They are not included in your opportunity total or recommendations.
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
@@ -378,7 +378,7 @@ export default function ReportPage() {
                     <div key={i} style={{ padding: '14px 16px', backgroundColor: '#0a0a0a', borderRadius: '6px', border: '1px solid #1a1a1a' }}>
                       <div style={{ fontSize: '13px', fontWeight: '600', color: '#999', marginBottom: '4px' }}>{f.name || f.key || 'Unnamed flag'}</div>
                       {f.reason && (
-                        <div style={{ fontSize: '12px', color: '#666', lineHeight: '1.6' }}>{f.reason}</div>
+                        <div style={{ fontSize: '12px', color: '#999', lineHeight: '1.6' }}>{f.reason}</div>
                       )}
                     </div>
                   ))}
@@ -389,12 +389,12 @@ export default function ReportPage() {
             {/* Twin Confidence */}
             {(twinCompleteness != null || twinDataConfidence != null) && (
               <GlowCard style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Data Confidence</div>
+                <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Data Confidence</div>
                 <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' as const }}>
                   {twinCompleteness != null && (
                     <div style={{ flex: 1, minWidth: '200px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                        <div style={{ fontSize: '12px', color: '#777' }}>Profile Completeness</div>
+                        <div style={{ fontSize: '12px', color: '#aaa' }}>Profile Completeness</div>
                         <div style={{ fontSize: '13px', fontWeight: '700', color: gold }}>{Math.round(twinCompleteness)}%</div>
                       </div>
                       <div style={{ height: '6px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
@@ -405,7 +405,7 @@ export default function ReportPage() {
                   {twinDataConfidence != null && (
                     <div style={{ flex: 1, minWidth: '200px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                        <div style={{ fontSize: '12px', color: '#777' }}>Data Confidence</div>
+                        <div style={{ fontSize: '12px', color: '#aaa' }}>Data Confidence</div>
                         <div style={{ fontSize: '13px', fontWeight: '700', color: '#4aaa4a' }}>{Math.round(twinDataConfidence)}%</div>
                       </div>
                       <div style={{ height: '6px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
@@ -414,7 +414,7 @@ export default function ReportPage() {
                     </div>
                   )}
                 </div>
-                <div style={{ fontSize: '12px', color: '#555', marginTop: '16px', lineHeight: '1.6' }}>
+                <div style={{ fontSize: '12px', color: '#888', marginTop: '16px', lineHeight: '1.6' }}>
                   Connect more data sources from your dashboard to improve accuracy and unlock higher-confidence verification.
                 </div>
               </GlowCard>
@@ -422,16 +422,16 @@ export default function ReportPage() {
 
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' as const, marginTop: '32px' }}>
               <a href='/dashboard' style={{ padding: '14px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '4px', textDecoration: 'none', fontSize: '15px' }}>Full Dashboard →</a>
-              <a href='/constraints' style={{ padding: '14px 24px', border: '1px solid #2a2a2a', color: '#777', borderRadius: '4px', textDecoration: 'none', fontSize: '14px' }}>Constraint Intelligence</a>
-              <a href='/opportunities' style={{ padding: '14px 24px', border: '1px solid #2a2a2a', color: '#777', borderRadius: '4px', textDecoration: 'none', fontSize: '14px' }}>Opportunity Centre</a>
-              <a href='/deployments' style={{ padding: '14px 24px', border: '1px solid #2a2a2a', color: '#777', borderRadius: '4px', textDecoration: 'none', fontSize: '14px' }}>Deployments</a>
+              <a href='/constraints' style={{ padding: '14px 24px', border: '1px solid #2a2a2a', color: '#aaa', borderRadius: '4px', textDecoration: 'none', fontSize: '14px' }}>Constraint Intelligence</a>
+              <a href='/opportunities' style={{ padding: '14px 24px', border: '1px solid #2a2a2a', color: '#aaa', borderRadius: '4px', textDecoration: 'none', fontSize: '14px' }}>Opportunity Centre</a>
+              <a href='/deployments' style={{ padding: '14px 24px', border: '1px solid #2a2a2a', color: '#aaa', borderRadius: '4px', textDecoration: 'none', fontSize: '14px' }}>Deployments</a>
             </div>
           </>
         )}
 
         {/* Footer note */}
         <div style={{ marginTop: '48px', padding: '16px 20px', border: '1px solid #161616', borderRadius: '6px', backgroundColor: '#0a0a0a' }}>
-          <div style={{ fontSize: '12px', color: '#444', lineHeight: '1.8' }}>
+          <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.8' }}>
             {version} — {confidence === 'high' ? 'All constraints verified against the BEI 5-test verification framework before recommendation.' : 'Rules-based analysis. Verification score reflects confidence level. Connect data sources to improve accuracy.'}
           </div>
         </div>

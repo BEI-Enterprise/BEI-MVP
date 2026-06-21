@@ -38,12 +38,12 @@ export default function ClientsPage() {
                 Intelligence for the businesses<br />
                 <span style={{ color: gold }}>that build the world.</span>
               </h1>
-              <p style={{ fontSize: '18px', color: '#666', lineHeight: '1.75', marginBottom: '40px', maxWidth: '480px' }}>
+              <p style={{ fontSize: '18px', color: '#999', lineHeight: '1.75', marginBottom: '40px', maxWidth: '480px' }}>
                 BEI serves serious businesses and enterprises with a dedicated intelligence programme. Monthly MRI reports, constraint tracking, risk alerts and continuous intelligence — built for organisations that cannot afford to miss what matters.
               </p>
               <div style={{ display: 'flex', gap: '12px' }}>
                 <a href='/book' style={{ padding: '16px 36px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px', boxShadow: '0 0 40px rgba(200,162,74,0.2)' }}>Book Onboarding Call →</a>
-                <a href='/pricing' style={{ padding: '16px 24px', border: '1px solid #2a2a2a', color: '#777', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Plans</a>
+                <a href='/pricing' style={{ padding: '16px 24px', border: '1px solid #2a2a2a', color: '#aaa', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Plans</a>
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
@@ -58,7 +58,7 @@ export default function ClientsPage() {
                   <div style={{ fontSize: '28px', fontWeight: '800', color: gold, minWidth: '100px' }}>{m.n}</div>
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: '600', color: '#e0e0e0', marginBottom: '3px' }}>{m.l}</div>
-                    <div style={{ fontSize: '12px', color: '#444' }}>{m.s}</div>
+                    <div style={{ fontSize: '12px', color: '#aaa' }}>{m.s}</div>
                   </div>
                 </div>
               ))}
@@ -74,7 +74,7 @@ export default function ClientsPage() {
             <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Who We Serve</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>Built for businesses with ambition.</h2>
-              <p style={{ fontSize: '16px', color: '#555', maxWidth: '560px', margin: '0 auto' }}>BEI is not for every business. It is for the ones that take growth seriously and need verified intelligence to make decisions that matter.</p>
+              <p style={{ fontSize: '16px', color: '#888', maxWidth: '560px', margin: '0 auto' }}>BEI is not for every business. It is for the ones that take growth seriously and need verified intelligence to make decisions that matter.</p>
             </div>
           </RevealSection>
           <RevealSection delay={50}>
@@ -110,7 +110,7 @@ export default function ClientsPage() {
                   {c.featured && <div style={{ position: 'absolute' as const, top: '16px', right: '16px', padding: '3px 10px', backgroundColor: gold, color: '#050505', fontSize: '10px', fontWeight: '700', borderRadius: '20px' }}>MOST COMMON</div>}
                   <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.15em', marginBottom: '10px', fontWeight: '600' }}>{c.range}</div>
                   <div style={{ fontSize: '20px', fontWeight: '700', marginBottom: '16px' }}>{c.title}</div>
-                  <div style={{ fontSize: '14px', color: '#666', lineHeight: '1.75', marginBottom: '24px' }}>{c.desc}</div>
+                  <div style={{ fontSize: '14px', color: '#999', lineHeight: '1.75', marginBottom: '24px' }}>{c.desc}</div>
                   <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
                     {c.points.map(p => (
                       <div key={p} style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '13px', color: '#888' }}>
@@ -133,7 +133,7 @@ export default function ClientsPage() {
               <div>
                 <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Step 1 — Onboarding</div>
                 <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '20px' }}>Your dedicated onboarding session.</h2>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8', marginBottom: '32px' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8', marginBottom: '32px' }}>
                   Every new BEI client receives a dedicated onboarding session with the BEI intelligence team. This is not a product demo. It is a full strategic briefing — designed to ensure the intelligence system is calibrated correctly for your business from day one.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
@@ -147,7 +147,7 @@ export default function ClientsPage() {
                       <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: gold, fontWeight: '700' }}>{i+1}</div>
                       <div>
                         <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '4px' }}>{s.title}</div>
-                        <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6' }}>{s.desc}</div>
+                        <div style={{ fontSize: '13px', color: '#999', lineHeight: '1.6' }}>{s.desc}</div>
                       </div>
                     </div>
                   ))}
@@ -171,7 +171,7 @@ export default function ClientsPage() {
                   </div>
                 ))}
                 <div style={{ marginTop: '28px', padding: '16px', backgroundColor: 'rgba(200,162,74,0.06)', borderRadius: '8px', border: '1px solid rgba(200,162,74,0.15)' }}>
-                  <div style={{ fontSize: '12px', color: '#666', lineHeight: '1.7' }}>
+                  <div style={{ fontSize: '12px', color: '#999', lineHeight: '1.7' }}>
                     <span style={{ color: gold, fontWeight: '600' }}>Included with all plans.</span> Every BEI subscriber receives a full onboarding session. No additional cost.
                   </div>
                 </div>
@@ -198,7 +198,7 @@ export default function ClientsPage() {
                   { label: 'Risk Alerts', value: '0 active', change: 'All clear', up: true },
                 ].map(row => (
                   <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #111' }}>
-                    <span style={{ fontSize: '13px', color: '#666' }}>{row.label}</span>
+                    <span style={{ fontSize: '13px', color: '#999' }}>{row.label}</span>
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                       <span style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0' }}>{row.value}</span>
                       <span style={{ fontSize: '11px', color: row.up === true ? '#4aaa4a' : row.up === false ? '#cc4444' : gold, fontWeight: '600' }}>{row.change}</span>
@@ -209,7 +209,7 @@ export default function ClientsPage() {
               <div>
                 <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Step 2 — Monthly Intelligence</div>
                 <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '20px' }}>Your MRI. Every month. Without fail.</h2>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8', marginBottom: '32px' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8', marginBottom: '32px' }}>
                   Every month your Business Twin is updated and a full MRI is run. Your constraints are re-verified. Your health scores are recalculated. Your opportunity map is refreshed. You see what has changed, what has improved and what still needs attention.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
@@ -223,7 +223,7 @@ export default function ClientsPage() {
                       <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: gold, flexShrink: 0, marginTop: '6px' }} />
                       <div>
                         <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '4px' }}>{s.title}</div>
-                        <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6' }}>{s.desc}</div>
+                        <div style={{ fontSize: '13px', color: '#999', lineHeight: '1.6' }}>{s.desc}</div>
                       </div>
                     </div>
                   ))}
@@ -242,7 +242,7 @@ export default function ClientsPage() {
               <div>
                 <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Step 3 — Risk Intelligence</div>
                 <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '20px' }}>Know before it becomes a problem.</h2>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8', marginBottom: '32px' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8', marginBottom: '32px' }}>
                   BEI monitors your business twin continuously. When the intelligence engine detects a new risk signal — a constraint emerging, a pillar score declining, a concentration risk increasing — you are alerted within 48 hours. Not at your next monthly report. Now.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '20px' }}>
@@ -254,13 +254,13 @@ export default function ClientsPage() {
                     <div key={alert.title} style={{ padding: '20px', backgroundColor: alert.bg, border: '1px solid ' + alert.borderColor, borderRadius: '8px', borderLeft: '3px solid ' + alert.color }}>
                       <div style={{ fontSize: '10px', color: alert.color, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '700' }}>{alert.type}</div>
                       <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>{alert.title}</div>
-                      <div style={{ fontSize: '12px', color: '#666', lineHeight: '1.6' }}>{alert.desc}</div>
+                      <div style={{ fontSize: '12px', color: '#999', lineHeight: '1.6' }}>{alert.desc}</div>
                     </div>
                   ))}
                 </div>
               </div>
               <div>
-                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '24px', fontWeight: '600' }}>WHAT WE MONITOR</div>
+                <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '24px', fontWeight: '600' }}>WHAT WE MONITOR</div>
                 {[
                   { category: 'Growth Signals', items: ['Lead volume changes', 'Conversion rate movement', 'Revenue trend shifts', 'Market position changes'] },
                   { category: 'Operational Risks', items: ['Capacity threshold breaches', 'Founder dependency increases', 'Delivery bottleneck emergence', 'Key person concentration'] },
@@ -271,8 +271,8 @@ export default function ClientsPage() {
                     <div style={{ fontSize: '12px', color: gold, marginBottom: '10px', fontWeight: '600', letterSpacing: '0.1em' }}>{cat.category}</div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
                       {cat.items.map(item => (
-                        <div key={item} style={{ fontSize: '12px', color: '#555', display: 'flex', gap: '6px', alignItems: 'center' }}>
-                          <span style={{ color: '#333', fontSize: '8px' }}>●</span>{item}
+                        <div key={item} style={{ fontSize: '12px', color: '#888', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                          <span style={{ color: '#aaa', fontSize: '8px' }}>●</span>{item}
                         </div>
                       ))}
                     </div>
@@ -291,13 +291,13 @@ export default function ClientsPage() {
             <div style={{ textAlign: 'center' as const, marginBottom: '56px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Comparison</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '12px' }}>BEI vs Traditional Consultancy</h2>
-              <p style={{ fontSize: '16px', color: '#555' }}>Traditional consultancy sells time. BEI delivers verified intelligence — continuously.</p>
+              <p style={{ fontSize: '16px', color: '#888' }}>Traditional consultancy sells time. BEI delivers verified intelligence — continuously.</p>
             </div>
             <div style={{ border: '1px solid ' + border, borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', borderBottom: '1px solid ' + border, backgroundColor: '#080808' }}>
-                <div style={{ padding: '16px 24px', fontSize: '11px', color: '#444', fontWeight: '600', letterSpacing: '0.1em', borderRight: '1px solid ' + border }}>CAPABILITY</div>
+                <div style={{ padding: '16px 24px', fontSize: '11px', color: '#aaa', fontWeight: '600', letterSpacing: '0.1em', borderRight: '1px solid ' + border }}>CAPABILITY</div>
                 <div style={{ padding: '16px 24px', fontSize: '11px', color: gold, fontWeight: '600', letterSpacing: '0.1em', borderRight: '1px solid ' + border }}>BEI</div>
-                <div style={{ padding: '16px 24px', fontSize: '11px', color: '#444', fontWeight: '600', letterSpacing: '0.1em' }}>TRADITIONAL CONSULTANCY</div>
+                <div style={{ padding: '16px 24px', fontSize: '11px', color: '#aaa', fontWeight: '600', letterSpacing: '0.1em' }}>TRADITIONAL CONSULTANCY</div>
               </div>
               {[
                 { feature: 'Constraint identification', bei: 'Automated, verified, continuous', them: 'Manual, periodic, expensive' },
@@ -310,11 +310,11 @@ export default function ClientsPage() {
                 { feature: 'Scalability', bei: 'Same intelligence for any size business', them: 'Cost scales with complexity', highlight: true },
               ].map(row => (
                 <div key={row.feature} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', borderBottom: '1px solid ' + border, backgroundColor: row.highlight ? 'rgba(200,162,74,0.03)' : 'transparent' }}>
-                  <div style={{ padding: '16px 24px', fontSize: '14px', color: '#666', borderRight: '1px solid ' + border }}>{row.feature}</div>
+                  <div style={{ padding: '16px 24px', fontSize: '14px', color: '#999', borderRight: '1px solid ' + border }}>{row.feature}</div>
                   <div style={{ padding: '16px 24px', fontSize: '13px', color: '#4aaa4a', fontWeight: '600', borderRight: '1px solid ' + border, display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span style={{ fontSize: '10px' }}>✓</span>{row.bei}
                   </div>
-                  <div style={{ padding: '16px 24px', fontSize: '13px', color: '#444' }}>{row.them}</div>
+                  <div style={{ padding: '16px 24px', fontSize: '13px', color: '#aaa' }}>{row.them}</div>
                 </div>
               ))}
             </div>
@@ -330,24 +330,24 @@ export default function ClientsPage() {
           <h2 style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px', lineHeight: '1.1' }}>
             Ready for intelligence<br /><span style={{ color: gold }}>that never stops working?</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#555', marginBottom: '40px', lineHeight: '1.75' }}>
+          <p style={{ fontSize: '17px', color: '#888', marginBottom: '40px', lineHeight: '1.75' }}>
             Book your onboarding call. Generate your first MRI. Start receiving monthly intelligence, risk alerts and verified constraint analysis — from day one.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' as const }}>
             <a href='/book' style={{ padding: '18px 48px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '8px', textDecoration: 'none', fontSize: '16px', boxShadow: '0 0 60px rgba(200,162,74,0.2)' }}>Book Onboarding Call →</a>
-            <a href='/pricing' style={{ padding: '18px 28px', border: '1px solid #2a2a2a', color: '#666', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>View Plans</a>
+            <a href='/pricing' style={{ padding: '18px 28px', border: '1px solid #2a2a2a', color: '#999', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>View Plans</a>
           </div>
-          <div style={{ marginTop: '24px', fontSize: '13px', color: '#333' }}>Onboarding included with all plans · No setup fee · Cancel anytime</div>
+          <div style={{ marginTop: '24px', fontSize: '13px', color: '#aaa' }}>Onboarding included with all plans · No setup fee · Cancel anytime</div>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer style={{ padding: '40px 48px', borderTop: '1px solid #161616', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ fontSize: '18px', fontWeight: '800', color: gold, letterSpacing: '0.12em' }}>BEI</div>
-        <div style={{ fontSize: '12px', color: '#333' }}>Business Execution Intelligence · Client Intelligence Programme</div>
+        <div style={{ fontSize: '12px', color: '#aaa' }}>Business Execution Intelligence · Client Intelligence Programme</div>
         <div style={{ display: 'flex', gap: '24px' }}>
           {[['/', 'Home'], ['/platform', 'Platform'], ['/clients', 'Clients'], ['/pricing', 'Pricing'], ['/book', 'Free MRI']].map(([href, label]) => (
-            <a key={href} href={href} style={{ fontSize: '12px', color: '#444', textDecoration: 'none' }}>{label}</a>
+            <a key={href} href={href} style={{ fontSize: '12px', color: '#aaa', textDecoration: 'none' }}>{label}</a>
           ))}
         </div>
       </footer>

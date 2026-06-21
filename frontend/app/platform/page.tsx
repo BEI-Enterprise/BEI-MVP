@@ -24,7 +24,7 @@ const MetricCard = ({ value, label, sub }: { value: string, label: string, sub?:
     <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
     <div style={{ fontSize: '40px', fontWeight: '800', color: gold, lineHeight: '1', marginBottom: '8px', letterSpacing: '-0.02em' }}>{value}</div>
     <div style={{ fontSize: '14px', fontWeight: '600', color: '#e0e0e0', marginBottom: '4px' }}>{label}</div>
-    {sub && <div style={{ fontSize: '12px', color: '#555' }}>{sub}</div>}
+    {sub && <div style={{ fontSize: '12px', color: '#888' }}>{sub}</div>}
   </div>
 )
 
@@ -34,7 +34,7 @@ const ComparisonRow = ({ feature, bei, them, highlight }: { feature: string, bei
     <div style={{ padding: '16px 20px', fontSize: '13px', color: '#4aaa4a', fontWeight: '600', borderRight: `1px solid ${border}`, display: 'flex', alignItems: 'center', gap: '6px' }}>
       <span style={{ fontSize: '10px' }}>✓</span>{bei}
     </div>
-    <div style={{ padding: '16px 20px', fontSize: '13px', color: '#555' }}>{them}</div>
+    <div style={{ padding: '16px 20px', fontSize: '13px', color: '#888' }}>{them}</div>
   </div>
 )
 
@@ -89,18 +89,18 @@ export default function PlatformPage() {
               <span style={{ color: gold }}>Your Business</span><br />
               Has Been Missing.
             </h1>
-            <p style={{ fontSize: '18px', color: '#777', lineHeight: '1.75', marginBottom: '40px', maxWidth: '480px' }}>
+            <p style={{ fontSize: '18px', color: '#aaa', lineHeight: '1.75', marginBottom: '40px', maxWidth: '480px' }}>
               BEI identifies, verifies and quantifies the single highest-value constraint limiting your business. Not a dashboard. Not a report. An intelligence system that answers the question your advisors couldn't.
             </p>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '56px' }}>
               <a href='/book' style={{ padding: '16px 36px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px', boxShadow: `0 0 40px rgba(200,162,74,0.25)` }}>Generate Free MRI →</a>
-              <a href='/example-report' style={{ padding: '16px 28px', border: `1px solid ${border}`, color: '#777', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Example Report</a>
+              <a href='/example-report' style={{ padding: '16px 28px', border: `1px solid ${border}`, color: '#aaa', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>View Example Report</a>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
               {[{ n: '98%', l: 'Verification accuracy' }, { n: '8 min', l: 'Time to first insight' }, { n: sym + '2.4M', l: 'Avg opportunity identified' }].map(m => (
                 <div key={m.l}>
                   <div style={{ fontSize: '26px', fontWeight: '700', color: gold, marginBottom: '4px' }}>{m.n}</div>
-                  <div style={{ fontSize: '12px', color: '#444' }}>{m.l}</div>
+                  <div style={{ fontSize: '12px', color: '#aaa' }}>{m.l}</div>
                 </div>
               ))}
             </div>
@@ -125,16 +125,16 @@ export default function PlatformPage() {
               <div style={{ padding: '20px 24px', borderBottom: `1px solid ${border}`, display: 'flex', alignItems: 'center', gap: '24px' }}>
                 <div style={{ textAlign: 'center' as const }}>
                   <div style={{ fontSize: '52px', fontWeight: '800', color: gold, lineHeight: '1' }}>67</div>
-                  <div style={{ fontSize: '10px', color: '#555', marginTop: '4px' }}>Health Score</div>
+                  <div style={{ fontSize: '10px', color: '#888', marginTop: '4px' }}>Health Score</div>
                 </div>
                 <div style={{ flex: 1 }}>
                   {[{ n: 'Growth', v: 72, c: '#4aaa4a' }, { n: 'Operations', v: 58, c: gold }, { n: 'Strategy', v: 45, c: gold }, { n: 'Risk', v: 61, c: gold }, { n: 'Context', v: 70, c: '#4aaa4a' }].map(p => (
                     <div key={p.n} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                      <div style={{ width: '64px', fontSize: '11px', color: '#555' }}>{p.n}</div>
+                      <div style={{ width: '64px', fontSize: '11px', color: '#888' }}>{p.n}</div>
                       <div style={{ flex: 1, height: '4px', backgroundColor: '#111', borderRadius: '2px', overflow: 'hidden' }}>
                         <div style={{ width: p.v + '%', height: '100%', backgroundColor: p.c, borderRadius: '2px' }} />
                       </div>
-                      <div style={{ fontSize: '11px', color: '#555', width: '20px' }}>{p.v}</div>
+                      <div style={{ fontSize: '11px', color: '#888', width: '20px' }}>{p.v}</div>
                     </div>
                   ))}
                 </div>
@@ -144,18 +144,18 @@ export default function PlatformPage() {
               <div style={{ padding: '20px 24px', borderBottom: `1px solid ${border}` }}>
                 <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', marginBottom: '8px', fontWeight: '600' }}>PRIMARY CONSTRAINT</div>
                 <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>Trust Infrastructure Deficit</div>
-                <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.6', marginBottom: '12px' }}>Insufficient social proof is limiting new client conversion. Every acquisition cycle is affected.</div>
+                <div style={{ fontSize: '12px', color: '#888', lineHeight: '1.6', marginBottom: '12px' }}>Insufficient social proof is limiting new client conversion. Every acquisition cycle is affected.</div>
                 <div style={{ display: 'flex', gap: '20px' }}>
                   <div>
-                    <div style={{ fontSize: '10px', color: '#444', marginBottom: '3px' }}>OPPORTUNITY</div>
+                    <div style={{ fontSize: '10px', color: '#aaa', marginBottom: '3px' }}>OPPORTUNITY</div>
                     <div style={{ fontSize: '16px', fontWeight: '700', color: gold }}>£18k–£45k</div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '10px', color: '#444', marginBottom: '3px' }}>VERIFICATION</div>
+                    <div style={{ fontSize: '10px', color: '#aaa', marginBottom: '3px' }}>VERIFICATION</div>
                     <div style={{ fontSize: '16px', fontWeight: '700', color: '#4aaa4a' }}>100/100</div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '10px', color: '#444', marginBottom: '3px' }}>SEVERITY</div>
+                    <div style={{ fontSize: '10px', color: '#aaa', marginBottom: '3px' }}>SEVERITY</div>
                     <div style={{ fontSize: '16px', fontWeight: '700', color: '#cc4444' }}>High</div>
                   </div>
                 </div>
@@ -163,7 +163,7 @@ export default function PlatformPage() {
 
               {/* Opportunity bar */}
               <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontSize: '11px', color: '#444' }}>Total Opportunity Range</div>
+                <div style={{ fontSize: '11px', color: '#aaa' }}>Total Opportunity Range</div>
                 <div style={{ fontSize: '18px', fontWeight: '700', color: gold }}>£84k – £220k</div>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function PlatformPage() {
             <div key={m.l} style={{ padding: '36px 28px', borderRight: i < 3 ? `1px solid ${border}` : 'none' }}>
               <div style={{ fontSize: '32px', fontWeight: '800', color: gold, marginBottom: '8px' }}>{m.n}</div>
               <div style={{ fontSize: '13px', fontWeight: '600', color: '#ccc', marginBottom: '4px', lineHeight: '1.4' }}>{m.l}</div>
-              <div style={{ fontSize: '11px', color: '#444' }}>{m.s}</div>
+              <div style={{ fontSize: '11px', color: '#aaa' }}>{m.s}</div>
             </div>
           ))}
         </div>
@@ -201,7 +201,7 @@ export default function PlatformPage() {
             <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Execution Framework</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>Five stages. One answer.</h2>
-              <p style={{ fontSize: '16px', color: '#555', maxWidth: '560px', margin: '0 auto' }}>Every BEI analysis follows the same verified methodology. No shortcuts. No guesswork.</p>
+              <p style={{ fontSize: '16px', color: '#888', maxWidth: '560px', margin: '0 auto' }}>Every BEI analysis follows the same verified methodology. No shortcuts. No guesswork.</p>
             </div>
           </RevealSection>
 
@@ -231,20 +231,20 @@ export default function PlatformPage() {
               <div style={{ display: 'flex', gap: '32px' }}>
                 <div>
                   <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>{steps[activeStep].metric}</div>
-                  <div style={{ fontSize: '11px', color: '#444', marginTop: '4px' }}>{steps[activeStep].metricLabel}</div>
+                  <div style={{ fontSize: '11px', color: '#aaa', marginTop: '4px' }}>{steps[activeStep].metricLabel}</div>
                 </div>
               </div>
             </div>
           </div>
           <RevealSection delay={300}>
           <div style={{ marginTop: '56px', padding: '32px', border: '1px solid #1e1e1e', borderRadius: '12px', backgroundColor: '#080808' }}>
-            <div style={{ fontSize: '11px', color: '#333', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '20px', fontWeight: '600' }}>Intelligence Engine — Constraint Detection</div>
+            <div style={{ fontSize: '11px', color: '#aaa', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '20px', fontWeight: '600' }}>Intelligence Engine — Constraint Detection</div>
             <DetectionBarsSection constraints={[
               { name: 'Trust Infrastructure Deficit', score: 94, color: '#C8A24A' },
               { name: 'Lead Response Deficit', score: 87, color: '#C8A24A' },
               { name: 'Founder Dependency', score: 81, color: '#cc6644' },
               { name: 'Management Bottleneck', score: 73, color: '#888' },
-              { name: 'Capacity Constraint', score: 65, color: '#555' },
+              { name: 'Capacity Constraint', score: 65, color: '#888' },
             ]} />
           </div>
           </RevealSection>
@@ -259,7 +259,7 @@ export default function PlatformPage() {
               <div>
                 <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Verified Intelligence</div>
                 <h2 style={{ fontSize: '36px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>12 Golden Rules. No Exceptions.</h2>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.75' }}>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.75' }}>
                   BEI enforces 12 inviolable intelligence rules on every single analysis. Detection is not proof. Verification comes before recommendation. Root causes are prioritised over symptoms. No constraint reaches a recommendation without passing the full verification framework.
                 </p>
               </div>
@@ -280,7 +280,7 @@ export default function PlatformPage() {
                 ].map((rule, i) => (
                   <div key={rule} style={{ padding: '12px 16px', border: `1px solid ${border}`, borderRadius: '6px', backgroundColor: '#080808', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                     <div style={{ fontSize: '10px', color: gold, fontWeight: '700', marginTop: '1px', minWidth: '16px' }}>{String(i + 1).padStart(2, '0')}</div>
-                    <div style={{ fontSize: '11px', color: '#666', lineHeight: '1.4' }}>{rule}</div>
+                    <div style={{ fontSize: '11px', color: '#999', lineHeight: '1.4' }}>{rule}</div>
                   </div>
                 ))}
               </div>
@@ -296,14 +296,14 @@ export default function PlatformPage() {
             <div style={{ marginBottom: '48px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Comparison</div>
               <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '12px' }}>BEI vs Process Mining</h2>
-              <p style={{ fontSize: '16px', color: '#555' }}>Celonis finds inefficiencies in your processes. BEI finds the constraint limiting your business.</p>
+              <p style={{ fontSize: '16px', color: '#888' }}>Celonis finds inefficiencies in your processes. BEI finds the constraint limiting your business.</p>
             </div>
 
             <div style={{ border: `1px solid ${border}`, borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '0', borderBottom: `1px solid ${border}`, backgroundColor: '#080808' }}>
-                <div style={{ padding: '16px 20px', fontSize: '11px', color: '#444', fontWeight: '600', letterSpacing: '0.1em', borderRight: `1px solid ${border}` }}>CAPABILITY</div>
+                <div style={{ padding: '16px 20px', fontSize: '11px', color: '#aaa', fontWeight: '600', letterSpacing: '0.1em', borderRight: `1px solid ${border}` }}>CAPABILITY</div>
                 <div style={{ padding: '16px 20px', fontSize: '11px', color: gold, fontWeight: '600', letterSpacing: '0.1em', borderRight: `1px solid ${border}` }}>BEI</div>
-                <div style={{ padding: '16px 20px', fontSize: '11px', color: '#444', fontWeight: '600', letterSpacing: '0.1em' }}>CELONIS</div>
+                <div style={{ padding: '16px 20px', fontSize: '11px', color: '#aaa', fontWeight: '600', letterSpacing: '0.1em' }}>CELONIS</div>
               </div>
               <ComparisonRow feature="Target market" bei="SME — £250k–£5M revenue" them="Enterprise — £100M+ revenue" />
               <ComparisonRow feature="Setup time" bei="8 minutes" them="3–6 months implementation" highlight />
@@ -325,14 +325,14 @@ export default function PlatformPage() {
             <div style={{ marginBottom: '48px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Comparison</div>
               <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '12px' }}>BEI vs Data Intelligence</h2>
-              <p style={{ fontSize: '16px', color: '#555' }}>Palantir makes your data queryable. BEI makes the answer to your growth constraint verifiable.</p>
+              <p style={{ fontSize: '16px', color: '#888' }}>Palantir makes your data queryable. BEI makes the answer to your growth constraint verifiable.</p>
             </div>
 
             <div style={{ border: `1px solid ${border}`, borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '0', borderBottom: `1px solid ${border}`, backgroundColor: '#080808' }}>
-                <div style={{ padding: '16px 20px', fontSize: '11px', color: '#444', fontWeight: '600', letterSpacing: '0.1em', borderRight: `1px solid ${border}` }}>CAPABILITY</div>
+                <div style={{ padding: '16px 20px', fontSize: '11px', color: '#aaa', fontWeight: '600', letterSpacing: '0.1em', borderRight: `1px solid ${border}` }}>CAPABILITY</div>
                 <div style={{ padding: '16px 20px', fontSize: '11px', color: gold, fontWeight: '600', letterSpacing: '0.1em', borderRight: `1px solid ${border}` }}>BEI</div>
-                <div style={{ padding: '16px 20px', fontSize: '11px', color: '#444', fontWeight: '600', letterSpacing: '0.1em' }}>PALANTIR</div>
+                <div style={{ padding: '16px 20px', fontSize: '11px', color: '#aaa', fontWeight: '600', letterSpacing: '0.1em' }}>PALANTIR</div>
               </div>
               <ComparisonRow feature="Primary use case" bei="SME constraint intelligence" them="Large-scale data integration" />
               <ComparisonRow feature="Question answered" bei="What is my primary constraint?" them="What does my data show?" highlight />
@@ -367,7 +367,7 @@ export default function PlatformPage() {
                 <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, rgba(200,162,74,0.3), transparent)` }} />
                 <div style={{ fontSize: '24px', color: gold, marginBottom: '16px' }}>{b.icon}</div>
                 <div style={{ fontSize: '17px', fontWeight: '700', marginBottom: '12px' }}>{b.title}</div>
-                <div style={{ fontSize: '14px', color: '#666', lineHeight: '1.75' }}>{b.desc}</div>
+                <div style={{ fontSize: '14px', color: '#999', lineHeight: '1.75' }}>{b.desc}</div>
               </div>
             ))}
           </div>
@@ -394,24 +394,24 @@ export default function PlatformPage() {
             Find your constraint.<br />
             <span style={{ color: gold }}>In under 10 minutes.</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#555', marginBottom: '40px', lineHeight: '1.75' }}>
+          <p style={{ fontSize: '17px', color: '#888', marginBottom: '40px', lineHeight: '1.75' }}>
             Generate your free Business MRI. No subscription required. See your primary constraint, health score and opportunity estimate before you commit to anything.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' as const }}>
             <a href='/book' style={{ padding: '18px 48px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '8px', textDecoration: 'none', fontSize: '16px', boxShadow: `0 0 60px rgba(200,162,74,0.2)` }}>Generate Free MRI →</a>
-            <a href='/pricing' style={{ padding: '18px 28px', border: `1px solid ${border}`, color: '#666', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>View Pricing</a>
+            <a href='/pricing' style={{ padding: '18px 28px', border: `1px solid ${border}`, color: '#999', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>View Pricing</a>
           </div>
-          <div style={{ marginTop: '24px', fontSize: '13px', color: '#333' }}>No credit card required · Free MRI included · Cancel anytime</div>
+          <div style={{ marginTop: '24px', fontSize: '13px', color: '#aaa' }}>No credit card required · Free MRI included · Cancel anytime</div>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer style={{ padding: '40px 48px', borderTop: `1px solid ${border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ fontSize: '18px', fontWeight: '800', color: gold, letterSpacing: '0.12em' }}>BEI</div>
-        <div style={{ fontSize: '12px', color: '#333' }}>Business Execution Intelligence · Constraint Intelligence Platform · MVP 1</div>
+        <div style={{ fontSize: '12px', color: '#aaa' }}>Business Execution Intelligence · Constraint Intelligence Platform · MVP 1</div>
         <div style={{ display: 'flex', gap: '24px' }}>
           {[['/', 'Home'], ['/platform', 'Platform'], ['/pricing', 'Pricing'], ['/login', 'Sign in'], ['/book', 'Free MRI']].map(([href, label]) => (
-            <a key={href} href={href} style={{ fontSize: '12px', color: '#444', textDecoration: 'none' }}>{label}</a>
+            <a key={href} href={href} style={{ fontSize: '12px', color: '#aaa', textDecoration: 'none' }}>{label}</a>
           ))}
         </div>
       </footer>

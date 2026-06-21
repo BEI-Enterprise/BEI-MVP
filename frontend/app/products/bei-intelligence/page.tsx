@@ -22,12 +22,12 @@ export default function BEIIntelligencePage() {
             <h1 style={{ fontSize: '56px', fontWeight: '800', lineHeight: '1.08', letterSpacing: '-0.02em', marginBottom: '24px', maxWidth: '820px' }}>
               Human intelligence and AI,<br /><span style={{ color: gold }}>working in permanent unison.</span>
             </h1>
-            <p style={{ fontSize: '18px', color: '#666', lineHeight: '1.8', maxWidth: '640px', marginBottom: '40px' }}>
+            <p style={{ fontSize: '18px', color: '#999', lineHeight: '1.8', maxWidth: '640px', marginBottom: '40px' }}>
               BEI Intelligence is the continuous monitoring layer beneath every client engagement. Our intelligence team works alongside AI to track growth signals, operational risks, financial risks, and strategic risks across every client and every market sector — updated continuously to maintain complete accuracy.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <a href='/book' style={{ padding: '16px 36px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px', boxShadow: '0 0 40px rgba(200,162,74,0.2)' }}>Book Onboarding Call</a>
-              <a href='/clients' style={{ padding: '16px 24px', border: '1px solid #2a2a2a', color: '#777', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Our Clients</a>
+              <a href='/clients' style={{ padding: '16px 24px', border: '1px solid #2a2a2a', color: '#aaa', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Our Clients</a>
             </div>
           </RevealSection>
           <RevealSection delay={100}>
@@ -41,7 +41,7 @@ export default function BEIIntelligencePage() {
                 <div key={m.l} style={{ padding: '28px', backgroundColor: card, textAlign: 'center' }}>
                   <div style={{ fontSize: '28px', fontWeight: '700', color: gold, marginBottom: '8px' }}>{m.n}</div>
                   <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600', marginBottom: '4px' }}>{m.l}</div>
-                  <div style={{ fontSize: '12px', color: '#444' }}>{m.s}</div>
+                  <div style={{ fontSize: '12px', color: '#aaa' }}>{m.s}</div>
                 </div>
               ))}
             </div>
@@ -60,8 +60,8 @@ export default function BEIIntelligencePage() {
               <div>
                 <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>How It Works</div>
                 <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '20px' }}>The BEI intelligence team never stops working.</h2>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8', marginBottom: '24px' }}>BEI intelligence team works in permanent unison with AI to monitor the signals that matter across every client market sector. This is not automated reporting. It is a continuous intelligence operation — where human judgement and machine speed combine to maintain accuracy that neither could achieve alone.</p>
-                <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.8' }}>The AI layer scans continuously. The BEI team interprets, validates, and contextualises every signal before it reaches a client. No alert is sent without human verification. No recommendation is made without human oversight.</p>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8', marginBottom: '24px' }}>BEI intelligence team works in permanent unison with AI to monitor the signals that matter across every client market sector. This is not automated reporting. It is a continuous intelligence operation — where human judgement and machine speed combine to maintain accuracy that neither could achieve alone.</p>
+                <p style={{ fontSize: '16px', color: '#999', lineHeight: '1.8' }}>The AI layer scans continuously. The BEI team interprets, validates, and contextualises every signal before it reaches a client. No alert is sent without human verification. No recommendation is made without human oversight.</p>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {[
@@ -75,7 +75,7 @@ export default function BEIIntelligencePage() {
                     <div style={{ fontSize: '20px', fontWeight: '800', color: 'rgba(200,162,74,0.3)', flexShrink: 0, lineHeight: '1', paddingTop: '2px' }}>{item.step}</div>
                     <div>
                       <div style={{ fontSize: '14px', fontWeight: '700', color: gold, marginBottom: '6px' }}>{item.title}</div>
-                      <div style={{ fontSize: '13px', color: '#555', lineHeight: '1.7' }}>{item.desc}</div>
+                      <div style={{ fontSize: '13px', color: '#888', lineHeight: '1.7' }}>{item.desc}</div>
                     </div>
                   </div>
                 ))}
@@ -91,7 +91,7 @@ export default function BEIIntelligencePage() {
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>Signal Domains</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>Four domains. Every signal that matters.</h2>
-              <p style={{ fontSize: '16px', color: '#555', maxWidth: '580px', margin: '0 auto' }}>BEI Intelligence monitors sixteen signal types across four domains — continuously, across all client market sectors.</p>
+              <p style={{ fontSize: '16px', color: '#888', maxWidth: '580px', margin: '0 auto' }}>BEI Intelligence monitors sixteen signal types across four domains — continuously, across all client market sectors.</p>
             </div>
           </RevealSection>
           <RevealSection delay={100}>
@@ -160,12 +160,12 @@ export default function BEIIntelligencePage() {
                     <div style={{ fontSize: '20px', color: domain.color }}>{domain.icon}</div>
                     <div style={{ fontSize: '16px', fontWeight: '700', color: domain.color }}>{domain.domain}</div>
                   </div>
-                  <p style={{ fontSize: '14px', color: '#555', lineHeight: '1.7', marginBottom: '24px' }}>{domain.desc}</p>
+                  <p style={{ fontSize: '14px', color: '#888', lineHeight: '1.7', marginBottom: '24px' }}>{domain.desc}</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {domain.signals.map(signal => (
                       <div key={signal.name} style={{ padding: '14px 16px', backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.04)' }}>
                         <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '4px' }}>{signal.name}</div>
-                        <div style={{ fontSize: '12px', color: '#444', lineHeight: '1.6' }}>{signal.detail}</div>
+                        <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6' }}>{signal.detail}</div>
                       </div>
                     ))}
                   </div>
@@ -182,7 +182,7 @@ export default function BEIIntelligencePage() {
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: '600' }}>Why Human Plus AI</div>
               <h2 style={{ fontSize: '44px', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '16px' }}>Neither alone is enough.</h2>
-              <p style={{ fontSize: '16px', color: '#555', maxWidth: '560px', margin: '0 auto' }}>AI without human oversight produces noise. Human intelligence without AI scale misses signals. BEI combines both — permanently, not occasionally.</p>
+              <p style={{ fontSize: '16px', color: '#888', maxWidth: '560px', margin: '0 auto' }}>AI without human oversight produces noise. Human intelligence without AI scale misses signals. BEI combines both — permanently, not occasionally.</p>
             </div>
           </RevealSection>
           <RevealSection delay={100}>
@@ -195,12 +195,12 @@ export default function BEIIntelligencePage() {
                 <div key={item.title} style={{ padding: '32px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.25), transparent)' }} />
                   <div style={{ fontSize: '16px', fontWeight: '700', color: gold, marginBottom: '14px' }}>{item.title}</div>
-                  <p style={{ fontSize: '14px', color: '#555', lineHeight: '1.7', marginBottom: '20px' }}>{item.desc}</p>
+                  <p style={{ fontSize: '14px', color: '#888', lineHeight: '1.7', marginBottom: '20px' }}>{item.desc}</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {item.points.map(p => (
                       <div key={p} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                         <span style={{ color: gold, fontSize: '11px', flexShrink: 0 }}>✓</span>
-                        <span style={{ fontSize: '13px', color: '#666' }}>{p}</span>
+                        <span style={{ fontSize: '13px', color: '#999' }}>{p}</span>
                       </div>
                     ))}
                   </div>
@@ -218,10 +218,10 @@ export default function BEIIntelligencePage() {
           <h2 style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px', lineHeight: '1.1' }}>
             Intelligence that never<br /><span style={{ color: gold }}>stops watching.</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#555', marginBottom: '40px', lineHeight: '1.75' }}>Every BEI client has the full intelligence layer active from day one. Growth signals monitored. Operational risks tracked. Financial and strategic risks verified. Continuously.</p>
+          <p style={{ fontSize: '17px', color: '#888', marginBottom: '40px', lineHeight: '1.75' }}>Every BEI client has the full intelligence layer active from day one. Growth signals monitored. Operational risks tracked. Financial and strategic risks verified. Continuously.</p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
             <a href='/book' style={{ padding: '18px 48px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '8px', textDecoration: 'none', fontSize: '16px', boxShadow: '0 0 60px rgba(200,162,74,0.2)' }}>Book Onboarding Call</a>
-            <a href='/pricing' style={{ padding: '18px 28px', border: '1px solid #2a2a2a', color: '#666', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>View Plans</a>
+            <a href='/pricing' style={{ padding: '18px 28px', border: '1px solid #2a2a2a', color: '#999', borderRadius: '8px', textDecoration: 'none', fontSize: '16px' }}>View Plans</a>
           </div>
         </div>
       </section>
