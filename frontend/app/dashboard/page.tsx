@@ -663,6 +663,18 @@ export default function DashboardPage() {
           {/* BUSINESS HEALTH TAB */}
           {activeTab === 'revenue' && (
             <div>
+              {/* BEI Intelligence image */}
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+                <img src='/bei-intelligence-image.png' alt='BEI Business Health' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
+                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
+                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
+                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BUSINESS HEALTH — ACTIVE MONITORING</div>
+                </div>
+                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
+                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>LIVE</span>
+                </div>
+              </div>
               <div style={{ fontSize: '11px', color: '#666', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>BUSINESS HEALTH</div>
               <div style={{ fontSize: '13px', color: '#777', marginBottom: '24px', lineHeight: '1.7' }}>
                 A full breakdown of your connected business health across all five BEI pillars — Growth, Operations, Strategy, Risk and Context.
