@@ -964,7 +964,7 @@ export default function DashboardPage() {
             <div>
               {/* BEISYSTEM image */}
               <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
-                <img src='/BEISYSTEM.png' alt='BEI Deployment System' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center 30%', display: 'block', opacity: 0.8 }} />
+                <img src='/BEISYSTEM.png' alt='BEI Deployment System' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center 20%', display: 'block', opacity: 0.8 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
                 <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
                   <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>OUTCOME & DEPLOYMENT ENGINE — ACTIVE</div>
