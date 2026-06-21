@@ -57,6 +57,30 @@ export default function DashboardPage() {
     load()
   }, [])
 
+  useEffect(() => {
+    const onFocus = async () => {
+      try {
+        const { data: { user: u } } = await supabase.auth.getUser()
+        if (!u) return
+        const { data } = await supabase
+          .from('businesses')
+          .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at, industry, location_country')
+          .eq('email', u.email)
+          .order('updated_at', { ascending: false })
+        if (data) {
+          setBusinesses(data)
+          setSelected((prev: any) => {
+            if (!prev) return data[0] || null
+            const still = data.find((b: any) => b.id === prev.id)
+            return still || data[0] || null
+          })
+        }
+      } catch {}
+    }
+    window.addEventListener('focus', onFocus)
+    return () => window.removeEventListener('focus', onFocus)
+  }, [])
+
   const locationCountry = selected?.location_country || ''
   const currency = useCurrency(locationCountry)
   if (loading) return (

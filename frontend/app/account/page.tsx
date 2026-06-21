@@ -87,7 +87,17 @@ export default function AccountPage() {
     setDeleting(false)
     setDeleteBusinessConfirm(false)
     setSelectedBusinessIds([])
-    window.location.href = '/dashboard'
+    // Reload businesses list in account page
+    const supabase2 = createClient()
+    const { data: fresh } = await supabase2
+      .from('businesses')
+      .select('id, business_name, industry, subscription_tier, subscription_status, location_country')
+      .eq('email', user?.email)
+      .order('updated_at', { ascending: false })
+    setAllBusinesses(Array.isArray(fresh) ? fresh : [])
+    const firstBiz = Array.isArray(fresh) && fresh.length > 0 ? fresh[0] : null
+    setBusiness(firstBiz)
+    setDeleting(false)
   }
 
   const deleteAccount = async () => {
