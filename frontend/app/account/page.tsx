@@ -6,6 +6,8 @@ import { useCurrency, getCurrencySymbol } from '../../lib/currency'
 
 export default function AccountPage() {
   const gold = '#C8A24A'
+  const ADMIN_EMAILS = ['admin@bei.io', 'hello@bei.io']
+  const isAdmin = user && ADMIN_EMAILS.includes(user?.email || '')
   const currency = useCurrency()
   const sym = getCurrencySymbol(currency)
   const [user, setUser] = useState<any>(null)
@@ -139,6 +141,16 @@ export default function AccountPage() {
       <Nav />
 
       <div style={{maxWidth:'800px',margin:'0 auto',padding:'48px 24px'}}>
+
+        {isAdmin && (
+          <div style={{marginBottom:'24px',padding:'16px 20px',backgroundColor:'rgba(200,162,74,0.06)',border:'1px solid rgba(200,162,74,0.25)',borderRadius:'8px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+            <div>
+              <div style={{fontSize:'11px',color:gold,letterSpacing:'0.2em',fontWeight:'600',marginBottom:'4px'}}>ADMIN ACCESS</div>
+              <div style={{fontSize:'13px',color:'#777'}}>Switch to the admin interface to manage all users and platform data.</div>
+            </div>
+            <a href="/admin" style={{padding:'10px 20px',backgroundColor:gold,color:'#050505',fontWeight:'700',borderRadius:'6px',textDecoration:'none',fontSize:'13px',whiteSpace:'nowrap' as const,marginLeft:'16px'}}>Admin Interface →</a>
+          </div>
+        )}
 
         {/* Back to dashboard */}
         <div style={{marginBottom:'24px'}}>
