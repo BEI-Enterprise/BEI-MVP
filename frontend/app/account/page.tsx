@@ -10,6 +10,7 @@ export default function AccountPage() {
   const currency = useCurrency()
   const sym = getCurrencySymbol(currency)
   const [user, setUser] = useState<any>(null)
+  const isAdmin = ADMIN_EMAILS.includes(user?.email || '')
   const [business, setBusiness] = useState<any>(null)
   const [allBusinesses, setAllBusinesses] = useState<any[]>([])
   const [selectedBusinessIds, setSelectedBusinessIds] = useState<string[]>([])
