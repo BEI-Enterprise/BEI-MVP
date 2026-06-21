@@ -801,6 +801,11 @@ export default function DashboardPage() {
                       <div style={{ display: 'flex', gap: '12px' }}>
                         <div style={{ fontSize: '11px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.08)', padding: '2px 8px', borderRadius: '8px', border: '1px solid rgba(74,170,74,0.15)' }}>✓ {primary.verification_score}/100 verified</div>
                         <div style={{ fontSize: '11px', color: '#cc4444', fontWeight: '600', textTransform: 'uppercase' as const }}>{primary.severity || 'high'}</div>
+                        {primary.sector_benchmark && (
+                          <div style={{ fontSize: '11px', color: gold, backgroundColor: 'rgba(200,162,74,0.08)', padding: '2px 8px', borderRadius: '8px', border: '1px solid rgba(200,162,74,0.15)' }}>
+                            {primary.sector_benchmark.frequency_pct}% of {industryData?.label?.toLowerCase() || 'businesses in your sector'} have this
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div style={{ fontSize: '18px', fontWeight: '800', marginBottom: '10px', letterSpacing: '-0.01em' }}>{primary.name}</div>
@@ -819,7 +824,7 @@ export default function DashboardPage() {
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #2a1a1a' }}>
                       {result?.total_opportunity && (
                         <div style={{ fontSize: '12px', color: gold }}>
-                          Opportunity: ${getCurrencySymbol(currency)}${Math.round((result.total_opportunity.total_low||0)/1000)}k–${getCurrencySymbol(currency)}${Math.round((result.total_opportunity.total_high||0)/1000)}k annual uplift on resolution
+                          Opportunity: {getCurrencySymbol(currency)}{Math.round((result.total_opportunity.total_low||0)/1000)}k–{getCurrencySymbol(currency)}{Math.round((result.total_opportunity.total_high||0)/1000)}k annual uplift on resolution
                         </div>
                       )}
                       <a href={`/report/${selected?.id}`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600', marginLeft: 'auto' }}>View full analysis →</a>
@@ -827,14 +832,24 @@ export default function DashboardPage() {
                   </div>
                   {secondary.filter((c: any) => c.severity === 'high').map((c: any) => (
                     <div key={c.key} style={{ padding: '20px 24px', backgroundColor: '#0f0a04', border: '1px solid #2a2000', borderLeft: '3px solid #C8A24A', borderRadius: '8px', marginBottom: '12px' }}>
-                      <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', fontWeight: '700', marginBottom: '8px' }}>HIGH SEVERITY — SECONDARY</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                        <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', fontWeight: '700' }}>HIGH SEVERITY — SECONDARY</div>
+                        {c.sector_benchmark && (
+                          <div style={{ fontSize: '10px', color: '#888' }}>{c.sector_benchmark.frequency_pct}% sector frequency</div>
+                        )}
+                      </div>
                       <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '6px' }}>{c.name}</div>
                       <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6' }}>{c.hypothesis}</div>
                     </div>
                   ))}
                   {secondary.filter((c: any) => c.severity !== 'high').map((c: any) => (
                     <div key={c.key} style={{ padding: '18px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', marginBottom: '10px' }}>
-                      <div style={{ fontSize: '10px', color: '#777', letterSpacing: '0.2em', fontWeight: '600', marginBottom: '6px' }}>MEDIUM SEVERITY</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                        <div style={{ fontSize: '10px', color: '#777', letterSpacing: '0.2em', fontWeight: '600' }}>MEDIUM SEVERITY</div>
+                        {c.sector_benchmark && (
+                          <div style={{ fontSize: '10px', color: '#555' }}>{c.sector_benchmark.frequency_pct}% sector frequency</div>
+                        )}
+                      </div>
                       <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>{c.name}</div>
                       <div style={{ fontSize: '12px', color: '#777', lineHeight: '1.6' }}>{c.hypothesis}</div>
                     </div>
