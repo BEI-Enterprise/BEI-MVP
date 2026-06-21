@@ -3,35 +3,20 @@ import { useState, useEffect } from 'react'
 
 export type Currency = 'GBP' | 'USD'
 
+function getStoredCurrency(): Currency {
+  if (typeof window === 'undefined') return 'GBP'
+  const stored = localStorage.getItem('bei_currency')
+  return stored === 'USD' ? 'USD' : 'GBP'
+}
+
 export function useCurrency(savedLocation?: string): Currency {
-  const [currency, setCurrency] = useState<Currency>('GBP')
+  const [currency, setCurrency] = useState<Currency>(getStoredCurrency)
 
   useEffect(() => {
-    // localStorage takes priority over everything
-    const stored = localStorage.getItem('bei_currency') as Currency
-    if (stored === 'USD' || stored === 'GBP') {
-      setCurrency(stored)
-      return
-    }
-    // Fall back to savedLocation preference
-    if (savedLocation) {
-      setCurrency(savedLocation === 'United States' ? 'USD' : 'GBP')
-      return
-    }
-    // Fall back to timezone detection
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-      const locale = navigator.language
-      if (tz.startsWith('America/') || locale.startsWith('en-US')) {
-        setCurrency('USD')
-      }
-    } catch {}
-
-    // Listen for toggle changes without reload
-    const handler = (e: any) => setCurrency(e.detail)
+    const handler = (e: any) => setCurrency(e.detail as Currency)
     window.addEventListener('bei_currency_change', handler)
     return () => window.removeEventListener('bei_currency_change', handler)
-  }, [savedLocation])
+  }, [])
 
   return currency
 }
