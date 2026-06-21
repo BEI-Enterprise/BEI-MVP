@@ -114,7 +114,7 @@ export default function AdminPage() {
         const d = Math.hypot(a.x - b.x, a.y - b.y)
         if (d < 150) {
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y)
-          ctx.strokeStyle = \`rgba(200,162,74,\${0.15 * (1 - d / 150)})\`
+          ctx.strokeStyle = 'rgba(200,162,74,' + (0.15 * (1 - d / 150)) + ')'
           ctx.lineWidth = 0.5; ctx.stroke()
         }
       }))
