@@ -14,6 +14,9 @@ export default function AccountPage() {
   const [locationValue, setLocationValue] = useState('')
   const [locationSaving, setLocationSaving] = useState(false)
   const [locationSaved, setLocationSaved] = useState(false)
+  const [deleteBusinessConfirm, setDeleteBusinessConfirm] = useState(false)
+  const [deleteAccountConfirm, setDeleteAccountConfirm] = useState(false)
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     const supabase = createClient()
@@ -55,6 +58,26 @@ export default function AccountPage() {
     setIndustrySaving(false)
     setIndustrySaved(true)
     setTimeout(() => setIndustrySaved(false), 3000)
+  }
+
+  const deleteBusiness = async () => {
+    if (!business) return
+    setDeleting(true)
+    const supabase = createClient()
+    await supabase.from('businesses').delete().eq('id', business.id)
+    setDeleting(false)
+    setDeleteBusinessConfirm(false)
+    window.location.href = '/dashboard'
+  }
+
+  const deleteAccount = async () => {
+    if (!user) return
+    setDeleting(true)
+    const supabase = createClient()
+    await supabase.from('businesses').delete().eq('email', user.email)
+    await supabase.auth.admin?.deleteUser(user.id).catch(() => {})
+    await supabase.auth.signOut()
+    window.location.href = '/'
   }
 
   const handleSignOut = async () => {
@@ -211,6 +234,63 @@ export default function AccountPage() {
         {/* Danger zone */}
         <div style={{padding:'24px',border:'1px solid #2a1a1a',borderRadius:'8px',backgroundColor:'#0a0808'}}>
           <div style={{fontSize:'13px',color:'#555',marginBottom:'16px'}}>Sign out of your BEI account on this device.</div>
+          {/* Delete business */}
+          {business && (
+            <div style={{marginBottom:'32px',padding:'28px',border:'1px solid rgba(204,68,68,0.3)',borderRadius:'8px',backgroundColor:'rgba(204,68,68,0.03)'}}>
+              <div style={{fontSize:'11px',color:'#cc4444',letterSpacing:'0.2em',textTransform:'uppercase' as const,marginBottom:'8px',fontWeight:'600'}}>Danger Zone</div>
+              <div style={{fontSize:'16px',fontWeight:'700',marginBottom:'6px'}}>Delete Business</div>
+              <div style={{fontSize:'13px',color:'#555',marginBottom:'20px',lineHeight:'1.6'}}>
+                Permanently remove {business.business_name || 'this business'} and all associated MRI data. This cannot be undone.
+              </div>
+              {!deleteBusinessConfirm ? (
+                <button onClick={() => setDeleteBusinessConfirm(true)} style={{padding:'10px 20px',backgroundColor:'transparent',color:'#cc4444',border:'1px solid #cc4444',borderRadius:'4px',cursor:'pointer',fontSize:'13px',fontWeight:'600'}}>
+                  Delete {business.business_name || 'This Business'}
+                </button>
+              ) : (
+                <div style={{padding:'16px',backgroundColor:'rgba(204,68,68,0.06)',border:'1px solid rgba(204,68,68,0.2)',borderRadius:'6px'}}>
+                  <div style={{fontSize:'13px',color:'#cc4444',fontWeight:'700',marginBottom:'8px'}}>Are you sure? This is permanent and cannot be undone.</div>
+                  <div style={{display:'flex',gap:'10px',marginTop:'12px'}}>
+                    <button onClick={deleteBusiness} disabled={deleting} style={{padding:'10px 20px',backgroundColor:'#cc4444',color:'#fff',border:'none',borderRadius:'4px',cursor:'pointer',fontSize:'13px',fontWeight:'700'}}>
+                      {deleting ? 'Deleting...' : 'Yes, Delete Business'}
+                    </button>
+                    <button onClick={() => setDeleteBusinessConfirm(false)} style={{padding:'10px 16px',backgroundColor:'transparent',color:'#666',border:'1px solid #333',borderRadius:'4px',cursor:'pointer',fontSize:'13px'}}>
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Delete account */}
+          <div style={{marginBottom:'32px',padding:'28px',border:'1px solid rgba(204,68,68,0.3)',borderRadius:'8px',backgroundColor:'rgba(204,68,68,0.03)'}}>
+            <div style={{fontSize:'11px',color:'#cc4444',letterSpacing:'0.2em',textTransform:'uppercase' as const,marginBottom:'8px',fontWeight:'600'}}>Delete Account</div>
+            <div style={{fontSize:'16px',fontWeight:'700',marginBottom:'6px'}}>Permanently Delete Your Account</div>
+            <div style={{fontSize:'13px',color:'#555',marginBottom:'20px',lineHeight:'1.6'}}>
+              This will permanently delete your account, all business data, MRI reports and login credentials. This cannot be undone.
+            </div>
+            {!deleteAccountConfirm ? (
+              <button onClick={() => setDeleteAccountConfirm(true)} style={{padding:'10px 20px',backgroundColor:'transparent',color:'#cc4444',border:'1px solid #cc4444',borderRadius:'4px',cursor:'pointer',fontSize:'13px',fontWeight:'600'}}>
+                Delete My Account
+              </button>
+            ) : (
+              <div style={{padding:'16px',backgroundColor:'rgba(204,68,68,0.06)',border:'1px solid rgba(204,68,68,0.2)',borderRadius:'6px'}}>
+                <div style={{fontSize:'14px',color:'#cc4444',fontWeight:'700',marginBottom:'8px'}}>⚠ Final confirmation</div>
+                <div style={{fontSize:'13px',color:'#888',marginBottom:'16px',lineHeight:'1.6'}}>
+                  You are about to permanently delete your BEI account and all data. This cannot be reversed.
+                </div>
+                <div style={{display:'flex',gap:'10px'}}>
+                  <button onClick={deleteAccount} disabled={deleting} style={{padding:'10px 20px',backgroundColor:'#cc4444',color:'#fff',border:'none',borderRadius:'4px',cursor:'pointer',fontSize:'13px',fontWeight:'700'}}>
+                    {deleting ? 'Deleting...' : 'Yes, delete everything permanently'}
+                  </button>
+                  <button onClick={() => setDeleteAccountConfirm(false)} style={{padding:'10px 16px',backgroundColor:'transparent',color:'#666',border:'1px solid #333',borderRadius:'4px',cursor:'pointer',fontSize:'13px'}}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
           <button onClick={handleSignOut}
             style={{padding:'10px 24px',border:'1px solid #cc4444',color:'#cc4444',backgroundColor:'transparent',borderRadius:'4px',fontSize:'13px',cursor:'pointer',fontWeight:'600'}}>
             Sign out

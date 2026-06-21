@@ -24,8 +24,19 @@ function LandingPage() {
   return (
     <main style={s.page}>
 
-      <Nav />
-      <div style={{ position: "fixed", top: "16px", right: "200px", zIndex: 200 }}><CurrencyToggle /></div>
+      <div style={{ position: 'sticky' as const, top: 0, zIndex: 100, padding: '0 48px', height: '68px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #161616', backgroundColor: 'rgba(5,5,5,0.97)', backdropFilter: 'blur(12px)' }}>
+        <a href='/' style={{ fontSize: '20px', fontWeight: '800', color: gold, letterSpacing: '0.12em', textDecoration: 'none' }}>BEI</a>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {[{l:'Platform',h:'/platform'},{l:'Our Clients',h:'/clients'},{l:'Pricing',h:'/pricing'},{l:'Example Report',h:'/example-report'}].map(n => (
+            <a key={n.h} href={n.h} style={{ padding: '0 20px', height: '68px', display: 'flex', alignItems: 'center', fontSize: '15px', color: '#777777', borderBottom: '2px solid transparent', textDecoration: 'none' }}>{n.l}</a>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <CurrencyToggle />
+          <a href='/login' style={{ fontSize: '15px', color: '#777777', textDecoration: 'none' }}>Sign in</a>
+          <a href='/book' style={{ padding: '10px 22px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Free MRI →</a>
+        </div>
+      </div>
 
       {/* HERO */}
       <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '120px 48px 80px', position: 'relative' as const, overflow: 'hidden' }}>
