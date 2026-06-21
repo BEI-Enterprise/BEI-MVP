@@ -7,7 +7,7 @@ const dark = '#050505'
 const card = '#0a0a0a'
 const border = '#1e1e1e'
 
-const ADMIN_EMAILS = ['admin@bei.io', 'hello@bei.io']
+const ADMIN_EMAILS = ['admin@bei.io', 'hello@bei.io', 'jacob.fisher@hamptonhillsgroup.com']
 
 const TIER_PRICES: Record<string, number> = {
   analysis: 199,
