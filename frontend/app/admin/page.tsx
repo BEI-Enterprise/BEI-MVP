@@ -231,6 +231,17 @@ export default function AdminPage() {
         {/* OVERVIEW */}
         {activeTab === 'overview' && (
           <div>
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+                <img src='/BEI EYE.png' alt='BEI Intelligence' style={{ width: '100%', height: '180px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
+                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.7) 0%, transparent 40%, transparent 60%, rgba(5,5,5,0.7) 100%)', pointerEvents: 'none' as const }} />
+                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
+                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BEI INTELLIGENCE — MONITORING ACTIVE</div>
+                </div>
+                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
+                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>LIVE</span>
+                </div>
+              </div>
             {/* Stats grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '14px', marginBottom: '32px' }}>
               <GlowCard label="TOTAL BUSINESSES" value={businesses.length.toString()} color={gold} />
@@ -285,6 +296,17 @@ export default function AdminPage() {
         {/* USERS */}
         {activeTab === 'users' && (
           <div>
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+                <img src='/BEI INTEL.png' alt='BEI Intel' style={{ width: '100%', height: '180px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
+                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.7) 0%, transparent 40%, transparent 60%, rgba(5,5,5,0.7) 100%)', pointerEvents: 'none' as const }} />
+                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
+                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BEI INTEL — USER INTELLIGENCE LAYER</div>
+                </div>
+                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
+                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>LIVE</span>
+                </div>
+              </div>
             {/* Filters */}
             <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' as const }}>
               <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search name or email..." style={{ flex: 1, minWidth: '200px', padding: '10px 16px', backgroundColor: '#111', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#fff', fontSize: '13px', outline: 'none', fontFamily: 'Inter,system-ui,sans-serif' }} />
@@ -437,7 +459,19 @@ export default function AdminPage() {
 
         {/* PLATFORM HEALTH */}
         {activeTab === 'health' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          <div>
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+                <img src='/BEISYSTEM.png' alt='BEI System' style={{ width: '100%', height: '180px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
+                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.7) 0%, transparent 40%, transparent 60%, rgba(5,5,5,0.7) 100%)', pointerEvents: 'none' as const }} />
+                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
+                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BEI SYSTEM — INFRASTRUCTURE STATUS</div>
+                </div>
+                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
+                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>LIVE</span>
+                </div>
+              </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
               <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '20px', fontWeight: '600' }}>INTELLIGENCE SERVER</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
@@ -479,6 +513,7 @@ export default function AdminPage() {
               <div style={{ fontSize: '12px', color: '#555', marginBottom: '8px' }}>officialbei.com — Next.js 16</div>
               <a href="https://vercel.com/bei-enterprise" target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: gold, textDecoration: 'none' }}>Open Vercel Dashboard →</a>
             </div>
+          </div>
           </div>
         )}
 
