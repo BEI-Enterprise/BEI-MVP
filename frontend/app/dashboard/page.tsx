@@ -1266,134 +1266,133 @@ export default function DashboardPage() {
           {activeTab === 'intelligence' && (
             <div>
 
-              {/* Hero image + header */}
-              <div style={{ position: 'relative' as const, borderRadius: '16px', overflow: 'hidden', marginBottom: '28px', border: '1px solid rgba(200,162,74,0.2)' }}>
-                <img src='/bei-intel-dashboard.png' alt='BEI Intelligence' style={{ width: '100%', height: '300px', objectFit: 'cover', objectPosition: 'center center', display: 'block', opacity: 0.85 }} />
-                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(3,2,1,0.95) 0%, rgba(3,2,1,0.6) 50%, transparent 100%)' }} />
-                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
-                <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', padding: '32px' }}>
-                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '10px', fontWeight: '600' }}>BEI INTELLIGENCE OPERATION</div>
-                  <div style={{ fontSize: '26px', fontWeight: '800', color: '#f0f0f0', letterSpacing: '-0.02em', marginBottom: '8px', maxWidth: '500px', lineHeight: '1.2' }}>
-                    The BEI intelligence team<br />never stops working.
+              {/* BEI INTEL image */}
+              <div style={{ marginBottom: '28px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+                <img src='/bei-intel-dashboard.png' alt='BEI Intelligence' style={{ width: '100%', height: '220px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
+                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.8) 0%, transparent 40%, transparent 60%, rgba(5,5,5,0.8) 100%)', pointerEvents: 'none' as const }} />
+                <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 32px', pointerEvents: 'none' as const }}>
+                  <div>
+                    <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.3em', fontWeight: '600', marginBottom: '8px' }}>BEI INTELLIGENCE SYSTEM</div>
+                    <div style={{ fontSize: '26px', fontWeight: '800', color: '#fff', marginBottom: '6px' }}>Human + Machine Intelligence</div>
+                    <div style={{ fontSize: '13px', color: '#888' }}>Monitoring {industryData.label} · Verified signals only</div>
                   </div>
-                  <div style={{ fontSize: '13px', color: '#777', maxWidth: '480px', lineHeight: '1.7' }}>
-                    Human judgement and machine speed in permanent unison — monitoring the signals that matter across every client market sector.
+                  <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                    {[
+                      { label: 'Growth', pct: 94 },
+                      { label: 'Operational', pct: 88 },
+                      { label: 'Financial', pct: 91 },
+                      { label: 'Strategic', pct: 86 },
+                    ].map(d => (
+                      <div key={d.label} style={{ textAlign: 'center' as const }}>
+                        <div style={{ fontSize: '20px', fontWeight: '800', color: gold }}>{d.pct}%</div>
+                        <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em' }}>{d.label.toUpperCase()}</div>
+                      </div>
+                    ))}
                   </div>
-                  <div style={{ display: 'flex', gap: '20px', marginTop: '16px' }}>
-                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
-                      <span style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING ACTIVE</span>
-                    </div>
-                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: gold }} />
-                      <span style={{ fontSize: '11px', color: gold, fontWeight: '600' }}>{industryData.label.toUpperCase()}</span>
-                    </div>
-                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#555' }} />
-                      <span style={{ fontSize: '11px', color: '#777' }}>48HR ALERT WINDOW</span>
-                    </div>
-                  </div>
+                </div>
+                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
+                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING ACTIVE</span>
                 </div>
               </div>
 
               {/* 4-step process */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px', backgroundColor: '#161616', border: '1px solid #2a2a2a', borderRadius: '10px', overflow: 'hidden', marginBottom: '28px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '28px' }}>
                 {[
-                  { n: '01', title: 'AI scans continuously', desc: 'Machine systems monitor growth signals, risk indicators and sector data across all client market areas — 24 hours a day, without gaps.' },
-                  { n: '02', title: 'Signals flagged and scored', desc: 'Every detected signal is scored for severity, relevance to your Business Twin and potential impact on your primary constraint status.' },
-                  { n: '03', title: 'BEI team validates', desc: 'The intelligence team reviews every flagged signal. Human judgement determines whether it warrants a client alert or MRI re-evaluation.' },
-                  { n: '04', title: 'Client notified', desc: 'If a signal crosses the alert threshold, you are notified within 48 hours with context, explanation and recommended action. Verified — not raw data.' },
-                ].map((step, i) => (
-                  <div key={step.n} style={{ padding: '24px 20px', backgroundColor: card, position: 'relative' as const }}>
-                    <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: i === 0 ? 'linear-gradient(90deg, #C8A24A, transparent)' : 'transparent' }} />
-                    <div style={{ fontSize: '22px', fontWeight: '800', color: 'rgba(200,162,74,0.15)', marginBottom: '12px', fontFamily: 'monospace' }}>{step.n}</div>
-                    <div style={{ fontSize: '13px', fontWeight: '700', marginBottom: '8px', color: '#e0e0e0' }}>{step.title}</div>
-                    <div style={{ fontSize: '12px', color: '#777', lineHeight: '1.7' }}>{step.desc}</div>
+                  { n: '01', title: 'AI scans continuously', desc: 'Machine systems monitor growth signals, risk indicators and sector data 24/7 across all client market areas.' },
+                  { n: '02', title: 'Signals flagged and scored', desc: 'Every detected signal is scored for severity, relevance to your Business Twin and impact on your primary constraint.' },
+                  { n: '03', title: 'BEI team validates', desc: 'The intelligence team reviews every flagged signal. Human judgement determines whether it warrants a client alert.' },
+                  { n: '04', title: 'Client notified', desc: 'If a signal crosses the threshold you are notified within 48 hours with context, explanation and recommended action.' },
+                ].map(s => (
+                  <div key={s.n}
+                    style={{ padding: '20px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderTop: '3px solid ' + gold, borderRadius: '8px', transition: 'all 0.3s ease', cursor: 'default' }}
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = '#0f0d06'; el.style.boxShadow = '0 0 24px rgba(200,162,74,0.12)' }}
+                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = '#0a0a0a'; el.style.boxShadow = 'none' }}
+                  >
+                    <div style={{ fontSize: '32px', fontWeight: '800', color: 'rgba(200,162,74,0.2)', marginBottom: '12px', lineHeight: '1' }}>{s.n}</div>
+                    <div style={{ fontSize: '13px', fontWeight: '700', color: '#e0e0e0', marginBottom: '8px', lineHeight: '1.4' }}>{s.title}</div>
+                    <div style={{ fontSize: '12px', color: '#555', lineHeight: '1.7' }}>{s.desc}</div>
                   </div>
                 ))}
               </div>
 
-              {/* Industry insight banner */}
-              <div style={{ padding: '24px 28px', background: 'linear-gradient(135deg, rgba(200,162,74,0.06) 0%, rgba(200,162,74,0.02) 100%)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '10px', marginBottom: '24px', position: 'relative' as const, overflow: 'hidden' }}>
-                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.4), transparent)' }} />
-                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '10px', fontWeight: '600' }}>◈ {industryData.label.toUpperCase()} — INTELLIGENCE INSIGHT</div>
-                <div style={{ fontSize: '15px', color: '#ccc', lineHeight: '1.8', fontWeight: '400' }}>{industryData.insight}</div>
-              </div>
-
-              {/* Signals + Benchmarks side by side */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
-
-                {/* Live signals */}
-                <div style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-                  <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>LIVE SIGNALS — VERIFIED</div>
-                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
-                    {industryData.signals.map((s: any, i: number) => (
-                      <div key={i} style={{ padding: '12px 14px', backgroundColor: s.severity === 'high' ? '#0f0a04' : '#080808', border: `1px solid ${s.severity === 'high' ? '#3a2a04' : '#161616'}`, borderLeft: `2px solid ${s.severity === 'high' ? '#cc4444' : s.severity === 'medium' ? gold : '#333'}`, borderRadius: '6px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
-                          <div style={{ fontSize: '10px', color: s.severity === 'high' ? '#cc4444' : gold, fontWeight: '700', letterSpacing: '0.15em' }}>{s.domain}</div>
-                          <div style={{ fontSize: '9px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.08)', padding: '1px 6px', borderRadius: '8px', border: '1px solid rgba(74,170,74,0.15)' }}>✓ VERIFIED</div>
-                        </div>
-                        <div style={{ fontSize: '12px', color: '#888', lineHeight: '1.5' }}>{s.signal}</div>
-                      </div>
-                    ))}
-                  </div>
+              {/* Live signals */}
+              <div style={{ marginBottom: '28px' }}>
+                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  LIVE SIGNALS — VERIFIED
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
                 </div>
-
-                {/* Benchmarks */}
-                <div style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-                  <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>INDUSTRY BENCHMARKS</div>
-                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '0' }}>
-                    {industryData.benchmarks.map((b: any, i: number) => (
-                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '10px 0', borderBottom: i < industryData.benchmarks.length - 1 ? '1px solid #111' : 'none' }}>
-                        <div style={{ fontSize: '12px', color: '#777', flex: 1, paddingRight: '12px', lineHeight: '1.4' }}>{b.metric}</div>
-                        <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
-                          <div style={{ fontSize: '13px', fontWeight: '700', color: gold }}>{b.value}</div>
-                          <div style={{ fontSize: '10px', color: '#555', marginTop: '2px' }}>{b.bei}</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {industryData.signals.map((sig: any) => (
+                    <div key={sig.domain}
+                      style={{ padding: '20px', backgroundColor: '#0a0a0a', border: '1px solid ' + (sig.severity === 'high' ? 'rgba(204,68,68,0.2)' : sig.severity === 'medium' ? 'rgba(200,162,74,0.2)' : 'rgba(74,170,74,0.2)'), borderLeft: '3px solid ' + (sig.severity === 'high' ? '#cc4444' : sig.severity === 'medium' ? gold : '#4aaa4a'), borderRadius: '8px', transition: 'all 0.3s ease', cursor: 'default' }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = sig.severity === 'high' ? '#130606' : sig.severity === 'medium' ? '#0f0d06' : '#060f06'; el.style.boxShadow = '0 0 20px ' + (sig.severity === 'high' ? 'rgba(204,68,68,0.15)' : sig.severity === 'medium' ? 'rgba(200,162,74,0.15)' : 'rgba(74,170,74,0.15)') }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = '#0a0a0a'; el.style.boxShadow = 'none' }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#e0e0e0' }}>{sig.domain}</div>
+                        <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexShrink: 0, marginLeft: '12px' }}>
+                          {sig.verified && <span style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', fontWeight: '600' }}>✓ VERIFIED</span>}
+                          <span style={{ fontSize: '10px', color: sig.severity === 'high' ? '#cc4444' : sig.severity === 'medium' ? gold : '#4aaa4a', fontWeight: '600', textTransform: 'uppercase' as const }}>{sig.severity}</span>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Signal domain bars */}
-              <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '10px', marginBottom: '20px' }}>
-                <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>MONITORING COVERAGE — 4 SIGNAL DOMAINS</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
-                  {[
-                    { domain: 'Growth Signals', coverage: 94, color: '#4aaa4a' },
-                    { domain: 'Operational Risk', coverage: 88, color: gold },
-                    { domain: 'Financial Risk', coverage: 91, color: gold },
-                    { domain: 'Strategic Risk', coverage: 86, color: '#4a8ab0' },
-                  ].map(d => (
-                    <div key={d.domain} style={{ textAlign: 'center' as const }}>
-                      <svg width="64" height="64" viewBox="0 0 64 64" style={{ display: 'block', margin: '0 auto 8px' }}>
-                        <circle cx="32" cy="32" r="26" fill="none" stroke="#111" strokeWidth="5"/>
-                        <circle cx="32" cy="32" r="26" fill="none" stroke={d.color} strokeWidth="5"
-                          strokeDasharray={`${d.coverage * 1.634} 163.4`}
-                          strokeDashoffset="40.8" strokeLinecap="round"
-                          transform="rotate(-90 32 32)"
-                        />
-                        <text x="32" y="37" textAnchor="middle" fill={d.color} fontSize="13" fontWeight="700" fontFamily="Inter">{d.coverage}%</text>
-                      </svg>
-                      <div style={{ fontSize: '11px', color: '#777', lineHeight: '1.4' }}>{d.domain}</div>
+                      <div style={{ fontSize: '12px', color: '#666', lineHeight: '1.7' }}>{sig.signal}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Team status bar */}
-              <div style={{ padding: '18px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              {/* Industry benchmarks */}
+              <div style={{ marginBottom: '28px' }}>
+                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>INDUSTRY BENCHMARKS — {industryData.label.toUpperCase()}</div>
+                <div style={{ backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', overflow: 'hidden' }}>
+                  {industryData.benchmarks.map((b: any, i: number) => (
+                    <div key={b.metric} style={{ display: 'grid', gridTemplateColumns: '1fr 180px 1fr', gap: '0', borderBottom: i < industryData.benchmarks.length - 1 ? '1px solid #111' : 'none', alignItems: 'center' }}>
+                      <div style={{ padding: '14px 20px', fontSize: '13px', color: '#666' }}>{b.metric}</div>
+                      <div style={{ padding: '14px 20px', fontSize: '14px', fontWeight: '700', color: gold, textAlign: 'center' as const, borderLeft: '1px solid #111', borderRight: '1px solid #111' }}>{b.value}</div>
+                      <div style={{ padding: '14px 20px', fontSize: '11px', color: '#444', lineHeight: '1.5' }}>{b.bei}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Monitoring coverage gauges */}
+              <div style={{ marginBottom: '28px' }}>
+                <div style={{ fontSize: '11px', color: '#555', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>MONITORING COVERAGE — 4 SIGNAL DOMAINS</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+                  {[
+                    { label: 'Growth Signals', pct: 94, color: '#4aaa4a' },
+                    { label: 'Operational Risk', pct: 88, color: gold },
+                    { label: 'Financial Risk', pct: 91, color: '#4a8ab0' },
+                    { label: 'Strategic Risk', pct: 86, color: '#cc4444' },
+                  ].map(g => (
+                    <div key={g.label}
+                      style={{ padding: '20px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '8px', transition: 'all 0.3s ease', cursor: 'default' }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.1)'; el.style.borderColor = '#2a2a2a' }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'none'; el.style.borderColor = '#1a1a1a' }}
+                    >
+                      <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.15em', marginBottom: '12px' }}>{g.label.toUpperCase()}</div>
+                      <div style={{ fontSize: '36px', fontWeight: '800', color: g.color, marginBottom: '12px' }}>{g.pct}%</div>
+                      <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
+                        <div style={{ width: g.pct + '%', height: '100%', backgroundColor: g.color, borderRadius: '2px', transition: 'width 1s ease' }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer status bar */}
+              <div style={{ padding: '16px 24px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 8px rgba(74,170,74,0.7)' }} />
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 8px rgba(74,170,74,0.8)' }} />
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '3px' }}>BEI Intelligence Team — Active</div>
-                    <div style={{ fontSize: '11px', color: '#666' }}>Monitoring {industryData.label} · Human-verified intelligence · No alert sent without BEI team validation</div>
+                    <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '2px' }}>BEI Intelligence Team — Active</div>
+                    <div style={{ fontSize: '11px', color: '#555' }}>Monitoring {industryData.label} · Human-verified intelligence · No alert sent without BEI team validation</div>
                   </div>
                 </div>
-                <div style={{ fontSize: '11px', color: '#555', textAlign: 'right' as const }}>
-                  <div style={{ color: '#666', marginBottom: '2px' }}>Last updated</div>
-                  <div style={{ color: gold }}>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                <div style={{ textAlign: 'right' as const }}>
+                  <div style={{ fontSize: '10px', color: '#444', marginBottom: '2px', letterSpacing: '0.1em' }}>LAST UPDATED</div>
+                  <div style={{ fontSize: '13px', color: gold, fontWeight: '600' }}>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                 </div>
               </div>
 
