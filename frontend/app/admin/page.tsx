@@ -40,7 +40,7 @@ function NetworkGraph() {
           ctx.beginPath()
           ctx.moveTo(a.x, a.y)
           ctx.lineTo(b.x, b.y)
-          ctx.strokeStyle = `rgba(200,162,74,${0.12 * (1 - d / 120)})`
+          ctx.strokeStyle = 'rgba(200,162,74,' + (0.12 * (1 - d / 120)) + ')'
           ctx.lineWidth = 0.5
           ctx.stroke()
         }
