@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import { colors, fontSize, fontWeight, navHeight, cardStyle, pageWrapper, contentWrapper } from '../../lib/design'
+import Nav from '../components/Nav'
 
 const supabase = createClient()
 
@@ -52,7 +53,9 @@ export default function HealthPage() {
   if (loading) return <main style={pageWrapper}></main>
 
   if (!result) return (
-    <main style={pageWrapper}>
+    <>
+      <Nav />
+      <main style={pageWrapper}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', flexDirection: 'column' as const, gap: '24px' }}>
         <p style={{ color: colors.textSecondary, fontSize: fontSize.md }}>No MRI data found.</p>
         <a href='/book' style={{ padding: '14px 32px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '4px', textDecoration: 'none', fontSize: fontSize.base }}>Start Your MRI</a>
@@ -69,7 +72,9 @@ export default function HealthPage() {
   const healthColor = overall >= 70 ? colors.success : overall >= 45 ? colors.gold : colors.error
 
   return (
-    <main style={pageWrapper}>
+    <>
+      <Nav />
+      <main style={pageWrapper}>
       <nav style={{ padding: '0 48px', borderBottom: `1px solid ${colors.borderSubtle}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: navHeight, backgroundColor: colors.bgBase }}>
         <span style={{ fontSize: '20px', fontWeight: fontWeight.extrabold, color: colors.gold, letterSpacing: '0.1em' }}>BEI</span>
         <div style={{ display: 'flex' }}>
@@ -153,5 +158,7 @@ export default function HealthPage() {
         </div>
       </div>
     </main>
+    </main>
+    </>
   )
 }
