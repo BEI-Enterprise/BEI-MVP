@@ -6,7 +6,7 @@ import { useCurrency, getCurrencySymbol } from '../../lib/currency'
 
 export default function AccountPage() {
   const gold = '#C8A24A'
-  const ADMIN_EMAILS = ['admin@bei.io', 'hello@bei.io']
+  const ADMIN_EMAILS = ['admin@bei.io', 'hello@bei.io', 'jacob.fisher@hamptonhillsgroup.com']
   const currency = useCurrency()
   const sym = getCurrencySymbol(currency)
   const [user, setUser] = useState<any>(null)
