@@ -82,21 +82,26 @@ export default function AccountPage() {
     setDeleting(true)
     const supabase = createClient()
     for (const id of selectedBusinessIds) {
-      await supabase.from('businesses').delete().eq('id', id)
+      const { error } = await supabase.from('businesses').delete().eq('id', id)
+      if (error) console.error('Delete error:', error)
     }
-    setDeleting(false)
-    setDeleteBusinessConfirm(false)
-    setSelectedBusinessIds([])
-    // Reload businesses list in account page
+    // Reload businesses list after deletion
     const supabase2 = createClient()
     const { data: fresh } = await supabase2
       .from('businesses')
       .select('id, business_name, industry, subscription_tier, subscription_status, location_country')
-      .eq('email', user?.email)
+      .eq('email', (user as any)?.email)
       .order('updated_at', { ascending: false })
-    setAllBusinesses(Array.isArray(fresh) ? fresh : [])
-    const firstBiz = Array.isArray(fresh) && fresh.length > 0 ? fresh[0] : null
+    const freshList = Array.isArray(fresh) ? fresh : []
+    setAllBusinesses(freshList)
+    const firstBiz = freshList.length > 0 ? freshList[0] : null
     setBusiness(firstBiz)
+    if (firstBiz) {
+      setIndustryValue((firstBiz as any).industry || '')
+      setLocationValue((firstBiz as any).location_country || '')
+    }
+    setDeleteBusinessConfirm(false)
+    setSelectedBusinessIds([])
     setDeleting(false)
   }
 
