@@ -836,7 +836,7 @@ export default function DashboardPage() {
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #2a1a1a' }}>
                       {result?.total_opportunity && (
                         <div style={{ fontSize: '12px', color: gold }}>
-                          Opportunity: {getCurrencySymbol(currency)}{(result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})–{getCurrencySymbol(currency)}{(result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) annual uplift on resolution
+                          Opportunity: {getCurrencySymbol(currency)}{(result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})} – {getCurrencySymbol(currency)}{(result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})} annual uplift on resolution
                         </div>
                       )}
                       <a href={`/report/${selected?.id}`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600', marginLeft: 'auto' }}>View full analysis →</a>
