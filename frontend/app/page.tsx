@@ -416,6 +416,8 @@ function LandingPage() {
           <a href="/pricing" style={{ fontSize: '12px', color: '#aaa', textDecoration: 'none' }}>Pricing</a>
           <a href="/login" style={{ fontSize: '12px', color: '#aaa', textDecoration: 'none' }}>Login</a>
           <a href="/book" style={{ fontSize: '12px', color: '#aaa', textDecoration: 'none' }}>Generate MRI</a>
+          <a href="/privacy" style={{ fontSize: '12px', color: '#aaa', textDecoration: 'none' }}>Privacy Policy</a>
+          <a href="/terms" style={{ fontSize: '12px', color: '#aaa', textDecoration: 'none' }}>Terms</a>
         </div>
       </footer>
 
