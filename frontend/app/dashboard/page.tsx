@@ -374,7 +374,7 @@ export default function DashboardPage() {
           {activeTab === 'overview' && (
             <div>
               {/* BEI EYE image — top of overview */}
-              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
                 <img src='/new123.png' alt='BEI Intelligence' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
                 <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
@@ -586,7 +586,7 @@ export default function DashboardPage() {
           {activeTab === 'reports' && (
             <div>
               {/* BEISCREEN image — top of Analysis Reports tab */}
-              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
                 <img src='/123NEW.png' alt='BEI Analysis' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.8 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
                 <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
@@ -664,7 +664,7 @@ export default function DashboardPage() {
           {activeTab === 'revenue' && (
             <div>
               {/* BEI Intelligence image */}
-              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
                 <img src='/NEWNEWBEI.png' alt='BEI Business Health' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
                 <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
@@ -975,7 +975,7 @@ export default function DashboardPage() {
           {activeTab === 'deployment' && (
             <div>
               {/* BEISYSTEM image */}
-              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
                 <img src='/123NEW.png' alt='BEI Deployment System' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center center', display: 'block', opacity: 0.8 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
                 <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
