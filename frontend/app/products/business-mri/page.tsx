@@ -52,7 +52,7 @@ export default function BusinessMRIPage() {
       </section>
 
       <section style={{ padding: '60px 48px', textAlign: 'center' as const }}>
-        <img src="/business-mri-image.png" alt="Business MRI" style={{ maxWidth: '100%', width: '800px', borderRadius: '12px', border: '1px solid #1e1e1e', display: 'block', margin: '0 auto' }} />
+        <img src="/business-mri-image.png" alt="Business MRI" style={{ width: '100%', height: '600px', objectFit: 'cover', objectPosition: 'center', display: 'block', borderRadius: '12px', border: '1px solid #1e1e1e' }} />
       </section>
 
       {/* WHAT IS IT */}

@@ -79,7 +79,7 @@ export default function ClientsPage() {
           </RevealSection>
           <RevealSection delay={50}>
             <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
-              <img src="/clients-page-image.png" alt="The BEI team" style={{ maxWidth: '100%', width: '700px', borderRadius: '12px', border: '1px solid #1e1e1e', display: 'block', margin: '0 auto' }} />
+              <img src="/clients-page-image.png" alt="The BEI team" style={{ width: '100%', height: '600px', objectFit: 'cover', objectPosition: 'center', display: 'block', borderRadius: '12px', border: '1px solid #1e1e1e' }} />
             </div>
           </RevealSection>
           <RevealSection delay={100}>
