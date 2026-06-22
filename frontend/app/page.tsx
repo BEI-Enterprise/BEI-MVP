@@ -418,4 +418,7 @@ export default function Home() {
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, []) return <CurrencyProvider><LandingPage /></CurrencyProvider> }
+  }, [])
+
+  return <CurrencyProvider><LandingPage /></CurrencyProvider>
+}
