@@ -10,13 +10,11 @@ type NavProps = {
 
 export default function Nav({ active }: NavProps) {
   const [productsOpen, setProductsOpen] = useState(false)
-  const [currency, setCurrencyState] = useState<'GBP' | 'USD'>(() => {
-    if (typeof window === 'undefined') return 'GBP'
-    const saved = localStorage.getItem('bei_currency')
-    return saved === 'USD' ? 'USD' : 'GBP'
-  })
+  const [currency, setCurrencyState] = useState<'GBP' | 'USD'>('GBP')
 
   useEffect(() => {
+    const saved = localStorage.getItem('bei_currency')
+    if (saved === 'USD' || saved === 'GBP') setCurrencyState(saved)
     const handler = (e: any) => setCurrencyState(e.detail)
     window.addEventListener('bei_currency_change', handler)
     return () => window.removeEventListener('bei_currency_change', handler)
