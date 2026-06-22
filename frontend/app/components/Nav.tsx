@@ -124,12 +124,12 @@ export default function Nav({ active }: NavProps) {
       </div>
 
       <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2px', padding: '3px', backgroundColor: '#0a0a0a', border: '1px solid #2a2a2a', borderRadius: '20px' }}>
-          <button onClick={() => toggleCurrency('GBP')} style={{ padding: '4px 10px', borderRadius: '16px', border: 'none', backgroundColor: currency === 'GBP' ? gold : 'transparent', color: currency === 'GBP' ? '#050505' : '#666', fontSize: '12px', fontWeight: currency === 'GBP' ? '700' : '400', cursor: 'pointer' }}>
-            🇬🇧 £
+        <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#0a0a0a', border: '1px solid #222', borderRadius: '6px', padding: '2px', gap: '2px' }}>
+          <button onClick={() => toggleCurrency('GBP')} style={{ padding: '6px 14px', borderRadius: '4px', border: 'none', backgroundColor: currency === 'GBP' ? gold : 'transparent', color: currency === 'GBP' ? '#050505' : '#444', fontSize: '13px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.04em', transition: 'all 0.2s ease', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            🇬🇧 GBP
           </button>
-          <button onClick={() => toggleCurrency('USD')} style={{ padding: '4px 10px', borderRadius: '16px', border: 'none', backgroundColor: currency === 'USD' ? gold : 'transparent', color: currency === 'USD' ? '#050505' : '#666', fontSize: '12px', fontWeight: currency === 'USD' ? '700' : '400', cursor: 'pointer' }}>
-            🇺🇸 $
+          <button onClick={() => toggleCurrency('USD')} style={{ padding: '6px 14px', borderRadius: '4px', border: 'none', backgroundColor: currency === 'USD' ? gold : 'transparent', color: currency === 'USD' ? '#050505' : '#444', fontSize: '13px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.04em', transition: 'all 0.2s ease', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            🇺🇸 USD
           </button>
         </div>
         <a href='/login' style={{ fontSize: '15px', color: '#777777', textDecoration: 'none' }}>Sign in</a>
