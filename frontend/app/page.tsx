@@ -68,6 +68,7 @@ function LandingPage() {
               <NetworkGraph width={720} height={600} nodeCount={32} />
             </div>
             <div
+              ref={heroImgRef}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLDivElement
                 el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'
@@ -377,4 +378,44 @@ function LandingPage() {
   )
 }
 
-export default function Home() { return <CurrencyProvider><LandingPage /></CurrencyProvider> }
+export default function Home() {
+  const heroImgRef = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    const el = heroImgRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'
+          el.style.borderColor = 'rgba(200,162,74,0.5)'
+        } else {
+          el.style.boxShadow = '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)'
+          el.style.borderColor = 'rgba(200,162,74,0.2)'
+        }
+      },
+      { threshold: 0.4 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+  const heroImgRef = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    const el = heroImgRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'
+          el.style.borderColor = 'rgba(200,162,74,0.5)'
+        } else {
+          el.style.boxShadow = '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)'
+          el.style.borderColor = 'rgba(200,162,74,0.2)'
+        }
+      },
+      { threshold: 0.4 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, []) return <CurrencyProvider><LandingPage /></CurrencyProvider> }
