@@ -522,48 +522,6 @@ export default function DashboardPage() {
                 )
               })()}
 
-              {/* Latest Market Updates */}
-              <div style={{ marginBottom: '20px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                  <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', fontWeight: '600' }}>
-                    LATEST MARKET UPDATES — {industryData.label.toUpperCase()}
-                  </div>
-                  <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 4px rgba(74,170,74,0.6)' }} />
-                    <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>BEI VERIFIED · JUNE 2026</span>
-                  </div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  {marketUpdates.map((u: any, i: number) => (
-                    <div key={i} style={{
-                      backgroundColor: '#111',
-                      border: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}`,
-                      borderRadius: '10px',
-                      overflow: 'hidden' as const
-                    }}>
-                      <div style={{ position: 'relative' as const, height: '120px', overflow: 'hidden' as const }}>
-                        <img src={u.img} alt={u.title} style={{ width: '100%', height: '120px', objectFit: 'cover', display: 'block', opacity: 0.75 }} onError={(e: any) => { e.target.style.display = 'none' }} />
-                        <div style={{ position: 'absolute' as const, inset: 0, background: `linear-gradient(180deg, transparent 30%, ${u.severity === 'alert' ? 'rgba(15,5,0,0.9)' : u.severity === 'opportunity' ? 'rgba(0,10,0,0.9)' : 'rgba(10,10,10,0.9)'} 100%)` }} />
-                        <div style={{ position: 'absolute' as const, bottom: '10px', left: '12px', right: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div style={{ fontSize: '9px', color: u.severity === 'alert' ? '#ff6b6b' : u.severity === 'opportunity' ? '#6bcf6b' : gold, fontWeight: '700', letterSpacing: '0.15em', backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{u.tag}</div>
-                          <div style={{ fontSize: '9px', color: '#ddd', backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{u.date}</div>
-                        </div>
-                        <div style={{ position: 'absolute' as const, top: '10px', right: '10px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: u.severity === 'alert' ? '#cc4444' : u.severity === 'opportunity' ? '#4aaa4a' : gold, boxShadow: `0 0 6px ${u.severity === 'alert' ? 'rgba(204,68,68,0.8)' : u.severity === 'opportunity' ? 'rgba(74,170,74,0.8)' : 'rgba(200,162,74,0.8)'}` }} />
-                      </div>
-                      <div style={{ padding: '14px 16px', borderTop: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}` }}>
-                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#e8e8e8', marginBottom: '6px', lineHeight: '1.3' }}>{u.title}</div>
-                        <div style={{ fontSize: '11px', color: '#aaa', lineHeight: '1.65' }}>{u.summary}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {!isEstate && !isMarketing && !isAccounting && (
-                  <div style={{ marginTop: '10px', textAlign: 'right' as const }}>
-                    <a href='/account' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Set business type in Account Settings →</a>
-                  </div>
-                )}
-              </div>
-
               {/* Primary constraint */}
               {primary && (
                 <div style={{ padding: '28px', backgroundColor: '#080f04', border: '1px solid #2a3a1a', borderRadius: '10px', marginBottom: '20px' }}>
@@ -679,6 +637,50 @@ export default function DashboardPage() {
               <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '24px', lineHeight: '1.7' }}>
                 A full breakdown of your connected business health across all five BEI pillars — Growth, Operations, Strategy, Risk and Context.
               </div>
+
+              {/* Latest Market Updates */}
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                  <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', fontWeight: '600' }}>
+                    LATEST MARKET UPDATES — {industryData.label.toUpperCase()}
+                  </div>
+                  <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 4px rgba(74,170,74,0.6)' }} />
+                    <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>BEI VERIFIED · JUNE 2026</span>
+                  </div>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {marketUpdates.map((u: any, i: number) => (
+                    <div key={i} style={{
+                      backgroundColor: '#111',
+                      border: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}`,
+                      borderRadius: '10px',
+                      overflow: 'hidden' as const
+                    }}>
+                      <div style={{ position: 'relative' as const, height: '120px', overflow: 'hidden' as const }}>
+                        <img src={u.img} alt={u.title} style={{ width: '100%', height: '120px', objectFit: 'cover', display: 'block', opacity: 0.75 }} onError={(e: any) => { e.target.style.display = 'none' }} />
+                        <div style={{ position: 'absolute' as const, inset: 0, background: `linear-gradient(180deg, transparent 30%, ${u.severity === 'alert' ? 'rgba(15,5,0,0.9)' : u.severity === 'opportunity' ? 'rgba(0,10,0,0.9)' : 'rgba(10,10,10,0.9)'} 100%)` }} />
+                        <div style={{ position: 'absolute' as const, bottom: '10px', left: '12px', right: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div style={{ fontSize: '9px', color: u.severity === 'alert' ? '#ff6b6b' : u.severity === 'opportunity' ? '#6bcf6b' : gold, fontWeight: '700', letterSpacing: '0.15em', backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{u.tag}</div>
+                          <div style={{ fontSize: '9px', color: '#ddd', backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{u.date}</div>
+                        </div>
+                        <div style={{ position: 'absolute' as const, top: '10px', right: '10px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: u.severity === 'alert' ? '#cc4444' : u.severity === 'opportunity' ? '#4aaa4a' : gold, boxShadow: `0 0 6px ${u.severity === 'alert' ? 'rgba(204,68,68,0.8)' : u.severity === 'opportunity' ? 'rgba(74,170,74,0.8)' : 'rgba(200,162,74,0.8)'}` }} />
+                      </div>
+                      <div style={{ padding: '14px 16px', borderTop: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}` }}>
+                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#e8e8e8', marginBottom: '6px', lineHeight: '1.3' }}>{u.title}</div>
+                        <div style={{ fontSize: '11px', color: '#aaa', lineHeight: '1.65' }}>{u.summary}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {!isEstate && !isMarketing && !isAccounting && (
+                  <div style={{ marginTop: '10px', textAlign: 'right' as const }}>
+                    <a href='/account' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Set business type in Account Settings →</a>
+                  </div>
+                )}
+              </div>
+
+
 
               {result ? (
                 <>
