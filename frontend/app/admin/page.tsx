@@ -299,6 +299,36 @@ export default function AdminPage() {
         {/* OVERVIEW */}
         {activeTab === 'overview' && (
           <div>
+            {/* ADMIN TIER TESTING PANEL */}
+            {(() => {
+              const adminBiz = businesses.find(b => b.email === user?.email)
+              if (!adminBiz) return null
+              const tiers: Array<{id: string, label: string, color: string}> = [
+                { id: 'free', label: 'Free', color: '#555' },
+                { id: 'analysis', label: 'Analysis £199', color: '#4a8ab0' },
+                { id: 'opportunity', label: 'Opportunity £399', color: '#C8A24A' },
+                { id: 'platform', label: 'Platform £999', color: '#4aaa4a' },
+                { id: 'corporate', label: 'Corporate £1,599', color: '#cc4444' },
+              ]
+              return (
+                <div style={{ marginBottom: '24px', padding: '20px 24px', backgroundColor: '#0a0a0a', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '10px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                    <div>
+                      <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', fontWeight: '600', marginBottom: '4px' }}>ADMIN TIER TESTING</div>
+                      <div style={{ fontSize: '13px', color: '#888' }}>Your account: <span style={{ color: gold, fontWeight: '700', textTransform: 'capitalize' as const }}>{adminBiz.subscription_tier || 'free'}</span> — switch tier to preview dashboard as that user type</div>
+                    </div>
+                    <a href='/dashboard' target='_blank' style={{ padding: '8px 18px', border: '1px solid #333', borderRadius: '6px', color: '#aaa', fontSize: '12px', textDecoration: 'none', fontWeight: '600', whiteSpace: 'nowrap' as const }}>Open Dashboard →</a>
+                  </div>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' as const }}>
+                    {tiers.map(t => (
+                      <button key={t.id} onClick={() => changeTier(adminBiz.id, t.id, adminBiz.business_name)} disabled={adminBiz.subscription_tier === t.id} style={{ padding: '9px 18px', backgroundColor: adminBiz.subscription_tier === t.id ? t.color : 'transparent', color: adminBiz.subscription_tier === t.id ? '#050505' : t.color, border: '1px solid ' + t.color, borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: adminBiz.subscription_tier === t.id ? 'default' : 'pointer', transition: 'all 0.2s ease' }}>
+                        {t.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )
+            })()}
               <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
                 <img src='/BEI EYE.png' alt='BEI Intelligence' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.7) 0%, transparent 40%, transparent 60%, rgba(5,5,5,0.7) 100%)', pointerEvents: 'none' as const }} />
