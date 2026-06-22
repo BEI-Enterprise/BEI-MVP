@@ -15,6 +15,9 @@ export function useCurrency(savedLocation?: string): Currency {
   useEffect(() => {
     const stored = localStorage.getItem('bei_currency')
     if (stored === 'USD' || stored === 'GBP') setCurrency(stored)
+    const handler = (e: any) => setCurrency(e.detail)
+    window.addEventListener('bei_currency_change', handler)
+    return () => window.removeEventListener('bei_currency_change', handler)
   }, [savedLocation])
 
   return currency

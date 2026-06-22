@@ -25,7 +25,8 @@ export default function Nav({ active }: NavProps) {
   const toggleCurrency = (c: 'GBP' | 'USD') => {
     if (currency === c) return
     localStorage.setItem('bei_currency', c)
-    window.location.reload()
+    setCurrencyState(c)
+    window.dispatchEvent(new CustomEvent('bei_currency_change', { detail: c }))
   }
 
   const links = [
