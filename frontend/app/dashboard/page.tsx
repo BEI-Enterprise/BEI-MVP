@@ -24,6 +24,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const [showWelcome, setShowWelcome] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview'|'reports'|'revenue'|'issues'|'meetings'|'connectors'|'deployment'|'intelligence'>('overview')
+  const [chartView, setChartView] = useState<'bar' | 'column' | 'pie' | 'radar'>('bar')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -106,7 +107,6 @@ export default function DashboardPage() {
   const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'there'
 
   // Industry detection
-  const [chartView, setChartView] = useState<'bar' | 'column' | 'pie' | 'radar'>('bar')
   const industry = (selected?.industry || '').toLowerCase()
   const isEstate = industry.includes('estate') || industry.includes('property') || industry.includes('letting')
   const isMarketing = industry.includes('marketing') || industry.includes('advertising') || industry.includes('digital') || industry.includes('agency')
