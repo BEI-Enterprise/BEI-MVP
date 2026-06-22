@@ -30,7 +30,7 @@ function LandingPage() {
           el.style.borderColor = 'rgba(200,162,74,0.2)'
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     )
     observer.observe(el)
     return () => observer.disconnect()
