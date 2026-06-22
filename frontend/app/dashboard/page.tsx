@@ -751,12 +751,12 @@ export default function DashboardPage() {
                       <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-end' }}>
                         <div>
                           <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '6px' }}>CONSERVATIVE UPLIFT</div>
-                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{(result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})</div>
+                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{(result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})}</div>
                           <div style={{ fontSize: '11px', color: '#e0e0e0', marginTop: '4px' }}>Annual revenue gain</div>
                         </div>
                         <div>
                           <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '6px' }}>OPTIMISTIC UPLIFT</div>
-                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{(result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})</div>
+                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{(result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})}</div>
                           <div style={{ fontSize: '11px', color: '#e0e0e0', marginTop: '4px' }}>Annual revenue gain</div>
                         </div>
                         <div style={{ flex: 1, paddingLeft: '20px', borderLeft: '1px solid #161616' }}>
