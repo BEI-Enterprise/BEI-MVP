@@ -171,7 +171,7 @@ export default function PlatformPage() {
         </div>
       </section>
       <section style={{ borderTop: '1px solid #1e1e1e', overflow: 'hidden' }}>
-        <img src='/BEISCREEN.png' alt='BEI Platform' style={{ width: '100%', height: '500px', display: 'block', objectFit: 'cover', objectPosition: 'center top' }} />
+        <img src='/BEISCREEN.png' alt='BEI Platform' style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', objectPosition: 'center top' }} />
       </section>
 
       {/* METRICS BAND */}
