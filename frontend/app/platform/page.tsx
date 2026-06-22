@@ -172,7 +172,7 @@ export default function PlatformPage() {
       </section>
       <section style={{ padding: '60px 48px', borderTop: '1px solid #1e1e1e' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.2)', boxShadow: '0 0 60px rgba(0,0,0,0.5)' }}>
-          <img src='/BEISCREEN.png' alt='BEI Platform' style={{ width: '100%', height: '600px', objectFit: 'cover', objectPosition: 'center', display: 'block', borderRadius: '12px', border: '1px solid #1e1e1e' }} />
+          <img src='/BEISCREEN.png' alt='BEI Platform' style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '700px', objectFit: 'cover', objectPosition: 'center top' }} />
         </div>
       </section>
 
