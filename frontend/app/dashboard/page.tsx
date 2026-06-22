@@ -301,7 +301,7 @@ export default function DashboardPage() {
               <div style={{ width: '1px', height: '32px', backgroundColor: '#1a1a1a' }} />
               <div style={{ textAlign: 'center' as const }}>
                 <div style={{ fontSize: '20px', fontWeight: '800', color: gold }}>
-                  {result?.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k+' : '—'}
+                  {result?.total_opportunity ? getCurrencySymbol(currency) + (result.total_opportunity.total_low || 0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) + '+' : '—'}
                 </div>
                 <div style={{ fontSize: '10px', color: '#e0e0e0', marginTop: '3px' }}>OPPORTUNITY</div>
               </div>
@@ -414,7 +414,7 @@ export default function DashboardPage() {
                   {[
                     { label: 'Primary Constraint', value: primary?.name || 'None detected', color: '#cc4444', glow: 'rgba(204,68,68,0.4)' },
                     { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', glow: 'rgba(74,170,74,0.4)' },
-                    { label: 'Total Opportunity', value: result?.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low || 0)/1000) + 'k–' + getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_high || 0)/1000) + 'k' : '—', color: gold, glow: 'rgba(200,162,74,0.4)' },
+                    { label: 'Total Opportunity', value: result?.total_opportunity ? getCurrencySymbol(currency) + (result.total_opportunity.total_low || 0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' – ' + getCurrencySymbol(currency) + (result.total_opportunity.total_high || 0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) : '—', color: gold, glow: 'rgba(200,162,74,0.4)' },
                     { label: 'Secondary Constraints', value: secondary.length + ' identified', color: '#ddd', glow: 'rgba(120,120,120,0.3)' },
                     { label: 'Confidence', value: (result?.confidence || 'low').toUpperCase(), color: result?.confidence === 'high' ? '#4aaa4a' : '#888', glow: result?.confidence === 'high' ? 'rgba(74,170,74,0.4)' : 'rgba(120,120,120,0.3)' },
                     { label: 'Subscription', value: (selected?.subscription_tier || 'analysis').toUpperCase(), color: gold, glow: 'rgba(200,162,74,0.4)' },
@@ -726,7 +726,7 @@ export default function DashboardPage() {
                     {[
                       { label: 'Primary Constraint', value: primary?.name || 'None detected', color: primary ? '#cc4444' : '#4aaa4a', sub: primary ? 'Active — verified' : 'No constraint detected', glow: primary ? 'rgba(204,68,68,0.4)' : 'rgba(74,170,74,0.4)' },
                       { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', sub: 'Constraint verification', glow: 'rgba(74,170,74,0.4)' },
-                      { label: 'Total Opportunity', value: result.total_opportunity ? getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_low||0)/1000) + 'k–' + getCurrencySymbol(currency) + Math.round((result.total_opportunity.total_high||0)/1000) + 'k' : '—', color: gold, sub: 'Annual value available', glow: 'rgba(200,162,74,0.4)' },
+                      { label: 'Total Opportunity', value: result.total_opportunity ? getCurrencySymbol(currency) + (result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' – ' + getCurrencySymbol(currency) + (result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) : '—', color: gold, sub: 'Annual value available', glow: 'rgba(200,162,74,0.4)' },
                       { label: 'Revenue Band', value: result.inputs?.monthly_revenue || '—', color: '#ddd', sub: 'Current reported revenue', glow: 'rgba(120,120,120,0.3)' },
                       { label: 'Revenue Trend', value: result.inputs?.revenue_trend || '—', color: '#ddd', sub: 'Self-reported direction', glow: 'rgba(120,120,120,0.3)' },
                       { label: 'Confidence Level', value: (result.confidence || 'low').toUpperCase(), color: result.confidence === 'high' ? '#4aaa4a' : '#888', sub: 'Intelligence confidence', glow: result.confidence === 'high' ? 'rgba(74,170,74,0.4)' : 'rgba(120,120,120,0.3)' },
@@ -751,12 +751,12 @@ export default function DashboardPage() {
                       <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-end' }}>
                         <div>
                           <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '6px' }}>CONSERVATIVE UPLIFT</div>
-                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{Math.round((result.total_opportunity.total_low||0)/1000)}k</div>
+                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{(result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})</div>
                           <div style={{ fontSize: '11px', color: '#e0e0e0', marginTop: '4px' }}>Annual revenue gain</div>
                         </div>
                         <div>
                           <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '6px' }}>OPTIMISTIC UPLIFT</div>
-                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{Math.round((result.total_opportunity.total_high||0)/1000)}k</div>
+                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{(result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})</div>
                           <div style={{ fontSize: '11px', color: '#e0e0e0', marginTop: '4px' }}>Annual revenue gain</div>
                         </div>
                         <div style={{ flex: 1, paddingLeft: '20px', borderLeft: '1px solid #161616' }}>
@@ -836,7 +836,7 @@ export default function DashboardPage() {
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #2a1a1a' }}>
                       {result?.total_opportunity && (
                         <div style={{ fontSize: '12px', color: gold }}>
-                          Opportunity: {getCurrencySymbol(currency)}{Math.round((result.total_opportunity.total_low||0)/1000)}k–{getCurrencySymbol(currency)}{Math.round((result.total_opportunity.total_high||0)/1000)}k annual uplift on resolution
+                          Opportunity: {getCurrencySymbol(currency)}{(result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})–{getCurrencySymbol(currency)}{(result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) annual uplift on resolution
                         </div>
                       )}
                       <a href={`/report/${selected?.id}`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600', marginLeft: 'auto' }}>View full analysis →</a>
