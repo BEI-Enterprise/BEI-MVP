@@ -1,3 +1,4 @@
+import PageTracker from "./components/PageTracker"
 import type { Metadata } from "next";
 import "./globals.css";
 
