@@ -107,7 +107,6 @@ export default function DashboardPage() {
 
   // Industry detection
   const [chartView, setChartView] = useState<'bar' | 'column' | 'pie' | 'radar'>('bar')
-  const [chartView, setChartView] = useState<'bar' | 'column' | 'pie' | 'radar'>('bar')
   const industry = (selected?.industry || '').toLowerCase()
   const isEstate = industry.includes('estate') || industry.includes('property') || industry.includes('letting')
   const isMarketing = industry.includes('marketing') || industry.includes('advertising') || industry.includes('digital') || industry.includes('agency')
