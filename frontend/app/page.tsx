@@ -67,7 +67,18 @@ function LandingPage() {
             <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.12, pointerEvents: 'none' as const }}>
               <NetworkGraph width={720} height={600} nodeCount={32} />
             </div>
-            <div style={{ position: 'relative' as const, width: '100%', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)' }}>
+            <div
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLDivElement
+                el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'
+                el.style.borderColor = 'rgba(200,162,74,0.5)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLDivElement
+                el.style.boxShadow = '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)'
+                el.style.borderColor = 'rgba(200,162,74,0.2)'
+              }}
+              style={{ position: 'relative' as const, width: '100%', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }}>
               <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
               <img src='/bei-hero.png' alt='BEI Business Intelligence' style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '1200px', objectFit: 'cover' }} />
               <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(135deg, transparent 60%, rgba(5,5,5,0.4) 100%)', pointerEvents: 'none' as const }} />
