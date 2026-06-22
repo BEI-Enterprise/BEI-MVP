@@ -1289,7 +1289,7 @@ export default function DashboardPage() {
             <div>
 
               {/* BEI INTEL image */}
-              <div style={{ marginBottom: '28px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const }}>
+              <div style={{ marginBottom: '28px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
                 <img src='/bei-intel-dashboard.png' alt='BEI Intelligence' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
                 <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.8) 0%, transparent 40%, transparent 60%, rgba(5,5,5,0.8) 100%)', pointerEvents: 'none' as const }} />
                 <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 32px', pointerEvents: 'none' as const }}>
