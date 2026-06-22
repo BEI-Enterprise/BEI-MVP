@@ -1,4 +1,5 @@
 'use client'
+import React, { useRef, useEffect } from 'react'
 import { CurrencyProvider, useCurrencyContext } from './context/CurrencyContext'
 import CurrencyToggle from './components/CurrencyToggle'
 import { useCurrency, formatPrice } from '../lib/currency'
@@ -14,6 +15,27 @@ const NetworkGraph = dynamic<{ width: number, height: number, nodeCount: number 
 
 
 function LandingPage() {
+  const heroImgRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = heroImgRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'
+          el.style.borderColor = 'rgba(200,162,74,0.5)'
+        } else {
+          el.style.boxShadow = '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)'
+          el.style.borderColor = 'rgba(200,162,74,0.2)'
+        }
+      },
+      { threshold: 0.4 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   const { sym, fmt } = useCurrencyContext()
   const currency = useCurrency()
   const gold = '#C8A24A'
@@ -379,46 +401,5 @@ function LandingPage() {
 }
 
 export default function Home() {
-  const heroImgRef = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    const el = heroImgRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'
-          el.style.borderColor = 'rgba(200,162,74,0.5)'
-        } else {
-          el.style.boxShadow = '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)'
-          el.style.borderColor = 'rgba(200,162,74,0.2)'
-        }
-      },
-      { threshold: 0.4 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-  const heroImgRef = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    const el = heroImgRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'
-          el.style.borderColor = 'rgba(200,162,74,0.5)'
-        } else {
-          el.style.boxShadow = '0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(200,162,74,0.08)'
-          el.style.borderColor = 'rgba(200,162,74,0.2)'
-        }
-      },
-      { threshold: 0.4 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
   return <CurrencyProvider><LandingPage /></CurrencyProvider>
 }
