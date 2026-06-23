@@ -27,6 +27,14 @@ export default function DashboardPage() {
   const [chartView, setChartView] = useState<'bar' | 'column' | 'pie' | 'radar'>('bar')
 
   useEffect(() => {
+    if ((window as any).Chart) return
+    const s = document.createElement('script')
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js'
+    s.async = true
+    document.head.appendChild(s)
+  }, [])
+
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search)
       if (params.get('subscribed') === 'true') {
@@ -495,7 +503,7 @@ export default function DashboardPage() {
                         <script dangerouslySetInnerHTML={{ __html: `(function(){var el=document.getElementById('${pId}');if(!el)return;function init(){if(!window.Chart){setTimeout(init,80);return;}if(el._c)el._c.destroy();var v='${chartView}',L=${pLabels},S=${pScores},B=${pBench},C=${pColors},base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'#888',font:{size:11},boxWidth:10}},tooltip:{backgroundColor:'#1a1a1a',titleColor:'#e0e0e0',bodyColor:'#888',borderColor:'#333',borderWidth:1}}};var cfg;if(v==='bar'){cfg={type:'bar',data:{labels:L,datasets:[{label:'Score',data:S,backgroundColor:C,borderRadius:3,barThickness:18},{label:'Benchmark',data:B,backgroundColor:'rgba(255,255,255,0.15)',borderRadius:3,barThickness:18}]},options:{...base,indexAxis:'y',scales:{x:{min:0,max:20,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#888',font:{size:11}}},y:{grid:{display:false},ticks:{color:'#e0e0e0',font:{size:11}}}}}};}else if(v==='column'){cfg={type:'bar',data:{labels:L,datasets:[{label:'Score',data:S,backgroundColor:C,borderRadius:4},{label:'Benchmark',data:B,backgroundColor:'rgba(255,255,255,0.2)',borderRadius:4}]},options:{...base,scales:{y:{min:0,max:20,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#888',font:{size:11}}},x:{grid:{display:false},ticks:{color:'#e0e0e0',font:{size:11}}}}}};}else if(v==='pie'){cfg={type:'doughnut',data:{labels:L,datasets:[{data:S,backgroundColor:C,borderWidth:2,borderColor:'#0a0a0a',hoverOffset:6}]},options:{...base,cutout:'50%',plugins:{...base.plugins,legend:{display:true,position:'right',labels:{color:'#e0e0e0',font:{size:11},boxWidth:10,padding:10,generateLabels:function(chart){return chart.data.labels.map(function(l,i){return{text:l+'  '+S[i]+'/20',fillStyle:C[i],strokeStyle:C[i],lineWidth:0,hidden:false,index:i};});}}}}};}else{cfg={type:'radar',data:{labels:L,datasets:[{label:'Score',data:S,backgroundColor:'rgba(200,162,74,0.15)',borderColor:'#C8A24A',borderWidth:2,pointBackgroundColor:C,pointRadius:4},{label:'Benchmark',data:B,backgroundColor:'transparent',borderColor:'rgba(255,255,255,0.25)',borderWidth:1.5,borderDash:[4,3],pointRadius:2,pointBackgroundColor:'rgba(255,255,255,0.3)'}]},options:{...base,scales:{r:{min:0,max:20,grid:{color:'rgba(255,255,255,0.06)'},angleLines:{color:'rgba(255,255,255,0.06)'},pointLabels:{color:'#e0e0e0',font:{size:11}},ticks:{color:'#888',font:{size:9},stepSize:5,backdropColor:'transparent'}}}}};}el._c=new window.Chart(el,cfg);}init();})();` }} />
                       </div>
                     )}
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" />
+
                   </div>
                 )
               })()}
