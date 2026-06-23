@@ -745,7 +745,22 @@ export default function DashboardPage() {
                 )
               })()}
 
-              {/* Data connection to-do list */}
+              {/* Primary constraint */}
+              {primary && (
+                <div style={{ padding: '28px', backgroundColor: '#080f04', border: '1px solid #2a3a1a', borderRadius: '10px', marginBottom: '20px' }}>
+                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '10px', fontWeight: '600' }}>PRIMARY CONSTRAINT — VERIFIED</div>
+                  <div style={{ fontSize: '20px', fontWeight: '800', marginBottom: '10px' }}>{primary.name}</div>
+                  <div style={{ fontSize: '14px', color: '#ddd', lineHeight: '1.75', marginBottom: '16px' }}>{primary.hypothesis}</div>
+                  {primary.evidence && primary.evidence.slice(0,2).map((e: string, i: number) => (
+                    <div key={i} style={{ display: 'flex', gap: '10px', marginBottom: '8px' }}>
+                      <span style={{ color: gold, fontSize: '10px', marginTop: '4px' }}>◈</span>
+                      <span style={{ fontSize: '13px', color: '#e0e0e0', lineHeight: '1.6' }}>{e}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+{/* Data connection to-do list */}
               {(() => {
                 const connectors = [
                   { id: 'crm', label: 'CRM Connected', desc: 'HubSpot, Salesforce or manual CRM', href: '/dashboard' },
