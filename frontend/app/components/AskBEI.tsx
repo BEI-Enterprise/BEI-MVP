@@ -18,6 +18,12 @@ export default function AskBEI({ context }: { context?: any }) {
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const handler = () => setOpen(true)
+    window.addEventListener('open-ask-bei', handler)
+    return () => window.removeEventListener('open-ask-bei', handler)
+  }, [])
+
+  useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
@@ -79,33 +85,7 @@ Keep responses under 150 words. Be direct, intelligent and actionable. Always an
 
   return (
     <>
-      {/* Floating button */}
-      {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          style={{
-            position: 'fixed' as const,
-            bottom: '24px',
-            left: '196px',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '10px 18px',
-            backgroundColor: '#0a0a0a',
-            border: '1px solid rgba(200,162,74,0.4)',
-            borderRadius: '8px',
-            color: gold,
-            fontSize: '13px',
-            fontWeight: '700',
-            cursor: 'pointer',
-            boxShadow: '0 4px 20px rgba(200,162,74,0.15)',
-            letterSpacing: '0.05em',
-          }}
-        >
-          <span style={{ fontSize: '16px' }}>✦</span> Ask BEI
-        </button>
-      )}
+
 
       {/* Chat panel */}
       {open && (

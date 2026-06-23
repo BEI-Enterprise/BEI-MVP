@@ -108,6 +108,22 @@ export default function DashboardShell({ children, activeId }: { children: React
           })}
         </nav>
 
+        {/* Ask BEI button in sidebar */}
+        {!collapsed && (
+          <div style={{ padding: '12px 16px', borderTop: '1px solid #1a1a1a' }}>
+            <button
+              onClick={() => { const event = new CustomEvent('open-ask-bei'); window.dispatchEvent(event); }}
+              style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', color: '#C8A24A', fontSize: '12px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.05em' }}
+            >
+              <span style={{ fontSize: '16px' }}>✦</span>
+              <div style={{ textAlign: 'left' as const }}>
+                <div>Ask BEI</div>
+                <div style={{ fontSize: '9px', color: '#555', fontWeight: '400', letterSpacing: '0.1em' }}>INTELLIGENCE ASSISTANT</div>
+              </div>
+            </button>
+          </div>
+        )}
+
         {/* Bottom status */}
         {!collapsed && (
           <div style={{ padding: '12px 16px', borderTop: `1px solid ${sidebarBorder}` }}>
