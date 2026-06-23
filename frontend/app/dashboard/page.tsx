@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import { getCurrencySymbol } from '../../lib/currency'
 import DashboardShell from '../components/DashboardShell'
+import AskBEI from '../components/AskBEI'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -536,6 +537,16 @@ export default function DashboardPage() {
           )}
         </div>
       </div>
+      <AskBEI context={{
+        businessName,
+        industry: industryLabel,
+        healthScore,
+        primaryConstraint: primary?.name,
+        verificationScore,
+        confidence,
+        opportunity: oppLow > 0 ? fmt(oppLow) + '–' + fmt(oppHigh) : null,
+        tier,
+      }} />
     </DashboardShell>
   )
 }
