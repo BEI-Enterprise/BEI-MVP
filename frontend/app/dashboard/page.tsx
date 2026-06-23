@@ -133,10 +133,10 @@ export default function DashboardPage() {
           { label: 'CONSTRAINTS', value: (1 + secondary.length).toString(), color: '#e0e0e0', sub: (secondary.length) + ' secondary' },
           { label: 'PLAN STATUS', value: tier, color: gold, sub: 'Active' },
         ].map((k, i) => (
-          <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '8px' }}>{k.label}</div>
-            <div style={{ fontSize: '20px', fontWeight: '700', color: k.color, lineHeight: 1 }}>{k.value}</div>
-            <div style={{ fontSize: '10px', color: '#444', marginTop: '5px' }}>{k.sub}</div>
+          <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '18px 20px' }}>
+            <div style={{ fontSize: '9px', color: '#666', letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>{k.label}</div>
+            <div style={{ fontSize: '22px', fontWeight: '800', color: k.color, lineHeight: 1 }}>{k.value}</div>
+            <div style={{ fontSize: '11px', color: '#555', marginTop: '6px' }}>{k.sub}</div>
           </div>
         ))}
       </div>
@@ -269,26 +269,26 @@ export default function DashboardPage() {
                   {[5,10,15,20].map(ring => (
                     <polygon key={ring} points={pillarList.map((_: any, i: number) => {
                       const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                      const r = (ring/20)*80
+                      const r = (ring/20)*72
                       return `${100+r*Math.cos(a)},${100+r*Math.sin(a)}`
                     }).join(' ')} fill="none" stroke="#1e1e1e" strokeWidth="1"/>
                   ))}
                   {pillarList.map((_: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    return <line key={i} x1="100" y1="100" x2={100+80*Math.cos(a)} y2={100+80*Math.sin(a)} stroke="#222" strokeWidth="1"/>
+                    return <line key={i} x1="100" y1="100" x2={100+72*Math.cos(a)} y2={100+72*Math.sin(a)} stroke="#222" strokeWidth="1"/>
                   })}
                   <polygon points={pillarList.map((p: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    const r = (p.score/20)*80
+                    const r = (p.score/20)*72
                     return `${100+r*Math.cos(a)},${100+r*Math.sin(a)}`
                   }).join(' ')} fill="rgba(200,162,74,0.12)" stroke={gold} strokeWidth="1.5"/>
                   {pillarList.map((p: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    const r = (p.score/20)*80
-                    const lx = 100+95*Math.cos(a), ly = 100+95*Math.sin(a)
+                    const r = (p.score/20)*72
+                    const lx = 100+90*Math.cos(a), ly = 100+95*Math.sin(a)
                     return <g key={i}>
                       <circle cx={100+r*Math.cos(a)} cy={100+r*Math.sin(a)} r="3" fill={p.color}/>
-                      <text x={lx} y={ly} textAnchor="middle" dominantBaseline="middle" fill="#666" fontSize="9">{p.name.slice(0,4)}</text>
+                      <text x={lx} y={ly} textAnchor="middle" dominantBaseline="middle" fill="#666" fontSize="8">{p.name}</text>
                     </g>
                   })}
                   <text x="100" y="96" textAnchor="middle" fill={healthColor} fontSize="20" fontWeight="800">{healthScore}</text>
