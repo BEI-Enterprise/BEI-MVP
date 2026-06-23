@@ -594,17 +594,17 @@ export default function DashboardPage() {
                         ))}
                         {/* COLUMN */}
                         {chartView === 'column' && (
-                          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', height: '180px', paddingBottom: '28px', paddingLeft: '20px', position: 'relative' as const }}>
+                          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '16px', height: '180px', paddingBottom: '28px', paddingLeft: '24px', position: 'relative' as const, overflow: 'hidden' as const }}>
                             {[0,5,10,15,20].map(line => (
-                              <div key={line} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${line*7.6+28}px`, borderTop: '1px solid #1e1e1e' }}>
-                                <span style={{ position: 'absolute' as const, left: '2px', fontSize: '9px', color: '#444', top: '-6px' }}>{line}</span>
+                              <div key={line} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${(line/20)*152+28}px`, borderTop: '1px solid #1e1e1e', pointerEvents: 'none' as const }}>
+                                <span style={{ position: 'absolute' as const, left: '4px', fontSize: '9px', color: '#444', top: '-6px' }}>{line}</span>
                               </div>
                             ))}
                             {pillarData.map((p: any, i: number) => (
-                              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '4px' }}>
+                              <div key={i} style={{ width: '56px', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '4px' }}>
                                 <div style={{ fontSize: '10px', fontWeight: '700', color: p.color }}>{p.score}</div>
                                 <div style={{ width: '100%', position: 'relative' as const }}>
-                                  <div style={{ width: '100%', height: `${(p.score/20)*152}px`, background: `linear-gradient(180deg, ${p.color}, ${p.color}66)`, borderRadius: '3px 3px 0 0', transition: 'height 1s ease', minHeight: '3px' }} />
+                                  <div style={{ width: '100%', height: `${(p.score/20)*152}px`, background: `linear-gradient(180deg, ${p.color}, ${p.color}55)`, borderRadius: '3px 3px 0 0', transition: 'height 1s ease', minHeight: '3px' }} />
                                   <div style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${(p.benchmark/20)*152}px`, borderTop: '2px dashed rgba(255,255,255,0.3)' }} />
                                 </div>
                                 <div style={{ fontSize: '9px', color: '#888', textAlign: 'center' as const }}>{p.name.slice(0,4)}</div>
