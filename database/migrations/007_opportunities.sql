@@ -129,3 +129,4 @@ COMMENT ON TABLE opportunities IS 'Every verified constraint generates a quantif
 COMMENT ON COLUMN opportunities.opportunity_value IS 'Formula: estimated_value x (confidence_score / 100). Calculated at application layer.';
 COMMENT ON COLUMN opportunities.deployment_tier IS 'Tier 1: automatic. Tier 2: approval required. Tier 3: recommendation only. Never deploy pricing, staffing or strategic decisions automatically.';
 COMMENT ON COLUMN opportunities.analysis_version IS 'v1.0-rules-based until verification and decision intelligence engines are live.';
+    

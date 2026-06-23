@@ -6,6 +6,7 @@ import { colors, fontSize, fontWeight, navHeight, cardStyle, pageWrapper, conten
 
 const supabase = createClient()
 
+import DashboardShell from '../components/DashboardShell'
 export default function ConstraintsPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
@@ -72,7 +73,7 @@ export default function ConstraintsPage() {
   }
 
   return (
-    <main style={pageWrapper}>
+    <DashboardShell activeId="constraints"><main style={pageWrapper}>
       <nav style={{ padding: '0 48px', borderBottom: `1px solid ${colors.borderSubtle}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: navHeight, backgroundColor: colors.bgBase }}>
         <span style={{ fontSize: '20px', fontWeight: fontWeight.extrabold, color: colors.gold, letterSpacing: '0.1em' }}>BEI</span>
         <div style={{ display: 'flex' }}>
@@ -180,5 +181,6 @@ export default function ConstraintsPage() {
         )}
       </div>
     </main>
+  </DashboardShell>
   )
 }

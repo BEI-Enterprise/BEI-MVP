@@ -7,6 +7,7 @@ import Nav from '../components/Nav'
 
 const supabase = createClient()
 
+import DashboardShell from '../components/DashboardShell'
 export default function HealthPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
@@ -70,7 +71,7 @@ export default function HealthPage() {
   const healthColor = overall >= 70 ? colors.success : (overall >= 45 ? colors.gold : colors.error)
 
   return (
-    <main style={pageWrapper}>
+    <DashboardShell activeId="risk"><main style={pageWrapper}>
       <Nav />
 
       <div style={contentWrapper}>
@@ -146,5 +147,6 @@ export default function HealthPage() {
         </div>
       </div>
     </main>
+  </DashboardShell>
   )
 }

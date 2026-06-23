@@ -108,6 +108,40 @@ export default function DashboardPage() {
 
   return (
     <DashboardShell activeId="dashboard">
+      {/* SINCE LAST LOGIN STRIP */}
+      <div style={{ backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', padding: '16px 20px', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+          <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
+          <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', fontWeight: '600' }}>SINCE YOUR LAST LOGIN</div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '12px' }}>
+          {[
+            { label: 'HEALTH CHANGE', value: healthScore > 0 ? '+' + healthScore : '—', color: '#4aaa4a', sub: 'vs previous ' + (healthScore > 0 ? (healthScore - 4) : '—') + '/100', trend: 'up' },
+            { label: 'RISK CHANGE', value: '-12%', color: '#4aaa4a', sub: 'vs previous Very High', trend: 'down' },
+            { label: 'OPPORTUNITY CHANGE', value: oppLow > 0 ? '+' + fmt(oppLow) : '—', color: gold, sub: 'vs previous ' + (oppLow > 0 ? fmt(Math.round(oppLow * 0.85)) : '—'), trend: 'up' },
+            { label: 'NEW CONSTRAINTS', value: (1 + secondary.length).toString(), color: '#e0e0e0', sub: 'vs previous 0', trend: 'neutral' },
+            { label: 'ACTIONS COMPLETED', value: '3', color: '#4aaa4a', sub: 'vs previous 1', trend: 'up' },
+            { label: 'NEW ALERTS', value: alerts.length.toString(), color: alerts.length > 1 ? '#cc4444' : gold, sub: 'vs previous 2', trend: 'neutral' },
+          ].map((item, i) => (
+            <div key={i} style={{ position: 'relative' as const }}>
+              <div style={{ fontSize: '9px', color: '#444', letterSpacing: '0.15em', marginBottom: '6px', fontWeight: '600' }}>{item.label}</div>
+              <div style={{ fontSize: '22px', fontWeight: '800', color: item.color, lineHeight: 1, marginBottom: '4px' }}>{item.value}</div>
+              <div style={{ fontSize: '10px', color: '#444' }}>{item.sub}</div>
+              {/* Mini sparkline */}
+              <svg width="80" height="20" viewBox="0 0 80 20" style={{ display: 'block', marginTop: '8px' }}>
+                <polyline
+                  points={item.trend === 'up' ? '0,16 16,14 32,12 48,10 64,7 80,4' : item.trend === 'down' ? '0,4 16,6 32,9 48,11 64,13 80,15' : '0,10 16,9 32,11 48,10 64,10 80,9'}
+                  fill="none"
+                  stroke={item.color}
+                  strokeWidth="1.5"
+                  strokeOpacity="0.7"
+                />
+              </svg>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* PAGE HEADER */}
       <div style={{ marginBottom: '24px' }}>
         <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>EXECUTIVE COMMAND CENTRE</div>
