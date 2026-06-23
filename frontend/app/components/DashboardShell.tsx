@@ -7,15 +7,15 @@ const sidebar = '#0a0a0a'
 const sidebarBorder = '#1a1a1a'
 
 const NAV_ITEMS = [
-  { id: 'dashboard', label: 'Executive Command Centre', icon: '◈', href: '/dashboard' },
-  { id: 'twin', label: 'Business Twin™ Centre', icon: '⬡', href: '/connect' },
-  { id: 'constraints', label: 'Constraint Intelligence™', icon: '⊗', href: '/constraints' },
-  { id: 'opportunities', label: 'Opportunity Centre™', icon: '◎', href: '/opportunities' },
-  { id: 'risk', label: 'Risk Intelligence™', icon: '⚠', href: '/health' },
-  { id: 'performance', label: 'Performance Intelligence™', icon: '▲', href: '/outcomes' },
-  { id: 'industry', label: 'Industry Intelligence™', icon: '⊞', href: '/clients' },
-  { id: 'deployment', label: 'Outcome & Deployment', icon: '▶', href: '/deployments' },
-  { id: 'operations', label: 'Intelligence Operations™', icon: '⊙', href: '/connect' },
+  { id: 'dashboard', label: 'Executive Command Centre', icon: '⌂', href: '/dashboard' },
+  { id: 'twin', label: 'Business Twin™ Centre', icon: '◉', href: '/connect' },
+  { id: 'constraints', label: 'Constraint Intelligence™', icon: '◎', href: '/constraints' },
+  { id: 'opportunities', label: 'Opportunity Centre™', icon: '◈', href: '/opportunities' },
+  { id: 'risk', label: 'Risk Intelligence™', icon: '⊘', href: '/health' },
+  { id: 'performance', label: 'Performance Intelligence™', icon: '⟋', href: '/outcomes' },
+  { id: 'industry', label: 'Industry Intelligence™', icon: '⊕', href: '/clients' },
+  { id: 'deployment', label: 'Outcome & Deployment™', icon: '▹', href: '/deployments' },
+  { id: 'operations', label: 'Intelligence Operations™', icon: '⊛', href: '/connect', dividerBefore: true },
   { id: 'admin', label: 'Administration', icon: '⚙', href: '/account' },
 ]
 
@@ -54,7 +54,7 @@ export default function DashboardShell({ children, activeId }: { children: React
         <div style={{ padding: collapsed ? '20px 0' : '20px 20px', borderBottom: `1px solid ${sidebarBorder}`, display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'space-between', minHeight: '64px' }}>
           {!collapsed && (
             <div>
-              <div style={{ fontSize: '18px', fontWeight: '800', color: gold, letterSpacing: '0.15em' }}>BEI</div>
+              <div style={{ fontSize: '18px', fontWeight: '800', color: gold, letterSpacing: '0.15em' }}>BEI<sup style={{ fontSize: '9px', verticalAlign: 'super' }}>™</sup></div>
               <div style={{ fontSize: '8px', color: '#555', letterSpacing: '0.2em', marginTop: '2px' }}>BUSINESS EXECUTION INTELLIGENCE</div>
             </div>
           )}
@@ -68,7 +68,8 @@ export default function DashboardShell({ children, activeId }: { children: React
           {NAV_ITEMS.map(item => {
             const isActive = activeId === item.id
             return (
-              <a key={item.id} href={item.href} style={{
+              {(item as any).dividerBefore && <div style={{ height: '1px', backgroundColor: '#1a1a1a', margin: '6px 12px' }} />}
+            <a key={item.id} href={item.href} style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
@@ -79,7 +80,7 @@ export default function DashboardShell({ children, activeId }: { children: React
                 borderLeft: isActive ? `2px solid ${gold}` : '2px solid transparent',
                 color: isActive ? gold : '#666',
                 fontSize: '12px',
-                fontWeight: isActive ? '600' : '400',
+                fontWeight: isActive ? '700' : '400',
                 letterSpacing: '0.02em',
                 transition: 'all 0.15s ease',
                 whiteSpace: 'nowrap' as const,
@@ -87,7 +88,18 @@ export default function DashboardShell({ children, activeId }: { children: React
               onMouseEnter={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#aaa'; (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(255,255,255,0.03)' }}}
               onMouseLeave={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#666'; (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent' }}}
               >
-                <span style={{ fontSize: '14px', flexShrink: 0, width: '16px', textAlign: 'center' as const }}>{item.icon}</span>
+                <span style={{ flexShrink: 0, width: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {item.id === 'dashboard' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L1 7h2v7h4v-4h2v4h4V7h2L8 1z" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.15)' : 'none'} strokeLinejoin="round"/></svg>}
+                  {item.id === 'twin' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><circle cx="8" cy="8" r="2.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.2)' : 'none'}/><line x1="8" y1="1.5" x2="8" y2="5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><line x1="8" y1="11" x2="8" y2="14.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><line x1="1.5" y1="8" x2="5" y2="8" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><line x1="11" y1="8" x2="14.5" y2="8" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/></svg>}
+                  {item.id === 'constraints' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><circle cx="8" cy="8" r="3" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.15)' : 'none'}/><line x1="8" y1="5" x2="8" y2="3" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><line x1="11" y1="8" x2="13" y2="8" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><line x1="8" y1="11" x2="8" y2="13" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><line x1="5" y1="8" x2="3" y2="8" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/></svg>}
+                  {item.id === 'opportunities' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L10 6h4.5L11 9l1.5 4.5L8 11l-4.5 2.5L5 9 1.5 6H6L8 1.5z" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.15)' : 'none'} strokeLinejoin="round"/></svg>}
+                  {item.id === 'risk' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L14.5 13H1.5L8 1.5z" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.1)' : 'none'} strokeLinejoin="round"/><line x1="8" y1="6" x2="8" y2="9.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.4"/><circle cx="8" cy="11.5" r="0.8" fill={isActive ? '#C8A24A' : '#555'}/></svg>}
+                  {item.id === 'performance' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="1,12 5,7 8,9 11,4 15,6" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.4" fill="none" strokeLinejoin="round" strokeLinecap="round"/><polyline points="11,4 15,4 15,8" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill="none" strokeLinejoin="round" strokeLinecap="round"/></svg>}
+                  {item.id === 'industry' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><ellipse cx="8" cy="8" rx="3" ry="6.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><line x1="1.5" y1="5.5" x2="14.5" y2="5.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1"/><line x1="1.5" y1="10.5" x2="14.5" y2="10.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1"/></svg>}
+                  {item.id === 'deployment' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C8 1.5 13 5 13 9a5 5 0 01-10 0c0-4 5-7.5 5-7.5z" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.1)' : 'none'}/><line x1="8" y1="9" x2="8" y2="14" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/><line x1="5.5" y1="12" x2="10.5" y2="12" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2"/></svg>}
+                  {item.id === 'operations' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.15)' : 'none'}/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.1 3.1l1.4 1.4M11.5 11.5l1.4 1.4M3.1 12.9l1.4-1.4M11.5 4.5l1.4-1.4" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" strokeLinecap="round"/></svg>}
+                  {item.id === 'admin' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.15)' : 'none'}/><path d="M8 1.5l1 1.8h2l-1.5 1.7.5 2-2-1-2 1 .5-2L5 3.3h2l1-1.8zM8 14.5l-1-1.8H5l1.5-1.7-.5-2 2 1 2-1-.5 2 1.5 1.7H9l-1 1.8zM1.5 8l1.8-1v-2l1.7 1.5 2-.5-1 2 1 2-2-.5-1.7 1.5v-2L1.5 8zM14.5 8l-1.8 1v2l-1.7-1.5-2 .5 1-2-1-2 2 .5 1.7-1.5v2l1.8 1z" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1" fill="none" strokeLinejoin="round"/></svg>}
+                </span>
                 {!collapsed && <span>{item.label}</span>}
               </a>
             )

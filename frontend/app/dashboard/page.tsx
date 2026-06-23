@@ -169,6 +169,7 @@ export default function DashboardPage() {
           <div>
             <h1 style={{ fontSize: '26px', fontWeight: '800', letterSpacing: '-0.02em', margin: 0 }}>Welcome back, {userName}.</h1>
             <div style={{ fontSize: '13px', color: '#555', marginTop: '4px' }}>{businessName} · {tier} Plan · {industryLabel}</div>
+          <div style={{ fontSize: '11px', color: '#333', marginTop: '3px', letterSpacing: '0.05em' }}>Your real-time executive intelligence overview</div>
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>
             <a href="/book" style={{ padding: '8px 16px', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', fontSize: '12px', textDecoration: 'none' }}>Book Strategy Session</a>
@@ -180,17 +181,21 @@ export default function DashboardPage() {
       {/* EXECUTIVE SUMMARY STRIP */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '10px', marginBottom: '20px' }}>
         {[
-          { label: 'OVERALL HEALTH', value: healthScore + '/100', color: healthColor, sub: health.band || 'unknown' },
-          { label: 'VERIFICATION', value: verificationScore + '/100', color: verificationScore >= 70 ? '#4aaa4a' : gold, sub: 'Primary constraint' },
-          { label: 'OPPORTUNITY', value: oppLow > 0 ? fmt(oppLow) + '+' : '—', color: gold, sub: 'Annual uplift' },
-          { label: 'CONFIDENCE', value: confidence.toUpperCase(), color: confColor, sub: 'Intelligence grade' },
-          { label: 'CONSTRAINTS', value: (1 + secondary.length).toString(), color: '#e0e0e0', sub: (secondary.length) + ' secondary' },
-          { label: 'PLAN STATUS', value: tier, color: gold, sub: 'Active' },
+          { label: 'OVERALL HEALTH', value: healthScore + '/100', color: healthColor, trend: '↑ ' + healthDelta + ' pts', prevVal: 'vs prev ' + prevHealth + '/100', spark: 'up', trendColor: '#4aaa4a' },
+          { label: 'VERIFICATION', value: verificationScore + '/100', color: verificationScore >= 70 ? '#4aaa4a' : gold, trend: isRootCause ? '✓ Root cause' : '~ Suspected', prevVal: confidence + ' confidence', spark: 'up', trendColor: verificationScore >= 70 ? '#4aaa4a' : gold },
+          { label: 'OPPORTUNITY', value: oppLow > 0 ? fmt(oppLow) + '+' : '—', color: gold, trend: oppMonthly > 0 ? '↑ ' + fmt(oppMonthly) + '/mo' : '—', prevVal: oppHigh > 0 ? 'up to ' + fmt(oppHigh) : '—', spark: 'up', trendColor: gold },
+          { label: 'CONFIDENCE', value: confidence.toUpperCase(), color: confColor, trend: verificationScore + '/100 verified', prevVal: 'Intelligence grade', spark: 'neutral', trendColor: confColor },
+          { label: 'CONSTRAINTS', value: (1 + secondary.length).toString(), color: '#e0e0e0', trend: secondary.length + ' secondary', prevVal: primarySeverity + ' severity', spark: 'neutral', trendColor: riskColor },
+          { label: 'BENCHMARK', value: benchmarkPos, color: benchmarkColor, trend: industryLabel, prevVal: healthScore >= 65 ? '↑ Above avg' : '↓ Below avg', spark: healthScore >= 65 ? 'up' : 'down', trendColor: benchmarkColor },
         ].map((k, i) => (
-          <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '18px 20px' }}>
-            <div style={{ fontSize: '9px', color: '#666', letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>{k.label}</div>
-            <div style={{ fontSize: '22px', fontWeight: '800', color: k.color, lineHeight: 1 }}>{k.value}</div>
-            <div style={{ fontSize: '11px', color: '#555', marginTop: '6px' }}>{k.sub}</div>
+          <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '16px 18px' }}>
+            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>{k.label}</div>
+            <div style={{ fontSize: '20px', fontWeight: '800', color: k.color, lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
+            <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600', marginBottom: '2px' }}>{k.trend}</div>
+            <div style={{ fontSize: '10px', color: '#444', marginBottom: '8px' }}>{k.prevVal}</div>
+            <svg width="100%" height="16" viewBox="0 0 80 16">
+              <polyline points={k.spark === 'up' ? '0,14 13,12 26,10 40,8 53,5 66,3 80,1' : k.spark === 'down' ? '0,2 13,4 26,6 40,8 53,10 66,12 80,14' : '0,8 13,7 26,9 40,8 53,7 66,9 80,8'} fill="none" stroke={k.trendColor} strokeWidth="1.5" strokeOpacity="0.6"/>
+            </svg>
           </div>
         ))}
       </div>
