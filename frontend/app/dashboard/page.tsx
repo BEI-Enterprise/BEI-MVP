@@ -496,16 +496,16 @@ export default function DashboardPage() {
                         ))}
                         {/* COLUMN */}
                         {chartView === 'column' && (
-                          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '16px', height: '200px', paddingTop: '20px', paddingBottom: '30px', position: 'relative' as const }}>
+                          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '16px', height: '160px', paddingBottom: '24px', position: 'relative' as const, overflow: 'hidden' as const }}>
                             {[0,25,50,75,100].map(line => (
-                              <div key={line} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${line * 1.7 + 30}px`, borderTop: '1px solid #1e1e1e' }}>
+                              <div key={line} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${(line/100)*136 + 24}px`, borderTop: '1px solid #1e1e1e' }}>
                                 <span style={{ position: 'absolute' as const, right: '100%', paddingRight: '6px', fontSize: '9px', color: '#444', top: '-6px' }}>{line}</span>
                               </div>
                             ))}
                             {constraintData.map((c: any, i: number) => (
                               <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '6px' }}>
                                 <div style={{ fontSize: '11px', fontWeight: '700', color: c.color }}>{c.score}</div>
-                                <div style={{ width: '100%', height: `${c.score * 1.7}px`, background: `linear-gradient(180deg, ${c.color}, ${c.color}66)`, borderRadius: '4px 4px 0 0', transition: 'height 1s ease', minHeight: '4px' }} />
+                                <div style={{ width: '100%', height: `${(c.score/100)*136}px`, background: `linear-gradient(180deg, ${c.color}, ${c.color}66)`, borderRadius: '4px 4px 0 0', transition: 'height 1s ease', minHeight: '4px' }} />
                                 <div style={{ fontSize: '9px', color: '#888', textAlign: 'center' as const, lineHeight: '1.3' }}>{c.name.split(' ').slice(0,2).join(' ')}</div>
                               </div>
                             ))}
