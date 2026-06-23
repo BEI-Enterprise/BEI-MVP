@@ -115,7 +115,7 @@ export default function BusinessTwinPage() {
         {/* Hero image panel */}
         <div style={{ backgroundColor: '#050505', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '12px', overflow: 'hidden', position: 'relative' as const, minHeight: '280px' }}>
           <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #C8A24A, transparent)' }} />
-          <img src="/Buisness_Twin_Center_image.png" alt="Business Twin" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', opacity: 0.85, display: 'block' }} onError={(e: any) => { e.target.style.display = 'none' }} />
+          <img src="/Buisness Twin Center image.png" alt="Business Twin" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', opacity: 0.85, display: 'block' }} onError={(e: any) => { e.target.style.display = 'none' }} />
           <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(135deg, rgba(5,5,5,0.7) 0%, transparent 50%, rgba(5,5,5,0.4) 100%)' }} />
           <div style={{ position: 'absolute' as const, bottom: '24px', left: '28px' }}>
             <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', fontWeight: '600', marginBottom: '8px' }}>BUSINESS TWIN™ STATUS</div>
