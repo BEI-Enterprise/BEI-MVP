@@ -287,9 +287,10 @@ export default function BusinessTwinPage() {
       )}
 
       {/* HERO ROW */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px 260px', gap: '0', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '12px', overflow: 'hidden', marginBottom: '16px', position: 'relative' as const, backgroundColor: '#050505' }}>
-        <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #C8A24A, transparent)' }} />
-        <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px 260px', gap: '0', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '12px', overflow: 'hidden', marginBottom: '16px', position: 'relative' as const, backgroundColor: '#050505', backgroundImage: 'url(/new123.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.75) 50%, rgba(5,5,5,0.88) 100%)', zIndex: 0 }} />
+        <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #C8A24A, transparent)', zIndex: 1 }} />
+        <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', position: 'relative' as const, zIndex: 1 }}>
           <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>COMMAND CENTRE</div>
           <h1 style={{ fontSize: '30px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 8px', lineHeight: 1.1 }}>Business Twin™ Centre</h1>
           <div style={{ fontSize: '13px', color: '#555', marginBottom: '16px' }}>The intelligence foundation powering every BEI recommendation</div>
@@ -300,11 +301,8 @@ export default function BusinessTwinPage() {
             </div>
           )}
         </div>
-        <div style={{ position: 'relative' as const, overflow: 'hidden', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '0', background: '#050505', boxShadow: 'inset 0 0 40px rgba(200,162,74,0.05)' }}>
-          <img src="/new123.png" alt="Business Twin" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', minHeight: '240px' }} onError={(e: any) => { e.target.style.display = 'none' }} />
-          <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.4) 0%, transparent 30%, transparent 70%, rgba(5,5,5,0.4) 100%)' }} />
-        </div>
-        <div style={{ padding: '28px 24px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', gap: '10px' }}>
+        <div style={{ position: 'relative' as const, zIndex: 1 }} />
+        <div style={{ padding: '28px 24px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', gap: '10px', position: 'relative' as const, zIndex: 1, backgroundColor: 'rgba(5,5,5,0.6)', backdropFilter: 'blur(4px)' }}>
           <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em' }}>BUSINESS TWIN™ STATUS</div>
           <div style={{ fontSize: '26px', fontWeight: '900', color: gold, lineHeight: 1 }}>Intelligence</div>
           <div style={{ fontSize: '26px', fontWeight: '900', color: gold, lineHeight: 1, marginTop: '-6px' }}>Ready</div>
