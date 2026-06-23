@@ -68,6 +68,7 @@ export default function DashboardShell({ children, activeId }: { children: React
           {NAV_ITEMS.map(item => {
             const isActive = activeId === item.id
             return (
+              <>
               {(item as any).dividerBefore && <div style={{ height: '1px', backgroundColor: '#1a1a1a', margin: '6px 12px' }} />}
             <a key={item.id} href={item.href} style={{
                 display: 'flex',
@@ -102,6 +103,7 @@ export default function DashboardShell({ children, activeId }: { children: React
                 </span>
                 {!collapsed && <span>{item.label}</span>}
               </a>
+              </>
             )
           })}
         </nav>
