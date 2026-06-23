@@ -116,9 +116,9 @@ export default function DashboardPage() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '12px' }}>
           {[
-            { label: 'HEALTH CHANGE', value: healthScore > 0 ? '+' + healthScore : '—', color: '#4aaa4a', sub: 'vs previous ' + (healthScore > 0 ? (healthScore - 4) : '—') + '/100', trend: 'up' },
+            { label: 'HEALTH CHANGE', value: healthScore > 0 ? '+4 pts' : '—', color: '#4aaa4a', sub: 'vs previous ' + Math.max(0, healthScore - 4) + '/100', trend: 'up' },
             { label: 'RISK CHANGE', value: '-12%', color: '#4aaa4a', sub: 'vs previous Very High', trend: 'down' },
-            { label: 'OPPORTUNITY CHANGE', value: oppLow > 0 ? '+' + fmt(oppLow) : '—', color: gold, sub: 'vs previous ' + (oppLow > 0 ? fmt(Math.round(oppLow * 0.85)) : '—'), trend: 'up' },
+            { label: 'OPPORTUNITY CHANGE', value: oppLow > 0 ? '+' + fmt(Math.round(oppLow * 0.15)) : '—', color: gold, sub: 'vs previous ' + (oppLow > 0 ? fmt(Math.round(oppLow * 0.85)) : '—'), trend: 'up' },
             { label: 'NEW CONSTRAINTS', value: (1 + secondary.length).toString(), color: '#e0e0e0', sub: 'vs previous 0', trend: 'neutral' },
             { label: 'ACTIONS COMPLETED', value: '3', color: '#4aaa4a', sub: 'vs previous 1', trend: 'up' },
             { label: 'NEW ALERTS', value: alerts.length.toString(), color: alerts.length > 1 ? '#cc4444' : gold, sub: 'vs previous 2', trend: 'neutral' },
@@ -238,14 +238,14 @@ export default function DashboardPage() {
                   </div>
                   <div>
                     <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '4px' }}>EXPECTED OUTCOME</div>
-                    <div style={{ fontSize: '16px', fontWeight: '800', color: '#4aaa4a' }}>+{oppLow > 0 ? fmt(Math.round(oppLow * 0.6)) : '£120,000'}</div>
+                    <div style={{ fontSize: '16px', fontWeight: '800', color: '#4aaa4a' }}>+{oppLow > 0 ? fmt(Math.round((oppLow + oppHigh) / 2)) : '£120,000'}</div>
                     <div style={{ fontSize: '10px', color: '#555' }}>Annual value impact</div>
                   </div>
                 </div>
 
                 {/* CONSTRAINT NETWORK DIAGRAM */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="200" height="200" viewBox="0 0 200 200" role="img">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '220px' }}>
+                  <svg width="220" height="260" viewBox="0 0 220 260" role="img">
                     <defs>
                       <radialGradient id="coreG" cx="50%" cy="40%" r="55%">
                         <stop offset="0%" stopColor="#fff8e0"/>
@@ -254,7 +254,7 @@ export default function DashboardPage() {
                         <stop offset="100%" stopColor="#6b4500" stopOpacity="0"/>
                       </radialGradient>
                       <radialGradient id="coreO" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="#C8A24A" stopOpacity="0.35"/>
+                        <stop offset="0%" stopColor="#C8A24A" stopOpacity="0.4"/>
                         <stop offset="100%" stopColor="#C8A24A" stopOpacity="0"/>
                       </radialGradient>
                       <radialGradient id="satG" cx="50%" cy="40%" r="50%">
@@ -263,38 +263,68 @@ export default function DashboardPage() {
                         <stop offset="70%" stopColor="#7a4e10"/>
                         <stop offset="100%" stopColor="#3a2000" stopOpacity="0"/>
                       </radialGradient>
+                      <radialGradient id="redG" cx="50%" cy="40%" r="50%">
+                        <stop offset="0%" stopColor="#ffcccc"/>
+                        <stop offset="30%" stopColor="#cc4444"/>
+                        <stop offset="100%" stopColor="#440000" stopOpacity="0"/>
+                      </radialGradient>
                       <filter id="f2"><feGaussianBlur stdDeviation="2.5"/></filter>
                       <filter id="f5"><feGaussianBlur stdDeviation="5"/></filter>
-                      <filter id="f9"><feGaussianBlur stdDeviation="9"/></filter>
+                      <filter id="f8"><feGaussianBlur stdDeviation="8"/></filter>
                     </defs>
-                    <circle cx="100" cy="100" r="90" fill="none" stroke="#C8A24A" strokeWidth="0.3" strokeOpacity="0.07"/>
-                    <circle cx="100" cy="100" r="65" fill="none" stroke="#C8A24A" strokeWidth="0.3" strokeOpacity="0.05"/>
-                    <line x1="100" y1="100" x2="44" y2="50" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
-                    <line x1="100" y1="100" x2="44" y2="50" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
-                    <line x1="100" y1="100" x2="156" y2="50" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
-                    <line x1="100" y1="100" x2="156" y2="50" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
-                    <line x1="100" y1="100" x2="170" y2="118" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
-                    <line x1="100" y1="100" x2="170" y2="118" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
-                    <line x1="100" y1="100" x2="40" y2="148" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
-                    <line x1="100" y1="100" x2="40" y2="148" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
-                    <line x1="100" y1="100" x2="152" y2="158" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
-                    <line x1="100" y1="100" x2="152" y2="158" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
-                    {[[44,50],[156,50],[170,118],[40,148],[152,158]].map(([x,y],i) => (
-                      <g key={i}>
-                        <circle cx={x} cy={y} r="17" fill="url(#coreO)" filter="url(#f5)"/>
-                        <circle cx={x} cy={y} r="11" fill="#1a0e00" stroke="#8a5c18" strokeWidth="0.8"/>
-                        <circle cx={x} cy={y} r="7" fill="url(#satG)" filter="url(#f2)"/>
-                        <circle cx={x} cy={y} r="4" fill="#f0c040"/>
-                        <circle cx={x-1} cy={y-1} r="2" fill="#fff8e0" fillOpacity="0.8"/>
-                      </g>
-                    ))}
-                    <circle cx="100" cy="100" r="34" fill="url(#coreO)" filter="url(#f9)"/>
-                    <circle cx="100" cy="100" r="24" fill="url(#coreO)" filter="url(#f5)"/>
-                    <circle cx="100" cy="100" r="18" fill="#0a0600" stroke="#C8A24A" strokeWidth="1" strokeOpacity="0.6"/>
-                    <circle cx="100" cy="100" r="13" fill="url(#coreG)" filter="url(#f2)"/>
-                    <circle cx="100" cy="100" r="11" fill="url(#coreG)"/>
-                    <circle cx="95" cy="95" r="5" fill="#fff8e0" fillOpacity="0.85"/>
-                    <circle cx="95" cy="95" r="3" fill="#ffffff" fillOpacity="0.95"/>
+                    {/* Vertical flow lines */}
+                    <line x1="110" y1="36" x2="110" y2="56" stroke="#C8A24A" strokeWidth="1" strokeOpacity="0.4"/>
+                    <line x1="110" y1="76" x2="110" y2="96" stroke="#C8A24A" strokeWidth="1" strokeOpacity="0.4"/>
+                    <line x1="110" y1="116" x2="110" y2="136" stroke="#C8A24A" strokeWidth="1" strokeOpacity="0.4"/>
+                    <line x1="110" y1="156" x2="110" y2="176" stroke="#cc4444" strokeWidth="1" strokeOpacity="0.4"/>
+                    <line x1="110" y1="196" x2="110" y2="216" stroke="#cc4444" strokeWidth="1" strokeOpacity="0.4"/>
+                    {/* Arrow heads */}
+                    <polygon points="106,56 114,56 110,64" fill="#C8A24A" fillOpacity="0.5"/>
+                    <polygon points="106,96 114,96 110,104" fill="#C8A24A" fillOpacity="0.5"/>
+                    <polygon points="106,136 114,136 110,144" fill="#C8A24A" fillOpacity="0.4"/>
+                    <polygon points="106,176 114,176 110,184" fill="#cc4444" fillOpacity="0.4"/>
+                    <polygon points="106,216 114,216 110,224" fill="#cc4444" fillOpacity="0.35"/>
+                    {/* NODE 1 — ROOT CAUSE (large glow orb) */}
+                    <circle cx="110" cy="26" r="22" fill="url(#coreO)" filter="url(#f8)"/>
+                    <circle cx="110" cy="26" r="14" fill="#0a0600" stroke="#C8A24A" strokeWidth="1.2" strokeOpacity="0.7"/>
+                    <circle cx="110" cy="26" r="10" fill="url(#coreG)" filter="url(#f2)"/>
+                    <circle cx="110" cy="26" r="8" fill="url(#coreG)"/>
+                    <circle cx="107" cy="23" r="3.5" fill="#fff8e0" fillOpacity="0.9"/>
+                    <text x="110" y="14" textAnchor="middle" fill="#C8A24A" fontSize="7" fontWeight="700" letterSpacing="0.05em">ROOT CAUSE</text>
+                    {/* NODE 2 */}
+                    <circle cx="110" cy="86" r="16" fill="url(#coreO)" filter="url(#f5)"/>
+                    <circle cx="110" cy="86" r="10" fill="#0a0600" stroke="#b07820" strokeWidth="0.8"/>
+                    <circle cx="110" cy="86" r="7" fill="url(#satG)" filter="url(#f2)"/>
+                    <circle cx="110" cy="86" r="5" fill="url(#satG)"/>
+                    <circle cx="108" cy="84" r="2.5" fill="#fff8e0" fillOpacity="0.8"/>
+                    <text x="136" y="90" fill="#C8A24A" fontSize="8" fontWeight="600">Decision Delays</text>
+                    {/* NODE 3 */}
+                    <circle cx="110" cy="126" r="14" fill="url(#coreO)" filter="url(#f5)"/>
+                    <circle cx="110" cy="126" r="9" fill="#0a0600" stroke="#b07820" strokeWidth="0.8"/>
+                    <circle cx="110" cy="126" r="6" fill="url(#satG)" filter="url(#f2)"/>
+                    <circle cx="110" cy="126" r="4.5" fill="url(#satG)"/>
+                    <circle cx="108" cy="124" r="2" fill="#fff8e0" fillOpacity="0.8"/>
+                    <text x="130" y="130" fill="#C8A24A" fontSize="8" fontWeight="600">Sales Friction</text>
+                    {/* NODE 4 */}
+                    <circle cx="110" cy="166" r="13" fill="rgba(204,68,68,0.3)" filter="url(#f5)"/>
+                    <circle cx="110" cy="166" r="8" fill="#0a0000" stroke="#cc4444" strokeWidth="0.8"/>
+                    <circle cx="110" cy="166" r="5" fill="url(#redG)" filter="url(#f2)"/>
+                    <circle cx="110" cy="166" r="4" fill="url(#redG)"/>
+                    <circle cx="108" cy="164" r="2" fill="#ffcccc" fillOpacity="0.8"/>
+                    <text x="128" y="170" fill="#cc4444" fontSize="8" fontWeight="600">Ops Slowdown</text>
+                    {/* NODE 5 — Revenue Impact */}
+                    <circle cx="110" cy="206" r="14" fill="rgba(204,68,68,0.25)" filter="url(#f5)"/>
+                    <circle cx="110" cy="206" r="9" fill="#0a0000" stroke="#cc4444" strokeWidth="0.8"/>
+                    <circle cx="110" cy="206" r="6" fill="url(#redG)" filter="url(#f2)"/>
+                    <circle cx="110" cy="206" r="4.5" fill="url(#redG)"/>
+                    <circle cx="108" cy="204" r="2" fill="#ffcccc" fillOpacity="0.8"/>
+                    <text x="128" y="210" fill="#cc4444" fontSize="8" fontWeight="600">Revenue Impact</text>
+                    {/* NODE 6 — Growth */}
+                    <circle cx="110" cy="244" r="12" fill="rgba(204,68,68,0.2)" filter="url(#f5)"/>
+                    <circle cx="110" cy="244" r="8" fill="#0a0000" stroke="#cc4444" strokeWidth="0.8" strokeOpacity="0.6"/>
+                    <circle cx="110" cy="244" r="5" fill="url(#redG)"/>
+                    <circle cx="108" cy="242" r="2" fill="#ffcccc" fillOpacity="0.7"/>
+                    <text x="126" y="248" fill="#cc4444" fontSize="8" fontWeight="600" fillOpacity="0.8">Growth Limit</text>
                   </svg>
                 </div>
               </div>
