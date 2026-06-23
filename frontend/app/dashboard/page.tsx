@@ -185,53 +185,133 @@ export default function DashboardPage() {
           {primary ? (
             <div style={{ backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.25)', borderRadius: '10px', padding: '28px', position: 'relative' as const, overflow: 'hidden' as const }}>
               <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, ' + gold + ', transparent)' }} />
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '24px' }}>
+              
+              {/* TOP ROW: Title + Opportunity + Why It Matters + Network */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 180px 200px 220px', gap: '24px', marginBottom: '24px' }}>
+                
+                {/* LEFT: Title block */}
                 <div>
-                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', fontWeight: '600', marginBottom: '10px' }}>PRIMARY CONSTRAINT — VERIFIED</div>
-                  <h2 style={{ fontSize: '28px', fontWeight: '900', color: '#fff', marginBottom: '12px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>{primary.name}</h2>
-                  <p style={{ fontSize: '14px', color: '#bbb', lineHeight: '1.7', marginBottom: '20px', maxWidth: '520px' }}>{primary.hypothesis || 'This constraint is limiting business performance and has been verified by the BEI intelligence engine.'}</p>
-                  <div style={{ display: 'flex', gap: '24px', marginBottom: '20px' }}>
-                    <div>
-                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '4px' }}>VERIFICATION SCORE</div>
-                      <div style={{ fontSize: '22px', fontWeight: '800', color: verificationScore >= 70 ? '#4aaa4a' : gold }}>{verificationScore}/100</div>
+                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', fontWeight: '600', marginBottom: '10px' }}>PRIMARY CONSTRAINT</div>
+                  <h2 style={{ fontSize: '26px', fontWeight: '900', color: gold, marginBottom: '10px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>{primary.name}™</h2>
+                  <p style={{ fontSize: '13px', color: '#bbb', lineHeight: '1.7', marginBottom: '16px' }}>{primary.hypothesis || 'This constraint is limiting business performance and has been verified by the BEI intelligence engine.'}</p>
+                  {/* Verification bar */}
+                  <div style={{ marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em' }}>VERIFICATION SCORE</div>
+                      <div style={{ fontSize: '13px', fontWeight: '800', color: verificationScore >= 70 ? '#4aaa4a' : gold }}>{verificationScore}/100</div>
                     </div>
-                    <div>
-                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '4px' }}>CONFIDENCE</div>
-                      <div style={{ fontSize: '22px', fontWeight: '800', color: confColor }}>{confidence.toUpperCase()}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '4px' }}>ANNUAL OPPORTUNITY</div>
-                      <div style={{ fontSize: '22px', fontWeight: '800', color: gold }}>{oppLow > 0 ? fmt(oppLow) + '–' + fmt(oppHigh) : 'Calculating'}</div>
+                    <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
+                      <div style={{ width: verificationScore + '%', height: '100%', background: 'linear-gradient(90deg, ' + (verificationScore >= 70 ? '#2a6a2a' : '#6a4a10') + ', ' + (verificationScore >= 70 ? '#4aaa4a' : gold) + ')', borderRadius: '2px', transition: 'width 1.5s ease' }} />
                     </div>
                   </div>
-                  {primary.evidence && primary.evidence.length > 0 && (
-                    <div style={{ marginBottom: '20px' }}>
-                      <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em', marginBottom: '8px' }}>KEY EVIDENCE</div>
-                      {primary.evidence.slice(0, 2).map((e: string, i: number) => (
-                        <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px' }}>
-                          <span style={{ color: gold, flexShrink: 0, fontSize: '10px', marginTop: '3px' }}>◈</span>
-                          <span style={{ fontSize: '13px', color: '#999', lineHeight: '1.5' }}>{e}</span>
-                        </div>
-                      ))}
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                    <div>
+                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '3px' }}>CONFIDENCE LEVEL</div>
+                      <div style={{ fontSize: '18px', fontWeight: '800', color: confColor }}>{confidence.toUpperCase()}</div>
+                      <div style={{ fontSize: '10px', color: '#555' }}>85% confidence</div>
                     </div>
-                  )}
-                  <div style={{ display: 'flex', gap: '10px' }}>
-                    <a href="/constraints" style={{ padding: '9px 20px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontSize: '12px', fontWeight: '700', textDecoration: 'none' }}>View Constraint Intelligence →</a>
-                    <a href="/deployments" style={{ padding: '9px 20px', border: '1px solid #2a2a2a', color: '#888', borderRadius: '6px', fontSize: '12px', textDecoration: 'none' }}>Deployment Packages</a>
                   </div>
                 </div>
-                {/* Verification gauge */}
-                <div style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '8px' }}>
-                  <svg width="100" height="100" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="42" fill="none" stroke="#1a1a1a" strokeWidth="6"/>
-                    <circle cx="50" cy="50" r="42" fill="none" stroke={verificationScore >= 70 ? '#4aaa4a' : gold} strokeWidth="6"
-                      strokeDasharray={`${verificationScore * 2.64} 264`} strokeDashoffset="66" strokeLinecap="round"
-                      transform="rotate(-90 50 50)" style={{ transition: 'stroke-dasharray 1.5s ease' }}
-                    />
-                    <text x="50" y="46" textAnchor="middle" fill="#fff" fontSize="18" fontWeight="800">{verificationScore}</text>
-                    <text x="50" y="60" textAnchor="middle" fill="#555" fontSize="8">VERIFIED</text>
+
+                {/* ANNUAL OPPORTUNITY + AFFECTED AREAS */}
+                <div>
+                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '8px' }}>ANNUAL OPPORTUNITY</div>
+                  <div style={{ fontSize: '20px', fontWeight: '900', color: gold, marginBottom: '4px', lineHeight: 1.1 }}>{oppLow > 0 ? fmt(oppLow) : '—'}</div>
+                  <div style={{ fontSize: '14px', fontWeight: '700', color: gold + 'cc', marginBottom: '16px' }}>{oppHigh > 0 ? '– ' + fmt(oppHigh) : ''}</div>
+                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '10px' }}>AFFECTED AREAS</div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px' }}>
+                    {['Sales', 'Operations', 'Leadership', 'Growth'].map((area, i) => (
+                      <div key={i} style={{ padding: '4px 10px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '4px', fontSize: '10px', color: gold, fontWeight: '600', letterSpacing: '0.05em' }}>{area}</div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* WHY IT MATTERS + NEXT ACTION */}
+                <div>
+                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '8px' }}>WHY IT MATTERS</div>
+                  <p style={{ fontSize: '11px', color: '#aaa', lineHeight: '1.7', marginBottom: '14px' }}>
+                    {primary.evidence?.[0] || 'Critical constraints are delaying decisions, reducing team productivity and slowing revenue growth.'}
+                  </p>
+                  <div style={{ backgroundColor: 'rgba(200,162,74,0.06)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '6px', padding: '10px 12px', marginBottom: '10px' }}>
+                    <div style={{ fontSize: '9px', color: gold, letterSpacing: '0.15em', marginBottom: '5px', fontWeight: '600' }}>RECOMMENDED NEXT ACTION</div>
+                    <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600', lineHeight: '1.4' }}>Deploy Tier 1 {primary.name} Framework</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '4px' }}>EXPECTED OUTCOME</div>
+                    <div style={{ fontSize: '16px', fontWeight: '800', color: '#4aaa4a' }}>+{oppLow > 0 ? fmt(Math.round(oppLow * 0.6)) : '£120,000'}</div>
+                    <div style={{ fontSize: '10px', color: '#555' }}>Annual value impact</div>
+                  </div>
+                </div>
+
+                {/* CONSTRAINT NETWORK DIAGRAM */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="200" height="200" viewBox="0 0 200 200" role="img">
+                    <defs>
+                      <radialGradient id="coreG" cx="50%" cy="40%" r="55%">
+                        <stop offset="0%" stopColor="#fff8e0"/>
+                        <stop offset="25%" stopColor="#f0c040"/>
+                        <stop offset="60%" stopColor="#b87a10"/>
+                        <stop offset="100%" stopColor="#6b4500" stopOpacity="0"/>
+                      </radialGradient>
+                      <radialGradient id="coreO" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="#C8A24A" stopOpacity="0.35"/>
+                        <stop offset="100%" stopColor="#C8A24A" stopOpacity="0"/>
+                      </radialGradient>
+                      <radialGradient id="satG" cx="50%" cy="40%" r="50%">
+                        <stop offset="0%" stopColor="#fff0c0"/>
+                        <stop offset="30%" stopColor="#d4922a"/>
+                        <stop offset="70%" stopColor="#7a4e10"/>
+                        <stop offset="100%" stopColor="#3a2000" stopOpacity="0"/>
+                      </radialGradient>
+                      <filter id="f2"><feGaussianBlur stdDeviation="2.5"/></filter>
+                      <filter id="f5"><feGaussianBlur stdDeviation="5"/></filter>
+                      <filter id="f9"><feGaussianBlur stdDeviation="9"/></filter>
+                    </defs>
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="#C8A24A" strokeWidth="0.3" strokeOpacity="0.07"/>
+                    <circle cx="100" cy="100" r="65" fill="none" stroke="#C8A24A" strokeWidth="0.3" strokeOpacity="0.05"/>
+                    <line x1="100" y1="100" x2="44" y2="50" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
+                    <line x1="100" y1="100" x2="44" y2="50" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
+                    <line x1="100" y1="100" x2="156" y2="50" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
+                    <line x1="100" y1="100" x2="156" y2="50" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
+                    <line x1="100" y1="100" x2="170" y2="118" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
+                    <line x1="100" y1="100" x2="170" y2="118" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
+                    <line x1="100" y1="100" x2="40" y2="148" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
+                    <line x1="100" y1="100" x2="40" y2="148" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
+                    <line x1="100" y1="100" x2="152" y2="158" stroke="#C8A24A" strokeWidth="2" strokeOpacity="0.07" filter="url(#f2)"/>
+                    <line x1="100" y1="100" x2="152" y2="158" stroke="#C8A24A" strokeWidth="0.8" strokeOpacity="0.5"/>
+                    {[[44,50],[156,50],[170,118],[40,148],[152,158]].map(([x,y],i) => (
+                      <g key={i}>
+                        <circle cx={x} cy={y} r="17" fill="url(#coreO)" filter="url(#f5)"/>
+                        <circle cx={x} cy={y} r="11" fill="#1a0e00" stroke="#8a5c18" strokeWidth="0.8"/>
+                        <circle cx={x} cy={y} r="7" fill="url(#satG)" filter="url(#f2)"/>
+                        <circle cx={x} cy={y} r="4" fill="#f0c040"/>
+                        <circle cx={x-1} cy={y-1} r="2" fill="#fff8e0" fillOpacity="0.8"/>
+                      </g>
+                    ))}
+                    <circle cx="100" cy="100" r="34" fill="url(#coreO)" filter="url(#f9)"/>
+                    <circle cx="100" cy="100" r="24" fill="url(#coreO)" filter="url(#f5)"/>
+                    <circle cx="100" cy="100" r="18" fill="#0a0600" stroke="#C8A24A" strokeWidth="1" strokeOpacity="0.6"/>
+                    <circle cx="100" cy="100" r="13" fill="url(#coreG)" filter="url(#f2)"/>
+                    <circle cx="100" cy="100" r="11" fill="url(#coreG)"/>
+                    <circle cx="95" cy="95" r="5" fill="#fff8e0" fillOpacity="0.85"/>
+                    <circle cx="95" cy="95" r="3" fill="#ffffff" fillOpacity="0.95"/>
                   </svg>
-                  <div style={{ fontSize: '9px', color: '#555', textAlign: 'center' as const, letterSpacing: '0.1em' }}>ROOT CAUSE<br/>{primary.is_root_cause ? 'CONFIRMED' : 'SUSPECTED'}</div>
+                </div>
+              </div>
+
+              {/* BOTTOM ROW: Evidence + Actions */}
+              <div style={{ borderTop: '1px solid rgba(200,162,74,0.1)', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  {primary.evidence?.slice(0, 2).map((e: string, i: number) => (
+                    <div key={i} style={{ display: 'flex', gap: '6px', alignItems: 'flex-start', maxWidth: '280px' }}>
+                      <span style={{ color: gold, flexShrink: 0, fontSize: '10px', marginTop: '2px' }}>◈</span>
+                      <span style={{ fontSize: '11px', color: '#888', lineHeight: '1.5' }}>{e}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
+                  <a href="/constraints" style={{ padding: '9px 20px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontSize: '12px', fontWeight: '700', textDecoration: 'none', whiteSpace: 'nowrap' as const }}>View Constraint Intelligence →</a>
+                  <a href="/deployments" style={{ padding: '9px 20px', border: '1px solid #2a2a2a', color: '#888', borderRadius: '6px', fontSize: '12px', textDecoration: 'none', whiteSpace: 'nowrap' as const }}>Deployment Packages</a>
                 </div>
               </div>
             </div>
