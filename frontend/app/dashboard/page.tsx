@@ -1,48 +1,18 @@
 'use client'
-
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
-import { useCurrency, formatPrice, getCurrencySymbol } from '../../lib/currency'
-import MeetingCentre from '../components/MeetingCentre'
-
-import dynamic from 'next/dynamic'
-const NetworkGraph = dynamic<{ width: number, height: number, nodeCount: number }>(
-  () => import('../../components/BEIAnimations').then(m => ({ default: m.NetworkGraph })),
-  { ssr: false }
-)
+import { getCurrencySymbol } from '../../lib/currency'
+import DashboardShell from '../components/DashboardShell'
 
 const supabase = createClient()
 const gold = '#C8A24A'
-const dark = '#050505'
-const card = '#111111'
-const border = '#2a2a2a'
+const card = '#0e0e0e'
+const border = '#1e1e1e'
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
-  const [businesses, setBusinesses] = useState<any[]>([])
   const [selected, setSelected] = useState<any>(null)
   const [loading, setLoading] = useState(true)
-  const [showWelcome, setShowWelcome] = useState(false)
-  const [activeTab, setActiveTab] = useState<'overview'|'reports'|'revenue'|'issues'|'meetings'|'connectors'|'deployment'|'intelligence'>('overview')
-  const [chartView, setChartView] = useState<'bar' | 'column' | 'pie' | 'radar'>('bar')
-
-  useEffect(() => {
-    if ((window as any).Chart) return
-    const s = document.createElement('script')
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js'
-    s.async = true
-    document.head.appendChild(s)
-  }, [])
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search)
-      if (params.get('subscribed') === 'true') {
-        setShowWelcome(true)
-        window.history.replaceState({}, '', '/dashboard')
-      }
-    }
-  }, [])
 
   useEffect(() => {
     const load = async () => {
@@ -55,10 +25,7 @@ export default function DashboardPage() {
             .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at, industry, location_country')
             .eq('email', user.email)
             .order('updated_at', { ascending: false })
-          if (data && data.length > 0) {
-            setBusinesses(data)
-            setSelected(data[0])
-          }
+          if (data && data.length > 0) setSelected(data[0])
         }
       } catch (e) {}
       setLoading(false)
@@ -66,43 +33,21 @@ export default function DashboardPage() {
     load()
   }, [])
 
-  useEffect(() => {
-    const onFocus = async () => {
-      try {
-        const { data: { user: u } } = await supabase.auth.getUser()
-        if (!u) return
-        const { data } = await supabase
-          .from('businesses')
-          .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at, industry, location_country')
-          .eq('email', u.email)
-          .order('updated_at', { ascending: false })
-        if (data) {
-          setBusinesses(data)
-          setSelected((prev: any) => {
-            if (!prev) return data[0] || null
-            const still = data.find((b: any) => b.id === prev.id)
-            return still || data[0] || null
-          })
-        }
-      } catch {}
-    }
-    window.addEventListener('focus', onFocus)
-    return () => window.removeEventListener('focus', onFocus)
-  }, [])
-
-  const locationCountry = selected?.location_country || ''
-  const currency = useCurrency(locationCountry)
   if (loading) return (
-    <main style={{ backgroundColor: '#0c0c0c', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ fontSize: '13px', color: '#e0e0e0', letterSpacing: '0.1em' }}>Loading your intelligence...</div>
+    <main style={{ backgroundColor: '#050505', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div>
+        <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em', marginBottom: '12px', textAlign: 'center' as const }}>BEI INTELLIGENCE</div>
+        <div style={{ fontSize: '13px', color: '#555', letterSpacing: '0.1em' }}>Loading executive intelligence...</div>
+      </div>
     </main>
   )
 
   if (!user) return (
-    <main style={{ backgroundColor: '#0c0c0c', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <main style={{ backgroundColor: '#050505', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ textAlign: 'center' as const }}>
-        <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '20px' }}>You need to be signed in to access your dashboard.</div>
-        <a href='/login' style={{ padding: '12px 28px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px' }}>Sign In →</a>
+        <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em', marginBottom: '16px' }}>BEI INTELLIGENCE</div>
+        <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '20px' }}>Sign in to access your Executive Command Centre.</div>
+        <a href='/login' style={{ padding: '12px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '13px' }}>Sign In →</a>
       </div>
     </main>
   )
@@ -111,1553 +56,317 @@ export default function DashboardPage() {
   const health = result?.health || {}
   const primary = result?.primary_constraint || null
   const secondary = result?.secondary_constraints || []
-  const healthColor = (health.overall || 0) >= 70 ? '#4aaa4a' : (health.overall || 0) >= 45 ? gold : '#cc4444'
-  const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'there'
+  const pillars = health.pillars || {}
+  const opportunity = result?.total_opportunity || null
+  const confidence = result?.confidence || 'low'
+  const currency = selected?.location_country === 'United States' ? 'USD' : 'GBP'
+  const sym = currency === 'USD' ? '$' : '£'
+  const healthScore = health.overall || health.overall_score || 0
+  const verificationScore = primary?.verification_score || 0
+  const healthColor = healthScore >= 70 ? '#4aaa4a' : healthScore >= 45 ? gold : '#cc4444'
+  const confColor = confidence === 'high' ? '#4aaa4a' : confidence === 'medium' ? gold : '#cc4444'
+  const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Executive'
+  const businessName = selected?.business_name || 'Your Business'
+  const tier = (selected?.subscription_tier || 'analysis').toUpperCase()
 
-  // Industry detection
   const industry = (selected?.industry || '').toLowerCase()
-  const isEstate = industry.includes('estate') || industry.includes('property') || industry.includes('letting')
-  const isMarketing = industry.includes('marketing') || industry.includes('advertising') || industry.includes('digital') || industry.includes('agency')
-  const isAccounting = industry.includes('account') || industry.includes('finance') || industry.includes('consult')
+  const isEstate = industry.includes('estate') || industry.includes('property')
+  const isMarketing = industry.includes('marketing') || industry.includes('agency')
+  const isAccounting = industry.includes('account') || industry.includes('finance')
+  const industryLabel = isEstate ? 'Estate Agency' : isMarketing ? 'Marketing Agency' : isAccounting ? 'Accountancy' : 'Business'
 
-  const industryData = isEstate ? {
-    label: 'Estate Agency',
-    color: '#C8A24A',
-    weights: { growth: 35, operations: 25, strategy: 15, risk: 10, context: 15 },
-    benchmarks: [
-      { metric: 'Lead-to-close conversion rate', value: '2–5%', bei: 'National avg · Structured teams: 5–10% · Source: Conversion Realtor 2026' },
-      { metric: 'Lead response time (optimal)', value: '< 5 minutes', bei: '78% of buyers work with first responder · 21× conversion uplift vs delayed response' },
-      { metric: 'Google review volume (competitive)', value: '200+ reviews', bei: 'Platform average 224 in 2026 · 4.3★ with 200 reviews outperforms 4.8★ with 30' },
-      { metric: 'Minimum review rating', value: '4.2★+', bei: 'Below 4.0★ excluded from "best" search results in 2026 · Source: Feedback Guru' },
-      { metric: 'Review velocity (competitive)', value: '4–8/month', bei: 'Minimum to maintain competitive position in local market · 2026 benchmark' },
-      { metric: 'Referral lead conversion', value: '15–25%', bei: 'Highest converting source · Internet leads: 1–4% · Source: Conversion Realtor 2026' },
-      { metric: 'Competitor review gap threshold', value: '< 25%', bei: 'Gap above 25% = Trust Infrastructure Deficit confirmed per BEI detection rules' },
-      { metric: 'After-hours enquiry volume', value: '62% of enquiries', bei: 'Come outside business hours — automated response systems critical' },
-      { metric: 'Mobile conversion impact', value: '62% impacted', bei: '62% less likely to convert with poor mobile experience · Q1 2026 benchmark' },
-      { metric: 'Growth pillar weighting', value: '35%', bei: 'Highest BEI pillar weight for estate agencies — growth is the primary constraint driver' },
-    ],
-    signals: [
-      { domain: 'Trust Infrastructure', signal: 'Review volume below 200 triggers Trust Infrastructure Deficit detection. 2026 platform average is 224 reviews. A 4.3★ rating with 200 reviews outperforms 4.8★ with 30 in every trust and conversion scenario. Competitor review gap monitoring active.', severity: 'high', verified: true },
-      { domain: 'Lead Response', signal: '78% of buyers work with the first agent to respond. Response times above 5 minutes reduce conversion by up to 21×. After-hours coverage gap (62% of enquiries) represents systematic lead loss across most estate agencies.', severity: 'high', verified: true },
-      { domain: 'Market Growth', signal: 'UK property market showing increased buyer demand in Q2 2026. Trust infrastructure resolution window is open — agencies with strong review velocity are capturing disproportionate share of market activity.', severity: 'medium', verified: true },
-      { domain: 'Digital Visibility', signal: 'Google algorithm filters exclude businesses below 4.0★ from "best estate agent" searches in 2026. Review recency and velocity now influence AI-driven search results. Multi-platform trust signals increasingly critical.', severity: 'medium', verified: true },
-      { domain: 'Revenue Concentration', signal: 'Single referral source concentration monitoring active. Revenue concentration above 30% from one source triggers risk alert per BEI architecture. Diversification constraint flagged for review.', severity: 'medium', verified: true },
-    ],
-    insight: 'BEI identifies Trust Infrastructure Deficit as the primary constraint in estate agencies under £500k. The 2026 data is clear: 78% of buyers work with the first responder, and review volume above 200 with 4.2★+ is the competitive minimum. Constraint network confirmed: Slow Lead Response → Poor Review Velocity → Trust Gap → Suppressed Conversion. Resolution unlocks improvement from the 2–5% national average toward the 5–10% structured team benchmark.'
-  } : isMarketing ? {
-    label: 'Marketing Agency',
-    color: '#C8A24A',
-    weights: { growth: 35, operations: 25, strategy: 15, risk: 10, context: 15 },
-    benchmarks: [
-      { metric: 'Revenue per employee (UK)', value: '£80k–£120k', bei: 'Below £70k = undercharging or overstaffed · Source: Alto Accounting 2026' },
-      { metric: 'Net profit margin (healthy)', value: '10–20%', bei: 'Well-run agencies targeting exit: 15–25% · UK avg: 12–15% · Source: Alto 2026' },
-      { metric: 'Client retention (retainer model)', value: '82% (18% churn)', bei: 'Retainer agencies 2.3× better than project-based (42% churn) · Focus Digital 2026' },
-      { metric: 'Client retention (project model)', value: '58% (42% churn)', bei: 'Project-based — high pipeline dependency · First 90 days = peak churn risk' },
-      { metric: 'Billable utilisation (junior staff)', value: '80–85%', bei: 'Mid-level: 70–80% · Senior/leadership: 50–60% · Source: TMetric 2026' },
-      { metric: 'Average client lifespan (retainer)', value: '56 months', bei: 'vs 24 months project-based · 2.3× longer · Source: Focus Digital 2026' },
-      { metric: 'Gross margin (service agencies)', value: '50–70%', bei: 'Below 50% = pricing or scope creep issue · Source: Alto Accounting 2026' },
-      { metric: 'London hourly rate benchmark', value: '£100–£300/hr', bei: 'Regional (Manchester/Birmingham): £75–£200/hr · Sidekick Accounting 2026' },
-      { metric: 'Employer NI impact (2026)', value: '+£8k–£12k/yr', bei: 'On £500k payroll from April 2025 rate increase — margin compression risk active' },
-      { metric: 'Growth pillar weighting', value: '35%', bei: 'Highest BEI pillar weight — new business acquisition is the primary constraint driver' },
-    ],
-    signals: [
-      { domain: 'Capacity Constraint', signal: 'Founder delivery bottleneck is the most common constraint in agencies under £1M. 2026 data confirms utilisation below 65% sends margin to zero. Senior leadership should not exceed 60% billable time — strategy and BD require dedicated capacity.', severity: 'high', verified: true },
-      { domain: 'Pricing & Margin', signal: 'UK average agency net margin is 12–15%. Below £70k revenue per employee signals undercharging or overstaffing. 2026 NI rate increase adds £8k–£12k annual cost on a £500k payroll — margin compression now materialising across the sector.', severity: 'high', verified: true },
-      { domain: 'Retention Model', signal: 'Retainer-based agencies achieve 18% annual churn vs 42% for project-based. Client lifespan 56 months vs 24 months. Agencies still operating predominantly project-based face a structural retention constraint limiting predictable revenue growth.', severity: 'medium', verified: true },
-      { domain: 'Market Opportunity', signal: 'AI-adjacent marketing services demand growing rapidly in 2026. Agencies with clear AI-assisted service positioning capturing disproportionate new business. Offer clarity and trust infrastructure increasingly determine conversion from proposal stage.', severity: 'medium', verified: true },
-    ],
-    insight: 'The 2026 UK marketing agency benchmark: £80k–£120k revenue per employee, 10–20% net margin, 82% client retention on retainer model. Agencies below these benchmarks have at least one active constraint. The most common co-occurring constraints are Founder Dependency (capacity ceiling) and Pricing Confidence (margin compression). Retainer model transition is the highest-leverage structural change available to most SME agencies.'
-  } : isAccounting ? {
-    label: 'Accounting & Finance',
-    color: '#C8A24A',
-    weights: { growth: 20, operations: 35, strategy: 15, risk: 15, context: 15 },
-    benchmarks: [
-      { metric: 'Client retention (structured pricing)', value: '88%', bei: 'vs 82% for hourly billing firms · Source: Uku benchmark study 2026' },
-      { metric: 'Client growth YoY (2026)', value: '+21.7%', bei: 'Average across all firm sizes — record demand for accounting services · TaxDome 2026' },
-      { metric: 'Revenue growth vs hiring', value: '+27% GMV / +10% team', bei: 'Firms growing revenue faster than headcount through digitalisation · TaxDome 2026' },
-      { metric: 'Advisory vs compliance revenue', value: '3–5× per client', bei: 'Advisory engagements generate 3–5× revenue vs compliance-only · CX Pilots 2026' },
-      { metric: 'Billing rate premium (CX mature)', value: '+15–20%', bei: 'CX-mature firms command 15–20% higher rates than peers · Source: CX Pilots 2026' },
-      { metric: 'UK accountant cost (basic compliance)', value: '£1,500–4,800/yr', bei: 'Limited company basic · With mgmt accounts: £4,800–10,800/yr · Alto 2026' },
-      { metric: 'HMRC late payment rate (2026)', value: '7.75%/yr', bei: 'Corporation tax interest on unpaid amounts from Jan 2026 — compliance risk benchmark' },
-      { metric: 'Specialisation pricing uplift', value: '+25%', bei: 'Specialist accountants command ~25% premium as client complexity increases · TaxDome 2026' },
-      { metric: 'Revenue concentration risk', value: '< 30% per client', bei: 'Safe threshold — above triggers BEI risk alert per Master Architecture' },
-      { metric: 'Operations pillar weighting', value: '35%', bei: 'Highest BEI pillar weight for accountancy — delivery efficiency is primary growth lever' },
-    ],
-    signals: [
-      { domain: 'Advisory Transition', signal: 'Advisory engagements generate 3–5× the revenue of compliance-only work. 2026 benchmark confirms firms transitioning to advisory positioning achieve +15–20% billing rate premium. Compliance-only positioning is a strategic constraint limiting enterprise value growth.', severity: 'high', verified: true },
-      { domain: 'Revenue Concentration', signal: 'Revenue concentration above 30% per client triggers BEI risk alert. Single client loss at this concentration creates material revenue disruption. Diversification constraint active — monitoring against BEI safe threshold.', severity: 'high', verified: true },
-      { domain: 'Growth Opportunity', signal: 'UK accounting industry growing at +21.7% client volume YoY in 2026 — sustained demand at record levels. Firms using digital billing workflows achieving up to 35% YoY revenue growth. Digitalisation constraint may be limiting capture of market growth.', severity: 'medium', verified: true },
-      { domain: 'Specialisation Premium', signal: 'Specialist accountants commanding +25% pricing premium as client complexity increases in 2026. Generalist positioning is a growing strategic risk. Offer clarity and service differentiation increasingly determine new client conversion.', severity: 'medium', verified: true },
-    ],
-    insight: 'The 2026 accounting industry is at an inflection point. Client demand is at record levels (+21.7% YoY) but the gap between compliance-led and advisory-led firms is widening fast — advisory generates 3–5× revenue per client. BEI Operations pillar weighting of 35% reflects that delivery efficiency is the primary constraint driver. Revenue concentration above 30% per client remains the highest-severity risk signal in the sector.'
-  } : {
-    label: selected?.industry || 'Your Industry',
-    color: '#C8A24A',
-    weights: { growth: 25, operations: 25, strategy: 20, risk: 15, context: 15 },
-    benchmarks: [
-      { metric: 'Overall health score benchmark', value: '55–65/100', bei: 'Cross-sector SME average — BEI verified' },
-      { metric: 'Trust infrastructure score', value: '48/100', bei: 'Cross-sector average — below this = constraint risk active' },
-      { metric: 'Google review volume (all businesses)', value: '224 reviews', bei: '2026 platform average — below = trust signal gap vs market' },
-      { metric: 'Lead response time (best practice)', value: '< 5 minutes', bei: 'Cross-sector — 78% of buyers work with first responder (2026)' },
-      { metric: 'Revenue concentration risk', value: '< 30% per client', bei: 'Safe threshold across all sectors — above triggers BEI risk alert' },
-      { metric: 'Founder dependency (SMEs)', value: '68% critical', bei: 'Most common operations constraint across all sectors' },
-      { metric: 'Retainer vs project retention', value: '82% vs 58%', bei: 'Retainer model 2.3× better retention than project — 2026 data' },
-      { metric: 'Advisory vs transactional revenue', value: '3–5× per client', bei: 'Advisory/retainer engagements generate 3–5× revenue of transactional work' },
-    ],
-    signals: [
-      { domain: 'Growth', signal: 'BEI intelligence monitoring active — sector-specific growth signals being tracked and scored against your Business Twin.', severity: 'low', verified: true },
-      { domain: 'Trust Infrastructure', signal: 'Trust infrastructure monitoring active. Competitor review gap and conversion benchmarks being tracked. 2026 platform average is 224 Google reviews — below this signals a trust gap.', severity: 'low', verified: true },
-      { domain: 'Risk', signal: 'Risk monitoring active. Revenue concentration, founder dependency and key person risk being assessed against BEI safe thresholds.', severity: 'low', verified: true },
-    ],
-    insight: 'BEI intelligence monitoring is active for your business. Industry-specific benchmarks will increase in precision over successive MRI cycles. Current cross-sector data confirms: trust infrastructure, lead response speed and revenue concentration are the three most common constraint drivers across all SME sectors in 2026.'
-  }
-  const marketUpdates = isEstate ? [
-    { tag: 'PROPERTY MARKET', title: 'UK buyer demand up in Q2 2026', summary: 'Increased buyer activity across UK property market. Agencies with strong review velocity and fast lead response are capturing disproportionate share of new instructions.', severity: 'opportunity', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80' },
-    { tag: 'TRUST SIGNALS', title: 'Google excludes sub-4.0★ from best searches', summary: 'Businesses below 4.0★ are excluded from "best estate agent" search results in 2026. Review rating and volume now directly impact organic lead generation. Platform average: 224 reviews.', severity: 'alert', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80' },
-    { tag: 'LEAD RESPONSE', title: '78% of buyers work with the first responder', summary: 'After-hours enquiries represent 62% of total volume. Agencies without automated response systems are losing the majority of out-of-hours leads to faster competitors.', severity: 'alert', date: 'May 2026', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80' },
-    { tag: 'COMPETITIVE', title: 'Review velocity gap widening in local markets', summary: 'Agencies not actively collecting reviews are losing ground daily to competitors. Minimum competitive velocity: 4–8 new Google reviews per month to maintain local search position.', severity: 'watch', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
-  ] : isMarketing ? [
-    { tag: 'PRICING PRESSURE', title: 'UK agency NI costs up £8k–£12k on £500k payroll', summary: 'Employer NI rate increase from April 2025 is now fully materialising in 2026 margins. Agencies that have not repriced since 2024 are absorbing these costs directly into net profit.', severity: 'alert', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80' },
-    { tag: 'CLIENT RETENTION', title: 'Retainer agencies achieve 56-month avg client lifespan', summary: 'vs 24 months for project-based agencies. Retainer model transition is the single highest-leverage structural change available to most SME agencies in 2026.', severity: 'opportunity', date: 'May 2026', img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80' },
-    { tag: 'AI SERVICES', title: 'AI-adjacent service demand up significantly in 2026', summary: 'Agencies with clear AI-assisted positioning are capturing disproportionate new business. Offer clarity around AI services is increasingly determining proposal conversion rates.', severity: 'opportunity', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80' },
-    { tag: 'CAPACITY', title: 'Utilisation below 65% sends agency margin to zero', summary: '2026 benchmark data confirms junior staff should run at 80–85% billable utilisation. Senior leadership above 60% billable is a capacity constraint suppressing strategy and BD work.', severity: 'watch', date: 'May 2026', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80' },
-  ] : isAccounting ? [
-    { tag: 'INDUSTRY GROWTH', title: 'UK accounting sector +21.7% client growth YoY', summary: 'Record demand for accounting services across all firm sizes in 2026. Firms not capturing this growth have at least one active constraint — most commonly advisory positioning or partner dependency.', severity: 'opportunity', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&q=80' },
-    { tag: 'ADVISORY SHIFT', title: 'Advisory firms generating 3–5× revenue per client', summary: 'Gap between compliance-led and advisory-led firms is widening rapidly. CX-mature firms command 15–20% billing rate premiums. Compliance-only positioning is a strategic constraint.', severity: 'alert', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80' },
-    { tag: 'SPECIALISATION', title: 'Specialist accountants commanding +25% pricing premium', summary: 'As client complexity increases, demand for specialist accountants grows. Generalist positioning is a growing strategic risk. Specialisation is the highest-leverage differentiation in 2026.', severity: 'opportunity', date: 'May 2026', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80' },
-    { tag: 'COMPLIANCE RISK', title: 'HMRC late payment rate 7.75%/yr from Jan 2026', summary: 'Corporation tax interest on unpaid amounts from January 2026. MTD Phase 3 compliance creating advisory opportunity. Firms with structured CX programmes seeing retention improvements of 3–5 points.', severity: 'watch', date: 'Jan 2026', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80' },
-  ] : [
-    { tag: 'BEI INTELLIGENCE', title: 'Set your business type to receive targeted market updates', summary: 'Go to Account Settings and select your business category. BEI will show you verified market intelligence specific to your sector.', severity: 'watch', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80' },
-    { tag: 'CROSS-SECTOR', title: 'Trust infrastructure now a primary constraint across all sectors', summary: 'Review volume, response speed and social proof are the most common constraint triggers across all three BEI-covered sectors in 2026. Average Google review count: 224.', severity: 'alert', date: 'Jun 2026', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80' },
-    { tag: 'CROSS-SECTOR', title: 'Retainer/advisory models outperforming transactional by 3–5×', summary: 'Across estate, marketing and accounting sectors — businesses operating retainer or advisory models generate 3–5× more revenue per client than transactional counterparts.', severity: 'opportunity', date: 'May 2026', img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80' },
-  ]
+  const oppLow = opportunity?.total_low || 0
+  const oppHigh = opportunity?.total_high || 0
+  const fmt = (n: number) => sym + n.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
 
-  const tabs = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'reports', label: 'Analysis Reports' },
-    { id: 'revenue', label: 'Business Health' },
-    { id: 'issues', label: 'Issues & Constraints' },
-    { id: 'deployment', label: 'Outcome & Deployment' },
-    { id: 'intelligence', label: 'BEI Intelligence' },
-    { id: 'meetings', label: 'Meeting Centre' },
-    { id: 'connectors', label: 'Data Connectors' },
-  ]
+  const pillarList = Object.entries(pillars).map(([name, data]: [string, any]) => ({
+    name: name.charAt(0).toUpperCase() + name.slice(1),
+    score: data.score || 0,
+    color: (data.score || 0) >= 70 ? '#4aaa4a' : (data.score || 0) >= 45 ? gold : '#cc4444'
+  }))
+
+  const alerts = [
+    primary && { level: 'critical', title: primary.name, desc: 'Primary constraint verified · Immediate attention recommended', time: 'Active' },
+    secondary[0] && { level: 'high', title: secondary[0].name, desc: 'Secondary constraint detected', time: 'Active' },
+    { level: 'medium', title: 'Intelligence monitoring active', desc: industryLabel + ' signals being tracked', time: 'Live' },
+  ].filter(Boolean)
+
+  const actions = [
+    primary && { priority: 'CRITICAL', color: '#cc4444', bg: 'rgba(204,68,68,0.08)', title: primary.name, desc: primary.hypothesis?.slice(0, 60) + '...' || 'Review primary constraint', value: oppHigh > 0 ? fmt(oppHigh) + ' at risk' : 'High impact' },
+    secondary[0] && { priority: 'HIGH', color: '#e8923a', bg: 'rgba(232,146,58,0.08)', title: secondary[0].name, desc: 'Secondary constraint requires monitoring', value: 'Medium impact' },
+    { priority: 'MEDIUM', color: gold, bg: 'rgba(200,162,74,0.08)', title: 'Review deployment packages', desc: 'Tier 1 actions available for immediate execution', value: 'Awaiting review' },
+    { priority: 'LOW', color: '#4a8ab0', bg: 'rgba(74,138,176,0.08)', title: 'Connect additional data sources', desc: 'Improve intelligence accuracy with more connectors', value: 'Optional' },
+  ].filter(Boolean)
+
+  const feed = [
+    primary && `${primary.name} has been identified as the highest-value intervention area based on current constraint analysis.`,
+    oppHigh > 0 && `Total opportunity value of ${fmt(oppLow)}–${fmt(oppHigh)} identified across verified constraints.`,
+    `${industryLabel} intelligence signals are active. ${secondary.length} secondary constraint${secondary.length !== 1 ? 's' : ''} identified.`,
+    `Business health score of ${healthScore}/100 places this business ${healthScore >= 60 ? 'above' : 'below'} sector average.`,
+    confidence === 'high' && 'High confidence verification achieved. Constraint intelligence is production-grade.',
+  ].filter(Boolean)
 
   return (
-    <main style={{ backgroundColor: '#0c0c0c', color: '#fff', fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
-
-      {/* Welcome overlay */}
-      {showWelcome && (
-        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(8px)' }}>
-          <div style={{ maxWidth: '560px', padding: '56px', backgroundColor: '#141414', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '16px', textAlign: 'center' as const, position: 'relative' as const }}>
-            <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.6), transparent)' }} />
-            <div style={{ fontSize: '32px', marginBottom: '20px' }}>◈</div>
-            <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Welcome to BEI</div>
-            <div style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px', letterSpacing: '-0.02em' }}>Welcome, {userName}.</div>
-            <div style={{ fontSize: '15px', color: '#e0e0e0', lineHeight: '1.75', marginBottom: '32px' }}>
-              Your Business Intelligence Platform is now active. Your first MRI report has been generated. Your primary constraint has been identified and verified.
-            </div>
-            <div style={{ display: 'flex', gap: '24px', justifyContent: 'center' as const, marginBottom: '24px', padding: '20px', backgroundColor: 'rgba(200,162,74,0.05)', borderRadius: '8px', border: '1px solid rgba(200,162,74,0.1)' }}>
-              <div style={{ textAlign: 'center' as const }}>
-                <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>{health.overall || '—'}</div>
-                <div style={{ fontSize: '11px', color: '#aaa', marginTop: '4px' }}>Health Score</div>
-              </div>
-              <div style={{ width: '1px', backgroundColor: '#1a1a1a' }} />
-              <div style={{ textAlign: 'center' as const }}>
-                <div style={{ fontSize: '13px', fontWeight: '700', color: '#f0f0f0', maxWidth: '160px' }}>{primary?.name || 'Analysing...'}</div>
-                <div style={{ fontSize: '11px', color: '#aaa', marginTop: '4px' }}>Primary Constraint</div>
-              </div>
-              <div style={{ width: '1px', backgroundColor: '#1a1a1a' }} />
-              <div style={{ textAlign: 'center' as const }}>
-                <div style={{ fontSize: '28px', fontWeight: '800', color: '#4aaa4a' }}>100</div>
-                <div style={{ fontSize: '11px', color: '#aaa', marginTop: '4px' }}>Verification</div>
-              </div>
-            </div>
-            <button onClick={() => setShowWelcome(false)} style={{ padding: '14px 48px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '15px' }}>
-              Enter Your Dashboard →
-            </button>
+    <DashboardShell activeId="dashboard">
+      {/* PAGE HEADER */}
+      <div style={{ marginBottom: '24px' }}>
+        <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>EXECUTIVE COMMAND CENTRE</div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+          <div>
+            <h1 style={{ fontSize: '26px', fontWeight: '800', letterSpacing: '-0.02em', margin: 0 }}>Welcome back, {userName}.</h1>
+            <div style={{ fontSize: '13px', color: '#555', marginTop: '4px' }}>{businessName} · {tier} Plan · {industryLabel}</div>
           </div>
-        </div>
-      )}
-
-      {/* Cinematic header — Variant C */}
-      <div style={{ position: 'sticky' as const, top: 0, zIndex: 100, borderBottom: '1px solid #2a2a2a' }}>
-        <div style={{ position: 'relative' as const, height: '120px', overflow: 'hidden', backgroundColor: '#030201' }}>
-          <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.3, pointerEvents: 'none' as const }}>
-            <NetworkGraph width={1400} height={120} nodeCount={40} />
-          </div>
-          <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(3,2,1,0.8) 0%, transparent 40%, transparent 60%, rgba(3,2,1,0.8) 100%)', pointerEvents: 'none' as const }} />
-          <div style={{ position: 'relative' as const, zIndex: 1, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 32px' }}>
-            <div>
-              <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>EXECUTIVE HUB</div>
-              <div style={{ fontSize: '24px', fontWeight: '800', color: '#f0f0f0', letterSpacing: '-0.02em' }}>
-                Welcome back, {userName}.
-              </div>
-              <div style={{ fontSize: '12px', color: '#e0e0e0', marginTop: '5px' }}>
-                {selected?.business_name || 'Your Business'} · {(selected?.subscription_tier || 'analysis').toUpperCase()} Plan
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
-              <div style={{ textAlign: 'center' as const }}>
-                <div style={{ fontSize: '28px', fontWeight: '800', color: healthColor }}>{health.overall || '—'}</div>
-                <div style={{ fontSize: '10px', color: '#e0e0e0', marginTop: '3px' }}>HEALTH</div>
-              </div>
-              <div style={{ width: '1px', height: '32px', backgroundColor: '#1a1a1a' }} />
-              <div style={{ textAlign: 'center' as const }}>
-                <div style={{ fontSize: '28px', fontWeight: '800', color: '#4aaa4a' }}>{primary?.verification_score || '—'}</div>
-                <div style={{ fontSize: '10px', color: '#e0e0e0', marginTop: '3px' }}>VERIFICATION</div>
-              </div>
-              <div style={{ width: '1px', height: '32px', backgroundColor: '#1a1a1a' }} />
-              <div style={{ textAlign: 'center' as const }}>
-                <div style={{ fontSize: '20px', fontWeight: '800', color: gold }}>
-                  {result?.total_opportunity ? getCurrencySymbol(currency) + (result.total_opportunity.total_low || 0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) + '+' : '—'}
-                </div>
-                <div style={{ fontSize: '10px', color: '#e0e0e0', marginTop: '3px' }}>OPPORTUNITY</div>
-              </div>
-              <div style={{ width: '1px', height: '32px', backgroundColor: '#1a1a1a' }} />
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <a href='/account' style={{ padding: '8px 14px', border: '1px solid #1a1a1a', borderRadius: '4px', fontSize: '12px', color: '#e0e0e0', textDecoration: 'none', backdropFilter: 'blur(4px)' }}>Account</a>
-                <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/' }} style={{ padding: '8px 14px', border: '1px solid #1a1a1a', borderRadius: '4px', fontSize: '12px', color: '#e0e0e0', backgroundColor: 'transparent', cursor: 'pointer' }}>Sign out</button>
-              </div>
-            </div>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <a href="/book" style={{ padding: '8px 16px', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', fontSize: '12px', textDecoration: 'none' }}>Book Strategy Session</a>
+            <a href="/report" style={{ padding: '8px 16px', backgroundColor: gold, borderRadius: '6px', color: '#050505', fontSize: '12px', fontWeight: '700', textDecoration: 'none' }}>View Full Report →</a>
           </div>
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', minHeight: 'calc(100vh - 68px)' }}>
-
-        {/* Sidebar — Variant B: network graph background */}
-        <div style={{ borderRight: '1px solid #161616', backgroundColor: '#0e0e0e', padding: '28px 0', display: 'flex', flexDirection: 'column' as const, position: 'relative' as const, overflow: 'hidden' }}>
-          <div style={{ position: 'absolute' as const, inset: 0, opacity: 0.08, pointerEvents: 'none' as const }}>
-            <NetworkGraph width={260} height={800} nodeCount={15} />
+      {/* EXECUTIVE SUMMARY STRIP */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '10px', marginBottom: '20px' }}>
+        {[
+          { label: 'OVERALL HEALTH', value: healthScore + '/100', color: healthColor, sub: health.band || 'unknown' },
+          { label: 'VERIFICATION', value: verificationScore + '/100', color: verificationScore >= 70 ? '#4aaa4a' : gold, sub: 'Primary constraint' },
+          { label: 'OPPORTUNITY', value: oppLow > 0 ? fmt(oppLow) + '+' : '—', color: gold, sub: 'Annual uplift' },
+          { label: 'CONFIDENCE', value: confidence.toUpperCase(), color: confColor, sub: 'Intelligence grade' },
+          { label: 'CONSTRAINTS', value: (1 + secondary.length).toString(), color: '#e0e0e0', sub: (secondary.length) + ' secondary' },
+          { label: 'PLAN STATUS', value: tier, color: gold, sub: 'Active' },
+        ].map((k, i) => (
+          <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
+            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '8px' }}>{k.label}</div>
+            <div style={{ fontSize: '20px', fontWeight: '700', color: k.color, lineHeight: 1 }}>{k.value}</div>
+            <div style={{ fontSize: '10px', color: '#444', marginTop: '5px' }}>{k.sub}</div>
           </div>
-          <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.6), transparent)' }} />
+        ))}
+      </div>
 
-          {/* Business selector */}
-          <div style={{ padding: '0 20px 24px', borderBottom: '1px solid #222' }}>
-            <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '12px', fontWeight: '600' }}>Businesses</div>
-            {businesses.length === 0 ? (
-              <div style={{ fontSize: '13px', color: '#e0e0e0' }}>No businesses found</div>
-            ) : businesses.map(b => (
-              <button key={b.id} onClick={() => setSelected(b)} style={{ width: '100%', padding: '10px 12px', marginBottom: '4px', backgroundColor: selected?.id === b.id ? 'rgba(200,162,74,0.08)' : 'transparent', border: selected?.id === b.id ? '1px solid rgba(200,162,74,0.2)' : '1px solid transparent', borderRadius: '6px', textAlign: 'left' as const, cursor: 'pointer', display: 'block' }}>
-                <div style={{ fontSize: '13px', fontWeight: '600', color: selected?.id === b.id ? gold : '#888', marginBottom: '3px' }}>{b.business_name || 'Unnamed Business'}</div>
-                <div style={{ fontSize: '11px', color: '#ddd' }}>{b.subscription_tier || 'analysis'} plan</div>
-              </button>
-            ))}
-          </div>
+      {/* MAIN 3-COLUMN LAYOUT */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 300px', gap: '16px', alignItems: 'start' }}>
 
-          {/* Nav tabs */}
-          <div style={{ padding: '20px 0' }}>
-            {tabs.map(tab => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id as any)} style={{ width: '100%', padding: '12px 20px', backgroundColor: activeTab === tab.id ? 'rgba(200,162,74,0.06)' : 'transparent', border: 'none', borderLeft: activeTab === tab.id ? '2px solid #C8A24A' : '2px solid transparent', textAlign: 'left' as const, cursor: 'pointer', fontSize: '14px', color: activeTab === tab.id ? gold : '#ccc', fontWeight: activeTab === tab.id ? '600' : '400' }}>
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        {/* LEFT: PRIMARY CONSTRAINT CENTREPIECE */}
+        <div style={{ gridColumn: '1 / 3', display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
 
-          {/* Bottom links */}
-          <div style={{ marginTop: 'auto', padding: '20px', borderTop: '1px solid #111' }}>
-            {[['Account', '/account'], ['Book Session', '/book']].map(([label, href]) => (
-              <a key={href} href={href} style={{ display: 'block', padding: '8px 0', fontSize: '13px', color: '#e0e0e0', textDecoration: 'none' }}>{label}</a>
-            ))}
-          </div>
-        </div>
-
-        {/* Main content */}
-        <div style={{ padding: '32px 40px', overflowY: 'auto' as const }}>
-
-          {/* Business header */}
-          <div style={{ marginBottom: '32px', paddingBottom: '24px', borderBottom: '1px solid #222', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div>
-              <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '8px', fontWeight: '600' }}>Executive Dashboard</div>
-              <div style={{ fontSize: '28px', fontWeight: '800', letterSpacing: '-0.02em' }}>{selected?.business_name || 'Your Business'}</div>
-              <div style={{ fontSize: '13px', color: '#e0e0e0', marginTop: '6px' }}>Last updated: {selected?.updated_at ? new Date(selected.updated_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Never'}</div>
-            </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <a href={`/report/${selected?.id}`} style={{ padding: '10px 20px', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', fontSize: '13px', color: gold, textDecoration: 'none', fontWeight: '600' }}>View Full Report →</a>
-              <a href='/book' style={{ padding: '10px 20px', backgroundColor: gold, color: dark, borderRadius: '6px', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>Book Session</a>
-            </div>
-          </div>
-
-          {/* OVERVIEW TAB */}
-          {activeTab === 'overview' && (
-            <div>
-              {/* BEI EYE image — top of overview */}
-              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
-                <img src='/new123.png' alt='BEI Intelligence' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
-                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
-                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
-                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BEI INTELLIGENCE — ACTIVE</div>
-                </div>
-                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
-                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING</span>
-                </div>
-              </div>
-              {/* Health + stats row — glow on hover, Option 3 */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '20px', marginBottom: '24px' }}>
-                <div
-                  style={{ background: 'radial-gradient(circle at 50% 30%, #151515, ' + card + ')', border: '1px solid ' + border, borderRadius: '10px', padding: '24px', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', transition: 'all 0.25s cubic-bezier(0.2,0.8,0.2,1)', cursor: 'default' }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(200,162,74,0.2)' }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
-                >
-                  <div style={{ fontSize: '9px', color: '#e0e0e0', letterSpacing: '0.2em', marginBottom: '14px' }}>OVERALL HEALTH</div>
-                  <svg width="130" height="130" viewBox="0 0 130 130" style={{ display: 'block' }}>
-                    <circle cx="65" cy="65" r="54" fill="none" stroke="#1a1a1a" strokeWidth="8"/>
-                    <circle cx="65" cy="65" r="54" fill="none" stroke={healthColor} strokeWidth="8"
-                      strokeDasharray={`${(health.overall || 0) * 3.39} 339`}
-                      strokeDashoffset="85" strokeLinecap="round"
-                      transform="rotate(-90 65 65)"
-                      style={{ transition: 'stroke-dasharray 1.5s ease' }}
-                    />
-                    <text x="65" y="73" textAnchor="middle" fill={healthColor} fontSize="30" fontWeight="800" fontFamily="Inter">{health.overall || '—'}</text>
-                  </svg>
-                  <div style={{ fontSize: '13px', color: '#aaa', marginTop: '10px', textTransform: 'capitalize' as const }}>{health.band || 'unknown'}</div>
-                  {health.vs_benchmark && (
-                    <div style={{ fontSize: '11px', color: health.vs_benchmark === 'above' ? '#4aaa4a' : '#cc4444', marginTop: '5px' }}>
-                      {health.vs_benchmark === 'above' ? '↑ Above' : '↓ Below'} benchmark
-                    </div>
-                  )}
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr 1fr', gap: '10px' }}>
-                  {[
-                    { label: 'Primary Constraint', value: primary?.name || 'None detected', color: '#cc4444', glow: 'rgba(204,68,68,0.4)' },
-                    { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', glow: 'rgba(74,170,74,0.4)' },
-                    { label: 'Total Opportunity', value: result?.total_opportunity ? getCurrencySymbol(currency) + (result.total_opportunity.total_low || 0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' – ' + getCurrencySymbol(currency) + (result.total_opportunity.total_high || 0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) : '—', color: gold, glow: 'rgba(200,162,74,0.4)' },
-                    { label: 'Secondary Constraints', value: secondary.length + ' identified', color: '#ddd', glow: 'rgba(120,120,120,0.3)' },
-                    { label: 'Confidence', value: (result?.confidence || 'low').toUpperCase(), color: result?.confidence === 'high' ? '#4aaa4a' : '#888', glow: result?.confidence === 'high' ? 'rgba(74,170,74,0.4)' : 'rgba(120,120,120,0.3)' },
-                    { label: 'Subscription', value: (selected?.subscription_tier || 'analysis').toUpperCase(), color: gold, glow: 'rgba(200,162,74,0.4)' },
-                  ].map(s => (
-                    <div
-                      key={s.label}
-                      style={{ backgroundColor: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '16px', transition: 'all 0.25s cubic-bezier(0.2,0.8,0.2,1)', cursor: 'default' }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(-3px)'; el.style.boxShadow = '0 8px 24px ' + s.glow; el.style.backgroundColor = '#131313' }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(0)'; el.style.boxShadow = 'none'; el.style.backgroundColor = '#0e0e0e' }}
-                    >
-                      <div style={{ fontSize: '9px', color: '#ddd', letterSpacing: '0.15em', marginBottom: '8px' }}>{s.label.toUpperCase()}</div>
-                      <div style={{ fontSize: s.label === 'Primary Constraint' ? '13px' : '20px', fontWeight: '700', color: s.color, lineHeight: '1.3' }}>{s.value}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Detection + Pillar Charts with view switcher */}
-              {(() => {
-                const constraintData = primary ? [
-                  { name: primary.name, score: primary.verification_score || 94, color: '#C8A24A', label: 'Primary' },
-                  ...(secondary.slice(0,3).map((c: any, i: number) => ({
-                    name: c.name, score: c.verification_score || 65,
-                    color: i === 0 ? '#cc4444' : i === 1 ? '#4a8ab0' : '#888',
-                    label: `Secondary ${i+1}`
-                  })))
-                ] : []
-                const pillarData = health.pillars ? Object.entries(health.pillars).map(([name, data]: [string, any]) => ({
-                  name: name.charAt(0).toUpperCase() + name.slice(1),
-                  score: data.score,
-                  color: data.score >= 70 ? '#4aaa4a' : data.score >= 45 ? '#C8A24A' : '#cc4444',
-                  benchmark: isEstate ? ({ growth: 14, operations: 15, strategy: 13, risk: 12, context: 11 } as any)[name] || 13
-                    : isMarketing ? ({ growth: 15, operations: 14, strategy: 14, risk: 13, context: 12 } as any)[name] || 13
-                    : isAccounting ? ({ growth: 13, operations: 16, strategy: 13, risk: 14, context: 12 } as any)[name] || 13
-                    : 13
-                })) : []
-                const industryLabel = isEstate ? 'Estate Agency' : isMarketing ? 'Marketing Agency' : isAccounting ? 'Accountancy' : 'Your Sector'
-                const totalC = constraintData.reduce((s: number, c: any) => s + c.score, 0)
-                return (
-                  <div>
-                    {/* Toggle */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                      <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', fontWeight: '600' }}>INTELLIGENCE CHARTS</div>
-                      <div style={{ display: 'flex', gap: '4px', backgroundColor: '#0a0a0a', border: '1px solid #222', borderRadius: '6px', padding: '2px' }}>
-                        {(['bar','column','pie','radar'] as const).map(v => (
-                          <button key={v} onClick={() => setChartView(v)} style={{ padding: '5px 12px', borderRadius: '4px', border: 'none', backgroundColor: chartView === v ? '#C8A24A' : 'transparent', color: chartView === v ? '#050505' : '#555', fontSize: '11px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.04em', transition: 'all 0.2s', textTransform: 'capitalize' as const }}>{v}</button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* CONSTRAINT CHART */}
-                    {primary && (
-                      <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', marginBottom: '16px', overflow: 'hidden' as const }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                          <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', fontWeight: '600' }}>CONSTRAINT DETECTION ENGINE — LIVE</div>
-                          <div style={{ fontSize: '9px', color: '#555' }}>VERIFICATION SCORES / 100</div>
-                        </div>
-                        {/* BAR */}
-                        {chartView === 'bar' && constraintData.map((c: any, i: number) => (
-                          <div key={i} style={{ marginBottom: '14px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                              <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: i === 0 ? '700' : '400' }}>{c.name}</div>
-                              <div style={{ fontSize: '11px', fontWeight: '700', color: c.color }}>{c.score}/100</div>
-                            </div>
-                            <div style={{ height: '14px', backgroundColor: '#0a0a0a', borderRadius: '3px', overflow: 'hidden', position: 'relative' as const }}>
-                              <div style={{ width: c.score + '%', height: '100%', background: `linear-gradient(90deg, ${c.color}66, ${c.color})`, borderRadius: '3px', transition: 'width 1s ease' }} />
-                            </div>
-                            {i === 0 && <div style={{ fontSize: '9px', color: c.color, marginTop: '3px', letterSpacing: '0.1em' }}>▲ PRIMARY CONSTRAINT</div>}
-                          </div>
-                        ))}
-                        {/* COLUMN */}
-                        {chartView === 'column' && (
-                          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '16px', height: '160px', paddingBottom: '24px', position: 'relative' as const, overflow: 'hidden' as const }}>
-                            {[0,25,50,75,100].map(line => (
-                              <div key={line} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${(line/100)*136 + 24}px`, borderTop: '1px solid #1e1e1e' }}>
-                                <span style={{ position: 'absolute' as const, right: '100%', paddingRight: '6px', fontSize: '9px', color: '#444', top: '-6px' }}>{line}</span>
-                              </div>
-                            ))}
-                            {constraintData.map((c: any, i: number) => (
-                              <div key={i} style={{ width: '80px', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '6px' }}>
-                                <div style={{ fontSize: '11px', fontWeight: '700', color: c.color }}>{c.score}</div>
-                                <div style={{ width: '100%', height: `${(c.score/100)*136}px`, background: `linear-gradient(180deg, ${c.color}, ${c.color}66)`, borderRadius: '4px 4px 0 0', transition: 'height 1s ease', minHeight: '4px' }} />
-                                <div style={{ fontSize: '9px', color: '#888', textAlign: 'center' as const, lineHeight: '1.3' }}>{c.name.split(' ').slice(0,2).join(' ')}</div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        {/* PIE */}
-                        {chartView === 'pie' && (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-                            <svg width="160" height="160" viewBox="0 0 160 160" style={{ flexShrink: 0 }}>
-                              {constraintData.reduce((acc: any[], c: any) => {
-                                const pct = c.score / totalC
-                                const prev = acc.reduce((s: number, a: any) => s + a.pct, 0)
-                                const s = prev * 2 * Math.PI - Math.PI / 2
-                                const e = (prev + pct) * 2 * Math.PI - Math.PI / 2
-                                const r = 68, cx = 80, cy = 80
-                                acc.push({ pct, color: c.color, path: `M${cx},${cy} L${cx+r*Math.cos(s)},${cy+r*Math.sin(s)} A${r},${r} 0 ${pct>0.5?1:0},1 ${cx+r*Math.cos(e)},${cy+r*Math.sin(e)} Z` })
-                                return acc
-                              }, []).map((seg: any, i: number) => <path key={i} d={seg.path} fill={seg.color} stroke="#141414" strokeWidth="2" opacity="0.9" />)}
-                              <circle cx="80" cy="80" r="32" fill="#141414" />
-                              <text x="80" y="76" textAnchor="middle" fill="#C8A24A" fontSize="16" fontWeight="bold">{constraintData[0]?.score}</text>
-                              <text x="80" y="90" textAnchor="middle" fill="#888" fontSize="8">PRIMARY</text>
-                            </svg>
-                            <div style={{ flex: 1 }}>
-                              {constraintData.map((c: any, i: number) => (
-                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                                  <div style={{ width: '12px', height: '12px', borderRadius: '3px', backgroundColor: c.color, flexShrink: 0 }} />
-                                  <div style={{ flex: 1, fontSize: '12px', color: '#e0e0e0', fontWeight: i===0?'700':'400' }}>{c.name}</div>
-                                  <div style={{ fontSize: '12px', fontWeight: '700', color: c.color }}>{c.score}</div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        {/* RADAR */}
-                        {chartView === 'radar' && (() => {
-                          const n = constraintData.length
-                          const pts = constraintData.map((c: any, i: number) => {
-                            const a = (i/n)*2*Math.PI - Math.PI/2
-                            const r = (c.score/100)*75
-                            return { x: 90+r*Math.cos(a), y: 90+r*Math.sin(a), color: c.color, score: c.score, name: c.name }
-                          })
-                          return (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-                              <svg width="180" height="180" viewBox="0 0 180 180" style={{ flexShrink: 0 }}>
-                                {[25,50,75,100].map(ring => (
-                                  <polygon key={ring} points={Array.from({length:n},(_,i)=>{const a=(i/n)*2*Math.PI-Math.PI/2;const r=(ring/100)*75;return `${90+r*Math.cos(a)},${90+r*Math.sin(a)}`;}).join(' ')} fill="none" stroke="#1e1e1e" strokeWidth="1"/>
-                                ))}
-                                {Array.from({length:n},(_,i)=>{const a=(i/n)*2*Math.PI-Math.PI/2;return <line key={i} x1="90" y1="90" x2={90+75*Math.cos(a)} y2={90+75*Math.sin(a)} stroke="#222" strokeWidth="1"/>;})}
-                                <polygon points={pts.map((p:any)=>`${p.x},${p.y}`).join(' ')} fill="rgba(200,162,74,0.15)" stroke="#C8A24A" strokeWidth="2"/>
-                                {pts.map((p: any, i: number) => <circle key={i} cx={p.x} cy={p.y} r="5" fill={p.color}/>)}
-                              </svg>
-                              <div style={{ flex: 1 }}>
-                                {constraintData.map((c: any, i: number) => (
-                                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: c.color }} />
-                                    <div style={{ flex: 1, fontSize: '11px', color: '#aaa' }}>{c.name}</div>
-                                    <div style={{ fontSize: '12px', fontWeight: '700', color: c.color }}>{c.score}</div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )
-                        })()}
-                      </div>
-                    )}
-
-                    {/* PILLAR CHART */}
-                    {health.pillars && Object.keys(health.pillars).length > 0 && (
-                      <div style={{ padding: '20px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '20px', overflow: 'hidden' as const }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                          <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.2em', fontWeight: '600' }}>PILLAR SCORES — {industryLabel.toUpperCase()}</div>
-                          <div style={{ fontSize: '9px', color: '#555' }}>/ 20 · WHITE = BENCHMARK</div>
-                        </div>
-                        {/* BAR */}
-                        {chartView === 'bar' && pillarData.map((p: any, i: number) => (
-                          <div key={i} style={{ marginBottom: '14px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                              <div style={{ fontSize: '12px', color: '#aaa' }}>{p.name}</div>
-                              <div style={{ fontSize: '11px', color: '#555' }}>BM {p.benchmark}/20 &nbsp;<span style={{ fontWeight: '700', color: p.color }}>{p.score}/20</span></div>
-                            </div>
-                            <div style={{ height: '14px', backgroundColor: '#0a0a0a', borderRadius: '3px', overflow: 'hidden', position: 'relative' as const }}>
-                              <div style={{ width: `${(p.score/20)*100}%`, height: '100%', background: `linear-gradient(90deg, ${p.color}66, ${p.color})`, borderRadius: '3px', transition: 'width 1s ease' }} />
-                              <div style={{ position: 'absolute' as const, top: 0, left: `${(p.benchmark/20)*100}%`, width: '2px', height: '100%', backgroundColor: 'rgba(255,255,255,0.4)' }} />
-                            </div>
-                          </div>
-                        ))}
-                        {/* COLUMN */}
-                        {chartView === 'column' && (
-                          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '16px', height: '180px', paddingBottom: '28px', paddingLeft: '24px', position: 'relative' as const, overflow: 'hidden' as const }}>
-                            {[0,5,10,15,20].map(line => (
-                              <div key={line} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${(line/20)*152+28}px`, borderTop: '1px solid #1e1e1e', pointerEvents: 'none' as const }}>
-                                <span style={{ position: 'absolute' as const, left: '4px', fontSize: '9px', color: '#444', top: '-6px' }}>{line}</span>
-                              </div>
-                            ))}
-                            {pillarData.map((p: any, i: number) => (
-                              <div key={i} style={{ width: '56px', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '4px' }}>
-                                <div style={{ fontSize: '10px', fontWeight: '700', color: p.color }}>{p.score}</div>
-                                <div style={{ width: '100%', position: 'relative' as const }}>
-                                  <div style={{ width: '100%', height: `${(p.score/20)*152}px`, background: `linear-gradient(180deg, ${p.color}, ${p.color}55)`, borderRadius: '3px 3px 0 0', transition: 'height 1s ease', minHeight: '3px' }} />
-                                  <div style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${(p.benchmark/20)*152}px`, borderTop: '2px dashed rgba(255,255,255,0.3)' }} />
-                                </div>
-                                <div style={{ fontSize: '9px', color: '#888', textAlign: 'center' as const }}>{p.name.slice(0,4)}</div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        {/* PIE */}
-                        {chartView === 'pie' && (() => {
-                          const total = pillarData.reduce((s: number, p: any) => s + p.score, 0)
-                          return (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-                              <svg width="160" height="160" viewBox="0 0 160 160" style={{ flexShrink: 0 }}>
-                                {pillarData.reduce((acc: any[], p: any) => {
-                                  const pct = p.score/total
-                                  const prev = acc.reduce((s: number, a: any) => s+a.pct, 0)
-                                  const s2 = prev*2*Math.PI-Math.PI/2
-                                  const e = (prev+pct)*2*Math.PI-Math.PI/2
-                                  const r=68,cx=80,cy=80
-                                  acc.push({ pct, color: p.color, path: `M${cx},${cy} L${cx+r*Math.cos(s2)},${cy+r*Math.sin(s2)} A${r},${r} 0 ${pct>0.5?1:0},1 ${cx+r*Math.cos(e)},${cy+r*Math.sin(e)} Z` })
-                                  return acc
-                                }, []).map((seg: any, i: number) => <path key={i} d={seg.path} fill={seg.color} stroke="#0a0a0a" strokeWidth="2" opacity="0.9"/>)}
-                                <circle cx="80" cy="80" r="32" fill={card} />
-                                <text x="80" y="76" textAnchor="middle" fill="#C8A24A" fontSize="16" fontWeight="bold">{health.overall_score || health.overall || '—'}</text>
-                                <text x="80" y="90" textAnchor="middle" fill="#888" fontSize="8">HEALTH</text>
-                              </svg>
-                              <div style={{ flex: 1 }}>
-                                {pillarData.map((p: any, i: number) => (
-                                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                                    <div style={{ width: '12px', height: '12px', borderRadius: '3px', backgroundColor: p.color, flexShrink: 0 }} />
-                                    <div style={{ flex: 1, fontSize: '12px', color: '#e0e0e0' }}>{p.name}</div>
-                                    <div style={{ fontSize: '11px', color: p.color, fontWeight: '700' }}>{p.score}/20</div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )
-                        })()}
-                        {/* RADAR */}
-                        {chartView === 'radar' && (() => {
-                          const n = pillarData.length
-                          const pts = pillarData.map((p: any, i: number) => {
-                            const a = (i/n)*2*Math.PI-Math.PI/2
-                            const r = (p.score/20)*70
-                            return { x: 90+r*Math.cos(a), y: 90+r*Math.sin(a), color: p.color }
-                          })
-                          const bpts = pillarData.map((p: any, i: number) => {
-                            const a = (i/n)*2*Math.PI-Math.PI/2
-                            const r = (p.benchmark/20)*70
-                            return `${90+r*Math.cos(a)},${90+r*Math.sin(a)}`
-                          })
-                          return (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-                              <svg width="180" height="180" viewBox="0 0 180 180" style={{ flexShrink: 0 }}>
-                                {[5,10,15,20].map(ring => (
-                                  <polygon key={ring} points={Array.from({length:n},(_,i)=>{const a=(i/n)*2*Math.PI-Math.PI/2;const r=(ring/20)*70;return `${90+r*Math.cos(a)},${90+r*Math.sin(a)}`;}).join(' ')} fill="none" stroke="#1e1e1e" strokeWidth="1"/>
-                                ))}
-                                {Array.from({length:n},(_,i)=>{const a=(i/n)*2*Math.PI-Math.PI/2;return <line key={i} x1="90" y1="90" x2={90+70*Math.cos(a)} y2={90+70*Math.sin(a)} stroke="#222" strokeWidth="1"/>;})}
-                                <polygon points={bpts.join(' ')} fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="4,3"/>
-                                <polygon points={pts.map((p:any)=>`${p.x},${p.y}`).join(' ')} fill="rgba(200,162,74,0.15)" stroke="#C8A24A" strokeWidth="2"/>
-                                {pts.map((p: any, i: number) => {
-                                  const a = (i/n)*2*Math.PI-Math.PI/2
-                                  const lx = 90+82*Math.cos(a), ly = 90+82*Math.sin(a)
-                                  return <g key={i}><circle cx={p.x} cy={p.y} r="4" fill={p.color}/><text x={lx} y={ly} textAnchor="middle" dominantBaseline="middle" fill="#888" fontSize="9">{pillarData[i].name.slice(0,4)}</text></g>
-                                })}
-                              </svg>
-                              <div style={{ flex: 1 }}>
-                                <div style={{ fontSize: '10px', color: '#555', marginBottom: '10px' }}>Dashed = {industryLabel} benchmark</div>
-                                {pillarData.map((p: any, i: number) => (
-                                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: p.color }} />
-                                    <div style={{ flex: 1, fontSize: '11px', color: '#aaa' }}>{p.name}</div>
-                                    <div style={{ fontSize: '10px', color: '#555' }}>BM:{p.benchmark}</div>
-                                    <div style={{ fontSize: '11px', fontWeight: '700', color: p.color }}>{p.score}</div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )
-                        })()}
-                      </div>
-                    )}
-                  </div>
-                )
-              })()}
-
-              {/* Primary constraint */}
-              {primary && (
-                <div style={{ padding: '28px', backgroundColor: '#080f04', border: '1px solid #2a3a1a', borderRadius: '10px', marginBottom: '20px' }}>
-                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '10px', fontWeight: '600' }}>PRIMARY CONSTRAINT — VERIFIED</div>
-                  <div style={{ fontSize: '20px', fontWeight: '800', marginBottom: '10px' }}>{primary.name}</div>
-                  <div style={{ fontSize: '14px', color: '#ddd', lineHeight: '1.75', marginBottom: '16px' }}>{primary.hypothesis}</div>
-                  {primary.evidence && primary.evidence.slice(0,2).map((e: string, i: number) => (
-                    <div key={i} style={{ display: 'flex', gap: '10px', marginBottom: '8px' }}>
-                      <span style={{ color: gold, fontSize: '10px', marginTop: '4px' }}>◈</span>
-                      <span style={{ fontSize: '13px', color: '#e0e0e0', lineHeight: '1.6' }}>{e}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-{/* Data connection to-do list */}
-              {(() => {
-                const connectors = [
-                  { id: 'crm', label: 'CRM Connected', desc: 'HubSpot, Salesforce or manual CRM', href: '/dashboard' },
-                  { id: 'finance', label: 'Finance Connected', desc: 'Xero, QuickBooks or manual financial data', href: '/dashboard' },
-                  { id: 'hr', label: 'HR / Staffing Connected', desc: 'HiBob, Workday or manual staffing data', href: '/dashboard' },
-                  { id: 'analytics', label: 'Google Analytics Connected', desc: 'Website traffic and conversion data', href: '/dashboard' },
-                  { id: 'reviews', label: 'Review Platform Connected', desc: 'Google Business Profile or review data', href: '/dashboard' },
-                  { id: 'companies', label: 'Companies House Connected', desc: 'UK company filing and director data', href: '/dashboard' },
-                ]
-                const connected = 0
-                const total = connectors.length
-                if (connected >= total) return null
-                return (
-                  <div style={{ padding: '24px', backgroundColor: '#141414', border: '1px solid #1a1a1a', borderRadius: '10px', marginBottom: '20px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-                      <div>
-                        <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>◈ DATA CONNECTION STATUS</div>
-                        <div style={{ fontSize: '15px', fontWeight: '700', color: '#f0f0f0', marginBottom: '4px' }}>Connect your business data</div>
-                        <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6' }}>Your MRI is currently based on intake answers only. Connect live data sources to unlock enhanced constraint detection and higher verification accuracy.</div>
-                      </div>
-                      <div style={{ textAlign: 'right' as const, flexShrink: 0, marginLeft: '20px' }}>
-                        <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>{connected}/{total}</div>
-                        <div style={{ fontSize: '10px', color: '#e0e0e0', marginTop: '2px' }}>connected</div>
-                      </div>
-                    </div>
-                    <div style={{ width: '100%', height: '4px', backgroundColor: '#111', borderRadius: '2px', marginBottom: '16px' }}>
-                      <div style={{ width: `${(connected/total)*100}%`, height: '100%', backgroundColor: gold, borderRadius: '2px', transition: 'width 1s ease' }} />
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '16px' }}>
-                      {connectors.map((c, i) => (
-                        <div key={c.id} style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px 12px', backgroundColor: '#0a0a0a', border: '1px solid #2a2a2a', borderRadius: '6px' }}>
-                          <div style={{ width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #333', backgroundColor: 'transparent', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#222' }} />
-                          </div>
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: '12px', fontWeight: '600', color: '#e0e0e0', whiteSpace: 'nowrap' as const, overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.label}</div>
-                            <div style={{ fontSize: '10px', color: '#ddd', marginTop: '1px' }}>{c.desc}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <a href='/connect' style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 24px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '13px' }}>
-                      Connect Your Business Data →
-                    </a>
-                    <span style={{ fontSize: '12px', color: '#e0e0e0', marginLeft: '16px' }}>Takes 2–5 minutes per connector</span>
-                  </div>
-                )
-              })()}
-
-              {/* Primary constraint */}
-              {primary && (
-                <div style={{ padding: '28px', backgroundColor: '#080f04', border: '1px solid #2a3a1a', borderRadius: '10px', marginBottom: '20px' }}>
-                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '10px', fontWeight: '600' }}>PRIMARY CONSTRAINT — VERIFIED</div>
-                  <div style={{ fontSize: '20px', fontWeight: '800', marginBottom: '10px' }}>{primary.name}</div>
-                  <div style={{ fontSize: '14px', color: '#ddd', lineHeight: '1.75', marginBottom: '16px' }}>{primary.hypothesis}</div>
-                  {primary.evidence && primary.evidence.slice(0,2).map((e: string, i: number) => (
-                    <div key={i} style={{ display: 'flex', gap: '10px', marginBottom: '8px' }}>
-                      <span style={{ color: gold, fontSize: '10px', marginTop: '4px' }}>◈</span>
-                      <span style={{ fontSize: '13px', color: '#e0e0e0', lineHeight: '1.6' }}>{e}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-            </div>
-          )}
-
-          {/* ANALYSIS REPORTS TAB */}
-          {activeTab === 'reports' && (
-            <div>
-              {/* BEISCREEN image — top of Analysis Reports tab */}
-              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
-                <img src='/123NEW.png' alt='BEI Analysis' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.8 }} />
-                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
-                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
-                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BEI ANALYSIS ENGINE — ACTIVE</div>
-                </div>
-                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
-                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING</span>
-                </div>
-              </div>
-              <div style={{ fontSize: '11px', color: '#e0e0e0', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>ANALYSIS REPORTS</div>
-              <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '24px', lineHeight: '1.7' }}>View your MRI report history and generate a new MRI for any connected business.</div>
-              <div style={{ padding: '24px 28px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '10px', marginBottom: '24px', position: 'relative' as const, overflow: 'hidden' }}>
-                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.5), transparent)' }} />
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '24px' }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>◈ GENERATE NEW MRI REPORT</div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '6px' }}>Run a fresh MRI on your business</div>
-                    <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.6', marginBottom: '16px' }}>Generate an updated Business MRI report. Your Business Twin will be refreshed and all constraints re-verified against the latest intelligence.</div>
-                    {businesses.length > 1 && (
-                      <div style={{ marginBottom: '8px' }}>
-                        <div style={{ fontSize: '11px', color: '#e0e0e0', marginBottom: '8px', letterSpacing: '0.1em' }}>SELECT BUSINESS TO ANALYSE</div>
-                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' as const }}>
-                          {businesses.map((b: any) => (
-                            <button key={b.id} onClick={() => setSelected(b)} style={{ padding: '8px 16px', backgroundColor: selected?.id === b.id ? 'rgba(200,162,74,0.12)' : '#141414', border: `1px solid ${selected?.id === b.id ? 'rgba(200,162,74,0.4)' : '#2a2a2a'}`, borderRadius: '6px', fontSize: '13px', color: selected?.id === b.id ? gold : '#888', cursor: 'pointer', fontWeight: selected?.id === b.id ? '600' : '400' }}>
-                              {b.business_name || 'Unnamed'}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <a href={selected?.id ? `/intake/${selected.id}` : '/book'} style={{ padding: '14px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px', whiteSpace: 'nowrap' as const, flexShrink: 0, alignSelf: 'center' as const }}>Generate New MRI →</a>
-                </div>
-              </div>
-              <div style={{ padding: '28px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div>
-                    <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.15em', marginBottom: '8px', fontWeight: '600' }}>LATEST MRI REPORT</div>
-                    <div style={{ fontSize: '18px', fontWeight: '700', marginBottom: '6px' }}>{selected?.business_name || 'Your Business'}</div>
-                    <div style={{ fontSize: '13px', color: '#aaa' }}>Generated: {selected?.updated_at ? new Date(selected.updated_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Unknown'}</div>
-                  </div>
-                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <div style={{ textAlign: 'right' as const }}>
-                      <div style={{ fontSize: '11px', color: '#e0e0e0', marginBottom: '4px' }}>HEALTH SCORE</div>
-                      <div style={{ fontSize: '28px', fontWeight: '800', color: healthColor }}>{health.overall || '—'}</div>
-                    </div>
-                    <a href={`/report/${selected?.id}`} style={{ padding: '10px 20px', backgroundColor: gold, color: dark, borderRadius: '6px', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>View Report →</a>
-                  </div>
-                </div>
-                {primary && (
-                  <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid #111', display: 'flex', gap: '32px' }}>
-                    <div>
-                      <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '4px' }}>PRIMARY CONSTRAINT</div>
-                      <div style={{ fontSize: '13px', fontWeight: '600', color: '#f0f0f0' }}>{primary.name}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '4px' }}>VERIFICATION</div>
-                      <div style={{ fontSize: '13px', fontWeight: '600', color: '#4aaa4a' }}>{primary.verification_score}/100</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '4px' }}>SEVERITY</div>
-                      <div style={{ fontSize: '13px', fontWeight: '600', color: '#cc4444' }}>{(primary.severity || 'medium').toUpperCase()}</div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', fontSize: '13px', color: '#e0e0e0', lineHeight: '1.7' }}>
-                ◈ Monthly MRI reports are generated automatically on your renewal date. Historical reports will appear here as your subscription progresses.
-              </div>
-            </div>
-          )}
-
-          {/* BUSINESS HEALTH TAB */}
-          {activeTab === 'revenue' && (
-            <div>
-              {/* BEI Intelligence image */}
-              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
-                <img src='/NEWNEWBEI.png' alt='BEI Business Health' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
-                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
-                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
-                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>BUSINESS HEALTH — ACTIVE MONITORING</div>
-                </div>
-                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
-                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>LIVE</span>
-                </div>
-              </div>
-              <div style={{ fontSize: '11px', color: '#e0e0e0', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>BUSINESS HEALTH</div>
-              <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '24px', lineHeight: '1.7' }}>
-                A full breakdown of your connected business health across all five BEI pillars — Growth, Operations, Strategy, Risk and Context.
-              </div>
-
-              {/* Latest Market Updates */}
-              <div style={{ marginBottom: '20px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                  <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', fontWeight: '600' }}>
-                    LATEST MARKET UPDATES — {industryData.label.toUpperCase()}
-                  </div>
-                  <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 4px rgba(74,170,74,0.6)' }} />
-                    <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>BEI VERIFIED · JUNE 2026</span>
-                  </div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  {marketUpdates.map((u: any, i: number) => (
-                    <div key={i} style={{
-                      backgroundColor: '#111',
-                      border: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}`,
-                      borderRadius: '10px',
-                      overflow: 'hidden' as const
-                    }}>
-                      <div style={{ position: 'relative' as const, height: '120px', overflow: 'hidden' as const }}>
-                        <img src={u.img} alt={u.title} style={{ width: '100%', height: '120px', objectFit: 'cover', display: 'block', opacity: 0.75 }} onError={(e: any) => { e.target.style.display = 'none' }} />
-                        <div style={{ position: 'absolute' as const, inset: 0, background: `linear-gradient(180deg, transparent 30%, ${u.severity === 'alert' ? 'rgba(15,5,0,0.9)' : u.severity === 'opportunity' ? 'rgba(0,10,0,0.9)' : 'rgba(10,10,10,0.9)'} 100%)` }} />
-                        <div style={{ position: 'absolute' as const, bottom: '10px', left: '12px', right: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div style={{ fontSize: '9px', color: u.severity === 'alert' ? '#ff6b6b' : u.severity === 'opportunity' ? '#6bcf6b' : gold, fontWeight: '700', letterSpacing: '0.15em', backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{u.tag}</div>
-                          <div style={{ fontSize: '9px', color: '#ddd', backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{u.date}</div>
-                        </div>
-                        <div style={{ position: 'absolute' as const, top: '10px', right: '10px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: u.severity === 'alert' ? '#cc4444' : u.severity === 'opportunity' ? '#4aaa4a' : gold, boxShadow: `0 0 6px ${u.severity === 'alert' ? 'rgba(204,68,68,0.8)' : u.severity === 'opportunity' ? 'rgba(74,170,74,0.8)' : 'rgba(200,162,74,0.8)'}` }} />
-                      </div>
-                      <div style={{ padding: '14px 16px', borderTop: `1px solid ${u.severity === 'alert' ? '#3a2a04' : u.severity === 'opportunity' ? '#1a3a1a' : '#222'}` }}>
-                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#e8e8e8', marginBottom: '6px', lineHeight: '1.3' }}>{u.title}</div>
-                        <div style={{ fontSize: '11px', color: '#aaa', lineHeight: '1.65' }}>{u.summary}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {!isEstate && !isMarketing && !isAccounting && (
-                  <div style={{ marginTop: '10px', textAlign: 'right' as const }}>
-                    <a href='/account' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Set business type in Account Settings →</a>
-                  </div>
-                )}
-              </div>
-
-
-
-              {result ? (
-                <>
-                  {/* Overall health + pillar grid */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '20px', marginBottom: '24px' }}>
-                    <div
-                      style={{ background: 'radial-gradient(circle at 50% 30%, #151515, ' + card + ')', border: '1px solid ' + border, borderRadius: '10px', padding: '24px', textAlign: 'center' as const, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', transition: 'all 0.25s cubic-bezier(0.2,0.8,0.2,1)', cursor: 'default' }}
-                      onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(200,162,74,0.2)' }}
-                      onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
-                    >
-                      <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', marginBottom: '12px' }}>OVERALL HEALTH</div>
-                      <svg width="120" height="120" viewBox="0 0 120 120" style={{ display: 'block', margin: '0 auto' }}>
-                        <circle cx="60" cy="60" r="50" fill="none" stroke="#111" strokeWidth="8"/>
-                        <circle cx="60" cy="60" r="50" fill="none" stroke={healthColor} strokeWidth="8"
-                          strokeDasharray={`${(health.overall || 0) * 3.14} 314`}
-                          strokeDashoffset="78" strokeLinecap="round"
-                          transform="rotate(-90 60 60)"
-                        />
-                        <text x="60" y="65" textAnchor="middle" fill={healthColor} fontSize="28" fontWeight="800" fontFamily="Inter">{health.overall || '—'}</text>
-                      </svg>
-                      <div style={{ fontSize: '12px', color: '#aaa', marginTop: '8px', textTransform: 'capitalize' as const }}>{health.band || 'unknown'}</div>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px', justifyContent: 'center' }}>
-                      {health.pillars && Object.entries(health.pillars).map(([name, data]: [string, any]) => {
-                        const c = data.score >= 70 ? '#4aaa4a' : data.score >= 45 ? gold : '#cc4444'
-                        const label = name.charAt(0).toUpperCase() + name.slice(1)
-                        return (
-                          <div key={name}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                              <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{label}</div>
-                              <div style={{ fontSize: '12px', fontWeight: '700', color: c }}>{data.score}/100</div>
-                            </div>
-                            <div style={{ height: '6px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
-                              <div style={{ width: data.score + '%', height: '100%', backgroundColor: c, borderRadius: '3px', transition: 'width 1s ease' }} />
-                            </div>
-                            {data.band && <div style={{ fontSize: '10px', color: '#ddd', marginTop: '3px', textTransform: 'capitalize' as const }}>{data.band}</div>}
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Health context cards */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '20px' }}>
-                    {[
-                      { label: 'Primary Constraint', value: primary?.name || 'None detected', color: primary ? '#cc4444' : '#4aaa4a', sub: primary ? 'Active — verified' : 'No constraint detected', glow: primary ? 'rgba(204,68,68,0.4)' : 'rgba(74,170,74,0.4)' },
-                      { label: 'Verification Score', value: primary ? primary.verification_score + '/100' : '—', color: '#4aaa4a', sub: 'Constraint verification', glow: 'rgba(74,170,74,0.4)' },
-                      { label: 'Total Opportunity', value: result.total_opportunity ? getCurrencySymbol(currency) + (result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' – ' + getCurrencySymbol(currency) + (result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}) : '—', color: gold, sub: 'Annual value available', glow: 'rgba(200,162,74,0.4)' },
-                      { label: 'Revenue Band', value: result.inputs?.monthly_revenue || '—', color: '#ddd', sub: 'Current reported revenue', glow: 'rgba(120,120,120,0.3)' },
-                      { label: 'Revenue Trend', value: result.inputs?.revenue_trend || '—', color: '#ddd', sub: 'Self-reported direction', glow: 'rgba(120,120,120,0.3)' },
-                      { label: 'Confidence Level', value: (result.confidence || 'low').toUpperCase(), color: result.confidence === 'high' ? '#4aaa4a' : '#888', sub: 'Intelligence confidence', glow: result.confidence === 'high' ? 'rgba(74,170,74,0.4)' : 'rgba(120,120,120,0.3)' },
-                    ].map(s => (
-                      <div
-                        key={s.label}
-                        style={{ backgroundColor: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '16px', transition: 'all 0.25s cubic-bezier(0.2,0.8,0.2,1)', cursor: 'default' }}
-                        onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(-3px)'; el.style.boxShadow = '0 8px 24px ' + s.glow; el.style.backgroundColor = '#131313' }}
-                        onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(0)'; el.style.boxShadow = 'none'; el.style.backgroundColor = '#0e0e0e' }}
-                      >
-                        <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', marginBottom: '6px' }}>{s.label.toUpperCase()}</div>
-                        <div style={{ fontSize: '14px', fontWeight: '700', color: s.color, lineHeight: '1.3', marginBottom: '4px' }}>{s.value}</div>
-                        <div style={{ fontSize: '11px', color: '#ddd' }}>{s.sub}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Opportunity breakdown */}
-                  {result.total_opportunity && (
-                    <div style={{ padding: '24px', backgroundColor: card, border: '1px solid rgba(200,162,74,0.2)', borderRadius: '10px', marginBottom: '16px' }}>
-                      <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>OPPORTUNITY IMPACT ON HEALTH</div>
-                      <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-end' }}>
-                        <div>
-                          <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '6px' }}>CONSERVATIVE UPLIFT</div>
-                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{(result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                          <div style={{ fontSize: '11px', color: '#e0e0e0', marginTop: '4px' }}>Annual revenue gain</div>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '6px' }}>OPTIMISTIC UPLIFT</div>
-                          <div style={{ fontSize: '36px', fontWeight: '800', color: gold }}>{getCurrencySymbol(currency)}{(result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                          <div style={{ fontSize: '11px', color: '#e0e0e0', marginTop: '4px' }}>Annual revenue gain</div>
-                        </div>
-                        <div style={{ flex: 1, paddingLeft: '20px', borderLeft: '1px solid #161616' }}>
-                          <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '8px' }}>PRIMARY CONSTRAINT RESOLUTION</div>
-                          <div style={{ fontSize: '15px', fontWeight: '700', color: '#f0f0f0', marginBottom: '6px' }}>{primary?.name || '—'}</div>
-                          <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6' }}>Resolving this constraint is the highest-leverage action available to improve your overall health score and unlock the identified opportunity.</div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  <div style={{ padding: '16px 20px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', fontSize: '13px', color: '#e0e0e0', lineHeight: '1.7' }}>
-                    ◈ Connect your accounting and CRM data to enable live health score updates and automatic MRI recalculation.
-                    <a href='/connect' style={{ color: gold, textDecoration: 'none', marginLeft: '8px', fontWeight: '600' }}>Connect data sources →</a>
-                  </div>
-                </>
-              ) : (
-                <div style={{ padding: '48px', textAlign: 'center' as const, backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-                  <div style={{ fontSize: '13px', color: '#e0e0e0', marginBottom: '20px' }}>Complete your MRI to see your full business health breakdown.</div>
-                  <a href='/book' style={{ padding: '12px 32px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px' }}>Start Your Free MRI →</a>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* ISSUES & CONSTRAINTS TAB */}
-          {activeTab === 'issues' && (
-            <div>
-              <div style={{ fontSize: '11px', color: '#e0e0e0', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>ISSUES & CONSTRAINTS</div>
-              <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '24px', lineHeight: '1.7' }}>
-                All detected and verified constraints across your connected business. Ranked by severity, verification score and estimated impact on revenue and growth.
-              </div>
-              {primary ? (
-                <>
-                  {/* Constraint summary stats */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '20px' }}>
-                    {[
-                      { label: 'Primary Constraint', value: '1', color: '#cc4444', sub: 'Verified active' },
-                      { label: 'Secondary Constraints', value: String(secondary.length), color: gold, sub: 'Identified' },
-                      { label: 'High Severity', value: String(secondary.filter((c: any) => c.severity === 'high').length + 1), color: '#cc4444', sub: 'Require action' },
-                      { label: 'Verification Score', value: (primary?.verification_score || 0) + '/100', color: '#4aaa4a', sub: 'Primary constraint' },
-                    ].map(s => (
-                      <div key={s.label} style={{ padding: '14px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
-                        <div style={{ fontSize: '10px', color: '#e0e0e0', marginBottom: '6px', letterSpacing: '0.1em' }}>{s.label.toUpperCase()}</div>
-                        <div style={{ fontSize: '20px', fontWeight: '800', color: s.color, marginBottom: '3px' }}>{s.value}</div>
-                        <div style={{ fontSize: '11px', color: '#ddd' }}>{s.sub}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div style={{ padding: '24px', backgroundColor: '#1a0a0a', border: '1px solid #3a1a1a', borderLeft: '3px solid #cc4444', borderRadius: '8px', marginBottom: '12px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                      <div style={{ fontSize: '10px', color: '#cc4444', letterSpacing: '0.2em', fontWeight: '700' }}>CRITICAL — PRIMARY CONSTRAINT — VERIFIED</div>
-                      <div style={{ display: 'flex', gap: '12px' }}>
-                        <div style={{ fontSize: '11px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.08)', padding: '2px 8px', borderRadius: '8px', border: '1px solid rgba(74,170,74,0.15)' }}>✓ {primary.verification_score}/100 verified</div>
-                        <div style={{ fontSize: '11px', color: '#cc4444', fontWeight: '600', textTransform: 'uppercase' as const }}>{primary.severity || 'high'}</div>
-                        {primary.sector_benchmark && (
-                          <div style={{ fontSize: '11px', color: gold, backgroundColor: 'rgba(200,162,74,0.08)', padding: '2px 8px', borderRadius: '8px', border: '1px solid rgba(200,162,74,0.15)' }}>
-                            {primary.sector_benchmark.frequency_pct}% of {industryData?.label?.toLowerCase() || 'businesses in your sector'} have this
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div style={{ fontSize: '18px', fontWeight: '800', marginBottom: '10px', letterSpacing: '-0.01em' }}>{primary.name}</div>
-                    <div style={{ fontSize: '13px', color: '#ddd', lineHeight: '1.75', marginBottom: '14px' }}>{primary.hypothesis}</div>
-                    {primary.evidence && primary.evidence.length > 0 && (
-                      <div style={{ marginBottom: '14px' }}>
-                        <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.15em', marginBottom: '8px' }}>EVIDENCE</div>
-                        {primary.evidence.slice(0,3).map((e: string, i: number) => (
-                          <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
-                            <span style={{ color: '#cc4444', fontSize: '10px', marginTop: '3px', flexShrink: 0 }}>◈</span>
-                            <span style={{ fontSize: '12px', color: '#e0e0e0', lineHeight: '1.6' }}>{e}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #2a1a1a' }}>
-                      {result?.total_opportunity && (
-                        <div style={{ fontSize: '12px', color: gold }}>
-                          Opportunity: {getCurrencySymbol(currency)}{(result.total_opportunity.total_low||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})} – {getCurrencySymbol(currency)}{(result.total_opportunity.total_high||0).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2})} annual uplift on resolution
-                        </div>
-                      )}
-                      <a href={`/report/${selected?.id}`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600', marginLeft: 'auto' }}>View full analysis →</a>
-                    </div>
-                  </div>
-                  {secondary.filter((c: any) => c.severity === 'high').map((c: any) => (
-                    <div key={c.key} style={{ padding: '20px 24px', backgroundColor: '#0f0a04', border: '1px solid #2a2000', borderLeft: '3px solid #C8A24A', borderRadius: '8px', marginBottom: '12px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                        <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', fontWeight: '700' }}>HIGH SEVERITY — SECONDARY</div>
-                        {c.sector_benchmark && (
-                          <div style={{ fontSize: '10px', color: '#ddd' }}>{c.sector_benchmark.frequency_pct}% sector frequency</div>
-                        )}
-                      </div>
-                      <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '6px' }}>{c.name}</div>
-                      <div style={{ fontSize: '13px', color: '#e0e0e0', lineHeight: '1.6' }}>{c.hypothesis}</div>
-                    </div>
-                  ))}
-                  {secondary.filter((c: any) => c.severity !== 'high').map((c: any) => (
-                    <div key={c.key} style={{ padding: '18px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', marginBottom: '10px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-                        <div style={{ fontSize: '10px', color: '#aaa', letterSpacing: '0.2em', fontWeight: '600' }}>MEDIUM SEVERITY</div>
-                        {c.sector_benchmark && (
-                          <div style={{ fontSize: '10px', color: '#ddd' }}>{c.sector_benchmark.frequency_pct}% sector frequency</div>
-                        )}
-                      </div>
-                      <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>{c.name}</div>
-                      <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6' }}>{c.hypothesis}</div>
-                    </div>
-                  ))}
-                </>
-              ) : (
-                <div style={{ padding: '40px', textAlign: 'center' as const, backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', color: '#e0e0e0', fontSize: '13px' }}>
-                  No critical issues detected. Complete your MRI to begin constraint monitoring.
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* MEETING CENTRE TAB */}
-          {activeTab === 'meetings' && (
-            <MeetingCentre gold={gold} card={card} border={border} dark={dark} businessId={selected?.id} />
-          )}
-
-        {/* CONNECTORS TAB */}
-          {activeTab === 'connectors' && (
-            <div>
-              <div style={{ fontSize: '11px', color: '#e0e0e0', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>DATA CONNECTORS</div>
-              <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '28px', lineHeight: '1.7' }}>
-                Connect your business systems to enable real-time data enrichment across your MRI reports. Connected data sources improve constraint detection accuracy and unlock enhanced analysis.
-              </div>
-
-              {/* No connection prompt */}
-              <div style={{ padding: '28px', backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '10px', marginBottom: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {/* Primary Constraint Panel */}
+          {primary ? (
+            <div style={{ backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.25)', borderRadius: '10px', padding: '28px', position: 'relative' as const, overflow: 'hidden' as const }}>
+              <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, ' + gold + ', transparent)' }} />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '24px' }}>
                 <div>
-                  <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>◈ ENHANCED INTELLIGENCE AVAILABLE</div>
-                  <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '6px' }}>Connect real data for full enhanced MRI analysis</div>
-                  <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.6', maxWidth: '560px' }}>
-                    Your current MRI is based on intake answers. Connect your CRM, accounting software or HR system to pull live data and dramatically improve constraint detection accuracy.
+                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', fontWeight: '600', marginBottom: '10px' }}>PRIMARY CONSTRAINT — VERIFIED</div>
+                  <h2 style={{ fontSize: '28px', fontWeight: '900', color: '#fff', marginBottom: '12px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>{primary.name}</h2>
+                  <p style={{ fontSize: '14px', color: '#bbb', lineHeight: '1.7', marginBottom: '20px', maxWidth: '520px' }}>{primary.hypothesis || 'This constraint is limiting business performance and has been verified by the BEI intelligence engine.'}</p>
+                  <div style={{ display: 'flex', gap: '24px', marginBottom: '20px' }}>
+                    <div>
+                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '4px' }}>VERIFICATION SCORE</div>
+                      <div style={{ fontSize: '22px', fontWeight: '800', color: verificationScore >= 70 ? '#4aaa4a' : gold }}>{verificationScore}/100</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '4px' }}>CONFIDENCE</div>
+                      <div style={{ fontSize: '22px', fontWeight: '800', color: confColor }}>{confidence.toUpperCase()}</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em', marginBottom: '4px' }}>ANNUAL OPPORTUNITY</div>
+                      <div style={{ fontSize: '22px', fontWeight: '800', color: gold }}>{oppLow > 0 ? fmt(oppLow) + '–' + fmt(oppHigh) : 'Calculating'}</div>
+                    </div>
+                  </div>
+                  {primary.evidence && primary.evidence.length > 0 && (
+                    <div style={{ marginBottom: '20px' }}>
+                      <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em', marginBottom: '8px' }}>KEY EVIDENCE</div>
+                      {primary.evidence.slice(0, 2).map((e: string, i: number) => (
+                        <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px' }}>
+                          <span style={{ color: gold, flexShrink: 0, fontSize: '10px', marginTop: '3px' }}>◈</span>
+                          <span style={{ fontSize: '13px', color: '#999', lineHeight: '1.5' }}>{e}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <a href="/constraints" style={{ padding: '9px 20px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontSize: '12px', fontWeight: '700', textDecoration: 'none' }}>View Constraint Intelligence →</a>
+                    <a href="/deployments" style={{ padding: '9px 20px', border: '1px solid #2a2a2a', color: '#888', borderRadius: '6px', fontSize: '12px', textDecoration: 'none' }}>Deployment Packages</a>
                   </div>
                 </div>
-                <a href='/connect' style={{ padding: '12px 28px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px', whiteSpace: 'nowrap' as const, marginLeft: '24px' }}>Connect Now →</a>
-              </div>
-
-              {/* CRM connectors */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>CRM & SALES</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                  {[
-                    { name: 'HubSpot', desc: 'CRM, deals, contacts and pipeline data', icon: '⬡', status: 'available' },
-                    { name: 'Salesforce', desc: 'Enterprise CRM and opportunity tracking', icon: '⬡', status: 'available' },
-                    { name: 'Manual CRM', desc: 'Import CRM data manually via CSV', icon: '⬡', status: 'available' },
-                  ].map(c => (
-                    <div key={c.name} style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', position: 'relative' as const }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                        <div style={{ fontSize: '15px', fontWeight: '600' }}>{c.name}</div>
-                        <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>AVAILABLE</div>
-                      </div>
-                      <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6', marginBottom: '14px' }}>{c.desc}</div>
-                      <a href='/connect' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Connect →</a>
-                    </div>
-                  ))}
+                {/* Verification gauge */}
+                <div style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '8px' }}>
+                  <svg width="100" height="100" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="#1a1a1a" strokeWidth="6"/>
+                    <circle cx="50" cy="50" r="42" fill="none" stroke={verificationScore >= 70 ? '#4aaa4a' : gold} strokeWidth="6"
+                      strokeDasharray={`${verificationScore * 2.64} 264`} strokeDashoffset="66" strokeLinecap="round"
+                      transform="rotate(-90 50 50)" style={{ transition: 'stroke-dasharray 1.5s ease' }}
+                    />
+                    <text x="50" y="46" textAnchor="middle" fill="#fff" fontSize="18" fontWeight="800">{verificationScore}</text>
+                    <text x="50" y="60" textAnchor="middle" fill="#555" fontSize="8">VERIFIED</text>
+                  </svg>
+                  <div style={{ fontSize: '9px', color: '#555', textAlign: 'center' as const, letterSpacing: '0.1em' }}>ROOT CAUSE<br/>{primary.is_root_cause ? 'CONFIRMED' : 'SUSPECTED'}</div>
                 </div>
               </div>
-
-              {/* Finance connectors */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>FINANCE & ACCOUNTING</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                  {[
-                    { name: 'Xero', desc: 'Accounting, invoices, cash flow and P&L', icon: '⬡', status: 'available' },
-                    { name: 'QuickBooks', desc: 'Financial data, revenue and expense tracking', icon: '⬡', status: 'available' },
-                    { name: 'Manual Financial', desc: 'Import financial data manually via CSV', icon: '⬡', status: 'available' },
-                  ].map(c => (
-                    <div key={c.name} style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                        <div style={{ fontSize: '15px', fontWeight: '600' }}>{c.name}</div>
-                        <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>AVAILABLE</div>
-                      </div>
-                      <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6', marginBottom: '14px' }}>{c.desc}</div>
-                      <a href='/connect' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Connect →</a>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* HR & Operations */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', marginBottom: '14px', fontWeight: '600' }}>HR, OPERATIONS & ANALYTICS</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                  {[
-                    { name: 'HiBob', desc: 'HR data, headcount, team structure', icon: '⬡', status: 'available' },
-                    { name: 'Workday', desc: 'Enterprise HR, finance and planning', icon: '⬡', status: 'available' },
-                    { name: 'Google Analytics', desc: 'Web traffic, conversions and acquisition data', icon: '⬡', status: 'available' },
-                    { name: 'Companies House', desc: 'UK company data, filings and directors', icon: '⬡', status: 'available' },
-                    { name: 'Manual Staffing', desc: 'Import staffing and HR data manually', icon: '⬡', status: 'available' },
-                  ].map(c => (
-                    <div key={c.name} style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                        <div style={{ fontSize: '15px', fontWeight: '600' }}>{c.name}</div>
-                        <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>AVAILABLE</div>
-                      </div>
-                      <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6', marginBottom: '14px' }}>{c.desc}</div>
-                      <a href='/connect' style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Connect →</a>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', fontSize: '13px', color: '#e0e0e0', lineHeight: '1.7' }}>
-                ◈ All connectors use OAuth 2.0 or API key authentication. BEI never stores your credentials — only the data needed to run your intelligence analysis. Data is refreshed on each MRI cycle.
-              </div>
+            </div>
+          ) : (
+            <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '40px', textAlign: 'center' as const }}>
+              <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '12px' }}>PRIMARY CONSTRAINT</div>
+              <div style={{ fontSize: '16px', color: '#555', marginBottom: '20px' }}>No MRI analysis found. Generate your Business MRI to activate intelligence.</div>
+              <a href="/book" style={{ padding: '10px 24px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>Generate Business MRI →</a>
             </div>
           )}
 
-          {/* OUTCOME & DEPLOYMENT CENTRE TAB */}
-          {activeTab === 'deployment' && (
-            <div>
-              {/* BEISYSTEM image */}
-              <div style={{ marginBottom: '24px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
-                <img src='/123NEW.png' alt='BEI Deployment System' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center center', display: 'block', opacity: 0.8 }} />
-                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(12,12,12,0.7) 0%, transparent 40%, transparent 60%, rgba(12,12,12,0.7) 100%)', pointerEvents: 'none' as const }} />
-                <div style={{ position: 'absolute' as const, bottom: '14px', left: '20px' }}>
-                  <div style={{ fontSize: '10px', color: '#C8A24A', letterSpacing: '0.2em', fontWeight: '600' }}>OUTCOME & DEPLOYMENT ENGINE — ACTIVE</div>
-                </div>
-                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
-                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>LIVE</span>
-                </div>
+          {/* BOTTOM ROW: Actions + Feed */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+
+            {/* Executive Action Centre */}
+            <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.2em', fontWeight: '600' }}>EXECUTIVE ACTION CENTRE</div>
+                <a href="/deployments" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View all →</a>
               </div>
-              <div style={{ fontSize: '11px', color: '#e0e0e0', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>OUTCOME & DEPLOYMENT CENTRE</div>
-              <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '28px', lineHeight: '1.7' }}>
-                Track live deployments across all three tiers and monitor outcomes from constraint resolution.
-              </div>
-
-              {/* SECTION 1: DEPLOYMENTS */}
-              <div style={{ marginBottom: '40px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', paddingBottom: '12px', borderBottom: '1px solid #222' }}>
-                  <div style={{ fontSize: '16px', fontWeight: '700', color: '#fff' }}>Deployments</div>
-                  {result?.deployment_packages && (
-                    <div style={{ fontSize: '12px', color: '#bbb', padding: '4px 12px', backgroundColor: '#111', border: '1px solid #2a2a2a', borderRadius: '20px' }}>
-                      {result.deployment_packages.total_packages || 0} total packages generated
+              {actions.slice(0, 4).map((a: any, i: number) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px', backgroundColor: a.bg, border: '1px solid ' + a.color + '33', borderRadius: '6px', marginBottom: '8px' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: a.color, flexShrink: 0 }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ fontSize: '9px', color: a.color, fontWeight: '700', letterSpacing: '0.1em' }}>{a.priority}</div>
+                      <div style={{ fontSize: '10px', color: '#555' }}>{a.value}</div>
                     </div>
-                  )}
-                </div>
-
-                {/* Tier preview cards */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '24px' }}>
-                  {[
-                    { tier: 'T1', label: 'Automatic', desc: 'Executes immediately — no approval needed', color: '#4aaa4a', bg: '#080f04', borderC: '#1a3a1a', count: result?.deployment_packages?.tier1_automatic?.length || 0 },
-                    { tier: 'T2', label: 'Approval Required', desc: 'Ready to deploy — awaiting your sign-off', color: gold, bg: '#0f0a04', borderC: '#3a2a04', count: result?.deployment_packages?.tier2_approval?.length || 0 },
-                    { tier: 'T3', label: 'Strategic', desc: 'Human execution — full plan provided', color: '#4a8ab0', bg: '#04080f', borderC: '#1a2a3a', count: result?.deployment_packages?.tier3_recommendation?.length || 0 },
-                  ].map(t => (
-                    <div key={t.tier}
-                      style={{ padding: '24px', backgroundColor: t.bg, border: '1px solid ' + t.borderC, borderTop: '3px solid ' + t.color, borderRadius: '8px', transition: 'all 0.3s ease' }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 24px rgba(200,162,74,0.1)' }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = 'none' }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                        <div style={{ fontSize: '28px', fontWeight: '800', color: t.color, opacity: 0.3, lineHeight: '1' }}>{t.tier}</div>
-                        <div style={{ fontSize: '22px', fontWeight: '800', color: t.color }}>{t.count}</div>
-                      </div>
-                      <div style={{ fontSize: '14px', fontWeight: '700', color: t.color, marginBottom: '6px' }}>{t.label}</div>
-                      <div style={{ fontSize: '12px', color: '#bbb', lineHeight: '1.6' }}>{t.desc}</div>
-                      {t.count === 0 && <div style={{ fontSize: '10px', color: t.color, opacity: 0.5, marginTop: '10px', letterSpacing: '0.1em' }}>AWAITING MRI</div>}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Tier 1 packages */}
-                {result?.deployment_packages?.tier1_automatic?.length > 0 && (
-                  <div style={{ marginBottom: '20px' }}>
-                    <div style={{ fontSize: '11px', color: '#4aaa4a', letterSpacing: '0.2em', fontWeight: '700', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      TIER 1 — AUTOMATIC
-                      <span style={{ fontSize: '10px', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>{result.deployment_packages.tier1_automatic.length} packages</span>
-                    </div>
-                    {result.deployment_packages.tier1_automatic.map((pkg: any) => (
-                      <div key={pkg.deployment_id} style={{ padding: '18px 20px', backgroundColor: '#080f04', border: '1px solid #1a3a1a', borderLeft: '3px solid #4aaa4a', borderRadius: '8px', marginBottom: '10px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                          <div style={{ fontSize: '14px', fontWeight: '700', color: '#fff' }}>{pkg.action_title}</div>
-                          <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', flexShrink: 0, marginLeft: '12px' }}>{pkg.status?.toUpperCase() || 'PENDING'}</div>
-                        </div>
-                        <div style={{ fontSize: '12px', color: '#bbb', marginBottom: '8px' }}>Constraint: {pkg.constraint_name}</div>
-                        <div style={{ fontSize: '13px', color: '#ddd', lineHeight: '1.6', marginBottom: '8px' }}>{pkg.action_description}</div>
-                        {pkg.expected_outcome && <div style={{ fontSize: '12px', color: gold }}>Expected: {pkg.expected_outcome}</div>}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Tier 2 packages */}
-                {result?.deployment_packages?.tier2_approval?.length > 0 && (
-                  <div style={{ marginBottom: '20px' }}>
-                    <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', fontWeight: '700', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      TIER 2 — APPROVAL REQUIRED
-                      <span style={{ fontSize: '10px', color: gold, backgroundColor: 'rgba(200,162,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(200,162,74,0.2)' }}>{result.deployment_packages.tier2_approval.length} packages</span>
-                    </div>
-                    {result.deployment_packages.tier2_approval.map((pkg: any) => (
-                      <div key={pkg.deployment_id} style={{ padding: '18px 20px', backgroundColor: '#0f0a04', border: '1px solid #3a2a04', borderLeft: '3px solid ' + gold, borderRadius: '8px', marginBottom: '10px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                          <div style={{ fontSize: '14px', fontWeight: '700', color: '#fff' }}>{pkg.action_title}</div>
-                          <div style={{ fontSize: '10px', color: pkg.approved ? '#4aaa4a' : '#cc4444', fontWeight: '700', flexShrink: 0, marginLeft: '12px' }}>{pkg.approved ? 'APPROVED' : 'PENDING APPROVAL'}</div>
-                        </div>
-                        <div style={{ fontSize: '12px', color: '#bbb', marginBottom: '8px' }}>Constraint: {pkg.constraint_name}</div>
-                        <div style={{ fontSize: '13px', color: '#ddd', lineHeight: '1.6', marginBottom: '8px' }}>{pkg.action_description}</div>
-                        {pkg.expected_outcome && <div style={{ fontSize: '12px', color: gold, marginBottom: '6px' }}>Expected: {pkg.expected_outcome}</div>}
-                        {pkg.measurement_plan && <div style={{ fontSize: '11px', color: '#bbb' }}>Measurement: {pkg.measurement_plan}</div>}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Tier 3 packages */}
-                {result?.deployment_packages?.tier3_recommendation?.length > 0 && (
-                  <div style={{ marginBottom: '20px' }}>
-                    <div style={{ fontSize: '11px', color: '#4a8ab0', letterSpacing: '0.2em', fontWeight: '700', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      TIER 3 — STRATEGIC RECOMMENDATIONS
-                      <span style={{ fontSize: '10px', color: '#4a8ab0', backgroundColor: 'rgba(74,138,176,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,138,176,0.2)' }}>{result.deployment_packages.tier3_recommendation.length} packages</span>
-                    </div>
-                    {result.deployment_packages.tier3_recommendation.map((pkg: any) => (
-                      <div key={pkg.deployment_id} style={{ padding: '18px 20px', backgroundColor: '#04080f', border: '1px solid #1a2a3a', borderLeft: '3px solid #4a8ab0', borderRadius: '8px', marginBottom: '10px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                          <div style={{ fontSize: '14px', fontWeight: '700', color: '#fff' }}>{pkg.action_title}</div>
-                          <div style={{ fontSize: '10px', color: '#4a8ab0', backgroundColor: 'rgba(74,138,176,0.1)', padding: '2px 8px', borderRadius: '10px', flexShrink: 0, marginLeft: '12px' }}>HUMAN EXECUTION</div>
-                        </div>
-                        <div style={{ fontSize: '12px', color: '#bbb', marginBottom: '8px' }}>Constraint: {pkg.constraint_name}</div>
-                        <div style={{ fontSize: '13px', color: '#ddd', lineHeight: '1.6', marginBottom: '8px' }}>{pkg.action_description}</div>
-                        {pkg.implementation_steps?.length > 0 && (
-                          <div style={{ marginTop: '10px', padding: '12px 16px', backgroundColor: 'rgba(74,138,176,0.05)', borderRadius: '6px' }}>
-                            <div style={{ fontSize: '10px', color: '#bbb', marginBottom: '8px', letterSpacing: '0.1em' }}>IMPLEMENTATION STEPS</div>
-                            {pkg.implementation_steps.slice(0,3).map((step: string, i: number) => (
-                              <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', fontSize: '12px', color: '#ddd' }}>
-                                <span style={{ color: '#4a8ab0', flexShrink: 0, fontWeight: '700' }}>{i+1}.</span>{step}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Deployment History */}
-                <div style={{ padding: '24px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '8px' }}>
-                  <div style={{ fontSize: '11px', color: '#bbb', letterSpacing: '0.2em', marginBottom: '12px', fontWeight: '600' }}>DEPLOYMENT HISTORY</div>
-                  <div style={{ fontSize: '13px', color: '#bbb', lineHeight: '1.7' }}>Deployment execution history will appear here as actions are completed and logged against your primary constraint.</div>
-                </div>
-              </div>
-
-              {/* SECTION 2: OUTCOMES */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '16px', fontWeight: '700', color: '#fff', marginBottom: '20px', paddingBottom: '12px', borderBottom: '1px solid #222' }}>Outcomes</div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '20px' }}>
-                  {[
-                    { label: 'Deployments Active', value: result?.deployment_packages?.tier1_automatic?.filter((p: any) => p.status === 'active').length || 0, color: gold, desc: 'Tier 1 executing now' },
-                    { label: 'Awaiting Approval', value: result?.deployment_packages?.tier2_approval?.filter((p: any) => !p.approved).length || 0, color: '#cc4444', desc: 'Tier 2 pending sign-off' },
-                    { label: 'Recommendations', value: result?.deployment_packages?.tier3_recommendation?.length || 0, color: '#4a8ab0', desc: 'Tier 3 strategic actions' },
-                  ].map(m => (
-                    <div key={m.label}
-                      style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderLeft: '3px solid ' + m.color, borderRadius: '8px', transition: 'all 0.3s ease' }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.08)'; el.style.backgroundColor = '#0d0d0d' }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'none'; el.style.backgroundColor = card }}
-                    >
-                      <div style={{ fontSize: '11px', color: '#bbb', marginBottom: '8px', letterSpacing: '0.1em' }}>{m.label.toUpperCase()}</div>
-                      <div style={{ fontSize: '36px', fontWeight: '800', color: m.color, marginBottom: '6px' }}>{m.value}</div>
-                      <div style={{ fontSize: '11px', color: '#bbb' }}>{m.desc}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', marginBottom: '16px' }}>
-                  <div style={{ fontSize: '11px', color: '#bbb', letterSpacing: '0.2em', marginBottom: '12px', fontWeight: '600' }}>OUTCOME TRACKING</div>
-                  <div style={{ fontSize: '14px', color: '#ddd', lineHeight: '1.8', marginBottom: '16px' }}>
-                    Outcome tracking activates when deployments are executed. Each deployment has a built-in measurement plan tracking impact on your primary constraint and health score.
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                    {[
-                      { label: 'Constraint Resolution', status: 'Pending MRI' },
-                      { label: 'Health Score Impact', status: 'Pending MRI' },
-                      { label: 'Opportunity Captured', status: 'Pending MRI' },
-                    ].map(t => (
-                      <div key={t.label} style={{ padding: '14px', backgroundColor: '#111', border: '1px solid #1a1a1a', borderRadius: '6px' }}>
-                        <div style={{ fontSize: '10px', color: '#bbb', letterSpacing: '0.1em', marginBottom: '6px' }}>{t.label.toUpperCase()}</div>
-                        <div style={{ fontSize: '13px', color: '#555', fontWeight: '600' }}>{t.status}</div>
-                      </div>
-                    ))}
+                    <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.title}</div>
+                    <div style={{ fontSize: '10px', color: '#666', marginTop: '1px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.desc}</div>
                   </div>
                 </div>
-
-                <div style={{ padding: '16px 20px', backgroundColor: '#111', border: '1px solid #1a1a1a', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ fontSize: '13px', color: '#bbb' }}>Visit the full pages for detailed execution management.</div>
-                  <div style={{ display: 'flex', gap: '12px' }}>
-                    <a href='/deployments' style={{ fontSize: '13px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Deployments →</a>
-                    <a href='/outcomes' style={{ fontSize: '13px', color: gold, textDecoration: 'none', fontWeight: '600' }}>Outcomes →</a>
-                  </div>
-                </div>
-              </div>
-
-              {/* No MRI prompt */}
-              {!result && (
-                <div style={{ padding: '48px 40px', textAlign: 'center' as const, backgroundColor: 'rgba(200,162,74,0.04)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '10px', marginTop: '24px' }}>
-                  <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>◈ NO MRI DATA YET</div>
-                  <div style={{ fontSize: '22px', fontWeight: '800', color: '#fff', marginBottom: '12px' }}>Generate your MRI to unlock the deployment engine</div>
-                  <div style={{ fontSize: '14px', color: '#bbb', marginBottom: '28px', maxWidth: '500px', margin: '0 auto 28px', lineHeight: '1.8' }}>
-                    Once your Business MRI is complete, BEI generates verified deployment packages across all three tiers with measurable outcomes tracked against your primary constraint.
-                  </div>
-                  <a href='/book' style={{ padding: '14px 40px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '15px' }}>Generate Free MRI →</a>
-                </div>
-              )}
-
-              {result && result.deployment_packages ? (
-                <>
-                  {/* Opportunity summary */}
-                  {result.total_opportunity && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '28px' }}>
-                      <div style={{ padding: '20px', backgroundColor: card, border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px' }}>
-                        <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', marginBottom: '8px' }}>TOTAL OPPORTUNITY</div>
-                        <div style={{ fontSize: '28px', fontWeight: '800', color: gold }}>£{Math.round((result.total_opportunity.total_low || 0)/1000)}k–£{Math.round((result.total_opportunity.total_high || 0)/1000)}k</div>
-                        <div style={{ fontSize: '11px', color: '#ddd', marginTop: '4px' }}>Annual value available</div>
-                      </div>
-                      <div style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
-                        <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', marginBottom: '8px' }}>DEPLOYMENTS READY</div>
-                        <div style={{ fontSize: '28px', fontWeight: '800', color: '#f0f0f0' }}>
-                          {((result.deployment_packages.tier1_automatic || []).length + (result.deployment_packages.tier2_approval || []).length + (result.deployment_packages.tier3_recommendation || []).length)}
-                        </div>
-                        <div style={{ fontSize: '11px', color: '#ddd', marginTop: '4px' }}>Across all tiers</div>
-                      </div>
-                      <div style={{ padding: '20px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px' }}>
-                        <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', marginBottom: '8px' }}>PRIMARY CONSTRAINT</div>
-                        <div style={{ fontSize: '14px', fontWeight: '700', color: '#cc4444', lineHeight: '1.3' }}>{primary?.name || '—'}</div>
-                        <div style={{ fontSize: '11px', color: '#ddd', marginTop: '4px' }}>Root cause confirmed</div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Tier 1 — Automatic */}
-                  {(result.deployment_packages.tier1_automatic || []).length > 0 && (
-                    <div style={{ marginBottom: '24px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-                        <div style={{ fontSize: '10px', color: '#4aaa4a', letterSpacing: '0.2em', fontWeight: '700' }}>TIER 1 — AUTOMATIC DEPLOYMENTS</div>
-                        <div style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(74,170,74,0.2)' }}>READY TO EXECUTE</div>
-                      </div>
-                      {(result.deployment_packages.tier1_automatic || []).map((pkg: any, i: number) => (
-                        <div key={i} style={{ padding: '20px 24px', backgroundColor: '#080f04', border: '1px solid #1a3a1a', borderLeft: '3px solid #4aaa4a', borderRadius: '8px', marginBottom: '10px' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                            <div style={{ fontSize: '15px', fontWeight: '600' }}>{pkg.title || pkg.action || 'Deployment Action'}</div>
-                            <div style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>AUTO</div>
-                          </div>
-                          <div style={{ fontSize: '13px', color: '#e0e0e0', lineHeight: '1.6', marginBottom: '10px' }}>{pkg.description || pkg.rationale || ''}</div>
-                          {pkg.expected_impact && <div style={{ fontSize: '12px', color: gold }}>Expected impact: {pkg.expected_impact}</div>}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Tier 2 — Approval required */}
-                  {(result.deployment_packages.tier2_approval || []).length > 0 && (
-                    <div style={{ marginBottom: '24px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-                        <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', fontWeight: '700' }}>TIER 2 — APPROVAL REQUIRED</div>
-                        <div style={{ fontSize: '10px', color: gold, backgroundColor: 'rgba(200,162,74,0.1)', padding: '2px 8px', borderRadius: '10px', border: '1px solid rgba(200,162,74,0.2)' }}>AWAITING SIGN-OFF</div>
-                      </div>
-                      {(result.deployment_packages.tier2_approval || []).map((pkg: any, i: number) => (
-                        <div key={i} style={{ padding: '20px 24px', backgroundColor: '#0f0a04', border: '1px solid #3a2a04', borderLeft: '3px solid #C8A24A', borderRadius: '8px', marginBottom: '10px' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                            <div style={{ fontSize: '15px', fontWeight: '600' }}>{pkg.title || pkg.action || 'Deployment Action'}</div>
-                            <div style={{ fontSize: '10px', color: gold, fontWeight: '600' }}>APPROVAL</div>
-                          </div>
-                          <div style={{ fontSize: '13px', color: '#e0e0e0', lineHeight: '1.6', marginBottom: '10px' }}>{pkg.description || pkg.rationale || ''}</div>
-                          {pkg.expected_impact && <div style={{ fontSize: '12px', color: gold }}>Expected impact: {pkg.expected_impact}</div>}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Tier 3 — Recommendations */}
-                  {(result.deployment_packages.tier3_recommendation || []).length > 0 && (
-                    <div style={{ marginBottom: '24px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-                        <div style={{ fontSize: '10px', color: '#4a8ab0', letterSpacing: '0.2em', fontWeight: '700' }}>TIER 3 — STRATEGIC RECOMMENDATIONS</div>
-                      </div>
-                      {(result.deployment_packages.tier3_recommendation || []).map((pkg: any, i: number) => (
-                        <div key={i} style={{ padding: '20px 24px', backgroundColor: card, border: '1px solid #1a2a3a', borderLeft: '3px solid #4a8ab0', borderRadius: '8px', marginBottom: '10px' }}>
-                          <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '8px' }}>{pkg.title || pkg.action || 'Strategic Recommendation'}</div>
-                          <div style={{ fontSize: '13px', color: '#e0e0e0', lineHeight: '1.6' }}>{pkg.description || pkg.rationale || ''}</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Outcome tracking */}
-                  <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-                    <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>OUTCOME TRACKING</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '16px' }}>
-                      {[
-                        { label: 'Deployments Active', value: '0', color: gold },
-                        { label: 'Outcomes Recorded', value: '0', color: '#4aaa4a' },
-                        { label: 'Constraint Status', value: primary?.name ? 'Active' : 'None', color: '#cc4444' },
-                      ].map(m => (
-                        <div key={m.label} style={{ padding: '16px', backgroundColor: '#141414', borderRadius: '6px', border: '1px solid #2a2a2a' }}>
-                          <div style={{ fontSize: '10px', color: '#ddd', marginBottom: '6px' }}>{m.label.toUpperCase()}</div>
-                          <div style={{ fontSize: '20px', fontWeight: '700', color: m.color }}>{m.value}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#e0e0e0', lineHeight: '1.7' }}>
-                      ◈ Outcome tracking activates when deployments are executed. Visit the full
-                      <a href='/deployments' style={{ color: gold, textDecoration: 'none', margin: '0 6px', fontWeight: '600' }}>Deployments</a>
-                      and
-                      <a href='/outcomes' style={{ color: gold, textDecoration: 'none', margin: '0 6px', fontWeight: '600' }}>Outcomes</a>
-                      pages for detailed execution management.
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div style={{ padding: '48px', textAlign: 'center' as const, backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px' }}>
-                  <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: '600' }}>NO DEPLOYMENTS YET</div>
-                  <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px' }}>Complete your MRI to unlock the deployment engine</div>
-                  <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px', lineHeight: '1.7' }}>
-                    Once your Business MRI is complete, BEI will generate verified deployment packages across three tiers — automatic, approval-required and strategic recommendations.
-                  </div>
-                  <a href='/book' style={{ padding: '12px 32px', backgroundColor: gold, color: dark, fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '14px' }}>Start Your Free MRI →</a>
-                </div>
-              )}
+              ))}
             </div>
-          )}
 
-          {/* BEI INTELLIGENCE TAB */}
-          {activeTab === 'intelligence' && (
-            <div>
-
-              {/* BEI INTEL image */}
-              <div style={{ marginBottom: '28px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.15)', position: 'relative' as const, transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }} onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = 'none'; el.style.borderColor = 'rgba(200,162,74,0.15)' }}>
-                <img src='/bei-intel-dashboard.png' alt='BEI Intelligence' style={{ width: '100%', height: '280px', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.85 }} />
-                <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.8) 0%, transparent 40%, transparent 60%, rgba(5,5,5,0.8) 100%)', pointerEvents: 'none' as const }} />
-                <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 32px', pointerEvents: 'none' as const }}>
-                  <div>
-                    <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.3em', fontWeight: '600', marginBottom: '8px' }}>BEI INTELLIGENCE SYSTEM</div>
-                    <div style={{ fontSize: '26px', fontWeight: '800', color: '#fff', marginBottom: '6px' }}>Human + Machine Intelligence</div>
-                    <div style={{ fontSize: '13px', color: '#ddd' }}>Monitoring {industryData.label} · Verified signals only</div>
-                  </div>
-                  <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                    {[
-                      { label: 'Growth', pct: 94 },
-                      { label: 'Operational', pct: 88 },
-                      { label: 'Financial', pct: 91 },
-                      { label: 'Strategic', pct: 86 },
-                    ].map(d => (
-                      <div key={d.label} style={{ textAlign: 'center' as const }}>
-                        <div style={{ fontSize: '20px', fontWeight: '800', color: gold }}>{d.pct}%</div>
-                        <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.1em' }}>{d.label.toUpperCase()}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div style={{ position: 'absolute' as const, top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
-                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>MONITORING ACTIVE</span>
+            {/* Decision Intelligence Feed */}
+            <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.2em', fontWeight: '600' }}>DECISION INTELLIGENCE FEED</div>
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                  <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 4px rgba(74,170,74,0.6)' }} />
+                  <span style={{ fontSize: '9px', color: '#4aaa4a' }}>LIVE</span>
                 </div>
               </div>
-
-              {/* 4-step process */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '28px' }}>
-                {[
-                  { n: '01', title: 'AI scans continuously', desc: 'Machine systems monitor growth signals, risk indicators and sector data 24/7 across all client market areas.' },
-                  { n: '02', title: 'Signals flagged and scored', desc: 'Every detected signal is scored for severity, relevance to your Business Twin and impact on your primary constraint.' },
-                  { n: '03', title: 'BEI team validates', desc: 'The intelligence team reviews every flagged signal. Human judgement determines whether it warrants a client alert.' },
-                  { n: '04', title: 'Client notified', desc: 'If a signal crosses the threshold you are notified within 48 hours with context, explanation and recommended action.' },
-                ].map(s => (
-                  <div key={s.n}
-                    style={{ padding: '20px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderTop: '3px solid ' + gold, borderRadius: '8px', transition: 'all 0.3s ease', cursor: 'default' }}
-                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = '#0f0d06'; el.style.boxShadow = '0 0 24px rgba(200,162,74,0.12)' }}
-                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = '#0a0a0a'; el.style.boxShadow = 'none' }}
-                  >
-                    <div style={{ fontSize: '32px', fontWeight: '800', color: 'rgba(200,162,74,0.2)', marginBottom: '12px', lineHeight: '1' }}>{s.n}</div>
-                    <div style={{ fontSize: '13px', fontWeight: '700', color: '#e0e0e0', marginBottom: '8px', lineHeight: '1.4' }}>{s.title}</div>
-                    <div style={{ fontSize: '12px', color: '#ddd', lineHeight: '1.7' }}>{s.desc}</div>
+              {feed.slice(0, 4).map((f: any, i: number) => (
+                <div key={i} style={{ padding: '10px 0', borderBottom: i < feed.length - 1 ? '1px solid #1a1a1a' : 'none' }}>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <span style={{ color: gold, flexShrink: 0, fontSize: '10px', marginTop: '2px' }}>◈</span>
+                    <p style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6', margin: 0 }}>{f}</p>
                   </div>
-                ))}
-              </div>
-
-              {/* Live signals */}
-              <div style={{ marginBottom: '28px' }}>
-                <div style={{ fontSize: '11px', color: '#ddd', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  LIVE SIGNALS — VERIFIED
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  {industryData.signals.map((sig: any) => (
-                    <div key={sig.domain}
-                      style={{ padding: '20px', backgroundColor: '#0a0a0a', border: '1px solid ' + (sig.severity === 'high' ? 'rgba(204,68,68,0.2)' : sig.severity === 'medium' ? 'rgba(200,162,74,0.2)' : 'rgba(74,170,74,0.2)'), borderLeft: '3px solid ' + (sig.severity === 'high' ? '#cc4444' : sig.severity === 'medium' ? gold : '#4aaa4a'), borderRadius: '8px', transition: 'all 0.3s ease', cursor: 'default' }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = sig.severity === 'high' ? '#130606' : sig.severity === 'medium' ? '#0f0d06' : '#060f06'; el.style.boxShadow = '0 0 20px ' + (sig.severity === 'high' ? 'rgba(204,68,68,0.15)' : sig.severity === 'medium' ? 'rgba(200,162,74,0.15)' : 'rgba(74,170,74,0.15)') }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = '#0a0a0a'; el.style.boxShadow = 'none' }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#e0e0e0' }}>{sig.domain}</div>
-                        <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexShrink: 0, marginLeft: '12px' }}>
-                          {sig.verified && <span style={{ fontSize: '10px', color: '#4aaa4a', backgroundColor: 'rgba(74,170,74,0.1)', padding: '2px 8px', borderRadius: '10px', fontWeight: '600' }}>✓ VERIFIED</span>}
-                          <span style={{ fontSize: '10px', color: sig.severity === 'high' ? '#cc4444' : sig.severity === 'medium' ? gold : '#4aaa4a', fontWeight: '600', textTransform: 'uppercase' as const }}>{sig.severity}</span>
-                        </div>
-                      </div>
-                      <div style={{ fontSize: '12px', color: '#e0e0e0', lineHeight: '1.7' }}>{sig.signal}</div>
-                    </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT PANEL */}
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
+
+          {/* Business Health Radar */}
+          <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>BUSINESS HEALTH RADAR</div>
+              <a href="/health" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View full →</a>
+            </div>
+            {pillarList.length > 0 ? (
+              <>
+                <svg width="100%" viewBox="0 0 200 200" style={{ display: 'block', margin: '0 auto 12px' }}>
+                  {[5,10,15,20].map(ring => (
+                    <polygon key={ring} points={pillarList.map((_: any, i: number) => {
+                      const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
+                      const r = (ring/20)*80
+                      return `${100+r*Math.cos(a)},${100+r*Math.sin(a)}`
+                    }).join(' ')} fill="none" stroke="#1e1e1e" strokeWidth="1"/>
                   ))}
-                </div>
-              </div>
-
-              {/* Industry benchmarks */}
-              <div style={{ marginBottom: '28px' }}>
-                <div style={{ fontSize: '11px', color: '#ddd', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>INDUSTRY BENCHMARKS — {industryData.label.toUpperCase()}</div>
-                <div style={{ backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', overflow: 'hidden' }}>
-                  {industryData.benchmarks.map((b: any, i: number) => (
-                    <div key={b.metric} style={{ display: 'grid', gridTemplateColumns: '1fr 180px 1fr', gap: '0', borderBottom: i < industryData.benchmarks.length - 1 ? '1px solid #111' : 'none', alignItems: 'center' }}>
-                      <div style={{ padding: '14px 20px', fontSize: '13px', color: '#e0e0e0' }}>{b.metric}</div>
-                      <div style={{ padding: '14px 20px', fontSize: '14px', fontWeight: '700', color: gold, textAlign: 'center' as const, borderLeft: '1px solid #111', borderRight: '1px solid #111' }}>{b.value}</div>
-                      <div style={{ padding: '14px 20px', fontSize: '11px', color: '#aaa', lineHeight: '1.5' }}>{b.bei}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Monitoring coverage gauges */}
-              <div style={{ marginBottom: '28px' }}>
-                <div style={{ fontSize: '11px', color: '#ddd', letterSpacing: '0.2em', marginBottom: '16px', fontWeight: '600' }}>MONITORING COVERAGE — 4 SIGNAL DOMAINS</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
-                  {[
-                    { label: 'Growth Signals', pct: 94, color: '#4aaa4a' },
-                    { label: 'Operational Risk', pct: 88, color: gold },
-                    { label: 'Financial Risk', pct: 91, color: '#4a8ab0' },
-                    { label: 'Strategic Risk', pct: 86, color: '#cc4444' },
-                  ].map(g => (
-                    <div key={g.label}
-                      style={{ padding: '20px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '8px', transition: 'all 0.3s ease', cursor: 'default' }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.1)'; el.style.borderColor = '#2a2a2a' }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'none'; el.style.borderColor = '#1a1a1a' }}
-                    >
-                      <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.15em', marginBottom: '12px' }}>{g.label.toUpperCase()}</div>
-                      <div style={{ fontSize: '36px', fontWeight: '800', color: g.color, marginBottom: '12px' }}>{g.pct}%</div>
-                      <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
-                        <div style={{ width: g.pct + '%', height: '100%', backgroundColor: g.color, borderRadius: '2px', transition: 'width 1s ease' }} />
+                  {pillarList.map((_: any, i: number) => {
+                    const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
+                    return <line key={i} x1="100" y1="100" x2={100+80*Math.cos(a)} y2={100+80*Math.sin(a)} stroke="#222" strokeWidth="1"/>
+                  })}
+                  <polygon points={pillarList.map((p: any, i: number) => {
+                    const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
+                    const r = (p.score/20)*80
+                    return `${100+r*Math.cos(a)},${100+r*Math.sin(a)}`
+                  }).join(' ')} fill="rgba(200,162,74,0.12)" stroke={gold} strokeWidth="1.5"/>
+                  {pillarList.map((p: any, i: number) => {
+                    const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
+                    const r = (p.score/20)*80
+                    const lx = 100+95*Math.cos(a), ly = 100+95*Math.sin(a)
+                    return <g key={i}>
+                      <circle cx={100+r*Math.cos(a)} cy={100+r*Math.sin(a)} r="3" fill={p.color}/>
+                      <text x={lx} y={ly} textAnchor="middle" dominantBaseline="middle" fill="#666" fontSize="9">{p.name.slice(0,4)}</text>
+                    </g>
+                  })}
+                  <text x="100" y="96" textAnchor="middle" fill={healthColor} fontSize="20" fontWeight="800">{healthScore}</text>
+                  <text x="100" y="110" textAnchor="middle" fill="#555" fontSize="8">HEALTH</text>
+                </svg>
+                <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '6px' }}>
+                  {pillarList.map((p: any, i: number) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: p.color, flexShrink: 0 }} />
+                      <div style={{ flex: 1, fontSize: '11px', color: '#888' }}>{p.name}</div>
+                      <div style={{ fontSize: '11px', fontWeight: '700', color: p.color }}>{p.score}/20</div>
+                      <div style={{ width: '60px', height: '3px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
+                        <div style={{ width: `${(p.score/20)*100}%`, height: '100%', backgroundColor: p.color }} />
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
+              </>
+            ) : (
+              <div style={{ textAlign: 'center' as const, padding: '20px 0', color: '#444', fontSize: '12px' }}>Generate MRI to see health radar</div>
+            )}
+          </div>
 
-              {/* Footer status bar */}
-              <div style={{ padding: '16px 24px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 8px rgba(74,170,74,0.8)' }} />
-                  <div>
-                    <div style={{ fontSize: '13px', fontWeight: '600', color: '#e0e0e0', marginBottom: '2px' }}>BEI Intelligence Team — Active</div>
-                    <div style={{ fontSize: '11px', color: '#ddd' }}>Monitoring {industryData.label} · Human-verified intelligence · No alert sent without BEI team validation</div>
+          {/* Intelligence Alerts */}
+          <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+              <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>INTELLIGENCE ALERTS</div>
+              <a href="/constraints" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View all →</a>
+            </div>
+            {alerts.map((a: any, i: number) => {
+              const c = a.level === 'critical' ? '#cc4444' : a.level === 'high' ? '#e8923a' : gold
+              return (
+                <div key={i} style={{ display: 'flex', gap: '10px', padding: '10px 0', borderBottom: i < alerts.length-1 ? '1px solid #1a1a1a' : 'none' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: c, flexShrink: 0, marginTop: '3px', boxShadow: `0 0 6px ${c}88` }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <div style={{ fontSize: '9px', color: c, fontWeight: '700', letterSpacing: '0.1em' }}>{a.level.toUpperCase()}</div>
+                      <div style={{ fontSize: '9px', color: '#444' }}>{a.time}</div>
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600', marginTop: '2px' }}>{a.title}</div>
+                    <div style={{ fontSize: '10px', color: '#666', marginTop: '2px' }}>{a.desc}</div>
                   </div>
                 </div>
-                <div style={{ textAlign: 'right' as const }}>
-                  <div style={{ fontSize: '10px', color: '#aaa', marginBottom: '2px', letterSpacing: '0.1em' }}>LAST UPDATED</div>
-                  <div style={{ fontSize: '13px', color: gold, fontWeight: '600' }}>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
-                </div>
-              </div>
+              )
+            })}
+          </div>
 
+          {/* Opportunity Snapshot */}
+          {oppHigh > 0 && (
+            <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY SNAPSHOT</div>
+                <a href="/opportunities" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View pipeline →</a>
+              </div>
+              <div style={{ textAlign: 'center' as const, marginBottom: '16px' }}>
+                <div style={{ fontSize: '28px', fontWeight: '900', color: gold }}>{fmt(oppLow)}+</div>
+                <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em', marginTop: '4px' }}>TOTAL ANNUAL OPPORTUNITY</div>
+              </div>
+              {[
+                { label: 'Revenue Expansion', pct: 45, color: gold },
+                { label: 'Operational Efficiency', pct: 28, color: '#4a8ab0' },
+                { label: 'Cost Reduction', pct: 16, color: '#4aaa4a' },
+                { label: 'Risk Reduction', pct: 11, color: '#888' },
+              ].map((o, i) => (
+                <div key={i} style={{ marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                    <span style={{ fontSize: '11px', color: '#888' }}>{o.label}</span>
+                    <span style={{ fontSize: '11px', color: o.color, fontWeight: '600' }}>{o.pct}%</span>
+                  </div>
+                  <div style={{ height: '3px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
+                    <div style={{ width: o.pct + '%', height: '100%', backgroundColor: o.color, borderRadius: '2px' }} />
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
       </div>
-    </main>
+    </DashboardShell>
   )
 }
