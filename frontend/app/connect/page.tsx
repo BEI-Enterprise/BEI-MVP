@@ -300,7 +300,7 @@ export default function BusinessTwinPage() {
             </div>
           )}
         </div>
-        <div style={{ position: 'relative' as const, overflow: 'hidden', borderLeft: '1px solid rgba(200,162,74,0.2)', borderRight: '1px solid rgba(200,162,74,0.2)', background: 'linear-gradient(180deg, #050505 0%, #0a0800 50%, #050505 100%)' }}>
+        <div style={{ position: 'relative' as const, overflow: 'hidden', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '0', background: '#050505', boxShadow: 'inset 0 0 40px rgba(200,162,74,0.05)' }}>
           <img src="/Buisness Twin Center image.png" alt="Business Twin" style={{ width: '100%', height: '220px', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} onError={(e: any) => { e.target.style.display = 'none' }} />
           <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.4) 0%, transparent 30%, transparent 70%, rgba(5,5,5,0.4) 100%)' }} />
         </div>
@@ -460,21 +460,46 @@ export default function BusinessTwinPage() {
           <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>RECOMMENDED IMPROVEMENTS™</div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Actions to increase Twin completeness</div>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
-            {CONNECTOR_GROUPS.flatMap(g => g.connectors)
-              .filter(c => !activeConnectors.includes(c.id))
-              .sort((a, b) => b.boost - a.boost)
-              .slice(0, 6)
-              .map((c, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', backgroundColor: '#0a0a0a', borderRadius: '6px', border: '1px solid ' + border }}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{c.name}</div>
-                    <div style={{ fontSize: '10px', color: '#4aaa4a', marginTop: '2px' }}>+{c.boost}% completeness</div>
+            {(() => {
+              // Group connectors by purpose — show primary + manual alternative
+              const recommendations: {primary: any, manual: any | null}[] = []
+              const seen = new Set<string>()
+              CONNECTOR_GROUPS.forEach(g => {
+                const apiConns = g.connectors.filter(c => c.auth === 'oauth' && !activeConnectors.includes(c.id))
+                const manualConn = g.connectors.find(c => c.auth === 'manual' && !activeConnectors.includes(c.id))
+                apiConns.forEach(c => {
+                  if (!seen.has(c.id)) {
+                    seen.add(c.id)
+                    recommendations.push({ primary: c, manual: manualConn || null })
+                  }
+                })
+                if (!apiConns.length && manualConn && !seen.has(manualConn.id)) {
+                  seen.add(manualConn.id)
+                  recommendations.push({ primary: manualConn, manual: null })
+                }
+              })
+              return recommendations.slice(0, 6).map((rec, i) => (
+                <div key={i} style={{ padding: '10px 12px', backgroundColor: '#0a0a0a', borderRadius: '6px', border: '1px solid ' + border }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: rec.manual ? '6px' : '0' }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{rec.primary.name}</div>
+                      <div style={{ fontSize: '10px', color: '#4aaa4a', marginTop: '1px' }}>+{rec.primary.boost}% completeness</div>
+                    </div>
+                    <button onClick={() => { setActiveModal(rec.primary.id); setFormData({}) }} style={{ padding: '4px 10px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '4px', color: gold, fontSize: '10px', cursor: 'pointer', fontWeight: '600', flexShrink: 0 }}>
+                      Connect
+                    </button>
                   </div>
-                  <button onClick={() => { setActiveModal(c.id); setFormData({}) }} style={{ padding: '4px 10px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '4px', color: gold, fontSize: '10px', cursor: 'pointer', fontWeight: '600', flexShrink: 0 }}>
-                    {c.auth === 'manual' ? 'Add Data' : 'Connect'}
-                  </button>
+                  {rec.manual && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', paddingTop: '6px', borderTop: '1px solid #1a1a1a' }}>
+                      <div style={{ fontSize: '10px', color: '#555', flex: 1 }}>or add manually · +{rec.manual.boost}%</div>
+                      <button onClick={() => { setActiveModal(rec.manual.id); setFormData({}) }} style={{ padding: '3px 8px', backgroundColor: 'transparent', border: '1px solid #2a2a2a', borderRadius: '4px', color: '#666', fontSize: '9px', cursor: 'pointer' }}>
+                        Add Manual Data
+                      </button>
+                    </div>
+                  )}
                 </div>
-              ))}
+              ))
+            })()}
             {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => !activeConnectors.includes(c.id)).length === 0 && (
               <div style={{ textAlign: 'center' as const, padding: '20px', color: '#4aaa4a', fontSize: '13px' }}>✓ All connectors active — Twin at maximum completeness</div>
             )}
