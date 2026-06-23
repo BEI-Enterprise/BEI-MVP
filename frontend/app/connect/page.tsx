@@ -301,7 +301,7 @@ export default function BusinessTwinPage() {
           )}
         </div>
         <div style={{ position: 'relative' as const, overflow: 'hidden', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '0', background: '#050505', boxShadow: 'inset 0 0 40px rgba(200,162,74,0.05)' }}>
-          <img src="/Buisness Twin Center image.png" alt="Business Twin" style={{ width: '100%', height: '220px', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} onError={(e: any) => { e.target.style.display = 'none' }} />
+          <img src="/new123.png" alt="Business Twin" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', minHeight: '240px' }} onError={(e: any) => { e.target.style.display = 'none' }} />
           <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.4) 0%, transparent 30%, transparent 70%, rgba(5,5,5,0.4) 100%)' }} />
         </div>
         <div style={{ padding: '28px 24px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', gap: '10px' }}>
