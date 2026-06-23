@@ -436,311 +436,66 @@ export default function DashboardPage() {
               {/* Detection + Pillar Charts with view switcher */}
               {(() => {
                 const constraintData = primary ? [
-                  { name: primary.name, score: primary.verification_score || 94, color: '#C8A24A', label: 'Primary', detail: `Verification: ${primary.verification_score || 94}/100 · Root cause: ${primary.is_root_cause ? 'Yes' : 'No'}` },
+                  { name: primary.name, score: primary.verification_score || 94, color: '#C8A24A' },
                   ...(secondary.slice(0,3).map((c: any, i: number) => ({
-                    name: c.name,
-                    score: c.verification_score || 65,
-                    color: i === 0 ? '#cc4444' : i === 1 ? '#4a8ab0' : '#666',
-                    label: `Secondary ${i+1}`,
-                    detail: `Verification: ${c.verification_score || 65}/100 · Severity: ${c.severity || 'medium'}`
+                    name: c.name, score: c.verification_score || 65,
+                    color: i === 0 ? '#cc4444' : i === 1 ? '#4a8ab0' : '#888'
                   })))
                 ] : []
-
                 const pillarData = health.pillars ? Object.entries(health.pillars).map(([name, data]: [string, any]) => ({
                   name: name.charAt(0).toUpperCase() + name.slice(1),
                   score: data.score,
-                  max: 20,
                   color: data.score >= 70 ? '#4aaa4a' : data.score >= 45 ? '#C8A24A' : '#cc4444',
-                  benchmark: isEstate ? { growth: 14, operations: 15, strategy: 13, risk: 12, context: 11 }[name] || 13
-                    : isMarketing ? { growth: 15, operations: 14, strategy: 14, risk: 13, context: 12 }[name] || 13
-                    : isAccounting ? { growth: 13, operations: 16, strategy: 13, risk: 14, context: 12 }[name] || 13
+                  benchmark: isEstate ? ({ growth: 14, operations: 15, strategy: 13, risk: 12, context: 11 } as any)[name] || 13
+                    : isMarketing ? ({ growth: 15, operations: 14, strategy: 14, risk: 13, context: 12 } as any)[name] || 13
+                    : isAccounting ? ({ growth: 13, operations: 16, strategy: 13, risk: 14, context: 12 } as any)[name] || 13
                     : 13
                 })) : []
-
                 const industryLabel = isEstate ? 'Estate Agency' : isMarketing ? 'Marketing Agency' : isAccounting ? 'Accountancy' : 'Your Sector'
-
+                const cId = `chart-c-${selected?.id || 'x'}-${chartView}`
+                const pId = `chart-p-${selected?.id || 'x'}-${chartView}`
+                const cLabels = JSON.stringify(constraintData.map((c: any) => c.name))
+                const cScores = JSON.stringify(constraintData.map((c: any) => c.score))
+                const cColors = JSON.stringify(constraintData.map((c: any) => c.color))
+                const pLabels = JSON.stringify(pillarData.map((p: any) => p.name))
+                const pScores = JSON.stringify(pillarData.map((p: any) => p.score))
+                const pBench = JSON.stringify(pillarData.map((p: any) => p.benchmark))
+                const pColors = JSON.stringify(pillarData.map((p: any) => p.color))
                 return (
                   <div>
-                    {/* Chart view toggle */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
                       <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', fontWeight: '600' }}>INTELLIGENCE CHARTS</div>
                       <div style={{ display: 'flex', gap: '4px', backgroundColor: '#0a0a0a', border: '1px solid #222', borderRadius: '6px', padding: '2px' }}>
-                        {[
-                          { id: 'bar', icon: '▬', label: 'Bar' },
-                          { id: 'column', icon: '▐', label: 'Column' },
-                          { id: 'pie', icon: '◉', label: 'Pie' },
-                          { id: 'radar', icon: '✦', label: 'Radar' },
-                        ].map(v => (
-                          <button key={v.id} onClick={() => setChartView(v.id as any)} style={{ padding: '5px 12px', borderRadius: '4px', border: 'none', backgroundColor: chartView === v.id ? '#C8A24A' : 'transparent', color: chartView === v.id ? '#050505' : '#555', fontSize: '11px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.04em', transition: 'all 0.2s' }}>{v.icon} {v.label}</button>
+                        {(['bar','column','pie','radar'] as const).map(v => (
+                          <button key={v} onClick={() => setChartView(v)} style={{ padding: '5px 12px', borderRadius: '4px', border: 'none', backgroundColor: chartView === v ? '#C8A24A' : 'transparent', color: chartView === v ? '#050505' : '#555', fontSize: '11px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.04em', transition: 'all 0.2s', textTransform: 'capitalize' as const }}>{v}</button>
                         ))}
                       </div>
                     </div>
-
-                    {/* CONSTRAINT DETECTION CHART */}
                     {primary && (
                       <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', marginBottom: '16px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                           <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', fontWeight: '600' }}>CONSTRAINT DETECTION ENGINE — LIVE</div>
                           <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em' }}>VERIFICATION SCORES / 100</div>
                         </div>
-
-                        {/* BAR CHART */}
-                        {chartView === 'bar' && (
-                          <div>
-                            {constraintData.map((c: any, i: number) => (
-                              <div key={i} style={{ marginBottom: '14px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                                  <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: i === 0 ? '700' : '400' }}>{c.name}</div>
-                                  <div style={{ fontSize: '10px', color: '#666' }}>{c.detail}</div>
-                                </div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                  <div style={{ flex: 1, height: '12px', backgroundColor: '#111', borderRadius: '2px', overflow: 'hidden', position: 'relative' as const }}>
-                                    <div style={{ width: c.score + '%', height: '100%', background: `linear-gradient(90deg, ${c.color}88, ${c.color})`, borderRadius: '2px', transition: 'width 1.2s ease' }} />
-                                    <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%)', borderRadius: '2px' }} />
-                                  </div>
-                                  <div style={{ fontSize: '13px', fontWeight: '700', color: c.color, width: '32px', textAlign: 'right' as const }}>{c.score}</div>
-                                </div>
-                                {i === 0 && <div style={{ fontSize: '9px', color: c.color, marginTop: '3px', letterSpacing: '0.1em' }}>▲ PRIMARY CONSTRAINT</div>}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* COLUMN CHART */}
-                        {chartView === 'column' && (
-                          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', height: '180px', paddingBottom: '28px', position: 'relative' as const }}>
-                            {[0,20,40,60,80,100].map(line => (
-                              <div key={line} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${line * 1.52 + 28}px`, borderTop: '1px solid #1a1a1a', pointerEvents: 'none' as const }}>
-                                <span style={{ position: 'absolute' as const, left: '-24px', top: '-6px', fontSize: '9px', color: '#444' }}>{line}</span>
-                              </div>
-                            ))}
-                            {constraintData.map((c: any, i: number) => (
-                              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '6px', height: '100%', justifyContent: 'flex-end' }}>
-                                <div style={{ fontSize: '11px', fontWeight: '700', color: c.color }}>{c.score}</div>
-                                <div style={{ width: '100%', height: `${c.score * 1.52}px`, background: `linear-gradient(180deg, ${c.color}, ${c.color}88)`, borderRadius: '4px 4px 0 0', transition: 'height 1.2s ease', position: 'relative' as const, minHeight: '4px' }}>
-                                  {i === 0 && <div style={{ position: 'absolute' as const, top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '8px', color: c.color, whiteSpace: 'nowrap' as const, letterSpacing: '0.05em' }}>PRIMARY</div>}
-                                </div>
-                                <div style={{ fontSize: '9px', color: '#888', textAlign: 'center' as const, wordBreak: 'break-word' as const, maxWidth: '100%', lineHeight: '1.3' }}>{c.name.split(' ').slice(0,2).join(' ')}</div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* PIE CHART */}
-                        {chartView === 'pie' && (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-                            <svg width="140" height="140" viewBox="0 0 140 140">
-                              {constraintData.reduce((acc: any[], c: any, i: number) => {
-                                const total = constraintData.reduce((s: number, x: any) => s + x.score, 0)
-                                const pct = c.score / total
-                                const prev = acc.reduce((s: number, a: any) => s + a.pct, 0)
-                                const startAngle = prev * 2 * Math.PI - Math.PI / 2
-                                const endAngle = (prev + pct) * 2 * Math.PI - Math.PI / 2
-                                const r = 60, cx = 70, cy = 70
-                                const x1 = cx + r * Math.cos(startAngle), y1 = cy + r * Math.sin(startAngle)
-                                const x2 = cx + r * Math.cos(endAngle), y2 = cy + r * Math.sin(endAngle)
-                                const large = pct > 0.5 ? 1 : 0
-                                acc.push({ pct, path: `M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z`, color: c.color })
-                                return acc
-                              }, []).map((seg: any, i: number) => (
-                                <path key={i} d={seg.path} fill={seg.color} opacity={0.85} stroke="#141414" strokeWidth="2" />
-                              ))}
-                              <circle cx="70" cy="70" r="28" fill="#141414" />
-                              <text x="70" y="66" textAnchor="middle" fill="#C8A24A" fontSize="11" fontWeight="bold">{constraintData[0]?.score}</text>
-                              <text x="70" y="78" textAnchor="middle" fill="#888" fontSize="8">PRIMARY</text>
-                            </svg>
-                            <div style={{ flex: 1 }}>
-                              {constraintData.map((c: any, i: number) => (
-                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                                  <div style={{ width: '10px', height: '10px', borderRadius: '2px', backgroundColor: c.color, flexShrink: 0 }} />
-                                  <div style={{ flex: 1 }}>
-                                    <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: i === 0 ? '700' : '400', lineHeight: '1.3' }}>{c.name}</div>
-                                    <div style={{ fontSize: '9px', color: '#666' }}>{c.label} · {c.score}/100</div>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* RADAR CHART */}
-                        {chartView === 'radar' && (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-                            <svg width="160" height="160" viewBox="0 0 160 160">
-                              {[20,40,60,80,100].map(ring => (
-                                <polygon key={ring} points={constraintData.map((_: any, i: number) => {
-                                  const angle = (i / constraintData.length) * 2 * Math.PI - Math.PI / 2
-                                  const r = ring * 0.7
-                                  return `${80 + r * Math.cos(angle)},${80 + r * Math.sin(angle)}`
-                                }).join(' ')} fill="none" stroke="#1a1a1a" strokeWidth="1" />
-                              ))}
-                              {constraintData.map((_: any, i: number) => {
-                                const angle = (i / constraintData.length) * 2 * Math.PI - Math.PI / 2
-                                return <line key={i} x1="80" y1="80" x2={80 + 70 * Math.cos(angle)} y2={80 + 70 * Math.sin(angle)} stroke="#222" strokeWidth="1" />
-                              })}
-                              <polygon points={constraintData.map((c: any, i: number) => {
-                                const angle = (i / constraintData.length) * 2 * Math.PI - Math.PI / 2
-                                const r = (c.score / 100) * 70
-                                return `${80 + r * Math.cos(angle)},${80 + r * Math.sin(angle)}`
-                              }).join(' ')} fill="rgba(200,162,74,0.15)" stroke="#C8A24A" strokeWidth="1.5" />
-                              {constraintData.map((c: any, i: number) => {
-                                const angle = (i / constraintData.length) * 2 * Math.PI - Math.PI / 2
-                                const r = (c.score / 100) * 70
-                                return <circle key={i} cx={80 + r * Math.cos(angle)} cy={80 + r * Math.sin(angle)} r="4" fill={c.color} />
-                              })}
-                            </svg>
-                            <div style={{ flex: 1 }}>
-                              {constraintData.map((c: any, i: number) => (
-                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: c.color }} />
-                                  <div style={{ fontSize: '11px', color: '#e0e0e0' }}>{c.name}</div>
-                                  <div style={{ marginLeft: 'auto', fontSize: '11px', fontWeight: '700', color: c.color }}>{c.score}</div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+                        <div style={{ position: 'relative' as const, height: chartView === 'bar' ? `${constraintData.length * 50 + 20}px` : '220px' }}>
+                          <canvas key={cId} id={cId} role="img" aria-label="Constraint verification scores" />
+                        </div>
+                        <script dangerouslySetInnerHTML={{ __html: `(function(){var el=document.getElementById('${cId}');if(!el)return;function init(){if(!window.Chart){setTimeout(init,80);return;}if(el._c)el._c.destroy();var v='${chartView}',L=${cLabels},S=${cScores},C=${cColors},base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:v==='pie'},tooltip:{backgroundColor:'#1a1a1a',titleColor:'#e0e0e0',bodyColor:'#888',borderColor:'#333',borderWidth:1}}};var cfg;if(v==='bar'){cfg={type:'bar',data:{labels:L,datasets:[{data:S,backgroundColor:C,borderRadius:3,barThickness:22}]},options:{...base,indexAxis:'y',scales:{x:{min:0,max:100,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#888',font:{size:11}}},y:{grid:{display:false},ticks:{color:'#e0e0e0',font:{size:11}}}}}};}else if(v==='column'){cfg={type:'bar',data:{labels:L.map(function(l){return l.split(' ').slice(0,2).join(' ');}),datasets:[{data:S,backgroundColor:C,borderRadius:4}]},options:{...base,scales:{y:{min:0,max:100,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#888',font:{size:11}}},x:{grid:{display:false},ticks:{color:'#e0e0e0',font:{size:11}}}}}};}else if(v==='pie'){cfg={type:'doughnut',data:{labels:L,datasets:[{data:S,backgroundColor:C,borderWidth:2,borderColor:'#141414',hoverOffset:6}]},options:{...base,cutout:'55%',plugins:{...base.plugins,legend:{display:true,position:'right',labels:{color:'#e0e0e0',font:{size:11},boxWidth:10,padding:12}}}}};}else{cfg={type:'radar',data:{labels:L,datasets:[{label:'Score',data:S,backgroundColor:'rgba(200,162,74,0.15)',borderColor:'#C8A24A',borderWidth:2,pointBackgroundColor:C,pointRadius:4}]},options:{...base,scales:{r:{min:0,max:100,grid:{color:'rgba(255,255,255,0.06)'},angleLines:{color:'rgba(255,255,255,0.06)'},pointLabels:{color:'#e0e0e0',font:{size:11}},ticks:{color:'#888',font:{size:9},stepSize:25,backdropColor:'transparent'}}}}};}el._c=new window.Chart(el,cfg);}init();})();` }} />
                       </div>
                     )}
-
-                    {/* PILLAR SCORES CHART */}
                     {health.pillars && Object.keys(health.pillars).length > 0 && (
-                      <div style={{ padding: '24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '20px' }}>
+                      <div style={{ padding: '20px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '20px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                           <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.2em', fontWeight: '600' }}>PILLAR SCORES — {industryLabel.toUpperCase()}</div>
-                          <div style={{ fontSize: '9px', color: '#555' }}>SCORE / 20 · BENCHMARK SHOWN</div>
+                          <div style={{ fontSize: '9px', color: '#555' }}>SCORE / 20 · DASHED = BENCHMARK</div>
                         </div>
-
-                        {/* BAR */}
-                        {chartView === 'bar' && (
-                          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '14px' }}>
-                            {pillarData.map((p: any, i: number) => (
-                              <div key={i}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                                  <div style={{ fontSize: '12px', color: '#aaa', textTransform: 'capitalize' as const }}>{p.name}</div>
-                                  <div style={{ fontSize: '10px', color: '#555' }}>Benchmark: {p.benchmark}/20</div>
-                                </div>
-                                <div style={{ position: 'relative' as const, height: '14px', backgroundColor: '#111', borderRadius: '3px', overflow: 'hidden' }}>
-                                  <div style={{ width: `${(p.score/20)*100}%`, height: '100%', background: `linear-gradient(90deg, ${p.color}88, ${p.color})`, borderRadius: '3px', transition: 'width 1.2s ease' }} />
-                                  <div style={{ position: 'absolute' as const, top: 0, left: `${(p.benchmark/20)*100}%`, width: '2px', height: '100%', backgroundColor: '#fff', opacity: 0.3 }} />
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '3px' }}>
-                                  <div style={{ fontSize: '9px', color: p.score >= p.benchmark ? '#4aaa4a' : '#cc4444' }}>{p.score >= p.benchmark ? '▲ Above benchmark' : '▼ Below benchmark'}</div>
-                                  <div style={{ fontSize: '11px', fontWeight: '700', color: p.color }}>{p.score}/20</div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* COLUMN */}
-                        {chartView === 'column' && (
-                          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '10px', height: '160px', paddingBottom: '24px', paddingLeft: '24px', position: 'relative' as const }}>
-                            {[0,5,10,15,20].map(line => (
-                              <div key={line} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${line * 6.8 + 24}px`, borderTop: '1px solid #1a1a1a', pointerEvents: 'none' as const }}>
-                                <span style={{ position: 'absolute' as const, left: '2px', top: '-6px', fontSize: '9px', color: '#444' }}>{line}</span>
-                              </div>
-                            ))}
-                            {pillarData.map((p: any, i: number) => (
-                              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '4px', height: '100%', justifyContent: 'flex-end' }}>
-                                <div style={{ fontSize: '10px', fontWeight: '700', color: p.color }}>{p.score}</div>
-                                <div style={{ width: '100%', position: 'relative' as const }}>
-                                  <div style={{ width: '100%', height: `${(p.score/20)*136}px`, background: `linear-gradient(180deg, ${p.color}, ${p.color}88)`, borderRadius: '3px 3px 0 0', transition: 'height 1.2s ease', minHeight: '3px' }} />
-                                  <div style={{ position: 'absolute' as const, left: 0, right: 0, bottom: `${(p.benchmark/20)*136}px`, borderTop: `1px dashed rgba(255,255,255,0.25)` }} />
-                                </div>
-                                <div style={{ fontSize: '9px', color: '#888', textAlign: 'center' as const }}>{p.name.slice(0,4)}</div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* PIE */}
-                        {chartView === 'pie' && (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-                            <svg width="140" height="140" viewBox="0 0 140 140">
-                              {pillarData.reduce((acc: any[], p: any) => {
-                                const total = pillarData.reduce((s: number, x: any) => s + x.score, 0)
-                                const pct = p.score / total
-                                const prev = acc.reduce((s: number, a: any) => s + a.pct, 0)
-                                const startAngle = prev * 2 * Math.PI - Math.PI / 2
-                                const endAngle = (prev + pct) * 2 * Math.PI - Math.PI / 2
-                                const r = 60, cx = 70, cy = 70
-                                const x1 = cx + r * Math.cos(startAngle), y1 = cy + r * Math.sin(startAngle)
-                                const x2 = cx + r * Math.cos(endAngle), y2 = cy + r * Math.sin(endAngle)
-                                const large = pct > 0.5 ? 1 : 0
-                                acc.push({ pct, path: `M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z`, color: p.color, name: p.name })
-                                return acc
-                              }, []).map((seg: any, i: number) => (
-                                <path key={i} d={seg.path} fill={seg.color} opacity={0.85} stroke="#0a0a0a" strokeWidth="2" />
-                              ))}
-                              <circle cx="70" cy="70" r="28" fill={card} />
-                              <text x="70" y="67" textAnchor="middle" fill="#C8A24A" fontSize="10" fontWeight="bold">{health.overall_score || '—'}</text>
-                              <text x="70" y="78" textAnchor="middle" fill="#888" fontSize="7">HEALTH</text>
-                            </svg>
-                            <div style={{ flex: 1 }}>
-                              {pillarData.map((p: any, i: number) => (
-                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                  <div style={{ width: '10px', height: '10px', borderRadius: '2px', backgroundColor: p.color, flexShrink: 0 }} />
-                                  <div style={{ flex: 1, fontSize: '11px', color: '#e0e0e0' }}>{p.name}</div>
-                                  <div style={{ fontSize: '11px', fontWeight: '700', color: p.color }}>{p.score}/20</div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* RADAR */}
-                        {chartView === 'radar' && (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-                            <svg width="160" height="160" viewBox="0 0 160 160">
-                              {[5,10,15,20].map(ring => (
-                                <polygon key={ring} points={pillarData.map((_: any, i: number) => {
-                                  const angle = (i / pillarData.length) * 2 * Math.PI - Math.PI / 2
-                                  const r = (ring / 20) * 70
-                                  return `${80 + r * Math.cos(angle)},${80 + r * Math.sin(angle)}`
-                                }).join(' ')} fill="none" stroke="#1a1a1a" strokeWidth="1" />
-                              ))}
-                              {pillarData.map((_: any, i: number) => {
-                                const angle = (i / pillarData.length) * 2 * Math.PI - Math.PI / 2
-                                return <line key={i} x1="80" y1="80" x2={80 + 70 * Math.cos(angle)} y2={80 + 70 * Math.sin(angle)} stroke="#222" strokeWidth="1" />
-                              })}
-                              <polygon points={pillarData.map((p: any, i: number) => {
-                                const angle = (i / pillarData.length) * 2 * Math.PI - Math.PI / 2
-                                const r = (p.benchmark / 20) * 70
-                                return `${80 + r * Math.cos(angle)},${80 + r * Math.sin(angle)}`
-                              }).join(' ')} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="3,3" />
-                              <polygon points={pillarData.map((p: any, i: number) => {
-                                const angle = (i / pillarData.length) * 2 * Math.PI - Math.PI / 2
-                                const r = (p.score / 20) * 70
-                                return `${80 + r * Math.cos(angle)},${80 + r * Math.sin(angle)}`
-                              }).join(' ')} fill="rgba(200,162,74,0.15)" stroke="#C8A24A" strokeWidth="1.5" />
-                              {pillarData.map((p: any, i: number) => {
-                                const angle = (i / pillarData.length) * 2 * Math.PI - Math.PI / 2
-                                const r = (p.score / 20) * 70
-                                const labelR = 78
-                                return (
-                                  <g key={i}>
-                                    <circle cx={80 + r * Math.cos(angle)} cy={80 + r * Math.sin(angle)} r="3" fill={p.color} />
-                                    <text x={80 + labelR * Math.cos(angle)} y={80 + labelR * Math.sin(angle)} textAnchor="middle" fill="#888" fontSize="8" dominantBaseline="middle">{p.name.slice(0,4)}</text>
-                                  </g>
-                                )
-                              })}
-                            </svg>
-                            <div style={{ flex: 1 }}>
-                              <div style={{ fontSize: '10px', color: '#555', marginBottom: '10px' }}>Dashed line = {industryLabel} benchmark</div>
-                              {pillarData.map((p: any, i: number) => (
-                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '7px' }}>
-                                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: p.color }} />
-                                  <div style={{ fontSize: '11px', color: '#aaa', flex: 1 }}>{p.name}</div>
-                                  <div style={{ fontSize: '10px', color: '#555' }}>BM: {p.benchmark}</div>
-                                  <div style={{ fontSize: '11px', fontWeight: '700', color: p.color }}>{p.score}</div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+                        <div style={{ position: 'relative' as const, height: chartView === 'bar' ? `${pillarData.length * 50 + 20}px` : '260px' }}>
+                          <canvas key={pId} id={pId} role="img" aria-label="Pillar scores" />
+                        </div>
+                        <script dangerouslySetInnerHTML={{ __html: `(function(){var el=document.getElementById('${pId}');if(!el)return;function init(){if(!window.Chart){setTimeout(init,80);return;}if(el._c)el._c.destroy();var v='${chartView}',L=${pLabels},S=${pScores},B=${pBench},C=${pColors},base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'#888',font:{size:11},boxWidth:10}},tooltip:{backgroundColor:'#1a1a1a',titleColor:'#e0e0e0',bodyColor:'#888',borderColor:'#333',borderWidth:1}}};var cfg;if(v==='bar'){cfg={type:'bar',data:{labels:L,datasets:[{label:'Score',data:S,backgroundColor:C,borderRadius:3,barThickness:18},{label:'Benchmark',data:B,backgroundColor:'rgba(255,255,255,0.15)',borderRadius:3,barThickness:18}]},options:{...base,indexAxis:'y',scales:{x:{min:0,max:20,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#888',font:{size:11}}},y:{grid:{display:false},ticks:{color:'#e0e0e0',font:{size:11}}}}}};}else if(v==='column'){cfg={type:'bar',data:{labels:L,datasets:[{label:'Score',data:S,backgroundColor:C,borderRadius:4},{label:'Benchmark',data:B,backgroundColor:'rgba(255,255,255,0.2)',borderRadius:4}]},options:{...base,scales:{y:{min:0,max:20,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#888',font:{size:11}}},x:{grid:{display:false},ticks:{color:'#e0e0e0',font:{size:11}}}}}};}else if(v==='pie'){cfg={type:'doughnut',data:{labels:L,datasets:[{data:S,backgroundColor:C,borderWidth:2,borderColor:'#0a0a0a',hoverOffset:6}]},options:{...base,cutout:'50%',plugins:{...base.plugins,legend:{display:true,position:'right',labels:{color:'#e0e0e0',font:{size:11},boxWidth:10,padding:10,generateLabels:function(chart){return chart.data.labels.map(function(l,i){return{text:l+'  '+S[i]+'/20',fillStyle:C[i],strokeStyle:C[i],lineWidth:0,hidden:false,index:i};});}}}}};}else{cfg={type:'radar',data:{labels:L,datasets:[{label:'Score',data:S,backgroundColor:'rgba(200,162,74,0.15)',borderColor:'#C8A24A',borderWidth:2,pointBackgroundColor:C,pointRadius:4},{label:'Benchmark',data:B,backgroundColor:'transparent',borderColor:'rgba(255,255,255,0.25)',borderWidth:1.5,borderDash:[4,3],pointRadius:2,pointBackgroundColor:'rgba(255,255,255,0.3)'}]},options:{...base,scales:{r:{min:0,max:20,grid:{color:'rgba(255,255,255,0.06)'},angleLines:{color:'rgba(255,255,255,0.06)'},pointLabels:{color:'#e0e0e0',font:{size:11}},ticks:{color:'#888',font:{size:9},stepSize:5,backdropColor:'transparent'}}}}};}el._c=new window.Chart(el,cfg);}init();})();` }} />
                       </div>
                     )}
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" />
                   </div>
                 )
               })()}
