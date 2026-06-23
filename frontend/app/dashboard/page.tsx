@@ -476,7 +476,7 @@ export default function DashboardPage() {
 
                     {/* CONSTRAINT CHART */}
                     {primary && (
-                      <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', marginBottom: '16px' }}>
+                      <div style={{ padding: '20px 24px', backgroundColor: '#141414', border: '1px solid #2a2a2a', borderRadius: '8px', marginBottom: '16px', overflow: 'hidden' as const }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                           <div style={{ fontSize: '10px', color: '#ddd', letterSpacing: '0.2em', fontWeight: '600' }}>CONSTRAINT DETECTION ENGINE — LIVE</div>
                           <div style={{ fontSize: '9px', color: '#555' }}>VERIFICATION SCORES / 100</div>
@@ -574,7 +574,7 @@ export default function DashboardPage() {
 
                     {/* PILLAR CHART */}
                     {health.pillars && Object.keys(health.pillars).length > 0 && (
-                      <div style={{ padding: '20px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '20px' }}>
+                      <div style={{ padding: '20px 24px', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '20px', overflow: 'hidden' as const }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                           <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.2em', fontWeight: '600' }}>PILLAR SCORES — {industryLabel.toUpperCase()}</div>
                           <div style={{ fontSize: '9px', color: '#555' }}>/ 20 · WHITE = BENCHMARK</div>
