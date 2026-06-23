@@ -375,7 +375,7 @@ export default function BusinessTwinPage() {
             <circle cx="240" cy="28" r="4" fill="#C8A24A"/>
             <text x="230" y="22" textAnchor="middle" fill="#C8A24A" fontSize="10" fontWeight="700">93</text>
           </svg>
-          <div style={{ display: 'flex', justify: 'space-between', gap: '4px', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '4px', marginBottom: '12px' }}>
             {['23 May','30 May','6 Jun','13 Jun','20 Jun'].map(d => (
               <div key={d} style={{ fontSize: '9px', color: '#333', flex: 1, textAlign: 'center' as const }}>{d}</div>
             ))}
