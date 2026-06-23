@@ -503,7 +503,7 @@ export default function DashboardPage() {
                               </div>
                             ))}
                             {constraintData.map((c: any, i: number) => (
-                              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '6px' }}>
+                              <div key={i} style={{ width: '80px', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '6px' }}>
                                 <div style={{ fontSize: '11px', fontWeight: '700', color: c.color }}>{c.score}</div>
                                 <div style={{ width: '100%', height: `${(c.score/100)*136}px`, background: `linear-gradient(180deg, ${c.color}, ${c.color}66)`, borderRadius: '4px 4px 0 0', transition: 'height 1s ease', minHeight: '4px' }} />
                                 <div style={{ fontSize: '9px', color: '#888', textAlign: 'center' as const, lineHeight: '1.3' }}>{c.name.split(' ').slice(0,2).join(' ')}</div>
