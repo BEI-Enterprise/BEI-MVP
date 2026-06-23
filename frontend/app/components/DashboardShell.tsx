@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import AskBEI from './AskBEI'
 import { createClient } from '../../lib/supabase'
 
 const gold = '#C8A24A'
@@ -254,6 +255,7 @@ export default function DashboardShell({ children, activeId }: { children: React
           {children}
         </div>
 
+        <AskBEI />
         {/* BOTTOM STATUS BAR */}
         <div style={{ height: '32px', backgroundColor: '#080808', borderTop: `1px solid ${sidebarBorder}`, display: 'flex', alignItems: 'center', padding: '0 24px', gap: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>

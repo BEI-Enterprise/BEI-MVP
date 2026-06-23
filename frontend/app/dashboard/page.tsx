@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import { getCurrencySymbol } from '../../lib/currency'
 import DashboardShell from '../components/DashboardShell'
-import AskBEI from '../components/AskBEI'
 
 const supabase = createClient()
 const gold = '#C8A24A'
