@@ -157,6 +157,8 @@ export default function BusinessTwinPage() {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [formData, setFormData] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
+  const [showAllConnectors, setShowAllConnectors] = useState(false)
+  const [showAllManual, setShowAllManual] = useState(false)
 
   useEffect(() => {
     const load = async () => {
@@ -410,7 +412,7 @@ export default function BusinessTwinPage() {
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>DATA SOURCE ARCHITECTURE™</div>
-            <a href="#" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View all connectors →</a>
+            <button onClick={() => setShowAllConnectors(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all connectors →</button>
           </div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Connected systems feeding your Business Twin™</div>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '0', marginBottom: '6px' }}>
@@ -419,48 +421,50 @@ export default function BusinessTwinPage() {
             ))}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '0' }}>
-            {CONNECTOR_GROUPS.flatMap(g => g.connectors).slice(0, 12).map((c, i) => {
+            {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => c.auth === 'oauth').slice(0, 6).map((c, i) => {
               const state = connectorStates[c.id]
               const isActive = state?.status === 'active'
-              const quality = isActive ? Math.floor(80 + Math.random() * 18) : 0
               return (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '0', padding: '7px 0', borderBottom: '1px solid #111', alignItems: 'center' }}>
+                <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '0', padding: '8px 0', borderBottom: '1px solid #111', alignItems: 'center' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: isActive ? '#4aaa4a' : '#333', flexShrink: 0 }} />
-                    <span style={{ fontSize: '10px', color: isActive ? '#e0e0e0' : '#555', fontWeight: isActive ? '600' : '400', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{c.name}</span>
+                    <span style={{ fontSize: '11px', color: isActive ? '#e0e0e0' : '#777', fontWeight: isActive ? '600' : '400' }}>{c.name}</span>
                   </div>
-                  <div style={{ fontSize: '9px', color: isActive ? '#4aaa4a' : '#444', fontWeight: '600' }}>{isActive ? 'Connected' : 'Available'}</div>
-                  <div style={{ fontSize: '9px', color: isActive ? '#4aaa4a' : '#333' }}>{isActive ? quality + '%' : '—'}</div>
+                  <div style={{ fontSize: '10px', color: isActive ? '#4aaa4a' : '#444', fontWeight: '600' }}>{isActive ? 'Connected' : 'Available'}</div>
+                  <div style={{ fontSize: '10px', color: isActive ? '#4aaa4a' : '#333' }}>{isActive ? '92%' : '—'}</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <span style={{ fontSize: '9px', color: isActive ? gold : '#444' }}>+{c.boost}%</span>
+                    <span style={{ fontSize: '10px', color: isActive ? gold : '#555' }}>+{c.boost}%</span>
                     {!isActive && (
-                      <button onClick={() => { setActiveModal(c.id); setFormData({}) }} style={{ padding: '2px 6px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '3px', color: gold, fontSize: '8px', cursor: 'pointer', fontWeight: '600' }}>ADD</button>
+                      <button onClick={() => { setActiveModal(c.id); setFormData({}) }} style={{ padding: '3px 8px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '3px', color: gold, fontSize: '9px', cursor: 'pointer', fontWeight: '600' }}>ADD</button>
                     )}
-                    {isActive && <span style={{ fontSize: '9px', color: '#4aaa4a' }}>✓</span>}
+                    {isActive && <span style={{ fontSize: '10px', color: '#4aaa4a' }}>✓</span>}
                   </div>
                 </div>
               )
             })}
           </div>
-          <button onClick={() => {}} style={{ width: '100%', marginTop: '10px', padding: '8px', backgroundColor: 'rgba(200,162,74,0.06)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '6px', color: gold, fontSize: '10px', cursor: 'pointer', fontWeight: '600' }}>+ Connect new system</button>
+          <button onClick={() => setShowAllConnectors(true)} style={{ width: '100%', marginTop: '12px', padding: '9px', backgroundColor: 'rgba(200,162,74,0.06)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '6px', color: gold, fontSize: '11px', cursor: 'pointer', fontWeight: '600' }}>View all connectors ({CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => c.auth === 'oauth').length}) →</button>
         </div>
 
         {/* MANUAL INTELLIGENCE INPUTS */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
-          <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>MANUAL INTELLIGENCE INPUTS™</div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Add data manually to improve Business Twin™ completeness</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+            <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>MANUAL INTELLIGENCE INPUTS™</div>
+            <button onClick={() => setShowAllManual(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all inputs →</button>
+          </div>
+          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Add data manually to improve Business Twin™ completeness</div>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
-            {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => c.auth === 'manual').map((c, i) => {
+            {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => c.auth === 'manual').slice(0, 6).map((c, i) => {
               const state = connectorStates[c.id]
               const isActive = state?.status === 'active'
               return (
-                <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + (isActive ? '#1a2a1a' : border) }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                <div key={i} style={{ padding: '11px 12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + (isActive ? '#1a2a1a' : border) }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3px' }}>
                     <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{c.name}</div>
-                    <div style={{ fontSize: '10px', color: isActive ? '#4aaa4a' : '#555', fontWeight: '600' }}>+{c.boost}%</div>
+                    <div style={{ fontSize: '10px', color: isActive ? '#4aaa4a' : gold, fontWeight: '600' }}>+{c.boost}%</div>
                   </div>
-                  <div style={{ fontSize: '10px', color: '#555', marginBottom: '8px' }}>
-                    {isActive ? '✓ Data submitted · ' + (state?.last_synced_at ? new Date(state.last_synced_at).toLocaleDateString('en-GB') : '') : c.fields.length + ' fields required'}
+                  <div style={{ fontSize: '10px', color: '#555', marginBottom: '7px' }}>
+                    {isActive ? '✓ Submitted · ' + (state?.last_synced_at ? new Date(state.last_synced_at).toLocaleDateString('en-GB') : '') : c.fields.length + ' fields required'}
                   </div>
                   <button onClick={() => { setActiveModal(c.id); setFormData({}) }} style={{ width: '100%', padding: '6px', backgroundColor: isActive ? 'rgba(74,170,74,0.08)' : 'rgba(200,162,74,0.08)', border: '1px solid ' + (isActive ? 'rgba(74,170,74,0.2)' : 'rgba(200,162,74,0.2)'), borderRadius: '4px', color: isActive ? '#4aaa4a' : gold, fontSize: '10px', cursor: 'pointer', fontWeight: '600' }}>
                     {isActive ? '✏ Update Data' : '+ Add Data'}
@@ -469,6 +473,7 @@ export default function BusinessTwinPage() {
               )
             })}
           </div>
+          <button onClick={() => setShowAllManual(true)} style={{ width: '100%', marginTop: '12px', padding: '9px', backgroundColor: 'rgba(200,162,74,0.06)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '6px', color: gold, fontSize: '11px', cursor: 'pointer', fontWeight: '600' }}>View all inputs ({CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => c.auth === 'manual').length}) →</button>
         </div>
 
         {/* COVERAGE MAP */}
@@ -688,6 +693,98 @@ export default function BusinessTwinPage() {
           ))}
         </div>
       </div>
+
+      {/* ALL CONNECTORS MODAL */}
+      {showAllConnectors && (
+        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowAllConnectors(false)}>
+          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '860px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '4px', fontWeight: '600' }}>ALL CONNECTORS</div>
+                <div style={{ fontSize: '20px', fontWeight: '700', color: '#fff' }}>Data Source Architecture™</div>
+                <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>Connect external systems to improve Business Twin™ completeness</div>
+              </div>
+              <button onClick={() => setShowAllConnectors(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+            {CONNECTOR_GROUPS.map((group, gi) => (
+              <div key={gi} style={{ marginBottom: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', paddingBottom: '8px', borderBottom: '1px solid #1a1a1a' }}>
+                  <div style={{ fontSize: '9px', color: gold, letterSpacing: '0.15em', fontWeight: '600' }}>{group.group.toUpperCase()}</div>
+                  <div style={{ fontSize: '10px', color: '#444' }}>Impacts: {group.twin_impact}</div>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+                  {group.connectors.filter(c => c.auth === 'oauth').map((c, i) => {
+                    const state = connectorStates[c.id]
+                    const isActive = state?.status === 'active'
+                    return (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + (isActive ? '#1a2a1a' : '#1e1e1e') }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: isActive ? '#4aaa4a' : '#333', flexShrink: 0 }} />
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{c.name}</div>
+                          <div style={{ fontSize: '10px', color: isActive ? '#4aaa4a' : '#555', marginTop: '2px' }}>{isActive ? '✓ Connected · Active' : '+' + c.boost + '% completeness when connected'}</div>
+                        </div>
+                        {!isActive ? (
+                          <button onClick={() => { setActiveModal(c.id); setFormData({}); setShowAllConnectors(false) }} style={{ padding: '6px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.25)', borderRadius: '5px', color: gold, fontSize: '11px', cursor: 'pointer', fontWeight: '600', flexShrink: 0 }}>Connect</button>
+                        ) : (
+                          <div style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>✓ Active</div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ALL MANUAL INPUTS MODAL */}
+      {showAllManual && (
+        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowAllManual(false)}>
+          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '860px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '4px', fontWeight: '600' }}>ALL MANUAL INPUTS</div>
+                <div style={{ fontSize: '20px', fontWeight: '700', color: '#fff' }}>Manual Intelligence Inputs™</div>
+                <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>Add your business data manually to strengthen Business Twin™ intelligence</div>
+              </div>
+              <button onClick={() => setShowAllManual(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+            {CONNECTOR_GROUPS.map((group, gi) => {
+              const manualConns = group.connectors.filter(c => c.auth === 'manual')
+              if (manualConns.length === 0) return null
+              return (
+                <div key={gi} style={{ marginBottom: '24px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', paddingBottom: '8px', borderBottom: '1px solid #1a1a1a' }}>
+                    <div style={{ fontSize: '9px', color: gold, letterSpacing: '0.15em', fontWeight: '600' }}>{group.group.toUpperCase()}</div>
+                    <div style={{ fontSize: '10px', color: '#444' }}>Impacts: {group.twin_impact}</div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+                    {manualConns.map((c, i) => {
+                      const state = connectorStates[c.id]
+                      const isActive = state?.status === 'active'
+                      return (
+                        <div key={i} style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + (isActive ? '#1a2a1a' : '#1e1e1e') }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                            <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600', flex: 1 }}>{c.name}</div>
+                            <div style={{ fontSize: '10px', color: isActive ? '#4aaa4a' : gold, fontWeight: '600', marginLeft: '8px' }}>+{c.boost}%</div>
+                          </div>
+                          <div style={{ fontSize: '10px', color: '#555', marginBottom: '10px' }}>
+                            {isActive ? '✓ Data submitted · ' + (state?.last_synced_at ? new Date(state.last_synced_at).toLocaleDateString('en-GB') : '') : c.fields.length + ' fields required'}
+                          </div>
+                          <button onClick={() => { setActiveModal(c.id); setFormData({}); setShowAllManual(false) }} style={{ width: '100%', padding: '7px', backgroundColor: isActive ? 'rgba(74,170,74,0.08)' : 'rgba(200,162,74,0.08)', border: '1px solid ' + (isActive ? 'rgba(74,170,74,0.2)' : 'rgba(200,162,74,0.2)'), borderRadius: '5px', color: isActive ? '#4aaa4a' : gold, fontSize: '11px', cursor: 'pointer', fontWeight: '600' }}>
+                            {isActive ? '✏ Update Data' : '+ Add Data'}
+                          </button>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
     </DashboardShell>
   )
