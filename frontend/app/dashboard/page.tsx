@@ -542,7 +542,7 @@ export default function DashboardPage() {
                         const el = (
                           <circle key={i} cx="40" cy="40" r={r} fill="none" stroke={o.color} strokeWidth="10"
                             strokeDasharray={String(dash) + ' ' + String(gap)} strokeDashoffset={String(-offset)}
-                            strokeOpacity="0.9" strokeWidth="9" transform="rotate(-90 40 40)"/>
+                            strokeOpacity="0.9" transform="rotate(-90 40 40)"/>
                         )
                         offset += dash
                         return el
