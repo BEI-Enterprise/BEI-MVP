@@ -193,7 +193,7 @@ export default function DashboardPage() {
             { label: 'NEW ALERTS', value: String(alerts.length), color: alerts.length > 1 ? '#cc4444' : gold, sub: 'vs previous 2', trend: 'neutral' },
           ].map((item, i) => (
             <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '16px' }}>
-              <div style={{ fontSize: '9px', color: '#777', letterSpacing: '0.15em', marginBottom: '8px', fontWeight: '600' }}>{item.label}</div>
+              <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '700' }}>{item.label}</div>
               <div style={{ fontSize: '22px', fontWeight: '800', color: item.color, lineHeight: 1, marginBottom: '4px' }}>{item.value}</div>
               <div style={{ fontSize: '10px', color: '#888', marginBottom: '8px' }}>{item.sub}</div>
               {sparkline(item.trend, item.color, i)}
@@ -212,7 +212,7 @@ export default function DashboardPage() {
           { label: 'SUBSCRIPTION STATUS', value: 'ACTIVE', color: '#4aaa4a', trend: tier + ' Plan', prevVal: 'Renews in 28 days', spark: 'neutral', trendColor: '#4aaa4a' },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: '#777', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>{k.label}</div>
+            <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '700' }}>{k.label}</div>
             <div style={{ fontSize: '19px', fontWeight: '800', color: k.color, lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
             <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600', marginBottom: '2px' }}>{k.trend}</div>
             <div style={{ fontSize: '10px', color: '#777', marginBottom: '8px' }}>{k.prevVal}</div>
@@ -311,8 +311,8 @@ export default function DashboardPage() {
                     <circle cx="100" cy="40" r="18" fill="#080808" stroke="#FFD060" strokeWidth="2"/>
                     <circle cx="100" cy="40" r="14" fill="url(#ng1)" filter="url(#ngs)"/>
                     <circle cx="95" cy="35" r="5" fill="white" fillOpacity="0.65"/>
-                    <text x="100" y="22" textAnchor="middle" fill="#FFD060" fontSize="6" fontWeight="700" letterSpacing="0.1em">ROOT CAUSE</text>
-                    <text x="100" y="70" textAnchor="middle" fill="#FFD060" fontSize="9" fontWeight="700">{primary?.name || 'Bottleneck'}</text>
+                    <text x="100" y="18" textAnchor="middle" fill="#FFD060" fontSize="6" fontWeight="700" letterSpacing="0.1em">ROOT CAUSE</text>
+                    <text x="100" y="76" textAnchor="middle" fill="#FFD060" fontSize="9" fontWeight="700">{primary?.name || 'Bottleneck'}</text>
                     <circle cx="44" cy="151" r="18" fill="rgba(140,90,10,0.15)" filter="url(#ngl)"/>
                     <circle cx="44" cy="151" r="12" fill="#0c0800" stroke="#8a6010" strokeWidth="1"/>
                     <circle cx="44" cy="151" r="9" fill="url(#ng2)" filter="url(#ngs)"/>
