@@ -289,99 +289,140 @@ export default function BusinessTwinPage() {
       )}
 
       {/* HERO ROW */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px 260px', gap: '0', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '12px', overflow: 'hidden', marginBottom: '16px', position: 'relative' as const, backgroundColor: '#050505' }}>
-        <svg style={{ position: 'absolute' as const, inset: 0, width: '100%', height: '100%' }} viewBox="0 0 900 220" preserveAspectRatio="none">
-          <line x1="380" y1="160" x2="480" y2="80" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
-          <line x1="480" y1="80" x2="580" y2="170" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
-          <line x1="480" y1="80" x2="610" y2="50" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
-          <line x1="610" y1="50" x2="720" y2="120" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
-          <line x1="580" y1="170" x2="720" y2="120" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
-          <line x1="720" y1="120" x2="820" y2="60" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
-          <line x1="610" y1="50" x2="700" y2="20" stroke="#C8A24A" strokeWidth="0.5" opacity="0.25" />
-          <line x1="380" y1="160" x2="300" y2="190" stroke="#C8A24A" strokeWidth="0.5" opacity="0.25" />
-          <circle cx="380" cy="160" r="2.5" fill="#C8A24A" opacity="0.7" />
-          <circle cx="480" cy="80" r="3.5" fill="#D4B468" opacity="0.85" />
-          <circle cx="580" cy="170" r="2.5" fill="#C8A24A" opacity="0.7" />
-          <circle cx="610" cy="50" r="3" fill="#C8A24A" opacity="0.8" />
-          <circle cx="720" cy="120" r="3" fill="#C8A24A" opacity="0.75" />
-          <circle cx="820" cy="60" r="2.5" fill="#C8A24A" opacity="0.6" />
-          <circle cx="700" cy="20" r="2" fill="#8a6f33" opacity="0.5" />
-          <circle cx="300" cy="190" r="2" fill="#8a6f33" opacity="0.5" />
+      <div style={{ border: '1px solid rgba(200,162,74,0.25)', borderRadius: '14px', overflow: 'hidden', marginBottom: '16px', position: 'relative' as const, backgroundColor: '#050505', minHeight: '180px' }}>
+        <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #C8A24A 40%, #C8A24A 60%, transparent)', zIndex: 2 }} />
+        <div style={{ position: 'absolute' as const, bottom: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.2), transparent)', zIndex: 2 }} />
+        {/* Network illustration background */}
+        <svg style={{ position: 'absolute' as const, right: '280px', top: 0, height: '100%', width: '460px', opacity: 0.6 }} viewBox="0 0 460 180" preserveAspectRatio="xMidYMid slice">
+          {[
+            [230,90,180,50],[230,90,290,40],[230,90,160,130],[230,90,310,140],
+            [180,50,120,30],[180,50,140,100],[290,40,350,25],[290,40,360,90],
+            [160,130,100,150],[310,140,380,160],[120,30,70,60],[350,25,420,50],
+            [100,150,60,170],[380,160,440,140],[70,60,30,40],[420,50,455,80],
+          ].map(([x1,y1,x2,y2],i) => (
+            <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C8A24A" strokeWidth="0.6" opacity="0.4"/>
+          ))}
+          {[
+            [230,90,5,'#FFD060',0.95],[180,50,3.5,'#C8A24A',0.85],[290,40,3.5,'#C8A24A',0.85],
+            [160,130,3,'#C8A24A',0.75],[310,140,3,'#C8A24A',0.75],[120,30,2.5,'#C8A24A',0.65],
+            [350,25,2.5,'#C8A24A',0.65],[100,150,2,'#8a6f33',0.55],[380,160,2,'#8a6f33',0.55],
+            [70,60,2,'#8a6f33',0.5],[420,50,2,'#8a6f33',0.5],[30,40,1.5,'#6a5020',0.4],
+            [455,80,1.5,'#6a5020',0.4],[60,170,1.5,'#6a5020',0.4],[440,140,1.5,'#6a5020',0.4],
+          ].map(([cx,cy,r,fill,op],i) => (
+            <circle key={i} cx={cx} cy={cy} r={r as number} fill={fill as string} opacity={op as number}/>
+          ))}
+          {/* Central glow */}
+          <circle cx="230" cy="90" r="40" fill="rgba(200,162,74,0.04)"/>
+          <circle cx="230" cy="90" r="20" fill="rgba(200,162,74,0.06)"/>
         </svg>
-        <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.78) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.68) 100%)', zIndex: 0 }} />
-        <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #C8A24A, transparent)', zIndex: 1 }} />
-        <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', position: 'relative' as const, zIndex: 1 }}>
-          <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>COMMAND CENTRE</div>
-          <h1 style={{ fontSize: '30px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 8px', lineHeight: 1.1 }}>Business Twin™ Centre</h1>
-          <div style={{ fontSize: '13px', color: '#555', marginBottom: '16px' }}>The intelligence foundation powering every BEI recommendation</div>
-          <div style={{ fontSize: '11px', color: '#444' }}>{businessName} · {tier} · Last updated {lastUpdated}</div>
-          {!hasMRI && (
-            <div style={{ marginTop: '16px', padding: '10px 14px', backgroundColor: 'rgba(204,68,68,0.08)', border: '1px solid rgba(204,68,68,0.2)', borderRadius: '6px' }}>
-              <div style={{ fontSize: '11px', color: '#cc4444', fontWeight: '600' }}>⚠ No Business MRI found — complete your MRI to activate the Business Twin™</div>
+        <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.75) 45%, rgba(5,5,5,0.4) 70%, rgba(5,5,5,0.75) 100%)' }} />
+        <div style={{ position: 'relative' as const, zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'stretch' }}>
+          {/* Left content */}
+          <div style={{ padding: '32px 36px' }}>
+            <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '10px', fontWeight: '600' }}>COMMAND CENTRE</div>
+            <h1 style={{ fontSize: '34px', fontWeight: '900', letterSpacing: '-0.025em', margin: '0 0 10px', lineHeight: 1.05, color: '#ffffff' }}>Business Twin™ Centre</h1>
+            <div style={{ fontSize: '14px', color: '#888', marginBottom: '14px', lineHeight: 1.5 }}>The intelligence foundation powering every BEI recommendation</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ fontSize: '12px', color: '#555' }}>{businessName} · {tier} · Last updated {lastUpdated}</div>
+              {hasMRI && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '3px 10px', backgroundColor: 'rgba(74,170,74,0.08)', border: '1px solid rgba(74,170,74,0.2)', borderRadius: '20px' }}>
+                  <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
+                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600', letterSpacing: '0.08em' }}>Intelligence Active</span>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div style={{ position: 'relative' as const, zIndex: 1 }} />
-        <div style={{ padding: '28px 24px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', gap: '10px', position: 'relative' as const, zIndex: 1, backgroundColor: 'rgba(5,5,5,0.6)', backdropFilter: 'blur(4px)' }}>
-          <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.15em' }}>BUSINESS TWIN™ STATUS</div>
-          <div style={{ fontSize: '26px', fontWeight: '900', color: gold, lineHeight: 1 }}>Intelligence</div>
-          <div style={{ fontSize: '26px', fontWeight: '900', color: gold, lineHeight: 1, marginTop: '-6px' }}>Ready</div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444', boxShadow: `0 0 8px ${hasMRI ? 'rgba(74,170,74,0.8)' : 'rgba(204,68,68,0.8)'}` }} />
-            <span style={{ fontSize: '11px', color: hasMRI ? '#4aaa4a' : '#cc4444', fontWeight: '600', letterSpacing: '0.1em' }}>{hasMRI ? 'ACTIVE' : 'INACTIVE'}</span>
+            {!hasMRI && (
+              <div style={{ marginTop: '14px', padding: '10px 14px', backgroundColor: 'rgba(204,68,68,0.08)', border: '1px solid rgba(204,68,68,0.2)', borderRadius: '6px', display: 'inline-block' }}>
+                <div style={{ fontSize: '11px', color: '#cc4444', fontWeight: '600' }}>⚠ No Business MRI found — complete your MRI to activate the Business Twin™</div>
+              </div>
+            )}
           </div>
-          <div style={{ width: '56px', height: '56px', borderRadius: '50%', border: `3px solid ${hasMRI ? '#4aaa4a' : '#cc4444'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '6px', boxShadow: `0 0 16px ${hasMRI ? 'rgba(74,170,74,0.2)' : 'rgba(204,68,68,0.2)'}` }}>
-            {hasMRI
-              ? <svg width="28" height="28" viewBox="0 0 28 28"><polyline points="5,14 11,20 23,8" fill="none" stroke="#4aaa4a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              : <span style={{ fontSize: '20px', color: '#cc4444' }}>✕</span>
-            }
+          {/* Right status panel */}
+          <div style={{ padding: '32px 36px', borderLeft: '1px solid rgba(200,162,74,0.15)', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', alignItems: 'flex-start', gap: '8px', minWidth: '240px', backgroundColor: 'rgba(200,162,74,0.03)' }}>
+            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.2em', fontWeight: '600' }}>BUSINESS TWIN™ STATUS</div>
+            <div style={{ fontSize: '30px', fontWeight: '900', color: gold, lineHeight: 1.05, letterSpacing: '-0.02em' }}>Intelligence<br/>Ready</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginTop: '2px' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444', boxShadow: `0 0 8px ${hasMRI ? 'rgba(74,170,74,0.8)' : 'rgba(204,68,68,0.8)'}` }} />
+              <span style={{ fontSize: '11px', color: hasMRI ? '#4aaa4a' : '#cc4444', fontWeight: '700', letterSpacing: '0.12em' }}>{hasMRI ? 'ACTIVE' : 'INACTIVE'}</span>
+            </div>
+            <div style={{ marginTop: '8px', width: '60px', height: '60px', borderRadius: '50%', border: `2.5px solid ${hasMRI ? '#4aaa4a' : '#cc4444'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 20px ${hasMRI ? 'rgba(74,170,74,0.15)' : 'rgba(204,68,68,0.15)'}` }}>
+              {hasMRI
+                ? <svg width="28" height="28" viewBox="0 0 28 28"><polyline points="5,14 11,20 23,8" fill="none" stroke="#4aaa4a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                : <span style={{ fontSize: '22px', color: '#cc4444' }}>✕</span>
+              }
+            </div>
           </div>
         </div>
       </div>
 
       {/* INTELLIGENCE OVERVIEW PANEL */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '16px', overflow: 'hidden' }}>
-        <div style={{ padding: '24px 28px', borderRight: '1px solid ' + border }}>
-          <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '14px' }}>TWIN COMPLETENESS — REAL TIME</div>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '14px' }}>
-            <div style={{ fontSize: '48px', fontWeight: '900', color: gc(completeness), lineHeight: 1 }}>{completeness}%</div>
-            <div style={{ fontSize: '12px', color: '#555' }}>{hasMRI ? 'MRI + ' + activeConnectors.length + ' connectors' : 'No MRI yet'}</div>
-          </div>
-          <div style={{ height: '8px', backgroundColor: '#1a1a1a', borderRadius: '4px', overflow: 'hidden', marginBottom: '12px' }}>
-            <div style={{ width: completeness + '%', height: '100%', background: `linear-gradient(90deg, ${gc(completeness)}66, ${gc(completeness)})`, borderRadius: '4px', transition: 'width 1s ease' }} />
-          </div>
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' as const }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444' }} />
-              <span style={{ fontSize: '10px', color: '#666' }}>Business MRI ({MRI_BASE}% base) — {hasMRI ? 'Complete' : 'Missing'}</span>
+      <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '12px', marginBottom: '16px', overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '0' }}>
+          {/* Left: completeness */}
+          <div style={{ padding: '24px 28px', borderRight: '1px solid ' + border }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+              <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.15em', fontWeight: '700' }}>TWIN COMPLETENESS — REAL TIME</div>
+              <div style={{ fontSize: '11px', color: '#555' }}>{hasMRI ? 'MRI + ' + activeConnectors.length + ' connector' + (activeConnectors.length !== 1 ? 's' : '') : 'No MRI yet'}</div>
             </div>
-            {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => activeConnectors.includes(c.id)).map(c => (
-              <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#4aaa4a' }} />
-                <span style={{ fontSize: '10px', color: '#666' }}>{c.name} (+{c.boost}%)</span>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '52px', fontWeight: '900', color: gc(completeness), lineHeight: 1, letterSpacing: '-0.03em' }}>{completeness}%</div>
+              <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '3px' }}>
+                <div style={{ fontSize: '12px', color: gc(completeness), fontWeight: '600' }}>{completeness >= 80 ? 'Excellent' : completeness >= 60 ? 'Good' : completeness >= 40 ? 'Building' : 'Getting started'}</div>
+                <div style={{ fontSize: '11px', color: '#555' }}>of 100% possible</div>
+              </div>
+            </div>
+            {/* Segmented progress bar */}
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ display: 'flex', height: '10px', borderRadius: '5px', overflow: 'hidden', backgroundColor: '#111', gap: '2px' }}>
+                {/* MRI base segment */}
+                <div style={{ width: MRI_BASE + '%', height: '100%', backgroundColor: hasMRI ? '#4aaa4a' : '#2a2a2a', borderRadius: '5px 0 0 5px', flexShrink: 0 }} />
+                {/* Connector segments */}
+                {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => activeConnectors.includes(c.id)).map((c, i) => (
+                  <div key={i} style={{ width: c.boost + '%', height: '100%', backgroundColor: gold, flexShrink: 0 }} />
+                ))}
+                {/* Remaining */}
+                <div style={{ flex: 1, height: '100%', backgroundColor: '#111', borderRadius: '0 5px 5px 0' }} />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '5px' }}>
+                <div style={{ fontSize: '10px', color: '#555' }}>0%</div>
+                <div style={{ fontSize: '10px', color: '#555' }}>100%</div>
+              </div>
+            </div>
+            {/* Legend */}
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' as const }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '10px', height: '6px', borderRadius: '3px', backgroundColor: hasMRI ? '#4aaa4a' : '#2a2a2a' }} />
+                <span style={{ fontSize: '10px', color: '#777' }}>Business MRI ({MRI_BASE}%) — {hasMRI ? 'Complete' : 'Missing'}</span>
+              </div>
+              {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => activeConnectors.includes(c.id)).map(c => (
+                <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div style={{ width: '10px', height: '6px', borderRadius: '3px', backgroundColor: gold }} />
+                  <span style={{ fontSize: '10px', color: '#777' }}>{c.name} (+{c.boost}%)</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Right: stats grid */}
+          <div style={{ padding: '24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
+            {[
+              { label: 'ACCURACY', value: completeness >= 60 ? '96%' : completeness >= 40 ? '78%' : '—', color: '#4aaa4a', sub: 'Data consistency' },
+              { label: 'DATA CONFIDENCE', value: completeness >= 60 ? 'HIGH' : completeness >= 40 ? 'MEDIUM' : 'LOW', color: gc(completeness), sub: 'Intelligence grade' },
+              { label: 'CONNECTED SOURCES', value: connectedCount.toString(), color: gold, sub: 'of ' + (totalConnectors + 1) + ' available' },
+              { label: 'MANUAL INPUTS', value: activeConnectors.filter((id: string) => id.startsWith('manual_') || !['hubspot','salesforce','xero','quickbooks','google_analytics','hibob','workday'].includes(id)).length > 0 ? 'ACTIVE' : 'PENDING', color: activeConnectors.filter((id: string) => id.startsWith('manual_') || !['hubspot','salesforce','xero','quickbooks','google_analytics','hibob','workday'].includes(id)).length > 0 ? '#4aaa4a' : '#555', sub: activeConnectors.filter((id: string) => id.startsWith('manual_') || !['hubspot','salesforce','xero','quickbooks','google_analytics','hibob','workday'].includes(id)).length + ' datasets added' },
+            ].map((k, i) => (
+              <div key={i} style={{ padding: '14px 16px', borderBottom: i < 2 ? '1px solid ' + border : 'none', borderRight: i % 2 === 0 ? '1px solid ' + border : 'none' }}>
+                <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.12em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
+                <div style={{ fontSize: '20px', fontWeight: '800', color: k.color, lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
+                <div style={{ fontSize: '10px', color: '#555' }}>{k.sub}</div>
               </div>
             ))}
-          </div>
-        </div>
-        <div style={{ padding: '20px 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-          {[
-            { label: 'ACCURACY', value: completeness >= 60 ? '96%' : completeness >= 40 ? '78%' : '—', color: '#4aaa4a', sub: 'Data consistency' },
-            { label: 'DATA CONFIDENCE', value: completeness >= 60 ? 'HIGH' : completeness >= 40 ? 'MEDIUM' : 'LOW', color: gc(completeness), sub: 'Intelligence grade' },
-            { label: 'CONNECTED SOURCES', value: connectedCount.toString(), color: gold, sub: 'of ' + (totalConnectors + 1) + ' available' },
-            { label: 'MANUAL INPUTS', value: activeConnectors.filter(id => id.startsWith('manual_')).length > 0 ? 'ACTIVE' : 'PENDING', color: activeConnectors.filter(id => id.startsWith('manual_')).length > 0 ? '#4aaa4a' : '#555', sub: activeConnectors.filter(id => id.startsWith('manual_')).length + ' datasets added' },
-          ].map((k, i) => (
-            <div key={i}>
-              <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{k.label}</div>
-              <div style={{ fontSize: '18px', fontWeight: '800', color: k.color, lineHeight: 1 }}>{k.value}</div>
-              <div style={{ fontSize: '9px', color: '#444', marginTop: '3px' }}>{k.sub}</div>
+            <div style={{ gridColumn: '1 / -1', padding: '14px 16px', borderTop: '1px solid ' + border, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.12em', marginBottom: '4px', fontWeight: '700' }}>INTELLIGENCE READINESS</div>
+                <div style={{ fontSize: '18px', fontWeight: '800', color: completeness >= 40 ? '#4aaa4a' : '#cc4444' }}>{completeness >= 40 ? 'Verified' : 'Incomplete'}</div>
+              </div>
+              <div style={{ fontSize: '10px', color: '#555', textAlign: 'right' as const }}>{completeness >= 40 ? 'Production grade' : 'Add more data'}</div>
             </div>
-          ))}
-          <div style={{ gridColumn: '1 / -1', paddingTop: '12px', borderTop: '1px solid ' + border, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div>
-              <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>INTELLIGENCE READINESS</div>
-              <div style={{ fontSize: '16px', fontWeight: '800', color: completeness >= 40 ? '#4aaa4a' : '#cc4444' }}>{completeness >= 40 ? 'Verified' : 'Incomplete'}</div>
-            </div>
-            <div style={{ fontSize: '10px', color: '#444' }}>{completeness >= 40 ? 'Production grade' : 'Add more data'}</div>
           </div>
         </div>
       </div>
