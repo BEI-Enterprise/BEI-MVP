@@ -319,7 +319,7 @@ export default function DashboardPage() {
                         <circle cx="52" cy={node.y} r={node.r + 6} fill={i >= 3 ? 'rgba(204,68,68,0.12)' : 'rgba(200,162,74,0.12)'} filter="url(#glow6)"/>
                         <circle cx="52" cy={node.y} r={node.r} fill="#080808" stroke={i >= 3 ? '#aa3333' : '#aa8820'} strokeWidth="1"/>
                         <circle cx="52" cy={node.y} r={node.r - 2} fill={'url(#' + node.grad + ')'} filter="url(#glow3)"/>
-                        <circle cx="48" cy={node.y - Math.round(node.r * 0.4)} r={Math.max(2, Math.round(node.r * 0.3))} fill="white" fillOpacity="0.55"/>
+                        <circle cx={48} cy={node.y - Math.round(node.r * 0.4)} r={Math.max(2, Math.round(node.r * 0.3))} fill="white" fillOpacity="0.55"/>
                         {node.label && (
                           <text x="52" y={node.y - node.r - 8} textAnchor="middle" fill={node.labelColor!} fontSize="8" fontWeight="700" letterSpacing="0.08em">{node.label}</text>
                         )}
