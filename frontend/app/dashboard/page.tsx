@@ -148,14 +148,25 @@ export default function DashboardPage() {
               <div style={{ fontSize: '22px', fontWeight: '800', color: item.color, lineHeight: 1, marginBottom: '4px' }}>{item.value}</div>
               <div style={{ fontSize: '10px', color: '#444' }}>{item.sub}</div>
               {/* Mini sparkline */}
-              <svg width="80" height="20" viewBox="0 0 80 20" style={{ display: 'block', marginTop: '8px' }}>
-                <polyline
-                  points={item.trend === 'up' ? '0,16 16,14 32,12 48,10 64,7 80,4' : item.trend === 'down' ? '0,4 16,6 32,9 48,11 64,13 80,15' : '0,10 16,9 32,11 48,10 64,10 80,9'}
-                  fill="none"
-                  stroke={item.color}
-                  strokeWidth="1.5"
-                  strokeOpacity="0.7"
-                />
+              <svg width="80" height="24" viewBox="0 0 80 24" style={{ display: 'block', marginTop: '8px' }}>
+                <defs>
+                  <linearGradient id={'sg'+i} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={item.color} stopOpacity="0.3"/>
+                    <stop offset="100%" stopColor={item.color} stopOpacity="0"/>
+                  </linearGradient>
+                </defs>
+                {item.trend === 'up' && <>
+                  <polygon points="0,22 0,18 10,16 20,19 30,14 40,11 50,13 60,8 70,5 80,2 80,22" fill={`url(#sg${i})`}/>
+                  <polyline points="0,18 10,16 20,19 30,14 40,11 50,13 60,8 70,5 80,2" fill="none" stroke={item.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </>}
+                {item.trend === 'down' && <>
+                  <polygon points="0,22 0,4 10,6 20,4 30,7 40,10 50,8 60,12 70,14 80,16 80,22" fill={`url(#sg${i})`}/>
+                  <polyline points="0,4 10,6 20,4 30,7 40,10 50,8 60,12 70,14 80,16" fill="none" stroke={item.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </>}
+                {item.trend === 'neutral' && <>
+                  <polygon points="0,22 0,11 10,10 20,12 30,10 40,11 50,9 60,11 70,10 80,11 80,22" fill={`url(#sg${i})`}/>
+                  <polyline points="0,11 10,10 20,12 30,10 40,11 50,9 60,11 70,10 80,11" fill="none" stroke={item.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </>}
               </svg>
             </div>
           ))}
