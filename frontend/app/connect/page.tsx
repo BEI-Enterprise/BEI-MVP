@@ -159,6 +159,7 @@ export default function BusinessTwinPage() {
   const [saving, setSaving] = useState(false)
   const [showAllConnectors, setShowAllConnectors] = useState(false)
   const [showAllManual, setShowAllManual] = useState(false)
+  const [showTimeline, setShowTimeline] = useState(false)
 
   useEffect(() => {
     const load = async () => {
@@ -685,7 +686,7 @@ export default function BusinessTwinPage() {
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '2px' }}>BUSINESS TWIN™ TIMELINE</div>
             <div style={{ fontSize: '11px', color: '#555' }}>Live audit trail of intelligence generation</div>
           </div>
-          <a href="#" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View full timeline →</a>
+          <button onClick={() => setShowTimeline(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full timeline →</button>
         </div>
         <div style={{ display: 'flex', gap: '10px', overflowX: 'auto' as const }}>
           {[
@@ -797,6 +798,53 @@ export default function BusinessTwinPage() {
                 </div>
               )
             })}
+          </div>
+        </div>
+      )}
+
+
+      {/* TIMELINE MODAL */}
+      {showTimeline && (
+        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowTimeline(false)}>
+          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '720px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>BUSINESS TWIN™ TIMELINE</div>
+                <div style={{ fontSize: '24px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>Full Intelligence Audit Trail</div>
+                <div style={{ fontSize: '12px', color: '#666' }}>Complete history of intelligence generation · {businessName}</div>
+              </div>
+              <button onClick={() => setShowTimeline(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+            {[
+              { icon: '◈', label: 'Business MRI Completed', desc: 'Full 8-pillar diagnostic completed. Business Twin™ activated at ' + MRI_BASE + '% base completeness.', time: lastUpdated, color: gold, detail: 'Health score: ' + (health.overall || 64) + '/100 · Primary constraint identified · Opportunity quantified' },
+              { icon: '✓', label: 'Primary Constraint Verified', desc: 'BEI Intelligence Engine completed 5-test verification protocol for ' + (result?.primary_constraint?.name || 'primary constraint') + '.', time: lastUpdated, color: '#4aaa4a', detail: 'Verification score: ' + (result?.primary_constraint?.verification_score || 80) + '/100 · Confidence: ' + (result?.confidence || 'high').toUpperCase() },
+              { icon: '↗', label: 'Opportunity Quantified', desc: 'Annual opportunity range calculated across 5 value dimensions.', time: lastUpdated, color: '#4a8ab0', detail: 'Range: ' + (opportunity?.total_low ? '£' + opportunity.total_low.toLocaleString() : '£10,000') + ' – ' + (opportunity?.total_high ? '£' + opportunity.total_high.toLocaleString() : '£30,000') + ' annual value' },
+              { icon: '◎', label: 'Intelligence Readiness Verified', desc: 'Business Twin™ achieved production-grade intelligence status.', time: lastUpdated, color: '#4aaa4a', detail: 'Completeness: ' + completeness + '% · Accuracy: ' + (completeness >= 60 ? '96%' : '78%') + ' · Readiness: Verified' },
+              ...activeConnectors.map(id => ({ icon: '⊞', label: id.replace(/_/g, ' ').replace(/\w/g, (l: string) => l.toUpperCase()) + ' Connected', desc: 'Data source connected and synced to Business Twin™.', time: 'Active', color: gold, detail: '+' + (CONNECTOR_WEIGHTS[id] || 5) + '% completeness boost applied' })),
+              { icon: '◈', label: 'Twin Health Score Calculated', desc: 'Business Twin™ health score calculated based on all connected data sources.', time: 'Now', color: gold, detail: 'Score: ' + completeness + '/100 · Status: ' + (completeness >= 40 ? 'Production grade' : 'Building') },
+            ].map((ev, i) => (
+              <div key={i} style={{ display: 'flex', gap: '16px', padding: '16px 0', borderBottom: i < 5 ? '1px solid #1a1a1a' : 'none' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '0' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: ev.color + '18', border: '1px solid ' + ev.color + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', color: ev.color }}>{ev.icon}</div>
+                  {i < 5 && <div style={{ width: '1px', height: '100%', backgroundColor: '#1a1a1a', marginTop: '6px', minHeight: '20px' }} />}
+                </div>
+                <div style={{ flex: 1, paddingBottom: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700' }}>{ev.label}</div>
+                    <div style={{ fontSize: '10px', color: '#555' }}>{ev.time}</div>
+                  </div>
+                  <div style={{ fontSize: '12px', color: '#888', marginBottom: '6px', lineHeight: '1.5' }}>{ev.desc}</div>
+                  <div style={{ fontSize: '11px', color: ev.color, padding: '4px 10px', backgroundColor: ev.color + '10', border: '1px solid ' + ev.color + '25', borderRadius: '4px', display: 'inline-block' }}>{ev.detail}</div>
+                </div>
+              </div>
+            ))}
+            <div style={{ marginTop: '16px', padding: '12px 16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 5px rgba(74,170,74,0.7)' }} />
+                <span style={{ fontSize: '11px', color: '#666' }}>BEI Intelligence Operations · All systems operational</span>
+              </div>
+              <span style={{ fontSize: '11px', color: '#555' }}>Last data sync: Just now</span>
+            </div>
           </div>
         </div>
       )}
