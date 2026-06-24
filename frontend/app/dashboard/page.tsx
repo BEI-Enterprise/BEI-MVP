@@ -204,8 +204,28 @@ export default function DashboardPage() {
             <div style={{ fontSize: '20px', fontWeight: '800', color: k.color, lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
             <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600', marginBottom: '2px' }}>{k.trend}</div>
             <div style={{ fontSize: '10px', color: '#444', marginBottom: '8px' }}>{k.prevVal}</div>
-            <svg width="100%" height="16" viewBox="0 0 80 16">
-              <polyline points={k.spark === 'up' ? '0,14 13,12 26,10 40,8 53,5 66,3 80,1' : k.spark === 'down' ? '0,2 13,4 26,6 40,8 53,10 66,12 80,14' : '0,8 13,7 26,9 40,8 53,7 66,9 80,8'} fill="none" stroke={k.trendColor} strokeWidth="1.5" strokeOpacity="0.6"/>
+            <svg width="100%" height="28" viewBox="0 0 80 28">
+              <defs>
+                <linearGradient id={'kg'+i} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={k.trendColor} stopOpacity="0.3"/>
+                  <stop offset="100%" stopColor={k.trendColor} stopOpacity="0"/>
+                </linearGradient>
+              </defs>
+              {k.spark === 'up' && <>
+                <polygon points="0,28 0,22 10,20 20,23 30,17 40,14 50,16 60,10 70,6 80,3 80,28" fill={`url(#kg${i})`}/>
+                <polyline points="0,22 10,20 20,23 30,17 40,14 50,16 60,10 70,6 80,3" fill="none" stroke={k.trendColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="80" cy="3" r="2.5" fill={k.trendColor}/>
+              </>}
+              {k.spark === 'down' && <>
+                <polygon points="0,28 0,5 10,7 20,5 30,9 40,13 50,11 60,15 70,18 80,20 80,28" fill={`url(#kg${i})`}/>
+                <polyline points="0,5 10,7 20,5 30,9 40,13 50,11 60,15 70,18 80,20" fill="none" stroke={k.trendColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="80" cy="20" r="2.5" fill={k.trendColor}/>
+              </>}
+              {k.spark === 'neutral' && <>
+                <polygon points="0,28 0,14 10,13 20,15 30,13 40,14 50,12 60,14 70,13 80,14 80,28" fill={`url(#kg${i})`}/>
+                <polyline points="0,14 10,13 20,15 30,13 40,14 50,12 60,14 70,13 80,14" fill="none" stroke={k.trendColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="80" cy="14" r="2.5" fill={k.trendColor}/>
+              </>}
             </svg>
           </div>
         ))}
