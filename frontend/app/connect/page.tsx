@@ -421,10 +421,10 @@ export default function BusinessTwinPage() {
       </div>
 
       {/* 4-COLUMN GRID */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '14px', marginBottom: '14px', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '14px', marginBottom: '14px', alignItems: 'stretch' }}>
 
         {/* DATA SOURCE ARCHITECTURE TABLE */}
-        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
+        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column' as const }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>DATA SOURCE ARCHITECTURE™</div>
             <button onClick={() => setShowAllConnectors(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all connectors →</button>
@@ -435,7 +435,7 @@ export default function BusinessTwinPage() {
               <div key={h} style={{ fontSize: '8px', color: '#444', letterSpacing: '0.1em', padding: '4px 0', borderBottom: '1px solid #1a1a1a', fontWeight: '600' }}>{h}</div>
             ))}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '0' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '0', flex: 1, overflowY: 'auto' as const, maxHeight: '300px' }}>
             {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => c.auth === 'oauth').slice(0, 6).map((c, i) => {
               const state = connectorStates[c.id]
               const isActive = state?.status === 'active'
@@ -462,13 +462,13 @@ export default function BusinessTwinPage() {
         </div>
 
         {/* MANUAL INTELLIGENCE INPUTS */}
-        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
+        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column' as const }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>MANUAL INTELLIGENCE INPUTS™</div>
             <button onClick={() => setShowAllManual(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all inputs →</button>
           </div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Add data manually to improve Business Twin™ completeness</div>
-          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px', flex: 1, overflowY: 'auto' as const, maxHeight: '340px' }}>
             {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => c.auth === 'manual').slice(0, 6).map((c, i) => {
               const state = connectorStates[c.id]
               const isActive = state?.status === 'active'
@@ -492,7 +492,7 @@ export default function BusinessTwinPage() {
         </div>
 
         {/* COVERAGE MAP */}
-        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
+        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column' as const }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>COVERAGE MAP™</div>
             <div style={{ fontSize: '14px', fontWeight: '800', color: gc(completeness) }}>{completeness}%</div>
@@ -530,7 +530,7 @@ export default function BusinessTwinPage() {
         </div>
 
         {/* RECOMMENDED IMPROVEMENTS */}
-        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
+        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column' as const }}>
           <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>RECOMMENDED IMPROVEMENTS™</div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Actions to increase Twin completeness</div>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
