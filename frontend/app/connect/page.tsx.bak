@@ -384,65 +384,33 @@ export default function BusinessTwinPage() {
         </div>
       </div>
 
-      {/* 6-METRIC KPI BAR */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '10px', marginBottom: '14px' }}>
-        {[
-          { label: 'COMPLETENESS', value: completeness + '%', color: gc(completeness), trend: completeness > 40 ? '↑ ' + (completeness - 40) + '% added' : 'Base MRI only', sub: 'vs last 30 days' },
-          { label: 'ACCURACY', value: completeness >= 60 ? '96%' : completeness >= 40 ? '78%' : '—', color: '#4aaa4a', trend: completeness >= 60 ? '↑ 4%' : '↑ 0%', sub: 'vs last 30 days' },
-          { label: 'DATA CONFIDENCE', value: completeness >= 60 ? '94%' : completeness >= 40 ? '72%' : '—', color: gc(completeness), trend: completeness >= 40 ? '↑ 5%' : '—', sub: 'vs last 30 days' },
-          { label: 'CONNECTED SOURCES', value: connectedCount.toString(), color: gold, trend: 'Active', sub: 'of ' + (totalConnectors + 1) + ' available' },
-          { label: 'MANUAL INPUTS', value: activeConnectors.filter((id: string) => id.startsWith('manual_') || !['hubspot','salesforce','xero','quickbooks','google_analytics','hibob','workday'].includes(id)).length + '%', color: '#4aaa4a', trend: activeConnectors.filter((id: string) => id.startsWith('manual_') || !['hubspot','salesforce','xero','quickbooks','google_analytics','hibob','workday'].includes(id)).length > 0 ? 'Active' : 'Pending', sub: 'complete' },
-          { label: 'INTELLIGENCE READINESS', value: completeness >= 60 ? 'Verified' : completeness >= 40 ? 'Partial' : 'Low', color: completeness >= 60 ? '#4aaa4a' : completeness >= 40 ? gold : '#cc4444', trend: completeness >= 40 ? 'High Confidence' : 'Add more data', sub: 'Production grade' },
-        ].map((k, i) => (
-          <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '700' }}>{k.label}</div>
-            <div style={{ fontSize: '20px', fontWeight: '800', color: k.color, lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
-            <div style={{ fontSize: '10px', color: k.color, fontWeight: '600', marginBottom: '2px' }}>{k.trend}</div>
-            <div style={{ fontSize: '10px', color: '#555' }}>{k.sub}</div>
-          </div>
-        ))}
-      </div>
-
       {/* 4-COLUMN GRID */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '14px', marginBottom: '14px' }}>
 
-        {/* DATA SOURCE ARCHITECTURE TABLE */}
+        {/* DATA CONNECTORS */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>DATA SOURCE ARCHITECTURE™</div>
-            <a href="#" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View all connectors →</a>
-          </div>
+          <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>DATA SOURCE ARCHITECTURE™</div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Connected systems feeding your Business Twin™</div>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '0', marginBottom: '6px' }}>
-            {['SOURCE','STATUS','QUALITY','BOOST'].map(h => (
-              <div key={h} style={{ fontSize: '8px', color: '#444', letterSpacing: '0.1em', padding: '4px 0', borderBottom: '1px solid #1a1a1a', fontWeight: '600' }}>{h}</div>
-            ))}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '0' }}>
-            {CONNECTOR_GROUPS.flatMap(g => g.connectors).slice(0, 12).map((c, i) => {
+          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '5px' }}>
+            {CONNECTOR_GROUPS.flatMap(g => g.connectors).map((c, i) => {
               const state = connectorStates[c.id]
               const isActive = state?.status === 'active'
-              const quality = isActive ? Math.floor(80 + Math.random() * 18) : 0
+              const statusColor = isActive ? '#4aaa4a' : '#444'
               return (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '0', padding: '7px 0', borderBottom: '1px solid #111', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: isActive ? '#4aaa4a' : '#333', flexShrink: 0 }} />
-                    <span style={{ fontSize: '10px', color: isActive ? '#e0e0e0' : '#555', fontWeight: isActive ? '600' : '400', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{c.name}</span>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', backgroundColor: '#0a0a0a', borderRadius: '6px', border: '1px solid ' + (isActive ? '#1a2a1a' : border) }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: statusColor, flexShrink: 0 }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{c.name}</div>
+                    <div style={{ fontSize: '9px', color: '#444' }}>{isActive ? 'Active · +' + c.boost + '%' : '+' + c.boost + '% when connected'}</div>
                   </div>
-                  <div style={{ fontSize: '9px', color: isActive ? '#4aaa4a' : '#444', fontWeight: '600' }}>{isActive ? 'Connected' : 'Available'}</div>
-                  <div style={{ fontSize: '9px', color: isActive ? '#4aaa4a' : '#333' }}>{isActive ? quality + '%' : '—'}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <span style={{ fontSize: '9px', color: isActive ? gold : '#444' }}>+{c.boost}%</span>
-                    {!isActive && (
-                      <button onClick={() => { setActiveModal(c.id); setFormData({}) }} style={{ padding: '2px 6px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '3px', color: gold, fontSize: '8px', cursor: 'pointer', fontWeight: '600' }}>ADD</button>
-                    )}
-                    {isActive && <span style={{ fontSize: '9px', color: '#4aaa4a' }}>✓</span>}
-                  </div>
+                  {!isActive && (
+                    <button onClick={() => { setActiveModal(c.id); setFormData({}) }} style={{ padding: '3px 8px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '4px', color: gold, fontSize: '9px', cursor: 'pointer', fontWeight: '600', flexShrink: 0 }}>ADD</button>
+                  )}
+                  {isActive && <div style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '700', flexShrink: 0 }}>✓</div>}
                 </div>
               )
             })}
           </div>
-          <button onClick={() => {}} style={{ width: '100%', marginTop: '10px', padding: '8px', backgroundColor: 'rgba(200,162,74,0.06)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '6px', color: gold, fontSize: '10px', cursor: 'pointer', fontWeight: '600' }}>+ Connect new system</button>
         </div>
 
         {/* MANUAL INTELLIGENCE INPUTS */}
@@ -560,135 +528,6 @@ export default function BusinessTwinPage() {
           </div>
         </div>
       </div>
-      {/* DATA QUALITY ENGINE + INTELLIGENCE CONFIDENCE ENGINE */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
-
-        {/* DATA QUALITY ENGINE */}
-        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
-          <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>DATA QUALITY ENGINE™</div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '16px' }}>Quality directly impacts intelligence accuracy</div>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'space-between', marginBottom: '20px' }}>
-            {[
-              { label: 'Completeness', value: completeness },
-              { label: 'Freshness', value: completeness >= 60 ? 95 : completeness >= 40 ? 80 : 50 },
-              { label: 'Consistency', value: completeness >= 60 ? 93 : completeness >= 40 ? 76 : 45 },
-              { label: 'Coverage', value: completeness >= 60 ? 90 : completeness >= 40 ? 68 : 40 },
-              { label: 'Verification', value: hasMRI ? 94 : 0 },
-            ].map((m, i) => {
-              const r = 22
-              const circ = r * 2 * Math.PI
-              const fill = (m.value / 100) * circ
-              const c = m.value >= 85 ? '#4aaa4a' : m.value >= 70 ? gold : '#e8923a'
-              return (
-                <div key={i} style={{ textAlign: 'center' as const }}>
-                  <svg width="52" height="52" viewBox="0 0 52 52">
-                    <circle cx="26" cy="26" r={r} fill="none" stroke="#1a1a1a" strokeWidth="4"/>
-                    <circle cx="26" cy="26" r={r} fill="none" stroke={c} strokeWidth="4"
-                      strokeDasharray={String(fill) + ' ' + String(circ - fill)}
-                      strokeDashoffset={String(circ * 0.25)}
-                      strokeLinecap="round"
-                      transform="rotate(-90 26 26)"/>
-                    <text x="26" y="30" textAnchor="middle" fill={c} fontSize="11" fontWeight="800">{m.value}%</text>
-                  </svg>
-                  <div style={{ fontSize: '9px', color: '#666', marginTop: '3px', lineHeight: 1.3 }}>{m.label}</div>
-                </div>
-              )
-            })}
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + border }}>
-            <div>
-              <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '4px', fontWeight: '600' }}>OVERALL DATA QUALITY SCORE</div>
-              <div style={{ fontSize: '28px', fontWeight: '900', color: gc(completeness), lineHeight: 1 }}>{Math.round(completeness * 0.93)}<span style={{ fontSize: '14px', color: '#555' }}>/100</span></div>
-              <div style={{ fontSize: '10px', color: '#4aaa4a', marginTop: '4px' }}>↑ {Math.round(completeness * 0.06)} pts vs last 30 days</div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{ padding: '10px 12px', backgroundColor: 'rgba(200,162,74,0.06)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '6px', fontSize: '10px', color: '#aaa', lineHeight: 1.5 }}>
-                {completeness >= 60 ? 'Good data quality = high confidence intelligence' : completeness >= 40 ? 'Medium quality — add more sources to improve' : 'Low quality — complete your MRI first'}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* INTELLIGENCE CONFIDENCE ENGINE */}
-        <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
-          <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>INTELLIGENCE CONFIDENCE ENGINE™</div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '16px' }}>How Business Twin™ quality impacts your intelligence</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '8px', marginBottom: '20px' }}>
-            {[
-              { label: 'Constraint Detection', value: hasMRI ? Math.round(completeness * 0.94) : 0 },
-              { label: 'Health Scores', value: hasMRI ? Math.round(completeness * 0.95) : 0 },
-              { label: 'Verification Scores', value: hasMRI ? Math.round(completeness * 0.93) : 0 },
-              { label: 'Opportunity Forecasting', value: hasMRI ? Math.round(completeness * 0.89) : 0 },
-              { label: 'Risk Intelligence', value: hasMRI ? Math.round(completeness * 0.92) : 0 },
-              { label: 'Benchmark Accuracy', value: hasMRI ? Math.round(completeness * 0.91) : 0 },
-            ].map((m, i) => {
-              const r = 20
-              const circ = r * 2 * Math.PI
-              const fill = (m.value / 100) * circ
-              const c = m.value >= 85 ? '#4aaa4a' : m.value >= 70 ? gold : '#e8923a'
-              return (
-                <div key={i} style={{ textAlign: 'center' as const }}>
-                  <svg width="46" height="46" viewBox="0 0 46 46">
-                    <circle cx="23" cy="23" r={r} fill="none" stroke="#1a1a1a" strokeWidth="3.5"/>
-                    <circle cx="23" cy="23" r={r} fill="none" stroke={c} strokeWidth="3.5"
-                      strokeDasharray={String(fill) + ' ' + String(circ - fill)}
-                      strokeDashoffset={String(circ * 0.25)}
-                      strokeLinecap="round"
-                      transform="rotate(-90 23 23)"/>
-                    <text x="23" y="27" textAnchor="middle" fill={c} fontSize="10" fontWeight="800">{m.value}%</text>
-                  </svg>
-                  <div style={{ fontSize: '8px', color: '#555', marginTop: '3px', lineHeight: 1.3 }}>{m.label}</div>
-                </div>
-              )
-            })}
-          </div>
-          <div style={{ padding: '12px 14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + border }}>
-            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '600' }}>OVERALL INTELLIGENCE CONFIDENCE</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-              <div style={{ fontSize: '28px', fontWeight: '900', color: gc(completeness), lineHeight: 1 }}>{hasMRI ? Math.round(completeness * 0.93) : 0}%</div>
-              <div style={{ fontSize: '12px', color: gc(completeness), fontWeight: '600' }}>{completeness >= 60 ? 'High Confidence' : completeness >= 40 ? 'Medium Confidence' : 'Low — Complete MRI'}</div>
-            </div>
-            <div style={{ height: '6px', backgroundColor: '#1a1a1a', borderRadius: '3px', overflow: 'hidden' }}>
-              <div style={{ width: (hasMRI ? completeness * 0.93 : 0) + '%', height: '100%', background: 'linear-gradient(90deg, #cc4444 0%, ' + gold + ' 45%, #4aaa4a 80%)', borderRadius: '3px', transition: 'width 1s ease' }} />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px' }}>
-              {['Low','Medium','High','Very High'].map(l => <span key={l} style={{ fontSize: '8px', color: '#333' }}>{l}</span>)}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* TWIN TIMELINE */}
-      <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px', marginBottom: '14px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-          <div>
-            <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '2px' }}>BUSINESS TWIN™ TIMELINE</div>
-            <div style={{ fontSize: '11px', color: '#555' }}>Live audit trail of intelligence generation</div>
-          </div>
-          <a href="#" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View full timeline →</a>
-        </div>
-        <div style={{ display: 'flex', gap: '10px', overflowX: 'auto' as const }}>
-          {[
-            { icon: '◈', label: 'MRI completed', desc: 'Business profile captured', time: lastUpdated, color: gold },
-            { icon: '↗', label: 'Constraint detected', desc: result?.primary_constraint?.name || 'Primary constraint identified', time: lastUpdated, color: '#4aaa4a' },
-            { icon: '✓', label: 'Verification passed', desc: 'Intelligence grade: ' + (result?.confidence || 'pending'), time: lastUpdated, color: '#4aaa4a' },
-            ...activeConnectors.slice(0,3).map(id => ({ icon: '⊞', label: id + ' connected', desc: 'Data synced successfully', time: 'Active', color: gold })),
-            { icon: '◎', label: 'Twin active', desc: 'All systems operational', time: 'Now', color: '#4aaa4a' },
-          ].map((ev, i) => (
-            <div key={i} style={{ flexShrink: 0, display: 'flex', gap: '10px', padding: '10px 14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + border, minWidth: '200px' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: ev.color + '18', border: '1px solid ' + ev.color + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: ev.color }}>
-                {ev.icon}
-              </div>
-              <div>
-                <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', marginBottom: '2px' }}>{ev.label}</div>
-                <div style={{ fontSize: '10px', color: '#555', marginBottom: '3px' }}>{ev.desc}</div>
-                <div style={{ fontSize: '9px', color: '#333' }}>{ev.time}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
     </DashboardShell>
   )
 }
