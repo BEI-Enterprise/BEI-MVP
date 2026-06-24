@@ -536,16 +536,6 @@ export default function DashboardPage() {
           )}
         </div>
       </div>
-      <AskBEI context={{
-        businessName,
-        industry: industryLabel,
-        healthScore,
-        primaryConstraint: primary?.name,
-        verificationScore,
-        confidence,
-        opportunity: oppLow > 0 ? fmt(oppLow) + '–' + fmt(oppHigh) : null,
-        tier,
-      }} />
     </DashboardShell>
   )
 }
