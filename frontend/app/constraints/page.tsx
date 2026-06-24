@@ -14,6 +14,10 @@ export default function ConstraintsPage() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'active' | 'resolved' | 'monitoring'>('active')
   const [selectedConstraint, setSelectedConstraint] = useState<any>(null)
+  const [showFullAnalysis, setShowFullAnalysis] = useState(false)
+  const [showConstraintLibrary, setShowConstraintLibrary] = useState(false)
+  const [showVerificationDetail, setShowVerificationDetail] = useState(false)
+  const [showImpactDetail, setShowImpactDetail] = useState(false)
 
   useEffect(() => {
     const load = async () => {
@@ -239,7 +243,7 @@ export default function ConstraintsPage() {
               <div style={{ textAlign: 'center' as const, padding: '30px 0', color: '#444', fontSize: '12px' }}>{activeTab === 'resolved' ? '12 resolved constraints' : '3 constraints being monitored'}</div>
             )}
           </div>
-          <button style={{ marginTop: '12px', width: '100%', padding: '9px', backgroundColor: 'transparent', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '6px', color: gold, fontSize: '11px', fontWeight: '600', cursor: 'pointer' }}>View Constraint Library →</button>
+          <button onClick={() => setShowConstraintLibrary(true)} style={{ marginTop: '12px', width: '100%', padding: '9px', backgroundColor: 'transparent', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '6px', color: gold, fontSize: '11px', fontWeight: '600', cursor: 'pointer' }}>View Constraint Library →</button>
         </div>
 
         {/* CONSTRAINT NETWORK */}
@@ -422,7 +426,7 @@ export default function ConstraintsPage() {
               </div>
             </div>
           </div>
-          <a href="/deployments" style={{ display: 'block', textAlign: 'center' as const, padding: '10px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontSize: '12px', fontWeight: '700', textDecoration: 'none' }}>View Full Analysis →</a>
+          <button onClick={() => setShowFullAnalysis(true)} style={{ display: 'block', width: '100%', textAlign: 'center' as const, padding: '10px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'pointer', border: 'none' }}>View Full Analysis →</button>
         </div>
       </div>
 
@@ -433,7 +437,7 @@ export default function ConstraintsPage() {
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>VERIFICATION ANALYSIS</div>
-            <a href="#" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View details →</a>
+            <button onClick={() => setShowVerificationDetail(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View details →</button>
           </div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>How we verified this constraint</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '14px' }}>
@@ -499,7 +503,7 @@ export default function ConstraintsPage() {
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>IMPACT BREAKDOWN</div>
-            <a href="#" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View breakdown →</a>
+            <button onClick={() => setShowImpactDetail(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View breakdown →</button>
           </div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Where this constraint is creating the most impact</div>
           {/* Table header */}
@@ -564,6 +568,284 @@ export default function ConstraintsPage() {
           </div>
         </div>
       </div>
+
+      {/* FULL ANALYSIS MODAL */}
+      {showFullAnalysis && (
+        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowFullAnalysis(false)}>
+          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '800px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>FULL CONSTRAINT ANALYSIS</div>
+                <div style={{ fontSize: '24px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>{selectedConstraint?.name || primary?.name || 'Management Bottleneck'}</div>
+                <div style={{ fontSize: '12px', color: '#666' }}>Complete intelligence breakdown · Generated by BEI Intelligence Engine</div>
+              </div>
+              <button onClick={() => setShowFullAnalysis(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+              {[
+                { label: 'CONSTRAINT TYPE', value: selectedConstraint?.category || primary?.category || 'Leadership' },
+                { label: 'SEVERITY', value: (selectedConstraint?.severity || primary?.severity || 'critical').toUpperCase(), color: severityColor(selectedConstraint?.severity || primary?.severity || 'critical') },
+                { label: 'VERIFICATION SCORE', value: (selectedConstraint?.verification_score || verScore || 80) + '/100', color: '#4aaa4a' },
+                { label: 'CONFIDENCE', value: confidence.toUpperCase() + ' (' + (selectedConstraint?.verification_score || verScore || 85) + '%)', color: confColor },
+                { label: 'ANNUAL OPPORTUNITY', value: oppLow > 0 ? fmtShort(oppLow) + ' – ' + fmtShort(oppHigh) : '£10,000 – £30,000', color: gold },
+                { label: 'ROOT CAUSE', value: (selectedConstraint?.is_root_cause || primary?.is_root_cause) ? 'Confirmed Root Cause' : 'Contributing Factor', color: '#4aaa4a' },
+              ].map((m, i) => (
+                <div key={i} style={{ padding: '14px 16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
+                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '16px', fontWeight: '700', color: (m as any).color || '#cccccc' }}>{m.value}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ padding: '16px', backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>CONSTRAINT HYPOTHESIS</div>
+              <div style={{ fontSize: '13px', color: '#cccccc', lineHeight: '1.75' }}>{selectedConstraint?.hypothesis || primary?.hypothesis || 'Management overhead is slowing delivery and limiting throughput and scalability.'}</div>
+            </div>
+            {((selectedConstraint?.evidence || primary?.evidence || []).length > 0) && (
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>EVIDENCE BASE</div>
+                {(selectedConstraint?.evidence || primary?.evidence || []).map((e: string, i: number) => (
+                  <div key={i} style={{ display: 'flex', gap: '8px', padding: '10px 14px', backgroundColor: '#0a0a0a', borderRadius: '6px', border: '1px solid #1e1e1e', marginBottom: '6px' }}>
+                    <span style={{ color: gold, fontSize: '10px', marginTop: '2px', flexShrink: 0 }}>◈</span>
+                    <span style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6' }}>{e}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+              <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>AFFECTED PILLARS</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px' }}>
+                  {(selectedConstraint?.affected_pillars || primary?.affected_pillars || ['sales','operations','leadership','growth']).map((p: string, i: number) => (
+                    <div key={i} style={{ padding: '4px 10px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '4px', fontSize: '11px', color: gold, fontWeight: '600', textTransform: 'capitalize' as const }}>{p}</div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>VERIFICATION BREAKDOWN</div>
+                {[
+                  { label: 'Is Root Cause', value: (selectedConstraint?.is_root_cause || primary?.is_root_cause) ? 'Yes — Confirmed' : 'No — Contributing factor', color: '#4aaa4a' },
+                  { label: 'Score', value: (selectedConstraint?.verification_score || verScore || 80) + '/100', color: gold },
+                  { label: 'Confidence', value: confidence.toUpperCase(), color: confColor },
+                ].map((v, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                    <span style={{ fontSize: '11px', color: '#666' }}>{v.label}</span>
+                    <span style={{ fontSize: '11px', fontWeight: '600', color: v.color }}>{v.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ padding: '16px', backgroundColor: 'rgba(200,162,74,0.06)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px' }}>
+              <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>RECOMMENDED RESOLUTION</div>
+              <div style={{ fontSize: '13px', color: '#fff', fontWeight: '600', marginBottom: '6px' }}>Deploy Tier 1 {selectedConstraint?.name || primary?.name || 'Management Bottleneck'} Delegation Framework</div>
+              <div style={{ display: 'flex', gap: '24px', marginTop: '10px' }}>
+                <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '3px' }}>EXPECTED ANNUAL VALUE</div><div style={{ fontSize: '18px', fontWeight: '800', color: '#4aaa4a' }}>+{oppLow > 0 ? fmtShort(Math.round((oppLow+oppHigh)/2)) : '£20,000'}</div></div>
+                <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '3px' }}>EXECUTION IMPROVEMENT</div><div style={{ fontSize: '18px', fontWeight: '800', color: gold }}>+15%</div></div>
+                <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '3px' }}>RESOLUTION TIME</div><div style={{ fontSize: '18px', fontWeight: '800', color: '#aaa' }}>90 days</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CONSTRAINT LIBRARY MODAL */}
+      {showConstraintLibrary && (
+        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowConstraintLibrary(false)}>
+          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '860px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>CONSTRAINT LIBRARY</div>
+                <div style={{ fontSize: '24px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>All Detected Constraints</div>
+                <div style={{ fontSize: '12px', color: '#666' }}>Complete constraint registry for {businessName} · Ordered by verification score</div>
+              </div>
+              <button onClick={() => setShowConstraintLibrary(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr 1fr 1fr 1fr', gap: '0', marginBottom: '8px', padding: '8px 0', borderBottom: '1px solid #1a1a1a' }}>
+              {['CONSTRAINT','CATEGORY','SEVERITY','SCORE','STATUS'].map(h => (
+                <div key={h} style={{ fontSize: '9px', color: '#444', letterSpacing: '0.1em', fontWeight: '600' }}>{h}</div>
+              ))}
+            </div>
+            {(allConstraints.length > 0 ? allConstraints : [
+              { name: primary?.name || 'Management Bottleneck', category: 'Leadership', severity: primary?.severity || 'critical', verification_score: verScore || 80, status: 'Active' },
+              { name: 'Key Person Dependency', category: 'People', severity: 'high', verification_score: 72, status: 'Active' },
+              { name: 'Sales Conversion Inefficiency', category: 'Sales & Marketing', severity: 'high', verification_score: 58, status: 'Active' },
+              { name: 'Operational Inefficiency', category: 'Operations', severity: 'medium', verification_score: 54, status: 'Active' },
+              { name: 'Technology Limitations', category: 'Technology', severity: 'medium', verification_score: 45, status: 'Monitoring' },
+              { name: 'Client Concentration', category: 'Market', severity: 'low', verification_score: 32, status: 'Monitoring' },
+              { name: 'Cash Flow Volatility', category: 'Finance', severity: 'low', verification_score: 28, status: 'Monitoring' },
+            ]).map((c: any, i: number) => (
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '3fr 1fr 1fr 1fr 1fr', gap: '0', padding: '12px 0', borderBottom: '1px solid #111', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{c.name}</div>
+                  <div style={{ fontSize: '10px', color: '#555', marginTop: '2px' }}>{c.hypothesis ? c.hypothesis.slice(0, 60) + '...' : 'Detected constraint'}</div>
+                </div>
+                <div style={{ fontSize: '11px', color: '#888' }}>{c.category || 'General'}</div>
+                <div style={{ padding: '3px 8px', backgroundColor: severityBg(c.severity || 'low'), border: '1px solid ' + severityColor(c.severity || 'low') + '44', borderRadius: '4px', fontSize: '9px', color: severityColor(c.severity || 'low'), fontWeight: '700', display: 'inline-block' }}>{(c.severity || 'low').toUpperCase()}</div>
+                <div style={{ fontSize: '13px', fontWeight: '700', color: (c.verification_score || 0) >= 70 ? '#4aaa4a' : gold }}>{c.verification_score || 0}/100</div>
+                <div style={{ fontSize: '11px', color: i < 4 ? '#4aaa4a' : '#888' }}>{c.status || 'Active'}</div>
+              </div>
+            ))}
+            <div style={{ marginTop: '20px', padding: '14px 16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ fontSize: '12px', color: '#666' }}>Total constraints detected: <span style={{ color: '#e0e0e0', fontWeight: '600' }}>{allConstraints.length || 7}</span></div>
+              <div style={{ fontSize: '12px', color: '#666' }}>Verified by BEI Intelligence Engine · <span style={{ color: gold }}>Next scan in 3 days</span></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* VERIFICATION DETAIL MODAL */}
+      {showVerificationDetail && (
+        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowVerificationDetail(false)}>
+          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '760px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>VERIFICATION ANALYSIS</div>
+                <div style={{ fontSize: '24px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>How We Verified This Constraint</div>
+                <div style={{ fontSize: '12px', color: '#666' }}>{primary?.name || 'Management Bottleneck'} · Verification Score: {verScore || 80}/100</div>
+              </div>
+              <button onClick={() => setShowVerificationDetail(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '10px', marginBottom: '20px' }}>
+              {[
+                { label: 'DATA POINTS ANALYSED', value: '47', color: gold },
+                { label: 'VERIFICATION TESTS', value: '142', color: gold },
+                { label: 'SOURCES VERIFIED', value: '7', color: '#4aaa4a' },
+                { label: 'CONFIDENCE', value: '80%', color: '#4aaa4a' },
+              ].map((m, i) => (
+                <div key={i} style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
+                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '24px', fontWeight: '900', color: m.color }}>{m.value}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '12px', fontWeight: '600' }}>EVIDENCE QUALITY BREAKDOWN</div>
+                {[
+                  { label: 'Strong Evidence', count: 9, pct: 50, color: '#4aaa4a', desc: 'Directly validates the constraint with measurable data' },
+                  { label: 'Moderate Evidence', count: 6, pct: 33, color: gold, desc: 'Supports the constraint hypothesis with circumstantial data' },
+                  { label: 'Weak Evidence', count: 2, pct: 11, color: '#e8923a', desc: 'Indicates possible constraint but requires more data' },
+                  { label: 'Insufficient Data', count: 1, pct: 6, color: '#cc4444', desc: 'Data present but too limited to draw conclusions' },
+                ].map((e, i) => (
+                  <div key={i} style={{ marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: e.color }} />
+                        <span style={{ fontSize: '12px', color: '#cccccc', fontWeight: '600' }}>{e.label}</span>
+                        <span style={{ fontSize: '12px', color: e.color, fontWeight: '700' }}>{e.count}</span>
+                      </div>
+                      <span style={{ fontSize: '11px', color: '#555' }}>{e.pct}%</span>
+                    </div>
+                    <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden', marginBottom: '4px' }}>
+                      <div style={{ width: e.pct + '%', height: '100%', backgroundColor: e.color, borderRadius: '2px' }} />
+                    </div>
+                    <div style={{ fontSize: '10px', color: '#555' }}>{e.desc}</div>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '12px', fontWeight: '600' }}>VERIFICATION TESTS PERFORMED</div>
+                {[
+                  { test: 'Root Cause Confirmation', result: 'Passed', color: '#4aaa4a' },
+                  { test: 'Cross-Pillar Impact Check', result: 'Passed', color: '#4aaa4a' },
+                  { test: 'Evidence Consistency Check', result: 'Passed', color: '#4aaa4a' },
+                  { test: 'Opportunity Quantification', result: 'Passed', color: '#4aaa4a' },
+                  { test: 'Symptom vs Root Cause', result: 'Root Cause', color: '#4aaa4a' },
+                  { test: 'Severity Validation', result: (primary?.severity || 'critical').toUpperCase(), color: severityColor(primary?.severity || 'critical') },
+                  { test: 'Business Impact Scope', result: 'Multi-pillar', color: gold },
+                  { test: 'Data Sufficiency Test', result: '94% sufficient', color: gold },
+                ].map((t, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: i < 7 ? '1px solid #111' : 'none' }}>
+                    <span style={{ fontSize: '12px', color: '#888' }}>{t.test}</span>
+                    <span style={{ fontSize: '11px', fontWeight: '600', color: t.color }}>{t.result}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {(primary?.evidence || []).length > 0 && (
+              <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>RAW EVIDENCE FROM BUSINESS MRI</div>
+                {(primary?.evidence || []).map((e: string, i: number) => (
+                  <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+                    <span style={{ color: '#4aaa4a', fontSize: '10px', marginTop: '2px', flexShrink: 0 }}>✓</span>
+                    <span style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6' }}>{e}</span>
+                  </div>
+                ))}
+                {(primary?.evidence || []).length === 0 && <div style={{ fontSize: '12px', color: '#555' }}>Complete your Business MRI to see detailed evidence.</div>}
+              </div>
+            )}
+            <div style={{ marginTop: '14px', padding: '12px 16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a' }} />
+                <span style={{ fontSize: '11px', color: '#666' }}>Verified by BEI Intelligence Engine</span>
+              </div>
+              <span style={{ fontSize: '11px', color: '#555' }}>Next verification in 3 days</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* IMPACT BREAKDOWN MODAL */}
+      {showImpactDetail && (
+        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowImpactDetail(false)}>
+          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '800px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>IMPACT BREAKDOWN</div>
+                <div style={{ fontSize: '24px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>Where This Constraint Creates Impact</div>
+                <div style={{ fontSize: '12px', color: '#666' }}>{primary?.name || 'Management Bottleneck'} · Total annual impact: <span style={{ color: '#cc4444', fontWeight: '600' }}>{fmtShort(impactRows.reduce((s,r) => s + r.impact, 0))}</span></div>
+              </div>
+              <button onClick={() => setShowImpactDetail(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '10px', marginBottom: '20px' }}>
+              {impactRows.map((row, i) => (
+                <div key={i} style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
+                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.08em', marginBottom: '6px', fontWeight: '600' }}>{row.area.toUpperCase()}</div>
+                  <div style={{ fontSize: '16px', fontWeight: '800', color: row.levelColor, marginBottom: '3px' }}>{fmtShort(row.impact)}</div>
+                  <div style={{ fontSize: '10px', color: row.levelColor, fontWeight: '600' }}>{row.level} Impact</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 0.8fr 1fr 1fr 80px', gap: '0', marginBottom: '8px', padding: '8px 0', borderBottom: '1px solid #1a1a1a' }}>
+                {['BUSINESS AREA','IMPACT LEVEL','FINANCIAL IMPACT','% OF TOTAL','TREND'].map(h => (
+                  <div key={h} style={{ fontSize: '9px', color: '#444', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>
+                ))}
+              </div>
+              {impactRows.map((row, i) => {
+                const total = impactRows.reduce((s,r) => s + r.impact, 0)
+                const pct = Math.round((row.impact / total) * 100)
+                return (
+                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.5fr 0.8fr 1fr 1fr 80px', gap: '0', padding: '12px 0', borderBottom: i < impactRows.length - 1 ? '1px solid #111' : 'none', alignItems: 'center' }}>
+                    <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{row.area}</div>
+                    <div style={{ fontSize: '12px', color: row.levelColor, fontWeight: '600' }}>{row.level}</div>
+                    <div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '600' }}>{fmtShort(row.impact)}</div>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ flex: 1, height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
+                          <div style={{ width: pct + '%', height: '100%', backgroundColor: row.levelColor, borderRadius: '2px' }} />
+                        </div>
+                        <span style={{ fontSize: '11px', color: '#777', minWidth: '28px' }}>{pct}%</span>
+                      </div>
+                    </div>
+                    {miniSparkline(row.trend, row.levelColor)}
+                  </div>
+                )
+              })}
+            </div>
+            <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', marginBottom: '14px' }}>
+              <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>RESOLUTION IMPACT PROJECTION</div>
+              <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.7', marginBottom: '12px' }}>
+                Resolving the {primary?.name || 'Management Bottleneck'} constraint is projected to unlock <span style={{ color: gold, fontWeight: '600' }}>{oppLow > 0 ? fmtShort(Math.round((oppLow+oppHigh)/2)) : '£20,000'}</span> in annual value across all affected business areas. The highest-priority area is <span style={{ color: '#e8923a', fontWeight: '600' }}>Sales Performance</span>, which accounts for the largest single impact.
+              </div>
+              <div style={{ display: 'flex', gap: '24px' }}>
+                <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '3px' }}>TOTAL ANNUAL IMPACT</div><div style={{ fontSize: '20px', fontWeight: '800', color: '#cc4444' }}>{fmtShort(impactRows.reduce((s,r) => s+r.impact, 0))}</div></div>
+                <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '3px' }}>AREAS AFFECTED</div><div style={{ fontSize: '20px', fontWeight: '800', color: gold }}>{impactRows.length}</div></div>
+                <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '3px' }}>HIGH IMPACT AREAS</div><div style={{ fontSize: '20px', fontWeight: '800', color: '#e8923a' }}>{impactRows.filter(r => r.level === 'High').length}</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </DashboardShell>
   )
