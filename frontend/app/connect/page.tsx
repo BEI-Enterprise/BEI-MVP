@@ -318,37 +318,37 @@ export default function BusinessTwinPage() {
         <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.75) 45%, rgba(5,5,5,0.4) 70%, rgba(5,5,5,0.75) 100%)' }} />
         <div style={{ position: 'relative' as const, zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'stretch' }}>
           {/* Left content */}
-          <div style={{ padding: '32px 36px' }}>
-            <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '10px', fontWeight: '600' }}>COMMAND CENTRE</div>
-            <h1 style={{ fontSize: '34px', fontWeight: '900', letterSpacing: '-0.025em', margin: '0 0 10px', lineHeight: 1.05, color: '#ffffff' }}>Business Twin™ Centre</h1>
-            <div style={{ fontSize: '14px', color: '#888', marginBottom: '14px', lineHeight: 1.5 }}>The intelligence foundation powering every BEI recommendation</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div style={{ fontSize: '12px', color: '#555' }}>{businessName} · {tier} · Last updated {lastUpdated}</div>
+          <div style={{ padding: '20px 28px' }}>
+            <div style={{ fontSize: '9px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>COMMAND CENTRE</div>
+            <h1 style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '-0.025em', margin: '0 0 6px', lineHeight: 1.1, color: '#ffffff' }}>Business Twin™ Centre</h1>
+            <div style={{ fontSize: '12px', color: '#777', marginBottom: '10px' }}>The intelligence foundation powering every BEI recommendation</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' as const }}>
+              <div style={{ fontSize: '11px', color: '#444' }}>{businessName} · {tier} · Last updated {lastUpdated}</div>
               {hasMRI && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '3px 10px', backgroundColor: 'rgba(74,170,74,0.08)', border: '1px solid rgba(74,170,74,0.2)', borderRadius: '20px' }}>
-                  <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.8)' }} />
-                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600', letterSpacing: '0.08em' }}>Intelligence Active</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '2px 9px', backgroundColor: 'rgba(74,170,74,0.08)', border: '1px solid rgba(74,170,74,0.2)', borderRadius: '20px' }}>
+                  <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 5px rgba(74,170,74,0.8)' }} />
+                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600', letterSpacing: '0.06em' }}>Intelligence Active</span>
                 </div>
               )}
             </div>
             {!hasMRI && (
-              <div style={{ marginTop: '14px', padding: '10px 14px', backgroundColor: 'rgba(204,68,68,0.08)', border: '1px solid rgba(204,68,68,0.2)', borderRadius: '6px', display: 'inline-block' }}>
+              <div style={{ marginTop: '10px', padding: '8px 12px', backgroundColor: 'rgba(204,68,68,0.08)', border: '1px solid rgba(204,68,68,0.2)', borderRadius: '6px', display: 'inline-block' }}>
                 <div style={{ fontSize: '11px', color: '#cc4444', fontWeight: '600' }}>⚠ No Business MRI found — complete your MRI to activate the Business Twin™</div>
               </div>
             )}
           </div>
           {/* Right status panel */}
-          <div style={{ padding: '32px 36px', borderLeft: '1px solid rgba(200,162,74,0.15)', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', alignItems: 'flex-start', gap: '8px', minWidth: '240px', backgroundColor: 'rgba(200,162,74,0.03)' }}>
-            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.2em', fontWeight: '600' }}>BUSINESS TWIN™ STATUS</div>
-            <div style={{ fontSize: '30px', fontWeight: '900', color: gold, lineHeight: 1.05, letterSpacing: '-0.02em' }}>Intelligence<br/>Ready</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginTop: '2px' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444', boxShadow: `0 0 8px ${hasMRI ? 'rgba(74,170,74,0.8)' : 'rgba(204,68,68,0.8)'}` }} />
-              <span style={{ fontSize: '11px', color: hasMRI ? '#4aaa4a' : '#cc4444', fontWeight: '700', letterSpacing: '0.12em' }}>{hasMRI ? 'ACTIVE' : 'INACTIVE'}</span>
+          <div style={{ padding: '20px 24px', borderLeft: '1px solid rgba(200,162,74,0.15)', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', alignItems: 'flex-start', gap: '6px', minWidth: '220px', backgroundColor: 'rgba(200,162,74,0.03)' }}>
+            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.18em', fontWeight: '600' }}>BUSINESS TWIN™ STATUS</div>
+            <div style={{ fontSize: '24px', fontWeight: '900', color: gold, lineHeight: 1.1, letterSpacing: '-0.02em' }}>Intelligence<br/>Ready</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444', boxShadow: `0 0 7px ${hasMRI ? 'rgba(74,170,74,0.8)' : 'rgba(204,68,68,0.8)'}` }} />
+              <span style={{ fontSize: '10px', color: hasMRI ? '#4aaa4a' : '#cc4444', fontWeight: '700', letterSpacing: '0.1em' }}>{hasMRI ? 'ACTIVE' : 'INACTIVE'}</span>
             </div>
-            <div style={{ marginTop: '8px', width: '60px', height: '60px', borderRadius: '50%', border: `2.5px solid ${hasMRI ? '#4aaa4a' : '#cc4444'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 20px ${hasMRI ? 'rgba(74,170,74,0.15)' : 'rgba(204,68,68,0.15)'}` }}>
+            <div style={{ marginTop: '4px', width: '48px', height: '48px', borderRadius: '50%', border: `2px solid ${hasMRI ? '#4aaa4a' : '#cc4444'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 14px ${hasMRI ? 'rgba(74,170,74,0.15)' : 'rgba(204,68,68,0.15)'}` }}>
               {hasMRI
-                ? <svg width="28" height="28" viewBox="0 0 28 28"><polyline points="5,14 11,20 23,8" fill="none" stroke="#4aaa4a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                : <span style={{ fontSize: '22px', color: '#cc4444' }}>✕</span>
+                ? <svg width="22" height="22" viewBox="0 0 28 28"><polyline points="5,14 11,20 23,8" fill="none" stroke="#4aaa4a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                : <span style={{ fontSize: '18px', color: '#cc4444' }}>✕</span>
               }
             </div>
           </div>
@@ -359,13 +359,13 @@ export default function BusinessTwinPage() {
       <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '12px', marginBottom: '16px', overflow: 'hidden' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '0' }}>
           {/* Left: completeness */}
-          <div style={{ padding: '24px 28px', borderRight: '1px solid ' + border }}>
+          <div style={{ padding: '20px 24px', borderRight: '1px solid ' + border }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
               <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.15em', fontWeight: '700' }}>TWIN COMPLETENESS — REAL TIME</div>
               <div style={{ fontSize: '11px', color: '#555' }}>{hasMRI ? 'MRI + ' + activeConnectors.length + ' connector' + (activeConnectors.length !== 1 ? 's' : '') : 'No MRI yet'}</div>
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ fontSize: '52px', fontWeight: '900', color: gc(completeness), lineHeight: 1, letterSpacing: '-0.03em' }}>{completeness}%</div>
+              <div style={{ fontSize: '44px', fontWeight: '900', color: gc(completeness), lineHeight: 1, letterSpacing: '-0.03em' }}>{completeness}%</div>
               <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '3px' }}>
                 <div style={{ fontSize: '12px', color: gc(completeness), fontWeight: '600' }}>{completeness >= 80 ? 'Excellent' : completeness >= 60 ? 'Good' : completeness >= 40 ? 'Building' : 'Getting started'}</div>
                 <div style={{ fontSize: '11px', color: '#555' }}>of 100% possible</div>
@@ -447,7 +447,7 @@ export default function BusinessTwinPage() {
       </div>
 
       {/* 4-COLUMN GRID */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '14px', marginBottom: '14px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '14px', marginBottom: '14px', alignItems: 'start' }}>
 
         {/* DATA SOURCE ARCHITECTURE TABLE */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
@@ -525,7 +525,7 @@ export default function BusinessTwinPage() {
           </div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '10px' }}>Real-time intelligence dimension coverage</div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <svg width="260" height="280" viewBox="0 0 260 280">
+            <svg width="100%" viewBox="0 0 260 280" style={{ maxWidth: '280px' }}>
               <defs><filter id="gw"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
               <circle cx="130" cy="140" r="130" fill="#050505"/>
               {[25,50,75,100].map(ring => (
