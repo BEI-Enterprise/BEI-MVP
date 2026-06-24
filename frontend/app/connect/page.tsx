@@ -601,7 +601,7 @@ export default function BusinessTwinPage() {
               const c = m.value >= 85 ? '#4aaa4a' : m.value >= 70 ? gold : '#e8923a'
               return (
                 <div key={i} style={{ textAlign: 'center' as const }}>
-                  <svg width="52" height="52" viewBox="0 0 52 52">
+                  <svg width="72" height="72" viewBox="0 0 52 52">
                     <circle cx="26" cy="26" r={r} fill="none" stroke="#1a1a1a" strokeWidth="4"/>
                     <circle cx="26" cy="26" r={r} fill="none" stroke={c} strokeWidth="4"
                       strokeDasharray={String(fill) + ' ' + String(circ - fill)}
@@ -610,7 +610,7 @@ export default function BusinessTwinPage() {
                       transform="rotate(-90 26 26)"/>
                     <text x="26" y="30" textAnchor="middle" fill={c} fontSize="11" fontWeight="800">{m.value}%</text>
                   </svg>
-                  <div style={{ fontSize: '9px', color: '#666', marginTop: '3px', lineHeight: 1.3 }}>{m.label}</div>
+                  <div style={{ fontSize: '10px', color: '#888', marginTop: '5px', lineHeight: 1.3, textAlign: 'center' as const }}>{m.label}</div>
                 </div>
               )
             })}
@@ -648,7 +648,7 @@ export default function BusinessTwinPage() {
               const c = m.value >= 85 ? '#4aaa4a' : m.value >= 70 ? gold : '#e8923a'
               return (
                 <div key={i} style={{ textAlign: 'center' as const }}>
-                  <svg width="46" height="46" viewBox="0 0 46 46">
+                  <svg width="72" height="72" viewBox="0 0 46 46">
                     <circle cx="23" cy="23" r={r} fill="none" stroke="#1a1a1a" strokeWidth="3.5"/>
                     <circle cx="23" cy="23" r={r} fill="none" stroke={c} strokeWidth="3.5"
                       strokeDasharray={String(fill) + ' ' + String(circ - fill)}
@@ -657,7 +657,7 @@ export default function BusinessTwinPage() {
                       transform="rotate(-90 23 23)"/>
                     <text x="23" y="27" textAnchor="middle" fill={c} fontSize="10" fontWeight="800">{m.value}%</text>
                   </svg>
-                  <div style={{ fontSize: '8px', color: '#555', marginTop: '3px', lineHeight: 1.3 }}>{m.label}</div>
+                  <div style={{ fontSize: '10px', color: '#777', marginTop: '5px', lineHeight: 1.3, textAlign: 'center' as const }}>{m.label}</div>
                 </div>
               )
             })}
