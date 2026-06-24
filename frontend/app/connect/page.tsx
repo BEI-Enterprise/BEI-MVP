@@ -287,8 +287,26 @@ export default function BusinessTwinPage() {
       )}
 
       {/* HERO ROW */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px 260px', gap: '0', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '12px', overflow: 'hidden', marginBottom: '16px', position: 'relative' as const, backgroundColor: '#050505', backgroundImage: 'url(/new123.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.75) 50%, rgba(5,5,5,0.88) 100%)', zIndex: 0 }} />
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px 260px', gap: '0', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '12px', overflow: 'hidden', marginBottom: '16px', position: 'relative' as const, backgroundColor: '#050505' }}>
+        <svg style={{ position: 'absolute' as const, inset: 0, width: '100%', height: '100%' }} viewBox="0 0 900 220" preserveAspectRatio="none">
+          <line x1="380" y1="160" x2="480" y2="80" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
+          <line x1="480" y1="80" x2="580" y2="170" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
+          <line x1="480" y1="80" x2="610" y2="50" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
+          <line x1="610" y1="50" x2="720" y2="120" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
+          <line x1="580" y1="170" x2="720" y2="120" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
+          <line x1="720" y1="120" x2="820" y2="60" stroke="#C8A24A" strokeWidth="0.5" opacity="0.35" />
+          <line x1="610" y1="50" x2="700" y2="20" stroke="#C8A24A" strokeWidth="0.5" opacity="0.25" />
+          <line x1="380" y1="160" x2="300" y2="190" stroke="#C8A24A" strokeWidth="0.5" opacity="0.25" />
+          <circle cx="380" cy="160" r="2.5" fill="#C8A24A" opacity="0.7" />
+          <circle cx="480" cy="80" r="3.5" fill="#D4B468" opacity="0.85" />
+          <circle cx="580" cy="170" r="2.5" fill="#C8A24A" opacity="0.7" />
+          <circle cx="610" cy="50" r="3" fill="#C8A24A" opacity="0.8" />
+          <circle cx="720" cy="120" r="3" fill="#C8A24A" opacity="0.75" />
+          <circle cx="820" cy="60" r="2.5" fill="#C8A24A" opacity="0.6" />
+          <circle cx="700" cy="20" r="2" fill="#8a6f33" opacity="0.5" />
+          <circle cx="300" cy="190" r="2" fill="#8a6f33" opacity="0.5" />
+        </svg>
+        <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.78) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.68) 100%)', zIndex: 0 }} />
         <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #C8A24A, transparent)', zIndex: 1 }} />
         <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', position: 'relative' as const, zIndex: 1 }}>
           <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>COMMAND CENTRE</div>
