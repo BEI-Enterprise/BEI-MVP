@@ -337,44 +337,50 @@ export default function BusinessTwinPage() {
         </div>
       </div>
 
-      {/* KPI STRIP */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '10px', marginBottom: '16px' }}>
-        {[
-          { label: 'COMPLETENESS', value: completeness + '%', color: gc(completeness), sub: hasMRI ? 'MRI + ' + activeConnectors.length + ' connectors' : 'No MRI yet' },
-          { label: 'ACCURACY', value: completeness >= 60 ? '96%' : completeness >= 40 ? '78%' : '—', color: '#4aaa4a', sub: 'Data consistency' },
-          { label: 'DATA CONFIDENCE', value: completeness >= 60 ? 'HIGH' : completeness >= 40 ? 'MEDIUM' : 'LOW', color: gc(completeness), sub: 'Intelligence grade' },
-          { label: 'CONNECTED SOURCES', value: connectedCount.toString(), color: gold, sub: 'of ' + (totalConnectors + 1) + ' available' },
-          { label: 'MANUAL INPUTS', value: activeConnectors.filter(id => id.startsWith('manual_')).length > 0 ? 'ACTIVE' : 'PENDING', color: activeConnectors.filter(id => id.startsWith('manual_')).length > 0 ? '#4aaa4a' : '#555', sub: activeConnectors.filter(id => id.startsWith('manual_')).length + ' datasets added' },
-          { label: 'INTELLIGENCE READINESS', value: completeness >= 40 ? 'Verified' : 'Incomplete', color: completeness >= 40 ? '#4aaa4a' : '#cc4444', sub: completeness >= 40 ? 'Production grade' : 'Add more data' },
-        ].map((k, i) => (
-          <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.12em', marginBottom: '6px', fontWeight: '600' }}>{k.label}</div>
-            <div style={{ fontSize: '20px', fontWeight: '800', color: k.color, lineHeight: 1 }}>{k.value}</div>
-            <div style={{ fontSize: '10px', color: '#444', marginTop: '4px' }}>{k.sub}</div>
+      {/* INTELLIGENCE OVERVIEW PANEL */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0', backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', marginBottom: '16px', overflow: 'hidden' }}>
+        <div style={{ padding: '24px 28px', borderRight: '1px solid ' + border }}>
+          <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '14px' }}>TWIN COMPLETENESS — REAL TIME</div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '14px' }}>
+            <div style={{ fontSize: '48px', fontWeight: '900', color: gc(completeness), lineHeight: 1 }}>{completeness}%</div>
+            <div style={{ fontSize: '12px', color: '#555' }}>{hasMRI ? 'MRI + ' + activeConnectors.length + ' connectors' : 'No MRI yet'}</div>
           </div>
-        ))}
-      </div>
-
-      {/* COMPLETENESS PROGRESS BAR */}
-      <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '16px 20px', marginBottom: '16px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-          <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>TWIN COMPLETENESS — REAL TIME</div>
-          <div style={{ fontSize: '18px', fontWeight: '800', color: gc(completeness) }}>{completeness}%</div>
-        </div>
-        <div style={{ height: '8px', backgroundColor: '#1a1a1a', borderRadius: '4px', overflow: 'hidden', marginBottom: '8px' }}>
-          <div style={{ width: completeness + '%', height: '100%', background: `linear-gradient(90deg, ${gc(completeness)}66, ${gc(completeness)})`, borderRadius: '4px', transition: 'width 1s ease' }} />
-        </div>
-        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' as const }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444' }} />
-            <span style={{ fontSize: '10px', color: '#666' }}>Business MRI ({MRI_BASE}% base) — {hasMRI ? 'Complete' : 'Missing'}</span>
+          <div style={{ height: '8px', backgroundColor: '#1a1a1a', borderRadius: '4px', overflow: 'hidden', marginBottom: '12px' }}>
+            <div style={{ width: completeness + '%', height: '100%', background: `linear-gradient(90deg, ${gc(completeness)}66, ${gc(completeness)})`, borderRadius: '4px', transition: 'width 1s ease' }} />
           </div>
-          {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => activeConnectors.includes(c.id)).map(c => (
-            <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#4aaa4a' }} />
-              <span style={{ fontSize: '10px', color: '#666' }}>{c.name} (+{c.boost}%)</span>
+          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' as const }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444' }} />
+              <span style={{ fontSize: '10px', color: '#666' }}>Business MRI ({MRI_BASE}% base) — {hasMRI ? 'Complete' : 'Missing'}</span>
+            </div>
+            {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => activeConnectors.includes(c.id)).map(c => (
+              <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#4aaa4a' }} />
+                <span style={{ fontSize: '10px', color: '#666' }}>{c.name} (+{c.boost}%)</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ padding: '20px 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          {[
+            { label: 'ACCURACY', value: completeness >= 60 ? '96%' : completeness >= 40 ? '78%' : '—', color: '#4aaa4a', sub: 'Data consistency' },
+            { label: 'DATA CONFIDENCE', value: completeness >= 60 ? 'HIGH' : completeness >= 40 ? 'MEDIUM' : 'LOW', color: gc(completeness), sub: 'Intelligence grade' },
+            { label: 'CONNECTED SOURCES', value: connectedCount.toString(), color: gold, sub: 'of ' + (totalConnectors + 1) + ' available' },
+            { label: 'MANUAL INPUTS', value: activeConnectors.filter(id => id.startsWith('manual_')).length > 0 ? 'ACTIVE' : 'PENDING', color: activeConnectors.filter(id => id.startsWith('manual_')).length > 0 ? '#4aaa4a' : '#555', sub: activeConnectors.filter(id => id.startsWith('manual_')).length + ' datasets added' },
+          ].map((k, i) => (
+            <div key={i}>
+              <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{k.label}</div>
+              <div style={{ fontSize: '18px', fontWeight: '800', color: k.color, lineHeight: 1 }}>{k.value}</div>
+              <div style={{ fontSize: '9px', color: '#444', marginTop: '3px' }}>{k.sub}</div>
             </div>
           ))}
+          <div style={{ gridColumn: '1 / -1', paddingTop: '12px', borderTop: '1px solid ' + border, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>INTELLIGENCE READINESS</div>
+              <div style={{ fontSize: '16px', fontWeight: '800', color: completeness >= 40 ? '#4aaa4a' : '#cc4444' }}>{completeness >= 40 ? 'Verified' : 'Incomplete'}</div>
+            </div>
+            <div style={{ fontSize: '10px', color: '#444' }}>{completeness >= 40 ? 'Production grade' : 'Add more data'}</div>
+          </div>
         </div>
       </div>
 
