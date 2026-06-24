@@ -434,35 +434,47 @@ export default function DashboardPage() {
             </div>
             {pillarList.length > 0 ? (
               <>
-                <svg width="100%" viewBox="0 0 260 260" style={{ display: 'block', margin: '0 auto 12px' }}>
-                  {[5,10,15,20].map(ring => (
+                <svg width="100%" viewBox="0 0 240 240" style={{ display: 'block', margin: '0 auto 4px' }}>
+                  <defs>
+                    <filter id="hglow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                  </defs>
+                  <circle cx="120" cy="120" r="116" fill="#050505"/>
+                  {[25,50,75,100].map((ring: number) => (
                     <polygon key={ring} points={pillarList.map((_: any, i: number) => {
                       const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                      const r = (ring/20)*88
-                      return `${100+r*Math.cos(a)},${100+r*Math.sin(a)}`
-                    }).join(' ')} fill="none" stroke="#1e1e1e" strokeWidth="1"/>
+                      const r = (ring/100)*96
+                      return `${120+r*Math.cos(a)},${120+r*Math.sin(a)}`
+                    }).join(' ')} fill="none" stroke="#1a2a1a" strokeWidth="0.8"/>
                   ))}
                   {pillarList.map((_: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    return <line key={i} x1="100" y1="100" x2={130+88*Math.cos(a)} y2={130+88*Math.sin(a)} stroke="#222" strokeWidth="1"/>
+                    return <line key={i} x1="120" y1="120" x2={120+96*Math.cos(a)} y2={120+96*Math.sin(a)} stroke="#1a2a1a" strokeWidth="0.8"/>
                   })}
-                  <polygon points={pillarList.map((p: any, i: number) => {
-                    const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    const r = (p.score/20)*88
-                    return `${100+r*Math.cos(a)},${100+r*Math.sin(a)}`
-                  }).join(' ')} fill="rgba(200,162,74,0.12)" stroke={gold} strokeWidth="1.5"/>
+                  {pillarList.map((p: any, i: number) => {
+                    const next = pillarList[(i+1)%pillarList.length]
+                    const a1 = (i/pillarList.length)*2*Math.PI - Math.PI/2
+                    const a2 = ((i+1)/pillarList.length)*2*Math.PI - Math.PI/2
+                    const r1 = (p.score/20)*96
+                    const r2 = (next.score/20)*96
+                    return <polygon key={i} points={`120,120 ${120+r1*Math.cos(a1)},${120+r1*Math.sin(a1)} ${120+r2*Math.cos(a2)},${120+r2*Math.sin(a2)}`} fill={p.color+'18'} stroke={p.color} strokeWidth="1.5" filter="url(#hglow)"/>
+                  })}
                   {pillarList.map((p: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    const r = (p.score/20)*88
-                    const lx = 130+100*Math.cos(a), ly = 100+95*Math.sin(a)
+                    const r = (p.score/20)*96
+                    const lx = 120+114*Math.cos(a)
+                    const ly = 120+114*Math.sin(a)
                     return <g key={i}>
-                      <circle cx={130+r*Math.cos(a)} cy={130+r*Math.sin(a)} r="3" fill={p.color}/>
-                      <text x={lx} y={ly} textAnchor="middle" dominantBaseline="middle" fill="#666" fontSize="8">{p.name}</text>
+                      <circle cx={120+r*Math.cos(a)} cy={120+r*Math.sin(a)} r="5" fill={p.color} filter="url(#hglow)"/>
+                      <circle cx={120+r*Math.cos(a)} cy={120+r*Math.sin(a)} r="2" fill="#fff"/>
+                      <text x={lx} y={ly-5} textAnchor="middle" fill="#888" fontSize="9" fontWeight="600">{p.name}</text>
+                      <text x={lx} y={ly+6} textAnchor="middle" fill={p.color} fontSize="10" fontWeight="800">{p.score}</text>
                     </g>
                   })}
-                  <text x="130" y="134" textAnchor="middle" fill={healthColor} fontSize="20" fontWeight="800">{healthScore}</text>
-                  <text x="130" y="146" textAnchor="middle" fill="#555" fontSize="8">HEALTH</text>
                 </svg>
+                <div style={{ textAlign: 'center' as const, marginBottom: '12px' }}>
+                  <div style={{ fontSize: '28px', fontWeight: '900', color: healthColor, lineHeight: 1 }}>{healthScore}</div>
+                  <div style={{ fontSize: '11px', color: '#555', marginTop: '3px', letterSpacing: '0.1em' }}>HEALTH SCORE</div>
+                </div>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '6px' }}>
                   {pillarList.map((p: any, i: number) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
