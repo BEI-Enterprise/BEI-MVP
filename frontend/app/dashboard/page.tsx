@@ -129,7 +129,7 @@ export default function DashboardPage() {
   return (
     <DashboardShell activeId="dashboard">
       {/* SINCE LAST LOGIN STRIP */}
-      <div style={{ backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', padding: '16px 20px', marginBottom: '20px' }}>
+      <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px 20px', marginBottom: '20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
           <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
           <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.2em', fontWeight: '600' }}>SINCE YOUR LAST LOGIN</div>
