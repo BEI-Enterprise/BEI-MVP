@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { id: 'twin', label: 'Business Twin™ Centre', icon: '◉', href: '/connect' },
   { id: 'constraints', label: 'Constraint Intelligence™', icon: '◎', href: '/constraints' },
   { id: 'opportunities', label: 'Opportunity Centre™', icon: '◈', href: '/opportunities' },
-  { id: 'risk', label: 'Risk Intelligence™', icon: '⊘', href: '/health' },
+  { id: 'risk', label: 'Risk Intelligence™', icon: '⊘', href: '/risk' },
   { id: 'performance', label: 'Performance Intelligence™', icon: '⟋', href: '/outcomes' },
   { id: 'industry', label: 'Industry Intelligence™', icon: '⊕', href: '/clients' },
   { id: 'deployment', label: 'Outcome & Deployment™', icon: '▹', href: '/deployments' },
