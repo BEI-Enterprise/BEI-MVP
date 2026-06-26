@@ -124,20 +124,20 @@ export default function OpportunitiesPage() {
   )
 
   const confCircle = (pct: number, color: string) => {
-    const r = 13, c = r * 2 * Math.PI, fill = (pct / 100) * c
+    const r = 14, c = r * 2 * Math.PI, fill = (pct / 100) * c
     return (
-      <svg width="34" height="34" viewBox="0 0 34 34">
-        <circle cx="17" cy="17" r={r} fill="none" stroke="#1a1a1a" strokeWidth="3"/>
-        <circle cx="17" cy="17" r={r} fill="none" stroke={color} strokeWidth="3"
+      <svg width="40" height="40" viewBox="0 0 36 36">
+        <circle cx="18" cy="18" r={r} fill="none" stroke="#1a1a1a" strokeWidth="3"/>
+        <circle cx="18" cy="18" r={r} fill="none" stroke={color} strokeWidth="3"
           strokeDasharray={String(fill) + ' ' + String(c - fill)}
-          strokeLinecap="round" transform="rotate(-90 17 17)"/>
-        <text x="17" y="21" textAnchor="middle" fill={color} fontSize="8" fontWeight="800">{pct}%</text>
+          strokeLinecap="round" transform="rotate(-90 18 18)"/>
+        <text x="18" y="22" textAnchor="middle" fill={color} fontSize="9" fontWeight="800">{pct}%</text>
       </svg>
     )
   }
 
   const impBadge = (level: string, color: string) => (
-    <div style={{ padding: '3px 7px', backgroundColor: color + '18', border: '1px solid ' + color + '44', borderRadius: '4px', fontSize: '9px', color, fontWeight: '700', whiteSpace: 'nowrap' as const }}>{level}</div>
+    <div style={{ padding: '3px 8px', backgroundColor: color + '18', border: '1px solid ' + color + '44', borderRadius: '4px', fontSize: '10px', color, fontWeight: '700', whiteSpace: 'nowrap' as const, display: 'inline-block', width: 'fit-content' }}>{level}</div>
   )
 
   return (
@@ -168,10 +168,10 @@ export default function OpportunitiesPage() {
           { label: 'REALISATION RATE', value: '64%', sub: 'Opportunities achieved', color: gold, trend: '↑ 8% vs last 30 days' },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
-            <div style={{ fontSize: '20px', fontWeight: '900', color: k.color, lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
-            <div style={{ fontSize: '10px', color: '#555', marginBottom: '5px' }}>{k.sub}</div>
-            <div style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600' }}>{k.trend}</div>
+            <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '7px', fontWeight: '700' }}>{k.label}</div>
+            <div style={{ fontSize: '24px', fontWeight: '900', color: k.color, lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
+            <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px' }}>{k.sub}</div>
+            <div style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
       </div>
@@ -237,7 +237,7 @@ export default function OpportunitiesPage() {
           <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '12px' }}>OPPORTUNITY PIPELINE</div>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 0.6fr 1fr 0.7fr 0.9fr 0.6fr 0.9fr 55px 20px', gap: '0', paddingBottom: '7px', borderBottom: '1px solid #1a1a1a', marginBottom: '2px' }}>
             {['OPPORTUNITY','TYPE','AFFECTED AREAS','IMPACT','VALUE','CONF.','TIME','TREND',''].map(h => (
-              <div key={h} style={{ fontSize: '8px', color: '#444', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>
+              <div key={h} style={{ fontSize: '9px', color: '#555', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>
             ))}
           </div>
           {pagedOpps.map((opp, i) => (
@@ -245,11 +245,11 @@ export default function OpportunitiesPage() {
               <div style={{ display: 'flex', gap: '7px', alignItems: 'center' }}>
                 <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: opp.iconBg + '22', border: '1px solid ' + opp.iconBg + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: opp.iconBg }}>{opp.icon}</div>
                 <div>
-                  <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{opp.name}</div>
-                  <div style={{ fontSize: '10px', color: '#555' }}>{opp.desc}</div>
+                  <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700' }}>{opp.name}</div>
+                  <div style={{ fontSize: '11px', color: '#666' }}>{opp.desc}</div>
                 </div>
               </div>
-              <div style={{ fontSize: '10px', color: '#888' }}>{opp.type}</div>
+              <div style={{ fontSize: '11px', color: '#888' }}>{opp.type}</div>
               <div style={{ display: 'flex', gap: '2px', flexWrap: 'wrap' as const }}>
                 {opp.areas.slice(0,2).map(a => (
                   <div key={a} style={{ padding: '1px 4px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '3px', fontSize: '8px', color: '#777' }}>{a}</div>
@@ -257,11 +257,11 @@ export default function OpportunitiesPage() {
               </div>
               {impBadge(opp.impact, opp.impactColor)}
               <div>
-                <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '700' }}>{fmt(opp.value)}</div>
-                <div style={{ fontSize: '9px', color: '#555' }}>Annual</div>
+                <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700' }}>{fmt(opp.value)}</div>
+                <div style={{ fontSize: '10px', color: '#555' }}>Annual</div>
               </div>
               {confCircle(opp.confidence, opp.confidence >= 80 ? '#4aaa4a' : opp.confidence >= 65 ? gold : '#e8923a')}
-              <div style={{ fontSize: '10px', color: '#888' }}>{opp.timeToRealise}</div>
+              <div style={{ fontSize: '11px', color: '#888' }}>{opp.timeToRealise}</div>
               {sparkline(opp.trend, opp.impactColor, opp.id)}
               <div style={{ fontSize: '14px', color: '#444' }}>›</div>
             </div>
