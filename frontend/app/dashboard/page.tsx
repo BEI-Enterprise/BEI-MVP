@@ -193,7 +193,7 @@ export default function DashboardPage() {
             { label: 'NEW ALERTS', value: String(alerts.length), color: alerts.length > 1 ? '#cc4444' : gold, sub: 'vs previous 2', trend: 'neutral' },
           ].map((item, i) => (
             <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '16px' }}>
-              <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '700' }}>{item.label}</div>
+              <div style={{ fontSize: '9px', color: '#777', letterSpacing: '0.15em', marginBottom: '8px', fontWeight: '600' }}>{item.label}</div>
               <div style={{ fontSize: '22px', fontWeight: '800', color: item.color, lineHeight: 1, marginBottom: '4px' }}>{item.value}</div>
               <div style={{ fontSize: '10px', color: '#888', marginBottom: '8px' }}>{item.sub}</div>
               {sparkline(item.trend, item.color, i)}
@@ -212,7 +212,7 @@ export default function DashboardPage() {
           { label: 'SUBSCRIPTION STATUS', value: 'ACTIVE', color: '#4aaa4a', trend: tier + ' Plan', prevVal: 'Renews in 28 days', spark: 'neutral', trendColor: '#4aaa4a' },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '700' }}>{k.label}</div>
+            <div style={{ fontSize: '9px', color: '#777', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>{k.label}</div>
             <div style={{ fontSize: '19px', fontWeight: '800', color: k.color, lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
             <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600', marginBottom: '2px' }}>{k.trend}</div>
             <div style={{ fontSize: '10px', color: '#777', marginBottom: '8px' }}>{k.prevVal}</div>
@@ -279,71 +279,55 @@ export default function DashboardPage() {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'flex-start', paddingTop: '8px' }}>
-                  <svg width="200" height="310" viewBox="0 0 200 310" role="img" aria-label="Constraint impact network">
+                  <svg width="190" height="280" viewBox="0 0 190 280" role="img" aria-label="Constraint cascade diagram">
                     <defs>
-                      <radialGradient id="ng1" cx="40%" cy="35%" r="60%">
+                      <radialGradient id="goldOrb" cx="40%" cy="35%" r="60%">
                         <stop offset="0%" stopColor="#fff8d0"/>
                         <stop offset="40%" stopColor="#e8a820"/>
-                        <stop offset="90%" stopColor="#7a4800" stopOpacity="0.3"/>
+                        <stop offset="100%" stopColor="#7a4800" stopOpacity="0.2"/>
                       </radialGradient>
-                      <radialGradient id="ng2" cx="40%" cy="35%" r="60%">
-                        <stop offset="0%" stopColor="#c8902a"/>
-                        <stop offset="45%" stopColor="#7a5010"/>
-                        <stop offset="90%" stopColor="#3a2000" stopOpacity="0.3"/>
+                      <radialGradient id="goldOrbSm" cx="40%" cy="35%" r="60%">
+                        <stop offset="0%" stopColor="#ffe090"/>
+                        <stop offset="40%" stopColor="#c88010"/>
+                        <stop offset="100%" stopColor="#5a3000" stopOpacity="0.2"/>
                       </radialGradient>
-                      <radialGradient id="ng3" cx="40%" cy="35%" r="60%">
+                      <radialGradient id="redOrb" cx="40%" cy="35%" r="60%">
                         <stop offset="0%" stopColor="#ffdddd"/>
-                        <stop offset="45%" stopColor="#dd3333"/>
-                        <stop offset="90%" stopColor="#440000" stopOpacity="0.3"/>
+                        <stop offset="40%" stopColor="#dd3333"/>
+                        <stop offset="100%" stopColor="#440000" stopOpacity="0.2"/>
                       </radialGradient>
-                      <filter id="ngl"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                      <filter id="ngs"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                      <filter id="glow3"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                      <filter id="glow6"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                     </defs>
-                    <text x="100" y="10" textAnchor="middle" fill="#C8A24A" fontSize="7" fontWeight="700" letterSpacing="0.12em">IMPACT NETWORK</text>
-                    <line x1="100" y1="60" x2="44" y2="140" stroke="#C8A24A" strokeWidth="1" strokeOpacity="0.4"/>
-                    <line x1="100" y1="60" x2="100" y2="140" stroke="#C8A24A" strokeWidth="1" strokeOpacity="0.4"/>
-                    <line x1="100" y1="60" x2="156" y2="140" stroke="#C8A24A" strokeWidth="1" strokeOpacity="0.4"/>
-                    <line x1="44" y1="162" x2="60" y2="238" stroke="#cc4444" strokeWidth="0.8" strokeOpacity="0.4"/>
-                    <line x1="100" y1="162" x2="75" y2="238" stroke="#cc4444" strokeWidth="0.8" strokeOpacity="0.4"/>
-                    <line x1="156" y1="162" x2="90" y2="238" stroke="#cc4444" strokeWidth="0.8" strokeOpacity="0.35"/>
-                    <line x1="156" y1="162" x2="148" y2="238" stroke="#cc4444" strokeWidth="0.8" strokeOpacity="0.3"/>
-                    <circle cx="100" cy="40" r="28" fill="rgba(200,162,74,0.18)" filter="url(#ngl)"/>
-                    <circle cx="100" cy="40" r="18" fill="#080808" stroke="#FFD060" strokeWidth="2"/>
-                    <circle cx="100" cy="40" r="14" fill="url(#ng1)" filter="url(#ngs)"/>
-                    <circle cx="95" cy="35" r="5" fill="white" fillOpacity="0.65"/>
-                    <text x="100" y="18" textAnchor="middle" fill="#FFD060" fontSize="6" fontWeight="700" letterSpacing="0.1em">ROOT CAUSE</text>
-                    <text x="100" y="76" textAnchor="middle" fill="#FFD060" fontSize="9" fontWeight="700">{primary?.name || 'Bottleneck'}</text>
-                    <circle cx="44" cy="151" r="18" fill="rgba(140,90,10,0.15)" filter="url(#ngl)"/>
-                    <circle cx="44" cy="151" r="12" fill="#0c0800" stroke="#8a6010" strokeWidth="1"/>
-                    <circle cx="44" cy="151" r="9" fill="url(#ng2)" filter="url(#ngs)"/>
-                    <circle cx="41" cy="148" r="3" fill="white" fillOpacity="0.35"/>
-                    <text x="44" y="173" textAnchor="middle" fill="#8a6010" fontSize="8" fontWeight="600">Decisions</text>
-                    <circle cx="100" cy="151" r="16" fill="rgba(140,90,10,0.15)" filter="url(#ngl)"/>
-                    <circle cx="100" cy="151" r="10" fill="#0c0800" stroke="#8a6010" strokeWidth="1"/>
-                    <circle cx="100" cy="151" r="7" fill="url(#ng2)" filter="url(#ngs)"/>
-                    <circle cx="97" cy="148" r="2.5" fill="white" fillOpacity="0.35"/>
-                    <text x="100" y="173" textAnchor="middle" fill="#8a6010" fontSize="8" fontWeight="600">Sales</text>
-                    <circle cx="156" cy="151" r="16" fill="rgba(140,90,10,0.15)" filter="url(#ngl)"/>
-                    <circle cx="156" cy="151" r="10" fill="#0c0800" stroke="#8a6010" strokeWidth="1"/>
-                    <circle cx="156" cy="151" r="7" fill="url(#ng2)" filter="url(#ngs)"/>
-                    <circle cx="153" cy="148" r="2.5" fill="white" fillOpacity="0.35"/>
-                    <text x="156" y="173" textAnchor="middle" fill="#8a6010" fontSize="8" fontWeight="600">Operations</text>
-                    <circle cx="72" cy="252" r="17" fill="rgba(204,68,68,0.18)" filter="url(#ngl)"/>
-                    <circle cx="72" cy="252" r="11" fill="#0a0000" stroke="#cc3333" strokeWidth="1"/>
-                    <circle cx="72" cy="252" r="8" fill="url(#ng3)" filter="url(#ngs)"/>
-                    <circle cx="69" cy="249" r="2.5" fill="#ffcccc" fillOpacity="0.7"/>
-                    <text x="72" y="273" textAnchor="middle" fill="#ee5555" fontSize="8" fontWeight="600">Revenue</text>
-                    <circle cx="144" cy="252" r="15" fill="rgba(204,68,68,0.15)" filter="url(#ngl)"/>
-                    <circle cx="144" cy="252" r="10" fill="#0a0000" stroke="#cc3333" strokeWidth="1"/>
-                    <circle cx="144" cy="252" r="7" fill="url(#ng3)" filter="url(#ngs)"/>
-                    <circle cx="141" cy="249" r="2.5" fill="#ffcccc" fillOpacity="0.7"/>
-                    <text x="144" y="273" textAnchor="middle" fill="#ee5555" fontSize="8" fontWeight="600">Growth</text>
-                    <circle cx="34" cy="296" r="4" fill="url(#ng1)"/>
-                    <text x="42" y="300" fill="#FFD060" fontSize="7">Root</text>
-                    <circle cx="82" cy="296" r="4" fill="url(#ng2)"/>
-                    <text x="90" y="300" fill="#8a6010" fontSize="7">Factor</text>
-                    <circle cx="130" cy="296" r="4" fill="url(#ng3)"/>
-                    <text x="138" y="300" fill="#ee5555" fontSize="7">Impact</text>
+                    <line x1="52" y1="42" x2="52" y2="268" stroke="#2a2a2a" strokeWidth="1.5"/>
+                    {[
+                      { y: 30, r: 18, grad: 'goldOrb', label: 'ROOT CAUSE', labelColor: gold, desc: null, descColor: null },
+                      { y: 88, r: 13, grad: 'goldOrbSm', label: null, labelColor: null, desc: 'Decision Delays', descColor: '#ddbb55' },
+                      { y: 136, r: 12, grad: 'goldOrbSm', label: null, labelColor: null, desc: 'Sales Friction', descColor: '#ddbb55' },
+                      { y: 184, r: 11, grad: 'redOrb', label: null, labelColor: null, desc: 'Ops Slowdown', descColor: '#ee6666' },
+                      { y: 228, r: 10, grad: 'redOrb', label: null, labelColor: null, desc: 'Revenue Impact', descColor: '#ee6666' },
+                      { y: 268, r: 9, grad: 'redOrb', label: null, labelColor: null, desc: 'Growth Limit', descColor: '#cc4444' },
+                    ].map((node, i) => (
+                      <g key={i}>
+                        {i > 0 && (
+                          <polygon
+                            points={String(49) + ',' + String(node.y - node.r - 14) + ' ' + String(55) + ',' + String(node.y - node.r - 14) + ' ' + String(52) + ',' + String(node.y - node.r - 6)}
+                            fill={i >= 3 ? '#cc4444' : gold}
+                            fillOpacity="0.5"
+                          />
+                        )}
+                        <circle cx="52" cy={node.y} r={node.r + 6} fill={i >= 3 ? 'rgba(204,68,68,0.12)' : 'rgba(200,162,74,0.12)'} filter="url(#glow6)"/>
+                        <circle cx="52" cy={node.y} r={node.r} fill="#080808" stroke={i >= 3 ? '#aa3333' : '#aa8820'} strokeWidth="1"/>
+                        <circle cx="52" cy={node.y} r={node.r - 2} fill={'url(#' + node.grad + ')'} filter="url(#glow3)"/>
+                        <circle cx={48} cy={node.y - Math.round(node.r * 0.4)} r={Math.max(2, Math.round(node.r * 0.3))} fill="white" fillOpacity="0.55"/>
+                        {node.label && (
+                          <text x="52" y={node.y - node.r - 8} textAnchor="middle" fill={node.labelColor!} fontSize="8" fontWeight="700" letterSpacing="0.08em">{node.label}</text>
+                        )}
+                        {node.desc && (
+                          <text x="74" y={node.y + 4} fill={node.descColor!} fontSize="11" fontWeight="600">{node.desc}</text>
+                        )}
+                      </g>
+                    ))}
                   </svg>
                 </div>
               </div>
@@ -547,10 +531,10 @@ export default function DashboardPage() {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ flexShrink: 0 }}>
-                  <svg width="110" height="110" viewBox="0 0 80 80">
+                  <svg width="80" height="80" viewBox="0 0 80 80">
                     {(() => {
                       let offset = 0
-                      const r = 32
+                      const r = 28
                       const c = r * 2 * Math.PI
                       return oppBreakdown.map((o, i) => {
                         const dash = (o.pct / 100) * c
@@ -558,14 +542,14 @@ export default function DashboardPage() {
                         const el = (
                           <circle key={i} cx="40" cy="40" r={r} fill="none" stroke={o.color} strokeWidth="10"
                             strokeDasharray={String(dash) + ' ' + String(gap)} strokeDashoffset={String(-offset)}
-                            strokeOpacity="0.9" transform="rotate(-90 40 40)"/>
+                            strokeOpacity="0.85" transform="rotate(-90 40 40)"/>
                         )
                         offset += dash
                         return el
                       })
                     })()}
-                    <text x="40" y="34" textAnchor="middle" fill={gold} fontSize="8" fontWeight="800">{fmtShort(oppLow)}+</text>
-                    <text x="40" y="45" textAnchor="middle" fill="#888" fontSize="6">Total</text>
+                    <text x="40" y="36" textAnchor="middle" fill={gold} fontSize="9" fontWeight="800">{fmtShort(oppLow)}+</text>
+                    <text x="40" y="48" textAnchor="middle" fill="#555" fontSize="7">Total</text>
                   </svg>
                 </div>
                 <div style={{ flex: 1 }}>
