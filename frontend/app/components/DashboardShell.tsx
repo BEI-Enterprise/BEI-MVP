@@ -23,6 +23,12 @@ const NAV_ITEMS = [
 export default function DashboardShell({ children, activeId }: { children: React.ReactNode, activeId?: string }) {
   const [user, setUser] = useState<any>(null)
   const [collapsed, setCollapsed] = useState(false)
+  const [chatOpen, setChatOpen] = useState(false)
+  const [chatMessages, setChatMessages] = useState<{role:'user'|'assistant',text:string}[]>([])
+  const [chatInput, setChatInput] = useState('')
+  const [chatLoading, setChatLoading] = useState(false)
+  const [mriContext, setMriContext] = useState<any>(null)
+  const chatEndRef = useRef<HTMLDivElement>(null)
   const [notifOpen, setNotifOpen] = useState(false)
   const [searchVal, setSearchVal] = useState('')
   const supabase = createClient()
@@ -113,7 +119,7 @@ export default function DashboardShell({ children, activeId }: { children: React
         {!collapsed && (
           <div style={{ padding: '12px 16px', borderTop: '1px solid #1a1a1a' }}>
             <button
-              onClick={() => { const event = new CustomEvent('open-ask-bei'); window.dispatchEvent(event); }}
+              onClick={() => setChatOpen(o => !o)}
               style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', color: '#C8A24A', fontSize: '12px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.05em' }}
             >
               <span style={{ fontSize: '16px' }}>✦</span>
@@ -190,8 +196,8 @@ export default function DashboardShell({ children, activeId }: { children: React
             fontWeight: '600',
             textDecoration: 'none',
             letterSpacing: '0.05em',
-          }}>
-            <span style={{ fontSize: '14px' }}>✦</span> Ask BEI
+          }} onClick={() => setChatOpen(true)}>
+            <span style={{ fontSize: \'14px\' }}>✦</span> Ask BEI
           </a>
 
           {/* Notifications */}
