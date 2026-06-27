@@ -289,70 +289,14 @@ export default function BusinessTwinPage() {
         </div>
       )}
 
-      {/* HERO ROW */}
-      <div style={{ border: '1px solid rgba(200,162,74,0.25)', borderRadius: '14px', overflow: 'hidden', marginBottom: '16px', position: 'relative' as const, backgroundColor: '#050505', minHeight: '180px' }}>
-        <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #C8A24A 40%, #C8A24A 60%, transparent)', zIndex: 2 }} />
-        <div style={{ position: 'absolute' as const, bottom: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,74,0.2), transparent)', zIndex: 2 }} />
-        {/* Network illustration background */}
-        <svg style={{ position: 'absolute' as const, right: '280px', top: 0, height: '100%', width: '460px', opacity: 0.6 }} viewBox="0 0 460 180" preserveAspectRatio="xMidYMid slice">
-          {[
-            [230,90,180,50],[230,90,290,40],[230,90,160,130],[230,90,310,140],
-            [180,50,120,30],[180,50,140,100],[290,40,350,25],[290,40,360,90],
-            [160,130,100,150],[310,140,380,160],[120,30,70,60],[350,25,420,50],
-            [100,150,60,170],[380,160,440,140],[70,60,30,40],[420,50,455,80],
-          ].map(([x1,y1,x2,y2],i) => (
-            <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C8A24A" strokeWidth="0.6" opacity="0.4"/>
-          ))}
-          {[
-            [230,90,5,'#FFD060',0.95],[180,50,3.5,'#C8A24A',0.85],[290,40,3.5,'#C8A24A',0.85],
-            [160,130,3,'#C8A24A',0.75],[310,140,3,'#C8A24A',0.75],[120,30,2.5,'#C8A24A',0.65],
-            [350,25,2.5,'#C8A24A',0.65],[100,150,2,'#8a6f33',0.55],[380,160,2,'#8a6f33',0.55],
-            [70,60,2,'#8a6f33',0.5],[420,50,2,'#8a6f33',0.5],[30,40,1.5,'#6a5020',0.4],
-            [455,80,1.5,'#6a5020',0.4],[60,170,1.5,'#6a5020',0.4],[440,140,1.5,'#6a5020',0.4],
-          ].map(([cx,cy,r,fill,op],i) => (
-            <circle key={i} cx={cx} cy={cy} r={r as number} fill={fill as string} opacity={op as number}/>
-          ))}
-          {/* Central glow */}
-          <circle cx="230" cy="90" r="40" fill="rgba(200,162,74,0.04)"/>
-          <circle cx="230" cy="90" r="20" fill="rgba(200,162,74,0.06)"/>
-        </svg>
-        <div style={{ position: 'absolute' as const, inset: 0, background: 'linear-gradient(90deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.75) 45%, rgba(5,5,5,0.4) 70%, rgba(5,5,5,0.75) 100%)' }} />
-        <div style={{ position: 'relative' as const, zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'stretch' }}>
-          {/* Left content */}
-          <div style={{ padding: '20px 28px' }}>
-            <div style={{ fontSize: '9px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>COMMAND CENTRE</div>
-            <h1 style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '-0.025em', margin: '0 0 6px', lineHeight: 1.1, color: '#ffffff' }}>Business Twin™ Centre</h1>
-            <div style={{ fontSize: '12px', color: '#777', marginBottom: '10px' }}>The intelligence foundation powering every BEI recommendation</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' as const }}>
-              <div style={{ fontSize: '11px', color: '#444' }}>{businessName} · {tier} · Last updated {lastUpdated}</div>
-              {hasMRI && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '2px 9px', backgroundColor: 'rgba(74,170,74,0.08)', border: '1px solid rgba(74,170,74,0.2)', borderRadius: '20px' }}>
-                  <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 5px rgba(74,170,74,0.8)' }} />
-                  <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '600', letterSpacing: '0.06em' }}>Intelligence Active</span>
-                </div>
-              )}
-            </div>
-            {!hasMRI && (
-              <div style={{ marginTop: '10px', padding: '8px 12px', backgroundColor: 'rgba(204,68,68,0.08)', border: '1px solid rgba(204,68,68,0.2)', borderRadius: '6px', display: 'inline-block' }}>
-                <div style={{ fontSize: '11px', color: '#cc4444', fontWeight: '600' }}>⚠ No Business MRI found — complete your MRI to activate the Business Twin™</div>
-              </div>
-            )}
-          </div>
-          {/* Right status panel */}
-          <div style={{ padding: '20px 24px', borderLeft: '1px solid rgba(200,162,74,0.15)', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', alignItems: 'flex-start', gap: '6px', minWidth: '220px', backgroundColor: 'rgba(200,162,74,0.03)' }}>
-            <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.18em', fontWeight: '600' }}>BUSINESS TWIN™ STATUS</div>
-            <div style={{ fontSize: '24px', fontWeight: '900', color: gold, lineHeight: 1.1, letterSpacing: '-0.02em' }}>Intelligence<br/>Ready</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444', boxShadow: `0 0 7px ${hasMRI ? 'rgba(74,170,74,0.8)' : 'rgba(204,68,68,0.8)'}` }} />
-              <span style={{ fontSize: '10px', color: hasMRI ? '#4aaa4a' : '#cc4444', fontWeight: '700', letterSpacing: '0.1em' }}>{hasMRI ? 'ACTIVE' : 'INACTIVE'}</span>
-            </div>
-            <div style={{ marginTop: '4px', width: '48px', height: '48px', borderRadius: '50%', border: `2px solid ${hasMRI ? '#4aaa4a' : '#cc4444'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 14px ${hasMRI ? 'rgba(74,170,74,0.15)' : 'rgba(204,68,68,0.15)'}` }}>
-              {hasMRI
-                ? <svg width="22" height="22" viewBox="0 0 28 28"><polyline points="5,14 11,20 23,8" fill="none" stroke="#4aaa4a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                : <span style={{ fontSize: '18px', color: '#cc4444' }}>✕</span>
-              }
-            </div>
-          </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', paddingBottom: '18px', borderBottom: '1px solid ' + border }}>
+        <div>
+          <h1 style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: '#ffffff' }}>Business Twin™ Centre</h1>
+          <div style={{ fontSize: '12px', color: '#999' }}>The intelligence foundation powering every BEI recommendation · {businessName} · {tier} Plan · Last updated {lastUpdated}</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#888' }}>Business Twin™: <span style={{ color: hasMRI ? '#4aaa4a' : '#e8923a', fontWeight: '600' }}>{hasMRI ? 'Intelligence Ready' : 'Inactive'}</span><div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#e8923a', marginLeft: '6px', boxShadow: '0 0 6px ' + (hasMRI ? 'rgba(74,170,74,0.7)' : 'rgba(232,146,58,0.5)') }} /></div>
+          <div style={{ padding: '6px 14px', backgroundColor: hasMRI ? 'rgba(74,170,74,0.1)' : 'rgba(200,162,74,0.1)', border: '1px solid ' + (hasMRI ? 'rgba(74,170,74,0.3)' : 'rgba(200,162,74,0.3)'), borderRadius: '20px', fontSize: '11px', color: hasMRI ? '#4aaa4a' : gold, fontWeight: '700' }}>{hasMRI ? '● Intelligence Active' : '○ Awaiting MRI'}</div>
         </div>
       </div>
 
