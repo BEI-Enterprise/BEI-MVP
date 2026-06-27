@@ -384,21 +384,27 @@ export default function IndustryIntelligencePage() {
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>INDUSTRY PERFORMANCE BENCHMARKING</div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>How you compare against your industry peers</div>
-          {/* Bar chart — fixed width bars, no stretching */}
-          <div style={{ display: 'flex', gap: '4px', marginBottom: '14px', alignItems: 'flex-end' }}>
-            <div style={{ display: 'flex', flexDirection: 'column' as const, justifyContent: 'space-between', height: '130px', paddingBottom: '22px', marginRight: '4px' }}>
-              {[100,75,50,25].map(l => <div key={l} style={{ fontSize: '9px', color: '#444' }}>{l}</div>)}
+          {/* Bar chart — full width, proportional bars */}
+          <div style={{ display: 'flex', gap: '0', marginBottom: '14px', alignItems: 'stretch', width: '100%' }}>
+            {/* Y axis */}
+            <div style={{ display: 'flex', flexDirection: 'column' as const, justifyContent: 'space-between', height: '160px', paddingBottom: '24px', marginRight: '6px', flexShrink: 0 }}>
+              {[100,75,50,25].map(l => <div key={l} style={{ fontSize: '9px', color: '#444', textAlign: 'right' as const }}>{l}</div>)}
             </div>
-            {benchmarkChart.map((b, i) => (
-              <div key={i} style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '5px', width: '54px', flexShrink: 0 }}>
-                <div style={{ width: '100%', height: '130px', display: 'flex', alignItems: 'flex-end', gap: '3px', position: 'relative' as const }}>
-                  {[1,2,3,4].map(l => <div key={l} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: l*32, height: '0.5px', backgroundColor: '#111' }} />)}
-                  <div style={{ flex: 1, backgroundColor: gold, borderRadius: '2px 2px 0 0', height: (b.yourScore/100*128)+'px', minHeight: '4px' }} />
-                  <div style={{ flex: 1, backgroundColor: '#333', borderRadius: '2px 2px 0 0', height: (b.industryAvg/100*128)+'px', minHeight: '4px' }} />
+            {/* Bars */}
+            <div style={{ flex: 1, display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
+              {benchmarkChart.map((b, i) => (
+                <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '6px' }}>
+                  <div style={{ width: '100%', height: '160px', display: 'flex', alignItems: 'flex-end', gap: '3px', position: 'relative' as const }}>
+                    {[25,50,75,100].map(l => (
+                      <div key={l} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: (l/100)*156, height: '0.5px', backgroundColor: '#1a1a1a' }} />
+                    ))}
+                    <div style={{ flex: 1, backgroundColor: gold, borderRadius: '3px 3px 0 0', height: Math.max(4, (b.yourScore/100)*156)+'px', transition: 'height 0.3s ease' }} />
+                    <div style={{ flex: 1, backgroundColor: '#2a2a2a', borderRadius: '3px 3px 0 0', height: Math.max(4, (b.industryAvg/100)*156)+'px', transition: 'height 0.3s ease' }} />
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#777', textAlign: 'center' as const, lineHeight: 1.3, width: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{b.label}</div>
                 </div>
-                <div style={{ fontSize: '9px', color: '#666', textAlign: 'center' as const, lineHeight: 1.3, width: '100%' }}>{b.label}</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <div style={{ display: 'flex', gap: '16px', marginBottom: '10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '10px', height: '10px', borderRadius: '2px', backgroundColor: gold }}/><span style={{ fontSize: '10px', color: '#888' }}>Your Business</span></div>
