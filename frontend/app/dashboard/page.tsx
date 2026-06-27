@@ -429,18 +429,18 @@ export default function DashboardPage() {
                   {[25,50,75,100].map((ring: number) => (
                     <polygon key={ring} points={pillarList.map((_: any, i: number) => {
                       const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                      const r = (ring/100)*88
+                      const r = (ring/100)*72
                       return String(120+r*Math.cos(a)) + ',' + String(120+r*Math.sin(a))
                     }).join(' ')} fill="none" stroke="#2a2a2a" strokeWidth="0.8"/>
                   ))}
                   {pillarList.map((_: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    return <line key={i} x1="120" y1="120" x2={120+88*Math.cos(a)} y2={120+88*Math.sin(a)} stroke="#2a2a2a" strokeWidth="0.8"/>
+                    return <line key={i} x1="120" y1="120" x2={120+72*Math.cos(a)} y2={120+72*Math.sin(a)} stroke="#2a2a2a" strokeWidth="0.8"/>
                   })}
                   <polygon
                     points={pillarList.map((_: any, i: number) => {
                       const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                      const r = (benchmarkScore/20)*88
+                      const r = (benchmarkScore/20)*72
                       return String(120+r*Math.cos(a)) + ',' + String(120+r*Math.sin(a))
                     }).join(' ')}
                     fill="none" stroke={gold} strokeWidth="0.8" strokeDasharray="3 3" strokeOpacity="0.3"
@@ -449,15 +449,15 @@ export default function DashboardPage() {
                     const next = pillarList[(i+1)%pillarList.length]
                     const a1 = (i/pillarList.length)*2*Math.PI - Math.PI/2
                     const a2 = ((i+1)/pillarList.length)*2*Math.PI - Math.PI/2
-                    const r1 = (p.score/20)*88
-                    const r2 = (next.score/20)*88
+                    const r1 = (p.score/20)*72
+                    const r2 = (next.score/20)*72
                     return <polygon key={i} points={'120,120 ' + String(120+r1*Math.cos(a1)) + ',' + String(120+r1*Math.sin(a1)) + ' ' + String(120+r2*Math.cos(a2)) + ',' + String(120+r2*Math.sin(a2))} fill="none" stroke={p.color} strokeWidth="1.5" filter="url(#hglow)"/>
                   })}
                   {pillarList.map((p: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    const r = (p.score/20)*88
-                    const lx = 120+124*Math.cos(a)
-                    const ly = 120+124*Math.sin(a)
+                    const r = (p.score/20)*72
+                    const lx = 120+96*Math.cos(a)
+                    const ly = 120+96*Math.sin(a)
                     return <g key={i}>
                       <circle cx={120+r*Math.cos(a)} cy={120+r*Math.sin(a)} r="5" fill={p.color} filter="url(#hglow)"/>
                       <circle cx={120+r*Math.cos(a)} cy={120+r*Math.sin(a)} r="2" fill="#fff"/>
