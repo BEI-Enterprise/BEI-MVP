@@ -496,7 +496,6 @@ export default function BusinessTwinPage() {
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column' as const }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>COVERAGE MAP™</div>
-            <div style={{ fontSize: '14px', fontWeight: '800', color: gc(completeness) }}>{completeness}%</div>
           </div>
           <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>Real-time intelligence dimension coverage</div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -516,11 +515,14 @@ export default function BusinessTwinPage() {
                   <text x={p.lx} y={p.ly+7} textAnchor="middle" fill={p.color} fontSize="11" fontWeight="800">{p.pct}%</text>
                 </g>
               ))}
-              <text x="130" y="136" textAnchor="middle" fill={gold} fontSize="16" fontWeight="900">{completeness}</text>
-              <text x="130" y="148" textAnchor="middle" fill="#555" fontSize="7" letterSpacing="0.1em">TWIN</text>
+
             </svg>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '8px', flexWrap: 'wrap' as const }}>
+          <div style={{ textAlign: 'center' as const, marginTop: '6px', marginBottom: '6px' }}>
+            <div style={{ fontSize: '32px', fontWeight: '900', color: gc(completeness), lineHeight: 1 }}>{completeness}%</div>
+            <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.12em', marginTop: '3px' }}>TWIN COMPLETENESS</div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '4px', flexWrap: 'wrap' as const }}>
             {[['#4aaa4a','Strong'],['#C8A24A','Moderate'],['#e8923a','Weak']].map(([c,l]) => (
               <div key={l} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: c }} />

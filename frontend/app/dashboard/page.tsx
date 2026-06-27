@@ -279,7 +279,7 @@ export default function DashboardPage() {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'flex-start', paddingTop: '8px' }}>
-                  <svg width="100%" height="340" viewBox="0 0 190 280" role="img" aria-label="Constraint cascade diagram">
+                  <svg width="100%" height="340" viewBox="0 0 220 285" role="img" aria-label="Constraint cascade diagram">
                     <defs>
                       <radialGradient id="goldOrb" cx="40%" cy="35%" r="60%">
                         <stop offset="0%" stopColor="#fff8d0"/>
@@ -321,10 +321,10 @@ export default function DashboardPage() {
                         <circle cx="52" cy={node.y} r={node.r - 2} fill={'url(#' + node.grad + ')'} filter="url(#glow3)"/>
                         <circle cx={48} cy={node.y - Math.round(node.r * 0.4)} r={Math.max(2, Math.round(node.r * 0.3))} fill="white" fillOpacity="0.55"/>
                         {node.label && (
-                          <text x="52" y={node.y - node.r - 8} textAnchor="middle" fill={node.labelColor!} fontSize="8" fontWeight="700" letterSpacing="0.08em">{node.label}</text>
+                          <text x="52" y={node.y - node.r - 12} textAnchor="middle" fill={node.labelColor!} fontSize="9" fontWeight="700" letterSpacing="0.08em">{node.label}</text>
                         )}
                         {node.desc && (
-                          <text x="74" y={node.y + 4} fill={node.descColor!} fontSize="11" fontWeight="600">{node.desc}</text>
+                          <text x="82" y={node.y + 5} fill={node.descColor!} fontSize="12" fontWeight="700">{node.desc}</text>
                         )}
                       </g>
                     ))}
@@ -416,15 +416,15 @@ export default function DashboardPage() {
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>BUSINESS HEALTH RADAR</div>
-              <a href="/health" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View full →</a>
+              <button onClick={() => setShowRadarModal(true)} style={{ fontSize: '11px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontWeight: '600' }}>View full →</button>
             </div>
             {pillarList.length > 0 ? (
               <>
-                <svg width="100%" viewBox="0 0 240 240" style={{ display: 'block', margin: '0 auto 4px', minHeight: '260px' }}>
+                <svg width="100%" viewBox="0 0 240 240" style={{ display: 'block', margin: '0 auto 4px', minHeight: '280px', overflow: 'visible' }}>
                   <defs>
                     <filter id="hglow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                   </defs>
-                  <circle cx="120" cy="120" r="116" fill="#050505"/>
+                  
                   {[25,50,75,100].map((ring: number) => (
                     <polygon key={ring} points={pillarList.map((_: any, i: number) => {
                       const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
@@ -455,13 +455,13 @@ export default function DashboardPage() {
                   {pillarList.map((p: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
                     const r = (p.score/20)*88
-                    const lx = 120+108*Math.cos(a)
-                    const ly = 120+108*Math.sin(a)
+                    const lx = 120+124*Math.cos(a)
+                    const ly = 120+124*Math.sin(a)
                     return <g key={i}>
                       <circle cx={120+r*Math.cos(a)} cy={120+r*Math.sin(a)} r="5" fill={p.color} filter="url(#hglow)"/>
                       <circle cx={120+r*Math.cos(a)} cy={120+r*Math.sin(a)} r="2" fill="#fff"/>
-                      <text x={lx} y={ly-5} textAnchor="middle" fill="#aaaaaa" fontSize="8" fontWeight="600">{p.name}</text>
-                      <text x={lx} y={ly+6} textAnchor="middle" fill={p.color} fontSize="9" fontWeight="800">{p.score}</text>
+                      <text x={lx} y={ly-6} textAnchor="middle" fill="#ffffff" fontSize="10" fontWeight="700">{p.name}</text>
+                      <text x={lx} y={ly+8} textAnchor="middle" fill={p.color} fontSize="11" fontWeight="900">{p.score}/20</text>
                     </g>
                   })}
                 </svg>
@@ -571,6 +571,68 @@ export default function DashboardPage() {
 
         </div>
       </div>
+      {showRadarModal && (
+        <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowRadarModal(false)}>
+          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '740px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>BUSINESS HEALTH RADAR</div>
+                <div style={{ fontSize: '22px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>Full Business Health Analysis</div>
+                <div style={{ fontSize: '12px', color: '#999' }}>{businessName} · Health Score: {healthScore}/100 · {pillarList.length} pillars</div>
+              </div>
+              <button onClick={() => setShowRadarModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '20px' }}>
+              <div>
+                <svg width="100%" viewBox="0 0 260 260">
+                  <defs><filter id="hglow2"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                  {[25,50,75,100].map((ring: number) => (
+                    <polygon key={ring} points={pillarList.map((_: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; const r=(ring/100)*96; return String(130+r*Math.cos(a))+','+String(130+r*Math.sin(a)) }).join(' ')} fill="none" stroke="#1e2e1e" strokeWidth="0.8"/>
+                  ))}
+                  {pillarList.map((_: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; return <line key={i} x1="130" y1="130" x2={130+96*Math.cos(a)} y2={130+96*Math.sin(a)} stroke="#1e2e1e" strokeWidth="0.8"/> })}
+                  <polygon points={pillarList.map((_: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; const r=(benchmarkScore/20)*96; return String(130+r*Math.cos(a))+','+String(130+r*Math.sin(a)) }).join(' ')} fill="none" stroke={gold} strokeWidth="1" strokeDasharray="4 3" strokeOpacity="0.4"/>
+                  {pillarList.map((p: any, i: number) => { const next=pillarList[(i+1)%pillarList.length]; const a1=(i/pillarList.length)*2*Math.PI-Math.PI/2; const a2=((i+1)/pillarList.length)*2*Math.PI-Math.PI/2; const r1=(p.score/20)*96; const r2=(next.score/20)*96; return <polygon key={i} points={'130,130 '+String(130+r1*Math.cos(a1))+','+String(130+r1*Math.sin(a1))+' '+String(130+r2*Math.cos(a2))+','+String(130+r2*Math.sin(a2))} fill={p.color+'22'} stroke={p.color} strokeWidth="2" filter="url(#hglow2)"/> })}
+                  {pillarList.map((p: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; const r=(p.score/20)*96; const lx=130+118*Math.cos(a); const ly=130+118*Math.sin(a); return <g key={i}><circle cx={130+r*Math.cos(a)} cy={130+r*Math.sin(a)} r="6" fill={p.color} filter="url(#hglow2)"/><circle cx={130+r*Math.cos(a)} cy={130+r*Math.sin(a)} r="2.5" fill="#fff"/><text x={lx} y={ly-5} textAnchor="middle" fill="#ffffff" fontSize="10" fontWeight="700">{p.name}</text><text x={lx} y={ly+9} textAnchor="middle" fill={p.color} fontSize="12" fontWeight="900">{p.score}/20</text></g> })}
+                  <text x="130" y="124" textAnchor="middle" fill="#ffffff" fontSize="22" fontWeight="900">{healthScore}</text>
+                  <text x="130" y="138" textAnchor="middle" fill="#888" fontSize="9" letterSpacing="0.12em">HEALTH SCORE</text>
+                  <text x="130" y="150" textAnchor="middle" fill={healthColor} fontSize="10" fontWeight="700">{health.vs_benchmark === 'above' ? '↑ Above benchmark' : 'At benchmark'}</text>
+                </svg>
+                <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><div style={{ width: '10px', height: '3px', backgroundColor: gold }}/><span style={{ fontSize: '11px', color: '#888' }}>Your score</span></div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><div style={{ width: '10px', height: '2px', backgroundColor: gold, opacity: 0.4 }}/><span style={{ fontSize: '11px', color: '#888' }}>Industry benchmark</span></div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+                {pillarList.map((p: any, i: number) => (
+                  <div key={i}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: p.color }} />
+                        <span style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700' }}>{p.name}</span>
+                      </div>
+                      <span style={{ fontSize: '14px', color: p.color, fontWeight: '900' }}>{p.score}/20</span>
+                    </div>
+                    <div style={{ height: '6px', backgroundColor: '#1a1a1a', borderRadius: '3px', overflow: 'hidden', marginBottom: '3px' }}>
+                      <div style={{ width: (p.score/20*100)+'%', height: '100%', backgroundColor: p.color, borderRadius: '3px' }} />
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#666' }}>{p.label || (p.score >= 14 ? 'Strong' : p.score >= 9 ? 'Moderate' : 'Needs Attention')}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '10px' }}>
+              {pillarList.map((p: any, i: number) => (
+                <div key={i} style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid '+p.color+'33', textAlign: 'center' as const }}>
+                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.08em', marginBottom: '6px', fontWeight: '600' }}>{p.name.toUpperCase()}</div>
+                  <div style={{ fontSize: '22px', fontWeight: '900', color: p.color }}>{p.score}/20</div>
+                  <div style={{ fontSize: '11px', color: p.score >= 14 ? '#4aaa4a' : p.score >= 9 ? gold : '#e8923a', marginTop: '3px', fontWeight: '600' }}>{p.label || (p.score >= 14 ? 'Strong' : p.score >= 9 ? 'Moderate' : 'Needs Attention')}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
     </DashboardShell>
   )
 }

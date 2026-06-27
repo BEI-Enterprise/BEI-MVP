@@ -240,7 +240,7 @@ export default function PerformancePage() {
             <div style={{ padding: '3px 8px', backgroundColor: '#0a0a0a', border: '1px solid ' + border, borderRadius: '4px', fontSize: '11px', color: '#aaa' }}>Last 90 Days</div>
           </div>
           <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>Track performance progression over time</div>
-          <svg width="100%" height="210" viewBox="0 0 300 210">
+          <svg width="100%" height="280" viewBox="0 0 300 280">
             {[0,1,2,3].map(i => <line key={i} x1="28" y1={i*50+10} x2="295" y2={i*50+10} stroke="#111" strokeWidth="0.8"/>)}
             {[100,75,50,25].map((l,i) => <text key={l} x="0" y={i*50+14} fill="#333" fontSize="8">{l}</text>)}
             {[
