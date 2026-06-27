@@ -224,7 +224,7 @@ export default function IntelligenceOperationsPage() {
           </div>
           <div style={{ fontSize: '13px', color: '#999', marginBottom: '14px' }}>Overall system and infrastructure health</div>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-            <svg width="110" height="110" viewBox="0 0 90 90" style={{ flexShrink: 0 }}>
+            <svg width="140" height="140" viewBox="0 0 90 90" style={{ flexShrink: 0 }}>
               {(() => {
                 const r = 36, c = r * 2 * Math.PI, fill = (systemHealthPct / 100) * c
                 return <>
@@ -275,14 +275,14 @@ export default function IntelligenceOperationsPage() {
               </div>
             ))}
           </div>
-          <svg width="100%" height="55" viewBox="0 0 280 55">
+          <svg width="100%" height="90" viewBox="0 0 280 90">
             {hasMRI || activeConns.length > 0 ? (
               <>
                 <defs><linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#4aaa4a" stopOpacity="0.25"/><stop offset="100%" stopColor="#4aaa4a" stopOpacity="0"/></linearGradient></defs>
-                {[0,1,2].map(i => <line key={i} x1="0" y1={i*18+5} x2="280" y2={i*18+5} stroke="#111" strokeWidth="0.7"/>)}
+                {[0,1,2,3].map(i => <line key={i} x1="0" y1={i*26+5} x2="280" y2={i*26+5} stroke="#111" strokeWidth="0.7"/>)}
                 <polyline points={Array.from({length:13},(_,j)=>{
-                  const base=42-(processingSpeed/2000)*38
-                  return (j*23)+','+(base+Math.sin(j*0.9)*7)
+                  const base=70-(processingSpeed/2000)*62
+                  return (j*23)+','+(base+Math.sin(j*0.9)*10)
                 }).join(' ')} fill="none" stroke="#4aaa4a" strokeWidth="1.5" strokeLinecap="round"/>
                 {['00','04','08','12','16','20'].map((h,i) => (
                   <text key={h} x={i*56} y="53" fill="#333" fontSize="7">{h}:00</text>

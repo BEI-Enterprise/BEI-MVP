@@ -154,7 +154,7 @@ export default function PerformancePage() {
   const miniSparkline = (score: number, color: string, idx: number) => {
     const h = 100 - score
     return (
-      <svg width="60" height="18" viewBox="0 0 60 18">
+      <svg width="70" height="22" viewBox="0 0 60 18">
         <polyline points={'0,' + (h*0.18+2) + ' 10,' + (h*0.16+2) + ' 20,' + (h*0.17+2) + ' 30,' + (h*0.14+2) + ' 40,' + (h*0.13+2) + ' 50,' + (h*0.12+2) + ' 60,' + (h*0.10+2)} fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round"/>
       </svg>
     )
@@ -214,7 +214,7 @@ export default function PerformancePage() {
           </div>
           <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>How each pillar is contributing to your results</div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <svg width="220" height="220" viewBox="0 0 240 240">
+            <svg width="100%" height="260" viewBox="0 0 240 240">
               <defs><filter id="pglow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
               <circle cx="120" cy="120" r="108" fill="#050505"/>
               {[20,40,60,80,100].map((ring: number) => (
@@ -240,9 +240,9 @@ export default function PerformancePage() {
             <div style={{ padding: '3px 8px', backgroundColor: '#0a0a0a', border: '1px solid ' + border, borderRadius: '4px', fontSize: '11px', color: '#aaa' }}>Last 90 Days</div>
           </div>
           <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>Track performance progression over time</div>
-          <svg width="100%" height="160" viewBox="0 0 300 160">
-            {[0,1,2,3].map(i => <line key={i} x1="28" y1={i*40+10} x2="295" y2={i*40+10} stroke="#111" strokeWidth="0.8"/>)}
-            {[100,75,50,25].map((l,i) => <text key={l} x="0" y={i*40+14} fill="#333" fontSize="7">{l}</text>)}
+          <svg width="100%" height="210" viewBox="0 0 300 210">
+            {[0,1,2,3].map(i => <line key={i} x1="28" y1={i*50+10} x2="295" y2={i*50+10} stroke="#111" strokeWidth="0.8"/>)}
+            {[100,75,50,25].map((l,i) => <text key={l} x="0" y={i*50+14} fill="#333" fontSize="8">{l}</text>)}
             {[
               { score: overallPerf, color: '#ffffff', label: 'Overall' },
               { score: growthScore, color: '#4aaa4a', label: 'Growth' },
@@ -250,12 +250,12 @@ export default function PerformancePage() {
               { score: strategyScore, color: gold, label: 'Strategy' },
               { score: contextScore, color: '#9a6ab0', label: 'Context' },
             ].map((line, li) => {
-              const base = 10 + (1 - line.score/100) * 120
+              const base = 10 + (1 - line.score/100) * 170
               const pts = [28,65,102,139,176,213,250,295].map((x,j) => x+','+(base+(j%2===0?-3:3)*(li%2===0?1:-1)*(li+1)*0.5)).join(' ')
               return <polyline key={li} points={pts} fill="none" stroke={line.color} strokeWidth={li===0?1.8:1.2} strokeLinecap="round" strokeOpacity={li===0?1:0.8}/>
             })}
             {['23M','6A','20A','4M','18M','1J','15J'].map((l,i) => (
-              <text key={l} x={28+i*44.5} y="156" fill="#333" fontSize="6.5">{l}</text>
+              <text key={l} x={28+i*44.5} y="206" fill="#333" fontSize="6.5">{l}</text>
             ))}
           </svg>
           <div style={{ display: 'flex', gap: '8px', marginTop: '6px', flexWrap: 'wrap' as const }}>

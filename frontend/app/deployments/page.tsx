@@ -198,10 +198,10 @@ export default function OutcomeDeploymentPage() {
   const statusColor = (s: string) => s === 'In Progress' ? '#4aaa4a' : s === 'Validating' ? gold : s === 'Realising Value' ? '#4aaa4a' : s === 'Completed' ? '#4a8ab0' : '#555'
 
   const trendSpark = (trend: string, color: string) => (
-    <svg width="50" height="16" viewBox="0 0 50 16">
-      {trend === 'up' && <polyline points="0,14 10,11 20,12 30,8 40,6 50,3" fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round"/>}
+    <svg width="60" height="20" viewBox="0 0 50 16">
+      {trend === 'up' && <polyline points="0,14 10,15 20,12 30,8 40,8 50,3" fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round"/>}
       {trend === 'neutral' && <polyline points="0,8 10,7 20,9 30,7 40,8 50,7" fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round"/>}
-      {trend === 'down' && <polyline points="0,3 10,5 20,7 30,9 40,11 50,14" fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round"/>}
+      {trend === 'down' && <polyline points="0,3 10,5 20,7 30,9 40,15 50,14" fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round"/>}
     </svg>
   )
 
@@ -337,23 +337,23 @@ export default function OutcomeDeploymentPage() {
               ))}
             </div>
             {/* Forecast chart */}
-            <svg width="100%" height="130" viewBox="0 0 300 130">
-              {[0,1,2,3,4].map(i => <line key={i} x1="28" y1={i*26+5} x2="295" y2={i*26+5} stroke="#111" strokeWidth="0.8"/>)}
-              {['£0','£100K','£200K','£300K','£400K','£500K'].map((l,i) => <text key={l} x="0" y={130-i*26+4} fill="#333" fontSize="6.5">{l}</text>)}
+            <svg width="100%" height="180" viewBox="0 0 300 180">
+              {[0,1,2,3,4].map(i => <line key={i} x1="28" y1={i*36+5} x2="295" y2={i*36+5} stroke="#111" strokeWidth="0.8"/>)}
+              {['£0','£100K','£200K','£300K','£400K','£500K'].map((l,i) => <text key={l} x="0" y={175-i*36+4} fill="#333" fontSize="7.5">{l}</text>)}
               {/* Expected line */}
-              <polyline points="28,125 60,115 90,102 120,88 150,72 180,56 210,40 240,26 270,14 295,8" fill="none" stroke="#e0e0e0" strokeWidth="1.2" strokeOpacity="0.5" strokeDasharray="3 3"/>
+              <polyline points="28,172 60,115 90,102 120,88 150,72 180,56 210,40 240,26 270,14 295,8" fill="none" stroke="#e0e0e0" strokeWidth="1.2" strokeOpacity="0.5" strokeDasharray="3 3"/>
               {/* Forecast line */}
-              <polyline points="28,125 60,112 90,98 120,82 150,65 180,50 210,36 240,22 270,11 295,6" fill="none" stroke={gold} strokeWidth="1.8" strokeLinecap="round"/>
-              <polygon points="28,130 28,125 60,112 90,98 120,82 150,65 180,50 210,36 240,22 270,11 295,6 295,130" fill={gold} fillOpacity="0.06"/>
+              <polyline points="28,172 60,155 90,135 120,113 150,90 180,69 210,50 240,30 270,15 295,6" fill="none" stroke={gold} strokeWidth="1.8" strokeLinecap="round"/>
+              <polygon points="28,130 28,172 60,155 90,135 120,113 150,90 180,69 210,50 240,30 270,15 295,8 295,130" fill={gold} fillOpacity="0.06"/>
               {/* Actual line (partial) */}
-              <polyline points="28,125 60,118 90,106 120,96 150,84" fill="none" stroke="#4a8ab0" strokeWidth="1.6" strokeLinecap="round"/>
+              <polyline points="28,172 60,163 90,146 120,133 150,84" fill="none" stroke="#4a8ab0" strokeWidth="1.6" strokeLinecap="round"/>
               <circle cx="150" cy="84" r="3" fill="#4a8ab0"/>
               {/* Forecast end label */}
               <rect x="218" y="2" width="72" height="32" fill="#0e0e0e" stroke={gold+'44'} strokeWidth="0.8" rx="3"/>
               <text x="254" y="13" textAnchor="middle" fill="#aaa" fontSize="7">Forecast at 12 months</text>
               <text x="254" y="24" textAnchor="middle" fill={gold} fontSize="10" fontWeight="800">{fmt(Math.round(totalExpected * 0.93))}</text>
               {['MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB'].map((m,i) => (
-                <text key={m} x={28+i*30} y="128" fill="#333" fontSize="6">{m}</text>
+                <text key={m} x={28+i*30} y="176" fill="#333" fontSize="7">{m}</text>
               ))}
             </svg>
             <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
@@ -377,7 +377,7 @@ export default function OutcomeDeploymentPage() {
             <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>How your initiatives are performing overall.</div>
             <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginBottom: '14px' }}>
               {/* Health donut */}
-              <svg width="90" height="90" viewBox="0 0 80 80" style={{ flexShrink: 0 }}>
+              <svg width="120" height="120" viewBox="0 0 80 80" style={{ flexShrink: 0 }}>
                 {(() => {
                   const r = 30, c = r * 2 * Math.PI, fill = (realisationRate/100) * c
                   const col = realisationRate >= 70 ? '#4aaa4a' : realisationRate >= 45 ? gold : '#cc4444'

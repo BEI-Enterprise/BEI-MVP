@@ -162,7 +162,7 @@ export default function ConstraintsPage() {
             {oppLow > 0 ? fmtShort(oppLow) + ' – ' + fmtShort(oppHigh) : '£280,000 – £450,000'}
           </div>
           <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Financial impact if resolved</div>
-          <svg width="100%" height="32" viewBox="0 0 160 32">
+          <svg width="100%" height="40" viewBox="0 0 160 32">
             <polyline points="0,28 20,24 40,26 60,18 80,14 100,16 120,8 140,5 160,3" fill="none" stroke={gold} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             <polygon points="0,32 0,28 20,24 40,26 60,18 80,14 100,16 120,8 140,5 160,3 160,32" fill={gold} fillOpacity="0.08"/>
           </svg>
@@ -258,7 +258,7 @@ export default function ConstraintsPage() {
           </div>
           <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Visualising how constraints connect and impact your business performance.</div>
           {/* Network SVG */}
-          <svg width="100%" viewBox="0 0 580 300" style={{ display: 'block' }}>
+          <svg width="100%" viewBox="0 0 580 300" style={{ display: 'block', minHeight: '340px' }}>
             <defs>
               <radialGradient id="cnCenter" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stopColor="#ffdd80" stopOpacity="0.9"/>
@@ -459,7 +459,7 @@ export default function ConstraintsPage() {
           {/* Circular score + evidence breakdown */}
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '14px' }}>
             <div style={{ flexShrink: 0 }}>
-              <svg width="80" height="80" viewBox="0 0 80 80">
+              <svg width="110" height="110" viewBox="0 0 80 80">
                 {(() => {
                   const r = 30, c = r * 2 * Math.PI
                   const fill = ((verScore || 80) / 100) * c

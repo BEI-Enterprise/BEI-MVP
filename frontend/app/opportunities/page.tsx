@@ -285,7 +285,7 @@ export default function OpportunitiesPage() {
               <button onClick={() => setShowTypeModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full →</button>
             </div>
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <svg width="90" height="90" viewBox="0 0 80 80" style={{ flexShrink: 0 }}>
+              <svg width="120" height="120" viewBox="0 0 80 80" style={{ flexShrink: 0 }}>
                 {(() => {
                   let offset = 0
                   const r = 28, c = r * 2 * Math.PI
@@ -322,7 +322,7 @@ export default function OpportunitiesPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: gold, borderRadius: '2px' }}/><span style={{ fontSize: '9px', color: '#888' }}>Forecast</span></div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: '#4aaa4a', borderRadius: '2px' }}/><span style={{ fontSize: '9px', color: '#888' }}>Achieved</span></div>
             </div>
-            <svg width="100%" height="70" viewBox="0 0 230 70">
+            <svg width="100%" height="110" viewBox="0 0 230 110">
               <polyline points="0,62 38,52 76,42 115,28 153,18 191,10 230,4" fill="none" stroke={gold} strokeWidth="1.5" strokeLinecap="round"/>
               <polygon points="0,70 0,62 38,52 76,42 115,28 153,18 191,10 230,4 230,70" fill={gold} fillOpacity="0.07"/>
               <polyline points="0,65 38,58 76,52 115,44 153,37 191,32 230,28" fill="none" stroke="#4aaa4a" strokeWidth="1.2" strokeDasharray="4 3"/>
@@ -502,7 +502,7 @@ export default function OpportunitiesPage() {
                 </div>
               ))}
             </div>
-            <svg width="100%" height="140" viewBox="0 0 580 140">
+            <svg width="100%" height="200" viewBox="0 0 580 200">
               {[0,1,2,3,4].map(i => <line key={i} x1="50" y1={i*26+10} x2="570" y2={i*26+10} stroke="#1a1a1a" strokeWidth="0.8"/>)}
               {['£0','£100K','£200K','£300K','£400K'].map((l,i) => <text key={l} x="0" y={110-i*26+4} fill="#333" fontSize="8">{l}</text>)}
               <polygon points="50,110 130,90 210,68 290,46 370,28 450,14 570,8 570,110" fill={gold} fillOpacity="0.07"/>

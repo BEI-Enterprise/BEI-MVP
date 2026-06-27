@@ -279,7 +279,7 @@ export default function DashboardPage() {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'flex-start', paddingTop: '8px' }}>
-                  <svg width="190" height="280" viewBox="0 0 190 280" role="img" aria-label="Constraint cascade diagram">
+                  <svg width="100%" height="340" viewBox="0 0 190 280" role="img" aria-label="Constraint cascade diagram">
                     <defs>
                       <radialGradient id="goldOrb" cx="40%" cy="35%" r="60%">
                         <stop offset="0%" stopColor="#fff8d0"/>
@@ -420,7 +420,7 @@ export default function DashboardPage() {
             </div>
             {pillarList.length > 0 ? (
               <>
-                <svg width="100%" viewBox="0 0 240 240" style={{ display: 'block', margin: '0 auto 4px' }}>
+                <svg width="100%" viewBox="0 0 240 240" style={{ display: 'block', margin: '0 auto 4px', minHeight: '260px' }}>
                   <defs>
                     <filter id="hglow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                   </defs>
@@ -531,7 +531,7 @@ export default function DashboardPage() {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ flexShrink: 0 }}>
-                  <svg width="80" height="80" viewBox="0 0 80 80">
+                  <svg width="110" height="110" viewBox="0 0 80 80">
                     {(() => {
                       let offset = 0
                       const r = 28

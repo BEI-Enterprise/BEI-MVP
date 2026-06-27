@@ -230,7 +230,7 @@ export default function RiskIntelligencePage() {
             <button onClick={() => setShowBreakdownModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View breakdown →</button>
           </div>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '12px' }}>
-            <svg width="90" height="90" viewBox="0 0 80 80" style={{ flexShrink: 0 }}>
+            <svg width="120" height="120" viewBox="0 0 80 80" style={{ flexShrink: 0 }}>
               {(() => {
                 let offset = 0
                 const r = 27, c = r * 2 * Math.PI
@@ -275,16 +275,16 @@ export default function RiskIntelligencePage() {
               <button onClick={() => setShowTrendModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View trend analysis →</button>
             </div>
           </div>
-          <svg width="100%" height="110" viewBox="0 0 300 110">
-            {[0,1,2,3].map(i => <line key={i} x1="28" y1={i*28+8} x2="295" y2={i*28+8} stroke="#111" strokeWidth="0.8"/>)}
-            {[100,75,50,25].map((l,i) => <text key={l} x="0" y={i*28+12} fill="#333" fontSize="7">{l}</text>)}
+          <svg width="100%" height="160" viewBox="0 0 300 160">
+            {[0,1,2,3].map(i => <line key={i} x1="28" y1={i*38+8} x2="295" y2={i*38+8} stroke="#111" strokeWidth="0.8"/>)}
+            {[100,75,50,25].map((l,i) => <text key={l} x="0" y={i*38+12} fill="#333" fontSize="8">{l}</text>)}
             {riskCategories.map((cat, ci) => {
-              const base = 8 + (1 - cat.score/100) * 84
-              const pts = [28,72,116,160,204,248,295].map((x,j) => x+','+(base+(j%3-1)*3*(ci%2===0?1:-1))).join(' ')
+              const base = 8 + (1 - cat.score/100) * 134
+              const pts = [28,72,116,160,204,248,295].map((x,j) => x+','+(base+(j%3-1)*4*(ci%2===0?1:-1))).join(' ')
               return <polyline key={ci} points={pts} fill="none" stroke={cat.color} strokeWidth="1.3" strokeLinecap="round" strokeOpacity="0.85"/>
             })}
             {['23M','6A','20A','4M','18M','1J','15J'].map((l,i) => (
-              <text key={l} x={28+i*44.5} y="108" fill="#333" fontSize="6.5">{l}</text>
+              <text key={l} x={28+i*44.5} y="158" fill="#333" fontSize="6.5">{l}</text>
             ))}
           </svg>
           <div style={{ display: 'flex', gap: '8px', marginTop: '6px', flexWrap: 'wrap' as const }}>
@@ -517,7 +517,7 @@ export default function RiskIntelligencePage() {
                 </div>
               ))}
             </div>
-            <svg width="100%" height="160" viewBox="0 0 640 160">
+            <svg width="100%" height="220" viewBox="0 0 640 220">
               {[0,1,2,3,4].map(i => <line key={i} x1="40" y1={i*32+8} x2="630" y2={i*32+8} stroke="#1a1a1a" strokeWidth="0.8"/>)}
               {[100,75,50,25,0].map((l,i) => <text key={l} x="0" y={i*32+12} fill="#333" fontSize="8">{l}</text>)}
               {riskCategories.map((cat, ci) => {
