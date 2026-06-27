@@ -13,6 +13,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [selected, setSelected] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [showRadarModal, setShowRadarModal] = useState(false)
 
   useEffect(() => {
     const load = async () => {
