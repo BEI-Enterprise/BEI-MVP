@@ -23,55 +23,15 @@ const NAV_ITEMS = [
 export default function DashboardShell({ children, activeId }: { children: React.ReactNode, activeId?: string }) {
   const [user, setUser] = useState<any>(null)
   const [collapsed, setCollapsed] = useState(false)
-  const [chatOpen, setChatOpen] = useState(false)
-  const [chatMessages, setChatMessages] = useState<{role:'user'|'assistant',text:string}[]>([])
-  const [chatInput, setChatInput] = useState('')
-  const [chatLoading, setChatLoading] = useState(false)
-  const [mriContext, setMriContext] = useState<any>(null)
-  const chatEndRef = useRef<HTMLDivElement>(null)
   const [notifOpen, setNotifOpen] = useState(false)
   const [searchVal, setSearchVal] = useState('')
   const supabase = createClient()
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user))
-    // Load MRI context for Ask BEI
-    const loadCtx = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (user) {
-          const { data } = await supabase.from('businesses').select('business_name,mri_result,industry').eq('email', user.email).order('updated_at',{ascending:false}).limit(1).single()
-          if (data) setMriContext(data)
-        }
-      } catch(e) {}
-    }
-    loadCtx()
-    const handler = () => setChatOpen(o => !o)
-    window.addEventListener('open-ask-bei', handler)
-    return () => window.removeEventListener('open-ask-bei', handler)
+
   }, [])
 
-  useEffect(() => { chatEndRef.current?.scrollIntoView({behavior:'smooth'}) }, [chatMessages])
-
-  const sendChat = async () => {
-    if (!chatInput.trim() || chatLoading) return
-    const q = chatInput.trim()
-    setChatInput('')
-    setChatMessages(p => [...p, {role:'user', text:q}])
-    setChatLoading(true)
-    try {
-      const r = mriContext?.mri_result || {}
-      const res = await fetch('/api/agents/decision', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ primary:r.primary_constraint||null, secondary:r.secondary_constraints||[], confidence:r.confidence||'medium', industry:mriContext?.industry||'', businessName:mriContext?.business_name||'Your Business', question:q })
-      })
-      const d = await res.json()
-      setChatMessages(p => [...p, {role:'assistant', text:d.response||'No response.'}])
-    } catch(e) {
-      setChatMessages(p => [...p, {role:'assistant', text:'Connection error. Please try again.'}])
-    }
-    setChatLoading(false)
-  }
 
   const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Executive'
   const userInitial = userName.charAt(0).toUpperCase()
@@ -155,7 +115,7 @@ export default function DashboardShell({ children, activeId }: { children: React
         {!collapsed && (
           <div style={{ padding: '12px 16px', borderTop: '1px solid #1a1a1a' }}>
             <button
-              onClick={() => setChatOpen(o => !o)}
+              onClick={() => window.dispatchEvent(new CustomEvent('open-ask-bei'))}
               style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', color: '#C8A24A', fontSize: '12px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.05em' }}
             >
               <span style={{ fontSize: '16px' }}>✦</span>
@@ -232,7 +192,7 @@ export default function DashboardShell({ children, activeId }: { children: React
             fontWeight: '600',
             textDecoration: 'none',
             letterSpacing: '0.05em',
-          }} onClick={() => setChatOpen(true)}>
+          }} onClick={() => window.dispatchEvent(new CustomEvent('open-ask-bei'))}>
             <span style={{ fontSize: '14px' }}>✦</span> Ask BEI
           </a>
 
