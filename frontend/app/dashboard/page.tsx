@@ -451,7 +451,7 @@ export default function DashboardPage() {
                     const a2 = ((i+1)/pillarList.length)*2*Math.PI - Math.PI/2
                     const r1 = (p.score/20)*88
                     const r2 = (next.score/20)*88
-                    return <polygon key={i} points={'120,120 ' + String(120+r1*Math.cos(a1)) + ',' + String(120+r1*Math.sin(a1)) + ' ' + String(120+r2*Math.cos(a2)) + ',' + String(120+r2*Math.sin(a2))} fill={p.color+'18'} stroke={p.color} strokeWidth="1.5" filter="url(#hglow)"/>
+                    return <polygon key={i} points={'120,120 ' + String(120+r1*Math.cos(a1)) + ',' + String(120+r1*Math.sin(a1)) + ' ' + String(120+r2*Math.cos(a2)) + ',' + String(120+r2*Math.sin(a2))} fill="none" stroke={p.color} strokeWidth="1.5" filter="url(#hglow)"/>
                   })}
                   {pillarList.map((p: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
