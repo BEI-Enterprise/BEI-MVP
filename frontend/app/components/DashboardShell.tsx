@@ -17,7 +17,7 @@ const NAV_ITEMS = [
   { id: 'industry', label: 'Industry Intelligence™', icon: '⊕', href: '/industry' },
   { id: 'deployment', label: 'Outcome & Deployment™', icon: '▹', href: '/deployments' },
   { id: 'operations', label: 'Intelligence Operations™', icon: '⊛', href: '/intelligence-ops', dividerBefore: true },
-  { id: 'admin', label: 'Administration', icon: '⚙', href: '/account' },
+  { id: 'admin', label: 'Settings', icon: '⚙', href: '/settings' },
 ]
 
 export default function DashboardShell({ children, activeId }: { children: React.ReactNode, activeId?: string }) {
