@@ -416,12 +416,12 @@ export default function DashboardPage() {
 
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>BUSINESS HEALTH RADAR</div>
+              <div style={{ fontSize: '11px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '700' }}>BUSINESS HEALTH RADAR</div>
               <button onClick={() => setShowRadarModal(true)} style={{ fontSize: '11px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontWeight: '600' }}>View full →</button>
             </div>
             {pillarList.length > 0 ? (
               <>
-                <svg width="100%" viewBox="0 0 240 240" style={{ display: 'block', margin: '0 auto 4px', minHeight: '280px', overflow: 'visible' }}>
+                <svg width="100%" viewBox="0 0 240 240" style={{ display: 'block', margin: '0 auto 4px', minHeight: '280px', overflow: 'visible' }}><rect x="0" y="0" width="240" height="240" fill="#0e0e0e" rx="8"/>
                   <defs>
                     <filter id="hglow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                   </defs>
@@ -431,11 +431,11 @@ export default function DashboardPage() {
                       const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
                       const r = (ring/100)*88
                       return String(120+r*Math.cos(a)) + ',' + String(120+r*Math.sin(a))
-                    }).join(' ')} fill="none" stroke="#1e2e1e" strokeWidth="0.8"/>
+                    }).join(' ')} fill="none" stroke="#2a2a2a" strokeWidth="0.8"/>
                   ))}
                   {pillarList.map((_: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    return <line key={i} x1="120" y1="120" x2={120+88*Math.cos(a)} y2={120+88*Math.sin(a)} stroke="#1e2e1e" strokeWidth="0.8"/>
+                    return <line key={i} x1="120" y1="120" x2={120+88*Math.cos(a)} y2={120+88*Math.sin(a)} stroke="#2a2a2a" strokeWidth="0.8"/>
                   })}
                   <polygon
                     points={pillarList.map((_: any, i: number) => {
@@ -588,9 +588,9 @@ export default function DashboardPage() {
                 <svg width="100%" viewBox="0 0 260 260">
                   <defs><filter id="hglow2"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
                   {[25,50,75,100].map((ring: number) => (
-                    <polygon key={ring} points={pillarList.map((_: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; const r=(ring/100)*96; return String(130+r*Math.cos(a))+','+String(130+r*Math.sin(a)) }).join(' ')} fill="none" stroke="#1e2e1e" strokeWidth="0.8"/>
+                    <polygon key={ring} points={pillarList.map((_: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; const r=(ring/100)*96; return String(130+r*Math.cos(a))+','+String(130+r*Math.sin(a)) }).join(' ')} fill="none" stroke="#2a2a2a" strokeWidth="0.8"/>
                   ))}
-                  {pillarList.map((_: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; return <line key={i} x1="130" y1="130" x2={130+96*Math.cos(a)} y2={130+96*Math.sin(a)} stroke="#1e2e1e" strokeWidth="0.8"/> })}
+                  {pillarList.map((_: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; return <line key={i} x1="130" y1="130" x2={130+96*Math.cos(a)} y2={130+96*Math.sin(a)} stroke="#2a2a2a" strokeWidth="0.8"/> })}
                   <polygon points={pillarList.map((_: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; const r=(benchmarkScore/20)*96; return String(130+r*Math.cos(a))+','+String(130+r*Math.sin(a)) }).join(' ')} fill="none" stroke={gold} strokeWidth="1" strokeDasharray="4 3" strokeOpacity="0.4"/>
                   {pillarList.map((p: any, i: number) => { const next=pillarList[(i+1)%pillarList.length]; const a1=(i/pillarList.length)*2*Math.PI-Math.PI/2; const a2=((i+1)/pillarList.length)*2*Math.PI-Math.PI/2; const r1=(p.score/20)*96; const r2=(next.score/20)*96; return <polygon key={i} points={'130,130 '+String(130+r1*Math.cos(a1))+','+String(130+r1*Math.sin(a1))+' '+String(130+r2*Math.cos(a2))+','+String(130+r2*Math.sin(a2))} fill={p.color+'22'} stroke={p.color} strokeWidth="2" filter="url(#hglow2)"/> })}
                   {pillarList.map((p: any, i: number) => { const a=(i/pillarList.length)*2*Math.PI-Math.PI/2; const r=(p.score/20)*96; const lx=130+118*Math.cos(a); const ly=130+118*Math.sin(a); return <g key={i}><circle cx={130+r*Math.cos(a)} cy={130+r*Math.sin(a)} r="6" fill={p.color} filter="url(#hglow2)"/><circle cx={130+r*Math.cos(a)} cy={130+r*Math.sin(a)} r="2.5" fill="#fff"/><text x={lx} y={ly-5} textAnchor="middle" fill="#ffffff" fontSize="10" fontWeight="700">{p.name}</text><text x={lx} y={ly+9} textAnchor="middle" fill={p.color} fontSize="12" fontWeight="900">{p.score}/20</text></g> })}

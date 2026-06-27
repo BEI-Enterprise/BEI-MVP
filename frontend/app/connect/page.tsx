@@ -249,7 +249,7 @@ export default function BusinessTwinPage() {
   const radarPts = dims.map((d, i) => {
     const a = (i / n) * 2 * Math.PI - Math.PI / 2
     const r = (d.pct / 100) * 100
-    return { x: 120 + r * Math.cos(a), y: 120 + r * Math.sin(a), lx: 120 + 118 * Math.cos(a), ly: 120 + 118 * Math.sin(a), ...d }
+    return { x: 130 + r * Math.cos(a), y: 140 + r * Math.sin(a), lx: 130 + 122 * Math.cos(a), ly: 140 + 122 * Math.sin(a), ...d }
   })
 
   const activeModal_connector = activeModal ? CONNECTOR_GROUPS.flatMap(g => g.connectors).find(c => c.id === activeModal) : null
@@ -499,19 +499,19 @@ export default function BusinessTwinPage() {
           </div>
           <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>Real-time intelligence dimension coverage</div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <svg width="100%" viewBox="0 0 260 280" style={{ maxWidth: '280px' }}>
+            <svg width="100%" viewBox="0 0 260 280" style={{ maxWidth: '280px' }}><rect width="260" height="280" fill="#0e0e0e" rx="8"/>
               <defs><filter id="gw"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
               <circle cx="130" cy="140" r="130" fill="#050505"/>
               {[25,50,75,100].map(ring => (
-                <polygon key={ring} points={dims.map((_, i) => { const a=(i/n)*2*Math.PI-Math.PI/2; const r=(ring/100)*100; return `${130+r*Math.cos(a)},${140+r*Math.sin(a)}` }).join(' ')} fill="none" stroke="#1a2a1a" strokeWidth="0.8"/>
+                <polygon key={ring} points={dims.map((_, i) => { const a=(i/n)*2*Math.PI-Math.PI/2; const r=(ring/100)*100; return `${130+r*Math.cos(a)},${140+r*Math.sin(a)}` }).join(' ')} fill="none" stroke="#2a2a2a" strokeWidth="0.8"/>
               ))}
-              {dims.map((_, i) => { const a=(i/n)*2*Math.PI-Math.PI/2; return <line key={i} x1="130" y1="140" x2={130+100*Math.cos(a)} y2={140+100*Math.sin(a)} stroke="#1a2a1a" strokeWidth="0.8"/> })}
+              {dims.map((_, i) => { const a=(i/n)*2*Math.PI-Math.PI/2; return <line key={i} x1="130" y1="140" x2={130+100*Math.cos(a)} y2={140+100*Math.sin(a)} stroke="#2a2a2a" strokeWidth="0.8"/> })}
               {radarPts.map((p, i) => { const next=radarPts[(i+1)%n]; return <polygon key={i} points={`130,140 ${p.x},${p.y} ${next.x},${next.y}`} fill={p.color+'18'} stroke={p.color} strokeWidth="1.5" filter="url(#gw)"/> })}
               {radarPts.map((p, i) => (
                 <g key={i}>
                   <circle cx={p.x} cy={p.y} r="5" fill={p.color} filter="url(#gw)"/>
                   <circle cx={p.x} cy={p.y} r="2" fill="#fff"/>
-                  <text x={p.lx} y={p.ly-5} textAnchor="middle" fill="#888" fontSize="9" fontWeight="600">{p.label}</text>
+                  <text x={p.lx} y={p.ly-6} textAnchor="middle" fill="#cccccc" fontSize="10" fontWeight="700">{p.label}</text>
                   <text x={p.lx} y={p.ly+7} textAnchor="middle" fill={p.color} fontSize="11" fontWeight="800">{p.pct}%</text>
                 </g>
               ))}
