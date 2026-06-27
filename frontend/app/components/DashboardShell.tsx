@@ -35,7 +35,43 @@ export default function DashboardShell({ children, activeId }: { children: React
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user))
+    // Load MRI context for Ask BEI
+    const loadCtx = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) {
+          const { data } = await supabase.from('businesses').select('business_name,mri_result,industry').eq('email', user.email).order('updated_at',{ascending:false}).limit(1).single()
+          if (data) setMriContext(data)
+        }
+      } catch(e) {}
+    }
+    loadCtx()
+    const handler = () => setChatOpen(o => !o)
+    window.addEventListener('open-ask-bei', handler)
+    return () => window.removeEventListener('open-ask-bei', handler)
   }, [])
+
+  useEffect(() => { chatEndRef.current?.scrollIntoView({behavior:'smooth'}) }, [chatMessages])
+
+  const sendChat = async () => {
+    if (!chatInput.trim() || chatLoading) return
+    const q = chatInput.trim()
+    setChatInput('')
+    setChatMessages(p => [...p, {role:'user', text:q}])
+    setChatLoading(true)
+    try {
+      const r = mriContext?.mri_result || {}
+      const res = await fetch('/api/agents/decision', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ primary:r.primary_constraint||null, secondary:r.secondary_constraints||[], confidence:r.confidence||'medium', industry:mriContext?.industry||'', businessName:mriContext?.business_name||'Your Business', question:q })
+      })
+      const d = await res.json()
+      setChatMessages(p => [...p, {role:'assistant', text:d.response||'No response.'}])
+    } catch(e) {
+      setChatMessages(p => [...p, {role:'assistant', text:'Connection error. Please try again.'}])
+    }
+    setChatLoading(false)
+  }
 
   const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Executive'
   const userInitial = userName.charAt(0).toUpperCase()
@@ -261,7 +297,54 @@ export default function DashboardShell({ children, activeId }: { children: React
           {children}
         </div>
 
-        <AskBEI />
+        {chatOpen && (
+          <div style={{position:'fixed' as const,bottom:'24px',right:'24px',width:'420px',height:'580px',backgroundColor:'#0e0e0e',border:'1px solid rgba(200,162,74,0.4)',borderRadius:'16px',display:'flex',flexDirection:'column' as const,zIndex:500,boxShadow:'0 24px 80px rgba(0,0,0,0.85)'}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 18px',borderBottom:'1px solid #1e1e1e',flexShrink:0}}>
+              <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+                <div style={{width:'30px',height:'30px',borderRadius:'8px',backgroundColor:'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.3)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'14px',color:'#C8A24A'}}>✦</div>
+                <div>
+                  <div style={{fontSize:'14px',fontWeight:'700',color:'#ffffff'}}>Ask BEI</div>
+                  <div style={{fontSize:'10px',color:'#4aaa4a',letterSpacing:'0.08em'}}>Intelligence Assistant · {mriContext?.business_name||'Your Business'}</div>
+                </div>
+              </div>
+              <button onClick={()=>setChatOpen(false)} style={{background:'none',border:'1px solid #2a2a2a',borderRadius:'6px',color:'#888',cursor:'pointer',fontSize:'14px',width:'28px',height:'28px',display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
+            </div>
+            <div style={{flex:1,overflowY:'auto' as const,padding:'14px',display:'flex',flexDirection:'column' as const,gap:'10px'}}>
+              {chatMessages.length===0 && (
+                <div style={{textAlign:'center' as const,padding:'20px 12px'}}>
+                  <div style={{fontSize:'24px',marginBottom:'10px'}}>✦</div>
+                  <div style={{fontSize:'14px',color:'#e0e0e0',fontWeight:'600',marginBottom:'6px'}}>Ask anything about your business</div>
+                  <div style={{fontSize:'12px',color:'#666',lineHeight:'1.6',marginBottom:'14px'}}>I have full access to your MRI data, constraints, opportunities and deployment plans.</div>
+                  <div style={{display:'flex',flexDirection:'column' as const,gap:'6px'}}>
+                    {['Why is this my primary constraint?','What should I focus on first?','How much revenue am I losing?','What are my biggest opportunities?','Explain my deployment options'].map((q,i)=>(
+                      <button key={i} onClick={()=>setChatInput(q)} style={{padding:'8px 12px',backgroundColor:'#1a1a1a',border:'1px solid #2a2a2a',borderRadius:'8px',color:'#cccccc',fontSize:'12px',cursor:'pointer',textAlign:'left' as const}}>{q}</button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {chatMessages.map((msg,i)=>(
+                <div key={i} style={{display:'flex',justifyContent:msg.role==='user'?'flex-end':'flex-start',alignItems:'flex-start',gap:'8px'}}>
+                  {msg.role==='assistant'&&<div style={{width:'24px',height:'24px',borderRadius:'6px',backgroundColor:'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.25)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',color:'#C8A24A',flexShrink:0,marginTop:'2px'}}>✦</div>}
+                  <div style={{maxWidth:'82%',padding:'10px 13px',backgroundColor:msg.role==='user'?'rgba(200,162,74,0.1)':'#1a1a1a',border:'1px solid '+(msg.role==='user'?'rgba(200,162,74,0.22)':'#2a2a2a'),borderRadius:msg.role==='user'?'12px 12px 3px 12px':'12px 12px 12px 3px',fontSize:'13px',color:'#e0e0e0',lineHeight:'1.65',whiteSpace:'pre-wrap' as const}}>{msg.text}</div>
+                </div>
+              ))}
+              {chatLoading&&(
+                <div style={{display:'flex',alignItems:'center',gap:'8px'}}>
+                  <div style={{width:'24px',height:'24px',borderRadius:'6px',backgroundColor:'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.25)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',color:'#C8A24A'}}>✦</div>
+                  <div style={{padding:'10px 13px',backgroundColor:'#1a1a1a',border:'1px solid #2a2a2a',borderRadius:'12px 12px 12px 3px',fontSize:'13px',color:'#555'}}>Analysing your intelligence...</div>
+                </div>
+              )}
+              <div ref={chatEndRef}/>
+            </div>
+            <div style={{padding:'12px 14px',borderTop:'1px solid #1e1e1e',flexShrink:0}}>
+              <div style={{display:'flex',gap:'8px',alignItems:'flex-end'}}>
+                <textarea value={chatInput} onChange={(e:any)=>setChatInput(e.target.value)} onKeyDown={(e:any)=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat()}}} placeholder="Ask about your business intelligence..." rows={2} style={{flex:1,backgroundColor:'#1a1a1a',border:'1px solid #2a2a2a',borderRadius:'10px',color:'#e0e0e0',fontSize:'13px',padding:'9px 13px',resize:'none' as const,outline:'none',fontFamily:'inherit',lineHeight:'1.5'}}/>
+                <button onClick={sendChat} disabled={chatLoading||!chatInput.trim()} style={{width:'38px',height:'38px',backgroundColor:chatInput.trim()?'#C8A24A':'#1a1a1a',border:'1px solid '+(chatInput.trim()?'#C8A24A':'#2a2a2a'),borderRadius:'10px',color:chatInput.trim()?'#050505':'#555',fontSize:'16px',cursor:chatInput.trim()?'pointer':'default',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>→</button>
+              </div>
+              <div style={{fontSize:'10px',color:'#444',marginTop:'5px',textAlign:'center' as const}}>Powered by BEI Decision Intelligence</div>
+            </div>
+          </div>
+        )}
         {/* BOTTOM STATUS BAR */}
         <div style={{ height: '32px', backgroundColor: '#080808', borderTop: `1px solid ${sidebarBorder}`, display: 'flex', alignItems: 'center', padding: '0 24px', gap: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
