@@ -13,7 +13,7 @@ const NAV_ITEMS = [
   { id: 'constraints', label: 'Constraint Intelligence™', icon: '◎', href: '/constraints' },
   { id: 'opportunities', label: 'Opportunity Centre™', icon: '◈', href: '/opportunities' },
   { id: 'risk', label: 'Risk Intelligence™', icon: '⊘', href: '/risk' },
-  { id: 'performance', label: 'Performance Intelligence™', icon: '⟋', href: '/outcomes' },
+  { id: 'performance', label: 'Performance Intelligence™', icon: '⟋', href: '/performance' },
   { id: 'industry', label: 'Industry Intelligence™', icon: '⊕', href: '/clients' },
   { id: 'deployment', label: 'Outcome & Deployment™', icon: '▹', href: '/deployments' },
   { id: 'operations', label: 'Intelligence Operations™', icon: '⊛', href: '/connect', dividerBefore: true },
