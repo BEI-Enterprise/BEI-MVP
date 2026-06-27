@@ -257,31 +257,7 @@ export default function DashboardShell({ children, activeId }: { children: React
           {children}
         </div>
 
-        {chatOpen && (
-          <div style={{position:'fixed' as const,bottom:'24px',right:'24px',width:'420px',height:'580px',backgroundColor:'#0e0e0e',border:'1px solid rgba(200,162,74,0.4)',borderRadius:'16px',display:'flex',flexDirection:'column' as const,zIndex:500,boxShadow:'0 24px 80px rgba(0,0,0,0.85)'}}>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 18px',borderBottom:'1px solid #1e1e1e',flexShrink:0}}>
-              <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
-                <div style={{width:'30px',height:'30px',borderRadius:'8px',backgroundColor:'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.3)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'14px',color:'#C8A24A'}}>✦</div>
-                <div>
-                  <div style={{fontSize:'14px',fontWeight:'700',color:'#ffffff'}}>Ask BEI</div>
-                  <div style={{fontSize:'10px',color:'#4aaa4a',letterSpacing:'0.08em'}}>Intelligence Assistant · {mriContext?.business_name||'Your Business'}</div>
-                </div>
-              </div>
-              <button onClick={()=>setChatOpen(false)} style={{background:'none',border:'1px solid #2a2a2a',borderRadius:'6px',color:'#888',cursor:'pointer',fontSize:'14px',width:'28px',height:'28px',display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
-            </div>
-            <div style={{flex:1,overflowY:'auto' as const,padding:'14px',display:'flex',flexDirection:'column' as const,gap:'10px'}}>
-              {chatMessages.length===0 && (
-                <div style={{textAlign:'center' as const,padding:'20px 12px'}}>
-                  <div style={{fontSize:'24px',marginBottom:'10px'}}>✦</div>
-                  <div style={{fontSize:'14px',color:'#e0e0e0',fontWeight:'600',marginBottom:'6px'}}>Ask anything about your business</div>
-                  <div style={{fontSize:'12px',color:'#666',lineHeight:'1.6',marginBottom:'14px'}}>I have full access to your MRI data, constraints, opportunities and deployment plans.</div>
-                  <div style={{display:'flex',flexDirection:'column' as const,gap:'6px'}}>
-                    {['Why is this my primary constraint?','What should I focus on first?','How much revenue am I losing?','What are my biggest opportunities?','Explain my deployment options'].map((q,i)=>(
-                      <button key={i} onClick={()=>setChatInput(q)} style={{padding:'8px 12px',backgroundColor:'#1a1a1a',border:'1px solid #2a2a2a',borderRadius:'8px',color:'#cccccc',fontSize:'12px',cursor:'pointer',textAlign:'left' as const}}>{q}</button>
-                    ))}
-                  </div>
-                </div>
-              )}
+        <AskBEI />
               {chatMessages.map((msg,i)=>(
                 <div key={i} style={{display:'flex',justifyContent:msg.role==='user'?'flex-end':'flex-start',alignItems:'flex-start',gap:'8px'}}>
                   {msg.role==='assistant'&&<div style={{width:'24px',height:'24px',borderRadius:'6px',backgroundColor:'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.25)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',color:'#C8A24A',flexShrink:0,marginTop:'2px'}}>✦</div>}
