@@ -348,7 +348,7 @@ export default function IndustryIntelligencePage() {
             <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '700' }}>{k.label}</div>
             <div style={{ fontSize: i === 2 ? '22px' : '28px', fontWeight: '900', color: i === 2 ? ((k as any).riskColor || gold) : '#ffffff', lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
             {(k as any).extra && <div style={{ fontSize: '12px', color: '#4aaa4a', fontWeight: '700', marginBottom: '4px' }}>{(k as any).extra}</div>}
-            <div style={{ fontSize: '11px', color: '#555', marginBottom: '5px' }}>{k.sub}</div>
+            <div style={{ fontSize: '13px', color: '#999', marginBottom: '5px' }}>{k.sub}</div>
             <div style={{ fontSize: '11px', color: k.trendColor, fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
@@ -383,7 +383,7 @@ export default function IndustryIntelligencePage() {
         {/* INDUSTRY PERFORMANCE BENCHMARKING */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>INDUSTRY PERFORMANCE BENCHMARKING</div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>How you compare against your industry peers</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>How you compare against your industry peers</div>
           {/* Bar chart — full width, proportional bars */}
           <div style={{ display: 'flex', gap: '0', marginBottom: '14px', alignItems: 'stretch', width: '100%' }}>
             {/* Y axis */}
@@ -414,7 +414,7 @@ export default function IndustryIntelligencePage() {
             <span style={{ color: '#4aaa4a', fontSize: '12px', flexShrink: 0, marginTop: '1px' }}>↗</span>
             <div>
               <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700', marginBottom: '3px' }}>You outperform {beatPct}% of businesses in your industry</div>
-              <div style={{ fontSize: '11px', color: '#666' }}>Benchmark position: {benchmarkPosition} · Based on your MRI health score of {healthScore}/100</div>
+              <div style={{ fontSize: '13px', color: '#aaa' }}>Benchmark position: {benchmarkPosition} · Based on your MRI health score of {healthScore}/100</div>
             </div>
           </div>
         </div>
@@ -432,7 +432,7 @@ export default function IndustryIntelligencePage() {
                 <div style={{ width: '18px', height: '18px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8px', color: gold, fontWeight: '700', flexShrink: 0 }}>{i+1}</div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '700', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{p.name}</div>
-                  <div style={{ fontSize: '10px', color: '#666' }}>{p.segment}</div>
+                  <div style={{ fontSize: '12px', color: '#aaa' }}>{p.segment}</div>
                 </div>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #4aaa4a44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '700' }}>{p.score}</span>
@@ -453,7 +453,7 @@ export default function IndustryIntelligencePage() {
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.6fr 0.6fr 0.6fr', gap: '0', padding: '5px 0', borderBottom: i < 4 ? '1px solid #0a0a0a' : 'none', alignItems: 'center' }}>
                 <div style={{ fontSize: '11px', color: '#888' }}>{b.metric}</div>
                 <div style={{ fontSize: '11px', color: b.yourScore ? (b.yourScore >= b.industryAvg ? '#4aaa4a' : '#e8923a') : '#444', fontWeight: b.yourScore ? '700' : '400' }}>{b.yourScore ? b.yourScore + (b.unit || '') : '—'}</div>
-                <div style={{ fontSize: '11px', color: '#666' }}>{typeof b.industryAvg === 'number' ? b.industryAvg + (b.unit || '') : b.industryAvg}</div>
+                <div style={{ fontSize: '13px', color: '#aaa' }}>{typeof b.industryAvg === 'number' ? b.industryAvg + (b.unit || '') : b.industryAvg}</div>
                 <div style={{ fontSize: '11px', color: gold, fontWeight: '700' }}>{typeof b.top25 === 'number' ? b.top25 + (b.unit || '') : b.top25}</div>
               </div>
             ))}
@@ -471,7 +471,7 @@ export default function IndustryIntelligencePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>INDUSTRY TRENDS</div>
             <button onClick={() => setShowTrendsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all trends →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Key trends shaping your industry</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Key trends shaping your industry</div>
           {ID.trends.map((t: any, i: number) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 0', borderBottom: i < ID.trends.length-1 ? '1px solid #111' : 'none' }}>
               <div style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: gold, fontWeight: '700' }}>{i+1}</div>
@@ -490,7 +490,7 @@ export default function IndustryIntelligencePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>EMERGING OPPORTUNITIES</div>
             <button onClick={() => setShowOppsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View opportunities →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>High-value opportunities in your industry</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>High-value opportunities in your industry</div>
           {ID.opportunities.map((o: any, i: number) => (
             <div key={i} style={{ padding: '8px 0', borderBottom: i < ID.opportunities.length-1 ? '1px solid #111' : 'none' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
@@ -502,7 +502,7 @@ export default function IndustryIntelligencePage() {
               </div>
               <div style={{ display: 'flex', gap: '10px', paddingLeft: '29px' }}>
                 <span style={{ fontSize: '13px', color: gold, fontWeight: '800' }}>{o.value}</span>
-                <span style={{ fontSize: '11px', color: '#555' }}>{o.time}</span>
+                <span style={{ fontSize: '13px', color: '#999' }}>{o.time}</span>
               </div>
             </div>
           ))}
@@ -514,7 +514,7 @@ export default function IndustryIntelligencePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>INDUSTRY RISK LANDSCAPE</div>
             <button onClick={() => setShowRisksModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all risks →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Key risks impacting your industry</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Key risks impacting your industry</div>
           {ID.risks.map((r: any, i: number) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 0', borderBottom: i < ID.risks.length-1 ? '1px solid #111' : 'none' }}>
               <div style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: r.levelColor+'18', border: '1px solid '+r.levelColor+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: r.levelColor }}>⚠</div>
@@ -533,7 +533,7 @@ export default function IndustryIntelligencePage() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
             <div>
               <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>INDUSTRY COMPARISON MATRIX</div>
-              <div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>Compare key metrics across different industries</div>
+              <div style={{ fontSize: '13px', color: '#999', marginTop: '2px' }}>Compare key metrics across different industries</div>
             </div>
             <button onClick={() => setShowMatrixModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full →</button>
           </div>
@@ -558,11 +558,11 @@ export default function IndustryIntelligencePage() {
         {/* METHODOLOGY */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '14px', width: '180px', flexShrink: 0 }}>
           <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.12em', fontWeight: '600', marginBottom: '8px' }}>METHODOLOGY</div>
-          <div style={{ fontSize: '10px', color: '#555', lineHeight: '1.6', marginBottom: '10px' }}>Industry Intelligence is calculated using algorithms analysing:</div>
+          <div style={{ fontSize: '12px', color: '#999', lineHeight: '1.6', marginBottom: '10px' }}>Industry Intelligence is calculated using algorithms analysing:</div>
           {['10,000+ industry data points','500+ performance benchmarks','Real-time market signals','Economic indicators','Regulatory changes','Technology adoption rates'].map((m, i) => (
             <div key={i} style={{ display: 'flex', gap: '5px', marginBottom: '4px' }}>
               <span style={{ color: gold, fontSize: '8px', marginTop: '2px' }}>◈</span>
-              <span style={{ fontSize: '9px', color: '#555' }}>{m}</span>
+              <span style={{ fontSize: '11px', color: '#999' }}>{m}</span>
             </div>
           ))}
           <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid #1a1a1a', fontSize: '9px', color: '#333' }}>Updated daily ●</div>
@@ -584,7 +584,7 @@ export default function IndustryIntelligencePage() {
                 <div style={{ width: '22px', height: '22px', borderRadius: '5px', backgroundColor: ins.color+'18', border: '1px solid '+ins.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: ins.color }}>◈</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '12px', color: '#cccccc', fontWeight: '600', lineHeight: 1.3, marginBottom: '3px' }}>{ins.title}</div>
-                  <div style={{ fontSize: '10px', color: '#555' }}>{ins.time}</div>
+                  <div style={{ fontSize: '12px', color: '#999' }}>{ins.time}</div>
                 </div>
               </div>
             ))}
@@ -592,7 +592,7 @@ export default function IndustryIntelligencePage() {
 
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '14px' }}>
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '10px' }}>INDUSTRY OUTLOOK</div>
-            <div style={{ fontSize: '10px', color: '#555', marginBottom: '8px' }}>12 month outlook</div>
+            <div style={{ fontSize: '12px', color: '#999', marginBottom: '8px' }}>12 month outlook</div>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '10px' }}>
               <div style={{ width: '70px', height: '70px', borderRadius: '50%', border: '3px solid ' + ID.outlookColor, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 16px ' + ID.outlookColor + '22' }}>
                 <div style={{ fontSize: '11px', fontWeight: '800', color: ID.outlookColor, textAlign: 'center' as const, lineHeight: 1.2 }}>{ID.outlook}</div>
@@ -607,7 +607,7 @@ export default function IndustryIntelligencePage() {
                 ))}
               </div>
             </div>
-            <div style={{ fontSize: '9px', color: '#555' }}>Confidence Level: 78% · Updated: Today</div>
+            <div style={{ fontSize: '11px', color: '#999' }}>Confidence Level: 78% · Updated: Today</div>
           </div>
         </div>
       </div>
@@ -639,7 +639,7 @@ export default function IndustryIntelligencePage() {
               )
             })}
             <div style={{ marginTop: '14px', padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
-              <div style={{ fontSize: '11px', color: '#666', lineHeight: '1.6' }}>Benchmarks based on BEI Research, ONS data, and {ID.businesses} businesses in the {ID.label} sector. Your scores are derived from your Business MRI responses where available.</div>
+              <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.6' }}>Benchmarks based on BEI Research, ONS data, and {ID.businesses} businesses in the {ID.label} sector. Your scores are derived from your Business MRI responses where available.</div>
             </div>
           </div>
         </div>
@@ -657,7 +657,7 @@ export default function IndustryIntelligencePage() {
                 <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', color: gold, fontWeight: '700' }}>{i+1}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '15px', color: '#ffffff', fontWeight: '700', marginBottom: '2px' }}>{p.name}</div>
-                  <div style={{ fontSize: '11px', color: '#666' }}>{p.segment} · {ID.label}</div>
+                  <div style={{ fontSize: '13px', color: '#aaa' }}>{p.segment} · {ID.label}</div>
                 </div>
                 <div style={{ textAlign: 'center' as const }}>
                   <div style={{ width: '44px', height: '44px', borderRadius: '50%', border: '2.5px solid #4aaa4a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -671,7 +671,7 @@ export default function IndustryIntelligencePage() {
               </div>
             ))}
             <div style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', marginTop: '4px' }}>
-              <div style={{ fontSize: '11px', color: '#555' }}>Your position: <span style={{ color: gold, fontWeight: '600' }}>{benchmarkPosition}</span> in {ID.label} · Health score: <span style={{ color: '#e0e0e0', fontWeight: '600' }}>{healthScore}/100</span></div>
+              <div style={{ fontSize: '13px', color: '#999' }}>Your position: <span style={{ color: gold, fontWeight: '600' }}>{benchmarkPosition}</span> in {ID.label} · Health score: <span style={{ color: '#e0e0e0', fontWeight: '600' }}>{healthScore}/100</span></div>
             </div>
           </div>
         </div>
@@ -715,12 +715,12 @@ export default function IndustryIntelligencePage() {
                 <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: o.impactColor+'18', border: '1px solid '+o.impactColor+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '14px', color: o.impactColor }}>◈</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '14px', color: '#ffffff', fontWeight: '700', marginBottom: '3px' }}>{o.name}</div>
-                  <div style={{ fontSize: '11px', color: '#555' }}>{o.time} · {ID.label}</div>
+                  <div style={{ fontSize: '13px', color: '#999' }}>{o.time} · {ID.label}</div>
                 </div>
                 <div style={{ padding: '3px 9px', backgroundColor: o.impactColor+'18', border: '1px solid '+o.impactColor+'33', borderRadius: '4px', fontSize: '10px', color: o.impactColor, fontWeight: '700' }}>{o.impact}</div>
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
                   <div style={{ fontSize: '16px', fontWeight: '800', color: gold }}>{o.value}</div>
-                  <div style={{ fontSize: '10px', color: '#555' }}>Market opportunity</div>
+                  <div style={{ fontSize: '12px', color: '#999' }}>Market opportunity</div>
                 </div>
               </div>
             ))}
@@ -765,7 +765,7 @@ export default function IndustryIntelligencePage() {
                 <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: ins.color+'18', border: '1px solid '+ins.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '14px', color: ins.color }}>◈</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700', marginBottom: '4px', lineHeight: 1.4 }}>{ins.title}</div>
-                  <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px' }}>{ins.time}</div>
+                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '6px' }}>{ins.time}</div>
                   <div style={{ fontSize: '11px', color: '#777', lineHeight: '1.6' }}>This insight is relevant to your position in the {ID.label} sector. Current health score: {healthScore}/100 — {benchmarkPosition}.</div>
                 </div>
               </div>

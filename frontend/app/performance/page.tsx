@@ -197,7 +197,7 @@ export default function PerformancePage() {
             <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
             <div style={{ fontSize: i === 5 ? '18px' : '22px', fontWeight: '900', color: i === 5 ? driverColor(riskScore) : '#ffffff', lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
             {i === 0 && <div style={{ fontSize: '11px', color: driverColor(overallPerf), fontWeight: '700', marginBottom: '3px' }}>{statusLabel(overallPerf)}</div>}
-            <div style={{ fontSize: '10px', color: '#555', marginBottom: '4px' }}>{k.sub}</div>
+            <div style={{ fontSize: '12px', color: '#999', marginBottom: '4px' }}>{k.sub}</div>
             <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
@@ -212,7 +212,7 @@ export default function PerformancePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE DRIVER ANALYSIS</div>
             <button onClick={() => setShowFullAnalysis(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full analysis →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '10px' }}>How each pillar is contributing to your results</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>How each pillar is contributing to your results</div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <svg width="220" height="220" viewBox="0 0 240 240">
               <defs><filter id="pglow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
@@ -228,8 +228,8 @@ export default function PerformancePage() {
             </svg>
           </div>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' as const }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: '#4aaa4a', borderRadius: '2px' }}/><span style={{ fontSize: '9px', color: '#666' }}>Your Score</span></div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '2px', backgroundColor: gold, borderRadius: '2px', borderStyle: 'dashed' }}/><span style={{ fontSize: '9px', color: '#666' }}>Industry Average</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: '#4aaa4a', borderRadius: '2px' }}/><span style={{ fontSize: '11px', color: '#aaa' }}>Your Score</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '2px', backgroundColor: gold, borderRadius: '2px', borderStyle: 'dashed' }}/><span style={{ fontSize: '11px', color: '#aaa' }}>Industry Average</span></div>
           </div>
         </div>
 
@@ -237,9 +237,9 @@ export default function PerformancePage() {
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE TRENDS</div>
-            <div style={{ padding: '3px 8px', backgroundColor: '#0a0a0a', border: '1px solid ' + border, borderRadius: '4px', fontSize: '9px', color: '#666' }}>Last 90 Days</div>
+            <div style={{ padding: '3px 8px', backgroundColor: '#0a0a0a', border: '1px solid ' + border, borderRadius: '4px', fontSize: '11px', color: '#aaa' }}>Last 90 Days</div>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '10px' }}>Track performance progression over time</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>Track performance progression over time</div>
           <svg width="100%" height="160" viewBox="0 0 300 160">
             {[0,1,2,3].map(i => <line key={i} x1="28" y1={i*40+10} x2="295" y2={i*40+10} stroke="#111" strokeWidth="0.8"/>)}
             {[100,75,50,25].map((l,i) => <text key={l} x="0" y={i*40+14} fill="#333" fontSize="7">{l}</text>)}
@@ -297,13 +297,13 @@ export default function PerformancePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>TOP PERFORMANCE STRENGTHS</div>
             <button onClick={() => setShowStrengthsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Your highest performing areas</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Your highest performing areas</div>
           {strengths.map((d, i) => (
             <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center', padding: '8px 0', borderBottom: i < strengths.length-1 ? '1px solid #111' : 'none' }}>
               <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: '#4aaa4a18', border: '1px solid #4aaa4a33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: '#4aaa4a' }}>✓</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{d.name}</div>
-                <div style={{ fontSize: '10px', color: '#555' }}>{d.desc}</div>
+                <div style={{ fontSize: '12px', color: '#999' }}>{d.desc}</div>
               </div>
               <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
                 <div style={{ fontSize: '13px', color: '#4aaa4a', fontWeight: '800' }}>{d.score}/100</div>
@@ -319,13 +319,13 @@ export default function PerformancePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE GAPS</div>
             <button onClick={() => setShowGapsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Areas requiring attention and improvement</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Areas requiring attention and improvement</div>
           {gaps.map((d, i) => (
             <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center', padding: '8px 0', borderBottom: i < gaps.length-1 ? '1px solid #111' : 'none' }}>
               <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: driverColor(d.score)+'18', border: '1px solid '+driverColor(d.score)+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: driverColor(d.score) }}>⚠</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{d.name}</div>
-                <div style={{ fontSize: '10px', color: '#555' }}>{d.answer ? d.answer.toLowerCase() : d.desc}</div>
+                <div style={{ fontSize: '12px', color: '#999' }}>{d.answer ? d.answer.toLowerCase() : d.desc}</div>
               </div>
               <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
                 <div style={{ fontSize: '13px', color: driverColor(d.score), fontWeight: '800' }}>{d.score}/100</div>
@@ -341,7 +341,7 @@ export default function PerformancePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE IMPROVEMENT OPPORTUNITIES</div>
             <button onClick={() => setShowOppsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>High-impact opportunities to boost performance</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>High-impact opportunities to boost performance</div>
           {oppImprovements.map((o, i) => (
             <div key={i} style={{ padding: '9px 0', borderBottom: i < oppImprovements.length-1 ? '1px solid #111' : 'none' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '3px' }}>
@@ -350,7 +350,7 @@ export default function PerformancePage() {
               </div>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <span style={{ fontSize: '11px', color: gold, fontWeight: '700' }}>{o.value}</span>
-                <span style={{ fontSize: '10px', color: '#555' }}>{o.time}</span>
+                <span style={{ fontSize: '12px', color: '#999' }}>{o.time}</span>
               </div>
             </div>
           ))}
@@ -362,7 +362,7 @@ export default function PerformancePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE CORRELATION</div>
             <button onClick={() => setShowCorrelationModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View analysis →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Understanding what drives performance</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Understanding what drives performance</div>
           {[
             { a: strengths[0]?.name || 'Growth', b: 'Overall Performance', corr: 0.78, color: '#4aaa4a' },
             { a: strengths[1]?.name || 'Operations', b: 'Productivity', corr: 0.72, color: '#4aaa4a' },
@@ -388,7 +388,7 @@ export default function PerformancePage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
           <div>
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE INSIGHTS & RECOMMENDATIONS</div>
-            <div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>AI-powered insights derived from your MRI data</div>
+            <div style={{ fontSize: '13px', color: '#999', marginTop: '2px' }}>AI-powered insights derived from your MRI data</div>
           </div>
           <button onClick={() => setShowInsightsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all insights →</button>
         </div>
@@ -402,7 +402,7 @@ export default function PerformancePage() {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ fontSize: '10px', color: ins.color, fontWeight: '600' }}>{ins.conf}</div>
-                <div style={{ fontSize: '9px', color: '#555' }}>{ins.meta}</div>
+                <div style={{ fontSize: '11px', color: '#999' }}>{ins.meta}</div>
               </div>
             </div>
           ))}
@@ -422,7 +422,7 @@ export default function PerformancePage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '10px', marginBottom: '16px' }}>
               {pillarList.map((p, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + p.color + '33', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.08em', marginBottom: '5px', fontWeight: '600' }}>{p.name.toUpperCase()} PILLAR</div>
+                  <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.08em', marginBottom: '5px', fontWeight: '600' }}>{p.name.toUpperCase()} PILLAR</div>
                   <div style={{ fontSize: '20px', fontWeight: '900', color: p.color }}>{p.score}/100</div>
                   <div style={{ fontSize: '10px', color: driverColor(p.score), marginTop: '2px' }}>{statusLabel(p.score)}</div>
                   <div style={{ height: '3px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden', marginTop: '6px' }}>
@@ -436,7 +436,7 @@ export default function PerformancePage() {
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.5fr 2fr 0.8fr', gap: '12px', alignItems: 'center', padding: '10px 12px', backgroundColor: '#0a0a0a', borderRadius: '7px', border: '1px solid #1e1e1e', marginBottom: '6px' }}>
                 <div>
                   <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700' }}>{d.name}</div>
-                  <div style={{ fontSize: '10px', color: '#555' }}>{d.pillar} Pillar · {d.desc}</div>
+                  <div style={{ fontSize: '12px', color: '#999' }}>{d.pillar} Pillar · {d.desc}</div>
                 </div>
                 <div style={{ fontSize: '15px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
                 <div>
@@ -465,10 +465,10 @@ export default function PerformancePage() {
             </div>
             {drivers.map((d, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.7fr 0.8fr 1fr 0.8fr', gap: '0', padding: '10px 0', borderBottom: i < drivers.length-1 ? '1px solid #111' : 'none', alignItems: 'center' }}>
-                <div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{d.name}</div><div style={{ fontSize: '9px', color: '#555' }}>{d.pillar}</div></div>
+                <div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{d.name}</div><div style={{ fontSize: '11px', color: '#999' }}>{d.pillar}</div></div>
                 <div style={{ fontSize: '14px', fontWeight: '800', color: driverColor(d.score) }}>{d.score}/100</div>
                 {miniSparkline(d.score, driverColor(d.score), i)}
-                <div style={{ fontSize: '10px', color: '#666' }}>{d.answer ? '"' + d.answer + '"' : 'MRI data'}</div>
+                <div style={{ fontSize: '12px', color: '#aaa' }}>{d.answer ? '"' + d.answer + '"' : 'MRI data'}</div>
                 <div style={{ padding: '3px 7px', backgroundColor: statusBg(d.score), borderRadius: '4px', fontSize: '9px', color: driverColor(d.score), fontWeight: '700', display: 'inline-block' }}>{statusLabel(d.score)}</div>
               </div>
             ))}
@@ -493,8 +493,8 @@ export default function PerformancePage() {
                 <div style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: driverColor(d.score)+'18', border: '1px solid '+driverColor(d.score)+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: driverColor(d.score), fontWeight: '700' }}>{i+1}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700', marginBottom: '2px' }}>{d.name}</div>
-                  <div style={{ fontSize: '11px', color: '#555' }}>{d.pillar} Pillar · {d.desc}</div>
-                  {d.answer && <div style={{ fontSize: '10px', color: '#666', marginTop: '3px' }}>MRI: "{d.answer}"</div>}
+                  <div style={{ fontSize: '13px', color: '#999' }}>{d.pillar} Pillar · {d.desc}</div>
+                  {d.answer && <div style={{ fontSize: '12px', color: '#aaa', marginTop: '3px' }}>MRI: "{d.answer}"</div>}
                 </div>
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
                   <div style={{ fontSize: '18px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
@@ -519,7 +519,7 @@ export default function PerformancePage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                   <div>
                     <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700', marginBottom: '2px' }}>{d.name}</div>
-                    <div style={{ fontSize: '11px', color: '#555' }}>{d.pillar} Pillar · {d.desc}</div>
+                    <div style={{ fontSize: '13px', color: '#999' }}>{d.pillar} Pillar · {d.desc}</div>
                   </div>
                   <div style={{ textAlign: 'right' as const }}>
                     <div style={{ fontSize: '18px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
@@ -528,14 +528,14 @@ export default function PerformancePage() {
                 </div>
                 {d.answer && (
                   <div style={{ padding: '8px 10px', backgroundColor: driverColor(d.score)+'0a', border: '1px solid '+driverColor(d.score)+'22', borderRadius: '6px', marginBottom: '6px' }}>
-                    <div style={{ fontSize: '9px', color: '#555', marginBottom: '2px' }}>Your MRI response:</div>
+                    <div style={{ fontSize: '11px', color: '#999', marginBottom: '2px' }}>Your MRI response:</div>
                     <div style={{ fontSize: '11px', color: '#cccccc' }}>"{d.answer}"</div>
                   </div>
                 )}
                 <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
                   <div style={{ width: d.score + '%', height: '100%', backgroundColor: driverColor(d.score), borderRadius: '2px' }} />
                 </div>
-                <div style={{ fontSize: '10px', color: '#555', marginTop: '6px' }}>Gap to Good: {Math.max(0, 75 - d.score)} points to reach Good status</div>
+                <div style={{ fontSize: '12px', color: '#999', marginTop: '6px' }}>Gap to Good: {Math.max(0, 75 - d.score)} points to reach Good status</div>
               </div>
             ))}
           </div>
@@ -558,15 +558,15 @@ export default function PerformancePage() {
                       <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700' }}>{o.name || 'Improvement ' + (i+1)}</div>
                       <div style={{ padding: '2px 7px', backgroundColor: (o.impactColor||gold)+'18', border: '1px solid '+(o.impactColor||gold)+'44', borderRadius: '4px', fontSize: '9px', color: o.impactColor||gold, fontWeight: '700' }}>{o.impact || 'High Impact'}</div>
                     </div>
-                    <div style={{ fontSize: '11px', color: '#555' }}>{o.driver?.pillar || ''} Pillar · {o.time || '3-6 months'}</div>
+                    <div style={{ fontSize: '13px', color: '#999' }}>{o.driver?.pillar || ''} Pillar · {o.time || '3-6 months'}</div>
                   </div>
                   <div style={{ textAlign: 'right' as const }}>
                     <div style={{ fontSize: '18px', fontWeight: '800', color: gold }}>{o.value || fmt(50000)}</div>
-                    <div style={{ fontSize: '10px', color: '#555' }}>Potential annual value</div>
+                    <div style={{ fontSize: '12px', color: '#999' }}>Potential annual value</div>
                   </div>
                 </div>
                 {o.driver?.answer && (
-                  <div style={{ fontSize: '11px', color: '#666', padding: '8px 10px', backgroundColor: '#0d0d0d', borderRadius: '5px', marginBottom: '6px' }}>
+                  <div style={{ fontSize: '13px', color: '#aaa', padding: '8px 10px', backgroundColor: '#0d0d0d', borderRadius: '5px', marginBottom: '6px' }}>
                     Current state: "{o.driver.answer}" → Target: Significantly improved
                   </div>
                 )}
@@ -608,7 +608,7 @@ export default function PerformancePage() {
                   <div style={{ width: (c.corr*100)+'%', height: '100%', backgroundColor: c.corr >= 0.7 ? '#4aaa4a' : gold, borderRadius: '3px' }} />
                 </div>
                 <div style={{ fontSize: '12px', color: c.corr >= 0.7 ? '#4aaa4a' : gold, fontWeight: '700', minWidth: '36px' }}>+{c.corr.toFixed(2)}</div>
-                <div style={{ fontSize: '10px', color: '#555', minWidth: '140px' }}>{c.desc}</div>
+                <div style={{ fontSize: '12px', color: '#999', minWidth: '140px' }}>{c.desc}</div>
               </div>
             ))}
           </div>
@@ -635,7 +635,7 @@ export default function PerformancePage() {
                   </div>
                   <div style={{ textAlign: 'right' as const, flexShrink: 0, marginLeft: '12px' }}>
                     <div style={{ fontSize: '11px', color: ins.color, fontWeight: '600' }}>{ins.conf}</div>
-                    <div style={{ fontSize: '10px', color: '#555' }}>{ins.meta}</div>
+                    <div style={{ fontSize: '12px', color: '#999' }}>{ins.meta}</div>
                   </div>
                 </div>
                 <div style={{ padding: '8px 10px', backgroundColor: ins.color+'08', borderRadius: '5px' }}>

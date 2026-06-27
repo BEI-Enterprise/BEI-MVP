@@ -56,10 +56,10 @@ export default function DashboardShell({ children, activeId }: { children: React
           {!collapsed && (
             <div>
               <div style={{ fontSize: '18px', fontWeight: '800', color: gold, letterSpacing: '0.15em' }}>BEI<sup style={{ fontSize: '9px', verticalAlign: 'super' }}>™</sup></div>
-              <div style={{ fontSize: '8px', color: '#555', letterSpacing: '0.2em', marginTop: '2px' }}>BUSINESS EXECUTION INTELLIGENCE</div>
+              <div style={{ fontSize: '9px', color: '#888', letterSpacing: '0.2em', marginTop: '2px' }}>BUSINESS EXECUTION INTELLIGENCE</div>
             </div>
           )}
-          <button onClick={() => setCollapsed(!collapsed)} style={{ background: 'none', border: 'none', color: '#555', cursor: 'pointer', fontSize: '14px', padding: '4px', flexShrink: 0 }}>
+          <button onClick={() => setCollapsed(!collapsed)} style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer', fontSize: '14px', padding: '4px', flexShrink: 0 }}>
             {collapsed ? '▶' : '◀'}
           </button>
         </div>
@@ -80,15 +80,15 @@ export default function DashboardShell({ children, activeId }: { children: React
                 textDecoration: 'none',
                 backgroundColor: isActive ? 'rgba(200,162,74,0.1)' : 'transparent',
                 borderLeft: isActive ? `2px solid ${gold}` : '2px solid transparent',
-                color: isActive ? gold : '#666',
-                fontSize: '12px',
-                fontWeight: isActive ? '700' : '400',
+                color: isActive ? gold : '#cccccc',
+                fontSize: '13px',
+                fontWeight: isActive ? '700' : '500',
                 letterSpacing: '0.02em',
                 transition: 'all 0.15s ease',
                 whiteSpace: 'nowrap' as const,
               }}
               onMouseEnter={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#aaa'; (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(255,255,255,0.03)' }}}
-              onMouseLeave={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#666'; (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent' }}}
+              onMouseLeave={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#cccccc'; (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent' }}}
               >
                 <span style={{ flexShrink: 0, width: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {item.id === 'dashboard' && <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L1 7h2v7h4v-4h2v4h4V7h2L8 1z" stroke={isActive ? '#C8A24A' : '#555'} strokeWidth="1.2" fill={isActive ? 'rgba(200,162,74,0.15)' : 'none'} strokeLinejoin="round"/></svg>}
@@ -119,7 +119,7 @@ export default function DashboardShell({ children, activeId }: { children: React
               <span style={{ fontSize: '16px' }}>✦</span>
               <div style={{ textAlign: 'left' as const }}>
                 <div>Ask BEI</div>
-                <div style={{ fontSize: '9px', color: '#555', fontWeight: '400', letterSpacing: '0.1em' }}>INTELLIGENCE ASSISTANT</div>
+                <div style={{ fontSize: '10px', color: '#888', fontWeight: '400', letterSpacing: '0.1em' }}>INTELLIGENCE ASSISTANT</div>
               </div>
             </button>
           </div>
@@ -198,7 +198,7 @@ export default function DashboardShell({ children, activeId }: { children: React
           <div style={{ position: 'relative' as const }}>
             <button onClick={() => setNotifOpen(!notifOpen)} style={{
               background: 'none', border: '1px solid #1e1e1e', borderRadius: '6px',
-              color: '#666', cursor: 'pointer', padding: '7px 10px', fontSize: '14px',
+              color: '#aaaaaa', cursor: 'pointer', padding: '7px 10px', fontSize: '14px',
               position: 'relative' as const,
             }}>
               🔔
@@ -206,10 +206,10 @@ export default function DashboardShell({ children, activeId }: { children: React
             </button>
             {notifOpen && (
               <div style={{ position: 'absolute' as const, right: 0, top: '44px', width: '280px', backgroundColor: '#0e0e0e', border: '1px solid #1e1e1e', borderRadius: '8px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)', zIndex: 100, padding: '8px 0' }}>
-                <div style={{ padding: '8px 16px', fontSize: '10px', color: '#555', letterSpacing: '0.1em', borderBottom: '1px solid #1a1a1a' }}>INTELLIGENCE ALERTS</div>
+                <div style={{ padding: '8px 16px', fontSize: '11px', color: '#999', letterSpacing: '0.1em', borderBottom: '1px solid #1a1a1a' }}>INTELLIGENCE ALERTS</div>
                 <div style={{ padding: '12px 16px', borderBottom: '1px solid #1a1a1a' }}>
                   <div style={{ fontSize: '12px', color: '#e0e0e0', marginBottom: '4px' }}>Primary constraint verified</div>
-                  <div style={{ fontSize: '11px', color: '#666' }}>New verification complete · Just now</div>
+                  <div style={{ fontSize: '11px', color: '#aaa' }}>New verification complete · Just now</div>
                 </div>
                 <div style={{ padding: '12px 16px' }}>
                   <a href="/dashboard" onClick={() => setNotifOpen(false)} style={{ fontSize: '11px', color: gold, textDecoration: 'none' }}>View all intelligence →</a>
@@ -239,7 +239,7 @@ export default function DashboardShell({ children, activeId }: { children: React
             </div>
             <div style={{ lineHeight: 1.3 }}>
               <div style={{ fontSize: '11px', fontWeight: '600', color: '#e0e0e0' }}>{userName}</div>
-              <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.05em' }}>Executive</div>
+              <div style={{ fontSize: '10px', color: '#888', letterSpacing: '0.05em' }}>Executive</div>
             </div>
             <span style={{ fontSize: '10px', color: '#444' }}>▾</span>
           </div>
@@ -263,9 +263,9 @@ export default function DashboardShell({ children, activeId }: { children: React
             <span style={{ fontSize: '10px', color: '#4aaa4a', letterSpacing: '0.08em' }}>BEI Intelligence Operations</span>
           </div>
           <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#2a2a2a' }} />
-          <span style={{ fontSize: '10px', color: '#444' }}>All systems operational</span>
+          <span style={{ fontSize: '11px', color: '#888' }}>All systems operational</span>
           <div style={{ flex: 1 }} />
-          <span style={{ fontSize: '10px', color: '#333' }}>Last data sync: Just now ✓</span>
+          <span style={{ fontSize: '11px', color: '#666' }}>Last data sync: Just now ✓</span>
         </div>
       </div>
     </div>

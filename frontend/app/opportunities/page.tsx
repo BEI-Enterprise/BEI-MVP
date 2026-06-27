@@ -170,7 +170,7 @@ export default function OpportunitiesPage() {
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
             <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '7px', fontWeight: '700' }}>{k.label}</div>
             <div style={{ fontSize: '24px', fontWeight: '900', color: k.color, lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
-            <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px' }}>{k.sub}</div>
+            <div style={{ fontSize: '13px', color: '#999', marginBottom: '6px' }}>{k.sub}</div>
             <div style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
@@ -237,7 +237,7 @@ export default function OpportunitiesPage() {
           <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '12px' }}>OPPORTUNITY PIPELINE</div>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 0.6fr 1fr 0.7fr 0.9fr 0.6fr 0.9fr 55px 20px', gap: '0', paddingBottom: '7px', borderBottom: '1px solid #1a1a1a', marginBottom: '2px' }}>
             {['OPPORTUNITY','TYPE','AFFECTED AREAS','IMPACT','VALUE','CONF.','TIME','TREND',''].map(h => (
-              <div key={h} style={{ fontSize: '9px', color: '#555', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>
+              <div key={h} style={{ fontSize: '11px', color: '#999', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>
             ))}
           </div>
           {pagedOpps.map((opp, i) => (
@@ -246,7 +246,7 @@ export default function OpportunitiesPage() {
                 <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: opp.iconBg + '22', border: '1px solid ' + opp.iconBg + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: opp.iconBg }}>{opp.icon}</div>
                 <div>
                   <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700' }}>{opp.name}</div>
-                  <div style={{ fontSize: '11px', color: '#666' }}>{opp.desc}</div>
+                  <div style={{ fontSize: '13px', color: '#aaa' }}>{opp.desc}</div>
                 </div>
               </div>
               <div style={{ fontSize: '11px', color: '#888' }}>{opp.type}</div>
@@ -258,7 +258,7 @@ export default function OpportunitiesPage() {
               {impBadge(opp.impact, opp.impactColor)}
               <div>
                 <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700' }}>{fmt(opp.value)}</div>
-                <div style={{ fontSize: '10px', color: '#555' }}>Annual</div>
+                <div style={{ fontSize: '12px', color: '#999' }}>Annual</div>
               </div>
               {confCircle(opp.confidence, opp.confidence >= 80 ? '#4aaa4a' : opp.confidence >= 65 ? gold : '#e8923a')}
               <div style={{ fontSize: '11px', color: '#888' }}>{opp.timeToRealise}</div>
@@ -267,7 +267,7 @@ export default function OpportunitiesPage() {
             </div>
           ))}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px', paddingTop: '10px', borderTop: '1px solid ' + border }}>
-            <div style={{ fontSize: '11px', color: '#555' }}>Showing {Math.min((currentPage-1)*perPage+1, filteredOpps.length)}–{Math.min(currentPage*perPage, filteredOpps.length)} of {filteredOpps.length}</div>
+            <div style={{ fontSize: '13px', color: '#999' }}>Showing {Math.min((currentPage-1)*perPage+1, filteredOpps.length)}–{Math.min(currentPage*perPage, filteredOpps.length)} of {filteredOpps.length}</div>
             <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
               <button onClick={() => setCurrentPage(p => Math.max(1,p-1))} disabled={currentPage===1} style={{ width: '26px', height: '26px', backgroundColor: '#0a0a0a', border: '1px solid ' + border, borderRadius: '4px', color: currentPage===1 ? '#333' : '#888', cursor: currentPage===1 ? 'default' : 'pointer', fontSize: '12px' }}>‹</button>
               {Array.from({length: totalPages}, (_,i) => i+1).map(p => (
@@ -317,7 +317,7 @@ export default function OpportunitiesPage() {
               <button onClick={() => setShowForecastModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View forecast →</button>
             </div>
             <div style={{ fontSize: '16px', fontWeight: '800', color: gold, marginBottom: '2px' }}>{fmt(totalValue)}</div>
-            <div style={{ fontSize: '10px', color: '#555', marginBottom: '8px' }}>Total forecasted value</div>
+            <div style={{ fontSize: '12px', color: '#999', marginBottom: '8px' }}>Total forecasted value</div>
             <div style={{ display: 'flex', gap: '10px', marginBottom: '6px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: gold, borderRadius: '2px' }}/><span style={{ fontSize: '9px', color: '#888' }}>Forecast</span></div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: '#4aaa4a', borderRadius: '2px' }}/><span style={{ fontSize: '9px', color: '#888' }}>Achieved</span></div>
@@ -372,7 +372,7 @@ export default function OpportunitiesPage() {
                 <div style={{ fontSize: '12px', color: '#ffffff', fontWeight: '700', lineHeight: 1.2 }}>{h.name}</div>
               </div>
               <div style={{ fontSize: '20px', fontWeight: '900', color: h.badgeColor, lineHeight: 1, marginBottom: '2px' }}>{h.metric}</div>
-              <div style={{ fontSize: '10px', color: '#555', marginBottom: '3px' }}>{h.metricSub}</div>
+              <div style={{ fontSize: '12px', color: '#999', marginBottom: '3px' }}>{h.metricSub}</div>
               <div style={{ fontSize: '10px', color: '#777' }}>{h.extra}</div>
             </div>
           ))}
@@ -398,7 +398,7 @@ export default function OpportunitiesPage() {
                 { label: 'TIME TO REALISE', value: selectedOpp.timeToRealise, color: '#aaa' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
                   <div style={{ fontSize: '16px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
@@ -415,7 +415,7 @@ export default function OpportunitiesPage() {
               <div style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
                 <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>MATURITY STATUS</div>
                 <div style={{ fontSize: '16px', fontWeight: '700', color: '#e0e0e0', marginBottom: '4px' }}>{selectedOpp.maturity}</div>
-                <div style={{ fontSize: '11px', color: '#555' }}>Current stage in opportunity pipeline</div>
+                <div style={{ fontSize: '13px', color: '#999' }}>Current stage in opportunity pipeline</div>
               </div>
             </div>
             <div style={{ padding: '14px', backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', marginBottom: '14px' }}>
@@ -451,7 +451,7 @@ export default function OpportunitiesPage() {
                 { label: 'REALISATION RATE', value: '64%', color: '#4aaa4a' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
                   <div style={{ fontSize: '16px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
@@ -463,11 +463,11 @@ export default function OpportunitiesPage() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700', marginBottom: '2px' }}>{opp.name}</div>
-                      <div style={{ fontSize: '11px', color: '#555' }}>{opp.desc} · {opp.type} · {opp.timeToRealise}</div>
+                      <div style={{ fontSize: '13px', color: '#999' }}>{opp.desc} · {opp.type} · {opp.timeToRealise}</div>
                     </div>
                     <div style={{ textAlign: 'right' as const, flexShrink: 0, marginLeft: '16px' }}>
                       <div style={{ fontSize: '15px', fontWeight: '800', color: gold }}>{fmt(opp.value)}</div>
-                      <div style={{ fontSize: '10px', color: '#555' }}>{opp.confidence}% confidence</div>
+                      <div style={{ fontSize: '12px', color: '#999' }}>{opp.confidence}% confidence</div>
                     </div>
                   </div>
                 </div>
@@ -496,7 +496,7 @@ export default function OpportunitiesPage() {
                 { month: 'Month 6-12', value: fmt(Math.round(totalValue * 0.30)), label: 'Long-term strategic', color: '#4a8ab0' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '10px', color: '#555', marginBottom: '5px' }}>{m.month}</div>
+                  <div style={{ fontSize: '12px', color: '#999', marginBottom: '5px' }}>{m.month}</div>
                   <div style={{ fontSize: '18px', fontWeight: '800', color: m.color, marginBottom: '3px' }}>{m.value}</div>
                   <div style={{ fontSize: '10px', color: '#777' }}>{m.label}</div>
                 </div>
@@ -512,7 +512,7 @@ export default function OpportunitiesPage() {
               {['MAY','JUN','JUL','AUG','SEP','OCT','NOV'].map((m,i) => <text key={m} x={50+i*88} y="132" fill="#333" fontSize="8">{m}</text>)}
             </svg>
             <div style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', marginTop: '12px' }}>
-              <div style={{ fontSize: '11px', color: '#666', lineHeight: '1.6' }}>Forecast assumes deployment of Tier 1 actions within 30 days. Achieved line represents conservative 70% realisation rate based on industry benchmarks.</div>
+              <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.6' }}>Forecast assumes deployment of Tier 1 actions within 30 days. Achieved line represents conservative 70% realisation rate based on industry benchmarks.</div>
             </div>
           </div>
         </div>

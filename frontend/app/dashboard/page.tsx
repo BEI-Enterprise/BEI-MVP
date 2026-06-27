@@ -168,7 +168,7 @@ export default function DashboardPage() {
           <div>
             <h1 style={{ fontSize: '28px', fontWeight: '800', letterSpacing: '-0.02em', margin: '0 0 4px 0', color: '#ffffff' }}>Welcome back, {userName}.</h1>
             <div style={{ fontSize: '13px', color: '#888', marginTop: '2px' }}>{businessName} · {tier} Plan · {industryLabel}</div>
-            <div style={{ fontSize: '11px', color: '#555', marginTop: '3px', letterSpacing: '0.04em' }}>Your real-time executive intelligence overview.</div>
+            <div style={{ fontSize: '13px', color: '#999', marginTop: '3px', letterSpacing: '0.04em' }}>Your real-time executive intelligence overview.</div>
           </div>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <a href="/book" style={{ padding: '9px 18px', border: '1px solid #333', borderRadius: '6px', color: '#bbb', fontSize: '12px', textDecoration: 'none' }}>Book Strategy Session</a>
@@ -400,7 +400,7 @@ export default function DashboardPage() {
                   </div>
                   <div style={{ flex: 1 }}>
                     <p style={{ fontSize: '12px', color: '#cccccc', lineHeight: '1.6', margin: '0 0 3px 0' }}>{f.text}</p>
-                    <div style={{ fontSize: '10px', color: '#555' }}>{f.time}</div>
+                    <div style={{ fontSize: '12px', color: '#999' }}>{f.time}</div>
                   </div>
                 </div>
               ))}
@@ -472,7 +472,7 @@ export default function DashboardPage() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <svg width="18" height="6"><line x1="0" y1="3" x2="18" y2="3" stroke={gold} strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.5"/></svg>
-                    <span style={{ fontSize: '9px', color: '#666' }}>Industry benchmark</span>
+                    <span style={{ fontSize: '11px', color: '#aaa' }}>Industry benchmark</span>
                   </div>
                 </div>
                 <div style={{ textAlign: 'center' as const, marginBottom: '12px' }}>
@@ -513,7 +513,7 @@ export default function DashboardPage() {
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
                       <div style={{ fontSize: '9px', color: c, fontWeight: '700', letterSpacing: '0.1em' }}>{levelLabel}</div>
-                      <div style={{ fontSize: '9px', color: '#666' }}>{a.time}</div>
+                      <div style={{ fontSize: '11px', color: '#aaa' }}>{a.time}</div>
                     </div>
                     <div style={{ fontSize: '12px', color: '#ffffff', fontWeight: '600' }}>{a.title}</div>
                     <div style={{ fontSize: '10px', color: '#888', marginTop: '2px' }}>{a.desc}</div>

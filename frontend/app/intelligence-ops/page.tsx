@@ -179,7 +179,7 @@ export default function IntelligenceOperationsPage() {
             <div style={{ fontSize: '15px', fontWeight: '700', color: '#ffffff' }}>Data Pipeline Flow</div>
             <button onClick={() => setShowPipelineModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View pipeline →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '18px' }}>Real-time view of your data pipeline</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '18px' }}>Real-time view of your data pipeline</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0', marginBottom: '20px' }}>
             {[
               { icon: '⊞', label: 'Ingestion', metric: String(sourcesCount), sub: 'Sources', color: '#4a8ab0', active: sourcesCount > 0 },
@@ -196,9 +196,9 @@ export default function IntelligenceOperationsPage() {
                 <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '8px' }}>
                   <div style={{ width: '52px', height: '52px', borderRadius: '12px', backgroundColor: s.active ? s.color+'18' : '#0a0a0a', border: '2px solid ' + (s.active ? s.color : '#1e1e1e'), display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', color: s.active ? s.color : '#333' }}>{s.icon}</div>
                   <div style={{ textAlign: 'center' as const }}>
-                    <div style={{ fontSize: '11px', color: '#666', marginBottom: '3px' }}>{s.label}</div>
+                    <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '3px' }}>{s.label}</div>
                     <div style={{ fontSize: '18px', fontWeight: '800', color: s.active ? s.color : '#333', lineHeight: 1 }}>{s.metric}</div>
-                    <div style={{ fontSize: '10px', color: '#555' }}>{s.sub}</div>
+                    <div style={{ fontSize: '12px', color: '#999' }}>{s.sub}</div>
                   </div>
                 </div>
               )
@@ -222,7 +222,7 @@ export default function IntelligenceOperationsPage() {
             <div style={{ fontSize: '15px', fontWeight: '700', color: '#ffffff' }}>System Health</div>
             <button onClick={() => setShowSystemModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View system health →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Overall system and infrastructure health</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '14px' }}>Overall system and infrastructure health</div>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
             <svg width="110" height="110" viewBox="0 0 90 90" style={{ flexShrink: 0 }}>
               {(() => {
@@ -261,7 +261,7 @@ export default function IntelligenceOperationsPage() {
             <div style={{ fontSize: '14px', fontWeight: '700', color: '#ffffff' }}>Intelligence Engine Performance</div>
             <button onClick={() => setShowPerformanceModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View performance →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Performance metrics over the last 24 hours</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '14px' }}>Performance metrics over the last 24 hours</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '8px', marginBottom: '14px' }}>
             {[
               { label: 'Processing Speed', value: processingSpeed.toLocaleString() + '/min', sub: 'Records processed', color: '#4aaa4a' },
@@ -271,7 +271,7 @@ export default function IntelligenceOperationsPage() {
               <div key={i} style={{ padding: '10px', backgroundColor: '#0a0a0a', borderRadius: '7px', border: '1px solid #1a1a1a' }}>
                 <div style={{ fontSize: '8px', color: '#555', letterSpacing: '0.08em', marginBottom: '4px', fontWeight: '600' }}>{m.label}</div>
                 <div style={{ fontSize: '16px', fontWeight: '900', color: m.color, lineHeight: 1 }}>{m.value}</div>
-                <div style={{ fontSize: '9px', color: '#555', marginTop: '2px' }}>{m.sub}</div>
+                <div style={{ fontSize: '11px', color: '#999', marginTop: '2px' }}>{m.sub}</div>
               </div>
             ))}
           </div>
@@ -311,7 +311,7 @@ export default function IntelligenceOperationsPage() {
             <div style={{ fontSize: '14px', fontWeight: '700', color: '#ffffff' }}>Recent Alerts</div>
             <button onClick={() => setShowAlertsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all alerts →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Live system alerts from your BEI environment</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '14px' }}>Live system alerts from your BEI environment</div>
           {alerts.length === 0 ? (
             <div style={{ textAlign: 'center' as const, padding: '24px', color: '#333', fontSize: '12px' }}>Complete your MRI to activate monitoring</div>
           ) : (
@@ -324,7 +324,7 @@ export default function IntelligenceOperationsPage() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.title}</div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: '9px', color: '#555' }}>{a.area}</span>
+                      <span style={{ fontSize: '11px', color: '#999' }}>{a.area}</span>
                       <span style={{ fontSize: '9px', color: '#444' }}>{a.time}</span>
                     </div>
                   </div>
@@ -340,7 +340,7 @@ export default function IntelligenceOperationsPage() {
             <div style={{ fontSize: '14px', fontWeight: '700', color: '#ffffff' }}>Recent Integrations</div>
             <button onClick={() => setShowIntegrationsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all integrations →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Connected data sources for this business</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '14px' }}>Connected data sources for this business</div>
           {recentIntegrations.length === 0 ? (
             <div style={{ textAlign: 'center' as const, padding: '20px' }}>
               <div style={{ fontSize: '12px', color: '#333', marginBottom: '10px' }}>No integrations connected yet</div>
@@ -357,12 +357,12 @@ export default function IntelligenceOperationsPage() {
                     <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{int.name}</div>
                     <div style={{ fontSize: '10px', color: int.statusColor, fontWeight: '600' }}>{int.status}</div>
                   </div>
-                  <div style={{ fontSize: '10px', color: '#555', textAlign: 'right' as const, flexShrink: 0 }}>{int.time}</div>
+                  <div style={{ fontSize: '12px', color: '#999', textAlign: 'right' as const, flexShrink: 0 }}>{int.time}</div>
                 </div>
               ))}
             </div>
           )}
-          <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #1a1a1a', display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#555' }}>
+          <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #1a1a1a', display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#999' }}>
             <span>Total: <span style={{ color: '#e0e0e0', fontWeight: '600' }}>{totalConns}</span></span>
             <span>Active: <span style={{ color: '#4aaa4a', fontWeight: '600' }}>{activeConns.length}</span> · Errors: <span style={{ color: errorConns.length > 0 ? '#cc4444' : '#555', fontWeight: '600' }}>{errorConns.length}</span></span>
           </div>
@@ -385,10 +385,10 @@ export default function IntelligenceOperationsPage() {
                     <span style={{ fontSize: '15px', color: a.color }}>{a.level === 'success' ? '✓' : a.level === 'info' ? 'ℹ' : '⚠'}</span>
                     <span style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700' }}>{a.title}</span>
                   </div>
-                  <span style={{ fontSize: '10px', color: '#555' }}>{a.time}</span>
+                  <span style={{ fontSize: '12px', color: '#999' }}>{a.time}</span>
                 </div>
                 <div style={{ fontSize: '11px', color: a.color, fontWeight: '600', marginBottom: '4px' }}>{a.area}</div>
-                <div style={{ fontSize: '11px', color: '#666', lineHeight: '1.5' }}>
+                <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.5' }}>
                   {a.level === 'critical' ? 'Immediate action required to restore full intelligence capability.' : a.level === 'warning' ? 'Monitor closely and address at earliest opportunity.' : a.level === 'success' ? 'System operating normally.' : 'For your information — no action required.'}
                 </div>
               </div>
@@ -416,12 +416,12 @@ export default function IntelligenceOperationsPage() {
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700', marginBottom: '2px' }}>{c.connector_name}</div>
-                  <div style={{ fontSize: '10px', color: '#555' }}>Type: {c.connector_type} · Sync every {c.sync_frequency_hours || 24}h</div>
+                  <div style={{ fontSize: '12px', color: '#999' }}>Type: {c.connector_type} · Sync every {c.sync_frequency_hours || 24}h</div>
                   {c.error_message && <div style={{ fontSize: '10px', color: '#cc4444', marginTop: '2px' }}>{c.error_message}</div>}
                 </div>
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
                   <div style={{ fontSize: '12px', color: c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#888', fontWeight: '700', marginBottom: '2px' }}>{c.status === 'active' ? 'Connected' : c.status === 'error' ? 'Error' : 'Pending'}</div>
-                  <div style={{ fontSize: '10px', color: '#555' }}>{c.last_synced_at ? 'Synced ' + new Date(c.last_synced_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Not yet synced'}</div>
+                  <div style={{ fontSize: '12px', color: '#999' }}>{c.last_synced_at ? 'Synced ' + new Date(c.last_synced_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Not yet synced'}</div>
                 </div>
               </div>
             ))}
@@ -449,7 +449,7 @@ export default function IntelligenceOperationsPage() {
               </div>
             ))}
             <div style={{ padding: '12px 14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', marginTop: '4px' }}>
-              <div style={{ fontSize: '11px', color: '#666', lineHeight: '1.7' }}>System health of {systemHealthPct.toFixed(1)}% is calculated from MRI completion, active connectors ({activeConns.length}), and error states ({errorConns.length}). Add more data sources to improve your score.</div>
+              <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.7' }}>System health of {systemHealthPct.toFixed(1)}% is calculated from MRI completion, active connectors ({activeConns.length}), and error states ({errorConns.length}). Add more data sources to improve your score.</div>
             </div>
           </div>
         </div>
@@ -470,7 +470,7 @@ export default function IntelligenceOperationsPage() {
                 { label: 'INSIGHTS', value: String(hasMRI ? 632 + activeConns.length * 14 : 0), color: '#9a6ab0' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: '#555', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '11px', color: '#999', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
                   <div style={{ fontSize: '18px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
@@ -489,7 +489,7 @@ export default function IntelligenceOperationsPage() {
                 <div key={i} style={{ display: 'flex', gap: '8px', padding: '8px 10px', backgroundColor: '#0d0d0d', borderRadius: '6px', marginBottom: '4px', alignItems: 'center' }}>
                   <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a' }} />
                   <span style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600', flex: 1 }}>{c.connector_name}</span>
-                  <span style={{ fontSize: '11px', color: '#555' }}>{c.last_synced_at ? new Date(c.last_synced_at).toLocaleDateString('en-GB') : 'Pending'}</span>
+                  <span style={{ fontSize: '13px', color: '#999' }}>{c.last_synced_at ? new Date(c.last_synced_at).toLocaleDateString('en-GB') : 'Pending'}</span>
                   <span style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>Active</span>
                 </div>
               ))}
@@ -512,7 +512,7 @@ export default function IntelligenceOperationsPage() {
                 { label: 'ENGINE ACCURACY', value: engineAccuracy > 0 ? engineAccuracy + '%' : 'No MRI', color: engineAccuracy > 0 ? '#4aaa4a' : '#555' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: '#555', marginBottom: '6px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '11px', color: '#999', marginBottom: '6px', fontWeight: '600' }}>{m.label}</div>
                   <div style={{ fontSize: '20px', fontWeight: '900', color: m.color }}>{m.value}</div>
                 </div>
               ))}
@@ -521,15 +521,15 @@ export default function IntelligenceOperationsPage() {
               <div style={{ padding: '14px', backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', marginBottom: '12px' }}>
                 <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '600' }}>MRI INTELLIGENCE SUMMARY</div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                  <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '2px' }}>Primary Constraint</div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{primary?.name || 'None detected'}</div></div>
-                  <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '2px' }}>Confidence Level</div><div style={{ fontSize: '12px', color: confidence === 'high' ? '#4aaa4a' : gold, fontWeight: '600' }}>{confidence.toUpperCase()}</div></div>
-                  <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '2px' }}>Health Score</div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{healthScore}/100</div></div>
-                  <div><div style={{ fontSize: '9px', color: '#555', marginBottom: '2px' }}>Operations Pillar</div><div style={{ fontSize: '12px', color: opsScore ? (opsScore >= 70 ? '#4aaa4a' : gold) : '#555', fontWeight: '600' }}>{opsScore ? opsScore + '/100' : 'N/A'}</div></div>
+                  <div><div style={{ fontSize: '11px', color: '#999', marginBottom: '2px' }}>Primary Constraint</div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{primary?.name || 'None detected'}</div></div>
+                  <div><div style={{ fontSize: '11px', color: '#999', marginBottom: '2px' }}>Confidence Level</div><div style={{ fontSize: '12px', color: confidence === 'high' ? '#4aaa4a' : gold, fontWeight: '600' }}>{confidence.toUpperCase()}</div></div>
+                  <div><div style={{ fontSize: '11px', color: '#999', marginBottom: '2px' }}>Health Score</div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{healthScore}/100</div></div>
+                  <div><div style={{ fontSize: '11px', color: '#999', marginBottom: '2px' }}>Operations Pillar</div><div style={{ fontSize: '12px', color: opsScore ? (opsScore >= 70 ? '#4aaa4a' : gold) : '#555', fontWeight: '600' }}>{opsScore ? opsScore + '/100' : 'N/A'}</div></div>
                 </div>
               </div>
             )}
             <div style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
-              <div style={{ fontSize: '11px', color: '#666', lineHeight: '1.7' }}>Engine accuracy derives from MRI confidence ({confidence}) and {activeConns.length} connected source(s). More connected sources increase accuracy. {!hasMRI && 'Complete your Business MRI to activate the intelligence engine.'}</div>
+              <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.7' }}>Engine accuracy derives from MRI confidence ({confidence}) and {activeConns.length} connected source(s). More connected sources increase accuracy. {!hasMRI && 'Complete your Business MRI to activate the intelligence engine.'}</div>
             </div>
           </div>
         </div>

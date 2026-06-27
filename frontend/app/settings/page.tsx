@@ -129,7 +129,7 @@ export default function SettingsPage() {
 
   const inp: React.CSSProperties = { width: '100%', padding: '10px 12px', backgroundColor: '#0a0a0a', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#e0e0e0', fontSize: '13px', outline: 'none', boxSizing: 'border-box' as const }
   const sel: React.CSSProperties = { ...inp, cursor: 'pointer', appearance: 'none' as const, backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E\")", backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center', paddingRight: '32px' }
-  const fieldLabel: React.CSSProperties = { fontSize: '12px', color: '#777', marginBottom: '6px', display: 'block' }
+  const fieldLabel: React.CSSProperties = { fontSize: '13px', color: '#aaaaaa', marginBottom: '7px', display: 'block' }
   const row: React.CSSProperties = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '13px 0', borderBottom: '1px solid #0d0d0d' }
 
   const SaveRow = ({ k, onSave }: { k: string; onSave: () => void }) => (
@@ -152,7 +152,7 @@ export default function SettingsPage() {
   const CardTitle = ({ title, sub }: { title: string; sub: string }) => (
     <div style={{ marginBottom: '20px' }}>
       <div style={{ fontSize: '16px', fontWeight: '700', color: '#ffffff', marginBottom: '4px' }}>{title}</div>
-      <div style={{ fontSize: '12px', color: '#555' }}>{sub}</div>
+      <div style={{ fontSize: '12px', color: '#999' }}>{sub}</div>
     </div>
   )
 
@@ -168,10 +168,10 @@ export default function SettingsPage() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid ' + border }}>
         <div>
           <h1 style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: '#ffffff' }}>Settings</h1>
-          <div style={{ fontSize: '12px', color: '#666' }}>Configure BEI Intelligence to match your organisation's needs.</div>
+          <div style={{ fontSize: '12px', color: '#aaa' }}>Configure BEI Intelligence to match your organisation's needs.</div>
         </div>
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <span style={{ fontSize: '12px', color: '#555' }}>{userEmail}</span>
+          <span style={{ fontSize: '12px', color: '#999' }}>{userEmail}</span>
           <button onClick={handleSignOut} style={{ padding: '7px 14px', backgroundColor: 'transparent', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', fontSize: '12px', cursor: 'pointer' }}>Sign out</button>
         </div>
       </div>
@@ -179,7 +179,7 @@ export default function SettingsPage() {
       {/* TABS */}
       <div style={{ display: 'flex', marginBottom: '20px', borderBottom: '1px solid ' + border }}>
         {tabs.map(t => (
-          <button key={t.id} onClick={() => setActiveTab(t.id)} style={{ padding: '10px 18px', border: 'none', backgroundColor: 'transparent', color: activeTab === t.id ? gold : '#555', fontSize: '13px', fontWeight: activeTab === t.id ? '700' : '400', cursor: 'pointer', borderBottom: activeTab === t.id ? '2px solid ' + gold : '2px solid transparent', marginBottom: '-1px' }}>{t.label}</button>
+          <button key={t.id} onClick={() => setActiveTab(t.id)} style={{ padding: '10px 18px', border: 'none', backgroundColor: 'transparent', color: activeTab === t.id ? gold : '#cccccc', fontSize: '13px', fontWeight: activeTab === t.id ? '700' : '600', cursor: 'pointer', borderBottom: activeTab === t.id ? '2px solid ' + gold : '2px solid transparent', marginBottom: '-1px' }}>{t.label}</button>
         ))}
       </div>
 
@@ -232,7 +232,7 @@ export default function SettingsPage() {
               { label: 'Compact mode', sub: 'Reduce padding and spacing for a more compact view', val: compactMode, set: setCompactMode },
             ].map((f, i, arr) => (
               <div key={i} style={{ ...row, ...(i === arr.length-1 ? { borderBottom: 'none' } : {}) }}>
-                <div><div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '500' }}>{f.label}</div><div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>{f.sub}</div></div>
+                <div><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{f.label}</div><div style={{ fontSize: '12px', color: '#999', marginTop: '3px' }}>{f.sub}</div></div>
                 <Toggle val={f.val} set={f.set} />
               </div>
             ))}
@@ -248,7 +248,7 @@ export default function SettingsPage() {
               { label: 'Data sensitivity level', sub: 'Default sensitivity classification for new data sources', val: dataSensitivity, set: setDataSensitivity, opts: ['Public','Internal','Confidential','Restricted'] },
             ].map((f, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', marginBottom: '14px' }}>
-                <div style={{ flex: 1 }}><div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '500' }}>{f.label}</div><div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>{f.sub}</div></div>
+                <div style={{ flex: 1 }}><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{f.label}</div><div style={{ fontSize: '12px', color: '#999', marginTop: '3px' }}>{f.sub}</div></div>
                 <select value={f.val} onChange={e => f.set(e.target.value)} style={{ ...sel, width: '155px', flexShrink: 0 }}>
                   {f.opts.map(o => <option key={o} value={o} style={{ backgroundColor: '#111' }}>{o}</option>)}
                 </select>
@@ -277,7 +277,7 @@ export default function SettingsPage() {
               { label: 'Marketing emails', sub: 'Product updates and feature announcements', val: marketingEmails, set: setMarketingEmails },
             ].map((f, i, arr) => (
               <div key={i} style={{ ...row, ...(i === arr.length-1 ? { borderBottom: 'none' } : {}) }}>
-                <div><div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '500' }}>{f.label}</div><div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>{f.sub}</div></div>
+                <div><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{f.label}</div><div style={{ fontSize: '12px', color: '#999', marginTop: '3px' }}>{f.sub}</div></div>
                 <Toggle val={f.val} set={f.set} />
               </div>
             ))}
@@ -290,11 +290,11 @@ export default function SettingsPage() {
               <div style={{ fontSize: '11px', color: gold, fontWeight: '600', marginBottom: '8px' }}>Notification preview</div>
               <div style={{ display: 'flex', gap: '10px', padding: '10px', backgroundColor: 'rgba(74,170,74,0.08)', borderRadius: '6px', border: '1px solid rgba(74,170,74,0.2)', marginBottom: '6px' }}>
                 <span style={{ color: '#4aaa4a' }}>✓</span>
-                <div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>Constraint detected</div><div style={{ fontSize: '11px', color: '#555' }}>New primary constraint identified · 2 mins ago</div></div>
+                <div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>Constraint detected</div><div style={{ fontSize: '13px', color: '#999' }}>New primary constraint identified · 2 mins ago</div></div>
               </div>
               <div style={{ display: 'flex', gap: '10px', padding: '10px', backgroundColor: 'rgba(232,146,58,0.08)', borderRadius: '6px', border: '1px solid rgba(232,146,58,0.2)' }}>
                 <span style={{ color: '#e8923a' }}>⚠</span>
-                <div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>Deployment requires approval</div><div style={{ fontSize: '11px', color: '#555' }}>Tier 2 deployment awaiting review · 1 hour ago</div></div>
+                <div><div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>Deployment requires approval</div><div style={{ fontSize: '13px', color: '#999' }}>Tier 2 deployment awaiting review · 1 hour ago</div></div>
               </div>
             </div>
             {[
@@ -304,7 +304,7 @@ export default function SettingsPage() {
               { label: 'Show weekly insights summary', val: weeklyDigest, set: setWeeklyDigest },
             ].map((f, i, arr) => (
               <div key={i} style={{ ...row, ...(i === arr.length-1 ? { borderBottom: 'none' } : {}) }}>
-                <div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '500' }}>{f.label}</div>
+                <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{f.label}</div>
                 <Toggle val={f.val} set={f.set} />
               </div>
             ))}
@@ -342,11 +342,11 @@ export default function SettingsPage() {
               </select>
             </div>
             <div style={{ ...row }}>
-              <div><div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '500' }}>Two-factor authentication</div><div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>Add an extra layer of security to your account</div></div>
+              <div><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>Two-factor authentication</div><div style={{ fontSize: '12px', color: '#999', marginTop: '3px' }}>Add an extra layer of security to your account</div></div>
               <Toggle val={twoFactor} set={setTwoFactor} />
             </div>
             <div style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1a1a1a', marginTop: '16px', marginBottom: '16px' }}>
-              <div style={{ fontSize: '11px', color: '#666', marginBottom: '4px' }}>Signed in as</div>
+              <div style={{ fontSize: '13px', color: '#aaa', marginBottom: '4px' }}>Signed in as</div>
               <div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '600' }}>{userEmail}</div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -376,7 +376,7 @@ export default function SettingsPage() {
               { label: 'Anonymise exported data', sub: 'Remove personally identifiable information from exports', val: anonymiseData, set: setAnonymiseData },
             ].map((f, i) => (
               <div key={i} style={{ ...row, ...(i === 1 ? { borderBottom: 'none' } : {}) }}>
-                <div><div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '500' }}>{f.label}</div><div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>{f.sub}</div></div>
+                <div><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{f.label}</div><div style={{ fontSize: '12px', color: '#999', marginTop: '3px' }}>{f.sub}</div></div>
                 <Toggle val={f.val} set={f.set} />
               </div>
             ))}
@@ -393,7 +393,7 @@ export default function SettingsPage() {
             ].map((e, i) => (
               <div key={i} style={{ display: 'flex', gap: '12px', padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1a1a1a', marginBottom: '10px', alignItems: 'center' }}>
                 <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: e.color+'18', border: '1px solid '+e.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '14px', color: e.color }}>{e.icon}</div>
-                <div style={{ flex: 1 }}><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{e.label}</div><div style={{ fontSize: '11px', color: '#555' }}>{e.desc}</div></div>
+                <div style={{ flex: 1 }}><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{e.label}</div><div style={{ fontSize: '13px', color: '#999' }}>{e.desc}</div></div>
                 <a href={e.href} style={{ fontSize: '11px', color: gold, fontWeight: '600', textDecoration: 'none', flexShrink: 0 }}>Download →</a>
               </div>
             ))}
@@ -420,7 +420,7 @@ export default function SettingsPage() {
                   <div style={{ padding: '2px 7px', backgroundColor: int.available ? 'rgba(74,170,74,0.1)' : '#111', border: '1px solid '+(int.available ? 'rgba(74,170,74,0.3)' : '#2a2a2a'), borderRadius: '4px', fontSize: '10px', color: int.available ? '#4aaa4a' : '#555', fontWeight: '600' }}>{int.available ? 'Available' : 'Coming soon'}</div>
                 </div>
                 <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700', marginBottom: '3px' }}>{int.name}</div>
-                <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>{int.desc}</div>
+                <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>{int.desc}</div>
                 <a href="/connect" style={{ display: 'block', textAlign: 'center' as const, padding: '7px', backgroundColor: int.available ? int.color+'12' : 'transparent', border: '1px solid '+(int.available ? int.color+'33' : '#1a1a1a'), borderRadius: '5px', color: int.available ? int.color : '#444', fontSize: '11px', fontWeight: '600', textDecoration: 'none' }}>{int.available ? 'Connect →' : 'Notify me'}</a>
               </div>
             ))}
@@ -442,14 +442,14 @@ export default function SettingsPage() {
               { label: 'Debug Mode', sub: 'Show detailed debug information in the platform', val: debugMode, set: setDebugMode },
             ].map((f, i) => (
               <div key={i} style={{ ...row, ...(i === 2 ? { borderBottom: 'none' } : {}) }}>
-                <div><div style={{ fontSize: '13px', color: '#cccccc', fontWeight: '500' }}>{f.label}</div><div style={{ fontSize: '11px', color: '#555', marginTop: '2px' }}>{f.sub}</div></div>
+                <div><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{f.label}</div><div style={{ fontSize: '12px', color: '#999', marginTop: '3px' }}>{f.sub}</div></div>
                 <Toggle val={f.val} set={f.set} />
               </div>
             ))}
             {apiAccess && (
               <div style={{ marginTop: '16px', padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid rgba(200,162,74,0.2)' }}>
                 <div style={{ fontSize: '11px', color: gold, fontWeight: '600', marginBottom: '6px' }}>API KEY</div>
-                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#777', wordBreak: 'break-all' as const, marginBottom: '8px' }}>bei_sk_live_••••••••••••••••••••••••••••••••</div>
+                <div style={{ fontFamily: 'monospace', fontSize: '13px', color: '#777', wordBreak: 'break-all' as const, marginBottom: '8px' }}>bei_sk_live_••••••••••••••••••••••••••••••••</div>
                 <button style={{ padding: '5px 12px', backgroundColor: 'transparent', border: '1px solid #2a2a2a', borderRadius: '4px', color: '#888', fontSize: '11px', cursor: 'pointer' }}>Regenerate key</button>
               </div>
             )}
@@ -465,7 +465,7 @@ export default function SettingsPage() {
             ].map((a, i) => (
               <div key={i} style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid '+(a.danger ? 'rgba(204,68,68,0.2)' : '#1a1a1a'), marginBottom: '10px' }}>
                 <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700', marginBottom: '4px' }}>{a.label}</div>
-                <div style={{ fontSize: '11px', color: '#555', marginBottom: '10px' }}>{a.desc}</div>
+                <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>{a.desc}</div>
                 <button onClick={() => a.danger && setShowDeleteConfirm(true)} style={{ padding: '7px 14px', backgroundColor: 'transparent', border: '1px solid '+a.color+'44', borderRadius: '5px', color: a.color, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>{a.btn}</button>
               </div>
             ))}
@@ -477,7 +477,7 @@ export default function SettingsPage() {
       {showDeleteConfirm && (
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => setShowDeleteConfirm(false)}>
           <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(204,68,68,0.4)', borderRadius: '14px', padding: '32px', width: '440px', maxWidth: '95vw' }} onClick={(e: any) => e.stopPropagation()}>
-            <div style={{ fontSize: '10px', color: '#cc4444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>DANGER ZONE</div>
+            <div style={{ fontSize: '12px', color: '#cc4444', letterSpacing: '0.2em', marginBottom: '8px', fontWeight: '600' }}>DANGER ZONE</div>
             <div style={{ fontSize: '20px', fontWeight: '800', color: '#fff', marginBottom: '8px' }}>Delete Account</div>
             <div style={{ fontSize: '13px', color: '#888', lineHeight: '1.6', marginBottom: '20px' }}>This will permanently delete your account and all associated data. Type <span style={{ color: '#cc4444', fontWeight: '700' }}>DELETE</span> to confirm.</div>
             <input value={deleteConfirmText} onChange={e => setDeleteConfirmText(e.target.value)} placeholder="Type DELETE to confirm" style={{ ...inp, marginBottom: '16px', borderColor: 'rgba(204,68,68,0.3)' }} />

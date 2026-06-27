@@ -147,7 +147,7 @@ export default function RiskIntelligencePage() {
             <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
             <div style={{ fontSize: i === 5 ? '16px' : '22px', fontWeight: '900', color: i === 5 ? '#cc4444' : '#ffffff', lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
             {i === 0 && <div style={{ fontSize: '11px', color: '#cc4444', fontWeight: '700', marginBottom: '3px' }}>High</div>}
-            <div style={{ fontSize: '10px', color: '#555', marginBottom: '4px' }}>{k.sub}</div>
+            <div style={{ fontSize: '12px', color: '#999', marginBottom: '4px' }}>{k.sub}</div>
             <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
@@ -160,7 +160,7 @@ export default function RiskIntelligencePage() {
             <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>RISK HEAT MAP</div>
             <button onClick={() => setShowHeatMapModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full risk map →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '10px' }}>Impact vs Likelihood</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>Impact vs Likelihood</div>
           <div style={{ display: 'flex', gap: '4px' }}>
             <div style={{ display: 'flex', flexDirection: 'column' as const, justifyContent: 'space-between', paddingBottom: '18px' }}>
               {['Very High','High','Medium','Low','Very Low'].map(l => (
@@ -193,7 +193,7 @@ export default function RiskIntelligencePage() {
             {[['#cc4444','Critical ('+criticalCount+')'],['#e8923a','High ('+highCount+')'],['#C8A24A','Medium ('+mediumCount+')'],['#4aaa4a','Low ('+lowCount+')']].map(([c,l]) => (
               <div key={l} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
-                <span style={{ fontSize: '9px', color: '#666' }}>{l}</span>
+                <span style={{ fontSize: '11px', color: '#aaa' }}>{l}</span>
               </div>
             ))}
           </div>
@@ -210,7 +210,7 @@ export default function RiskIntelligencePage() {
                 <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: r.sevColor + '18', border: '1px solid ' + r.sevColor + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '9px', color: r.sevColor, fontWeight: '700' }}>{r.id}</div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{r.name}</div>
-                  <div style={{ fontSize: '9px', color: '#555' }}>{r.desc}</div>
+                  <div style={{ fontSize: '11px', color: '#999' }}>{r.desc}</div>
                 </div>
                 {sevBadge(r.severity, r.sevColor)}
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
@@ -259,7 +259,7 @@ export default function RiskIntelligencePage() {
             {[{ label: 'High Risk', value: '62%', color: '#cc4444' },{ label: 'Medium Risk', value: '28%', color: gold },{ label: 'Low Risk', value: '10%', color: '#4aaa4a' }].map((s,i) => (
               <div key={i} style={{ textAlign: 'center' as const }}>
                 <div style={{ fontSize: '18px', fontWeight: '800', color: s.color }}>{s.value}</div>
-                <div style={{ fontSize: '9px', color: '#555', marginTop: '2px' }}>{s.label}</div>
+                <div style={{ fontSize: '11px', color: '#999', marginTop: '2px' }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -307,7 +307,7 @@ export default function RiskIntelligencePage() {
               <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: cat.color+'18', border: '1px solid '+cat.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '9px', color: cat.color, fontWeight: '700' }}>{['S','O','F','C','P','T'][i]}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600' }}>{cat.label}</div>
-                <div style={{ fontSize: '9px', color: '#555' }}>{cat.desc}</div>
+                <div style={{ fontSize: '11px', color: '#999' }}>{cat.desc}</div>
               </div>
               <div style={{ fontSize: '12px', fontWeight: '800', color: cat.color, flexShrink: 0 }}>{cat.score}/100</div>
               <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
@@ -328,10 +328,10 @@ export default function RiskIntelligencePage() {
               <div style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: m.sevColor+'18', border: '1px solid '+m.sevColor+'44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '9px', fontWeight: '700', color: m.sevColor }}>{m.n}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{m.title}</div>
-                <div style={{ fontSize: '9px', color: '#555', marginBottom: '4px' }}>{m.desc}</div>
+                <div style={{ fontSize: '11px', color: '#999', marginBottom: '4px' }}>{m.desc}</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   {progressBar(m.progress, m.sevColor)}
-                  <span style={{ fontSize: '9px', color: '#555', flexShrink: 0 }}>{m.progress}%</span>
+                  <span style={{ fontSize: '11px', color: '#999', flexShrink: 0 }}>{m.progress}%</span>
                 </div>
               </div>
               {sevBadge(m.severity, m.sevColor)}
@@ -357,7 +357,7 @@ export default function RiskIntelligencePage() {
                 <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: s.badgeColor+'18', border: '1px solid '+s.badgeColor+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: s.badgeColor }}>{s.icon}</div>
                 <div style={{ fontSize: '12px', color: '#ffffff', fontWeight: '700', lineHeight: 1.2 }}>{s.name}</div>
               </div>
-              <div style={{ fontSize: '10px', color: '#555' }}>{s.meta}</div>
+              <div style={{ fontSize: '12px', color: '#999' }}>{s.meta}</div>
             </div>
           ))}
           <button onClick={() => setShowReportModal(true)} style={{ padding: '12px 18px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.25)', borderRadius: '8px', color: gold, fontSize: '11px', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap' as const }}>⊙ Generate Risk Report →</button>
@@ -383,7 +383,7 @@ export default function RiskIntelligencePage() {
                 { label: 'POTENTIAL VALUE', value: fmt(selectedRisk.value), color: gold },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
                   <div style={{ fontSize: '16px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
@@ -436,7 +436,7 @@ export default function RiskIntelligencePage() {
                 <div style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: r.sevColor+'18', border: '1px solid '+r.sevColor+'44', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: '700', color: r.sevColor, flexShrink: 0 }}>{r.id}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700' }}>{r.name}</div>
-                  <div style={{ fontSize: '10px', color: '#555' }}>{r.desc} · {r.category}</div>
+                  <div style={{ fontSize: '12px', color: '#999' }}>{r.desc} · {r.category}</div>
                 </div>
                 <div style={{ fontSize: '10px', color: '#888' }}>Likelihood: <span style={{ color: '#ccc', fontWeight: '600' }}>{r.likelihood}</span></div>
                 <div style={{ fontSize: '10px', color: '#888' }}>Impact: <span style={{ color: '#ccc', fontWeight: '600' }}>{r.impact}</span></div>
@@ -460,7 +460,7 @@ export default function RiskIntelligencePage() {
             </div>
             {risks.map((r, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '2.5fr 1fr 0.8fr 0.8fr 0.8fr 1fr', gap: '0', padding: '10px 0', borderBottom: i < risks.length-1 ? '1px solid #111' : 'none', alignItems: 'center' }}>
-                <div><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{r.name}</div><div style={{ fontSize: '10px', color: '#555' }}>{r.desc}</div></div>
+                <div><div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{r.name}</div><div style={{ fontSize: '12px', color: '#999' }}>{r.desc}</div></div>
                 <div style={{ fontSize: '11px', color: '#888' }}>{r.category}</div>
                 {sevBadge(r.severity, r.sevColor)}
                 <div style={{ fontSize: '11px', color: '#888' }}>{r.likelihood}</div>
@@ -494,7 +494,7 @@ export default function RiskIntelligencePage() {
                 <div style={{ height: '6px', backgroundColor: '#1a1a1a', borderRadius: '3px', overflow: 'hidden' }}>
                   <div style={{ width: cat.score+'%', height: '100%', backgroundColor: cat.color, borderRadius: '3px' }} />
                 </div>
-                <div style={{ fontSize: '11px', color: '#555', marginTop: '6px' }}>{cat.desc}</div>
+                <div style={{ fontSize: '13px', color: '#999', marginTop: '6px' }}>{cat.desc}</div>
               </div>
             ))}
           </div>
@@ -511,7 +511,7 @@ export default function RiskIntelligencePage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '10px', marginBottom: '16px' }}>
               {riskCategories.slice(0,3).map((cat,i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: '#555', marginBottom: '4px' }}>{cat.label}</div>
+                  <div style={{ fontSize: '11px', color: '#999', marginBottom: '4px' }}>{cat.label}</div>
                   <div style={{ fontSize: '20px', fontWeight: '800', color: cat.color }}>{cat.score}</div>
                   <div style={{ fontSize: '10px', color: cat.dir === 'Increasing' ? '#cc4444' : '#4aaa4a', fontWeight: '600' }}>{cat.dir}</div>
                 </div>
@@ -533,7 +533,7 @@ export default function RiskIntelligencePage() {
               {riskCategories.map((cat,i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <div style={{ width: '10px', height: '3px', backgroundColor: cat.color, borderRadius: '2px' }} />
-                  <span style={{ fontSize: '10px', color: '#666' }}>{cat.label}</span>
+                  <span style={{ fontSize: '12px', color: '#aaa' }}>{cat.label}</span>
                 </div>
               ))}
             </div>
@@ -553,7 +553,7 @@ export default function RiskIntelligencePage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                   <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                     <div style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: cat.color+'18', border: '1px solid '+cat.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: cat.color, fontWeight: '700' }}>{['S','O','F','C','P','T'][i]}</div>
-                    <div><div style={{ fontSize: '14px', color: '#e0e0e0', fontWeight: '700' }}>{cat.label}</div><div style={{ fontSize: '10px', color: '#555' }}>{cat.desc}</div></div>
+                    <div><div style={{ fontSize: '14px', color: '#e0e0e0', fontWeight: '700' }}>{cat.label}</div><div style={{ fontSize: '12px', color: '#999' }}>{cat.desc}</div></div>
                   </div>
                   <div style={{ textAlign: 'right' as const }}>
                     <div style={{ fontSize: '20px', fontWeight: '900', color: cat.color }}>{cat.score}/100</div>
@@ -585,10 +585,10 @@ export default function RiskIntelligencePage() {
                 <div style={{ width: '26px', height: '26px', borderRadius: '50%', backgroundColor: m.sevColor+'18', border: '1px solid '+m.sevColor+'44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', fontWeight: '700', color: m.sevColor }}>{m.n}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700', marginBottom: '2px' }}>{m.title}</div>
-                  <div style={{ fontSize: '11px', color: '#555', marginBottom: '6px' }}>{m.desc}</div>
+                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '6px' }}>{m.desc}</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     {progressBar(m.progress, m.sevColor)}
-                    <span style={{ fontSize: '10px', color: '#555', flexShrink: 0 }}>{m.progress}%</span>
+                    <span style={{ fontSize: '12px', color: '#999', flexShrink: 0 }}>{m.progress}%</span>
                   </div>
                 </div>
                 {sevBadge(m.severity, m.sevColor)}
@@ -609,7 +609,7 @@ export default function RiskIntelligencePage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '10px', marginBottom: '14px' }}>
               {[{l:'OVERALL SCORE',v:overallRiskScore+'/100',c:'#cc4444'},{l:'CRITICAL RISKS',v:String(criticalCount),c:'#cc4444'},{l:'TOTAL EXPOSURE',v:fmt(totalRiskValue),c:gold},{l:'RISK TREND',v:'Increasing',c:'#cc4444'}].map((m,i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '4px', fontWeight: '600' }}>{m.l}</div>
+                  <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.1em', marginBottom: '4px', fontWeight: '600' }}>{m.l}</div>
                   <div style={{ fontSize: '16px', fontWeight: '800', color: m.c }}>{m.v}</div>
                 </div>
               ))}

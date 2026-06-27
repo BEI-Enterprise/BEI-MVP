@@ -340,7 +340,7 @@ export default function BusinessTwinPage() {
           </div>
           {/* Right status panel */}
           <div style={{ padding: '20px 24px', borderLeft: '1px solid rgba(200,162,74,0.15)', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', alignItems: 'flex-start', gap: '6px', minWidth: '220px', backgroundColor: 'rgba(200,162,74,0.03)' }}>
-            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.18em', fontWeight: '600' }}>BUSINESS TWIN™ STATUS</div>
+            <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.18em', fontWeight: '600' }}>BUSINESS TWIN™ STATUS</div>
             <div style={{ fontSize: '24px', fontWeight: '900', color: gold, lineHeight: 1.1, letterSpacing: '-0.02em' }}>Intelligence<br/>Ready</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#cc4444', boxShadow: `0 0 7px ${hasMRI ? 'rgba(74,170,74,0.8)' : 'rgba(204,68,68,0.8)'}` }} />
@@ -377,12 +377,12 @@ export default function BusinessTwinPage() {
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' as const }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                 <div style={{ width: '8px', height: '5px', borderRadius: '2px', backgroundColor: hasMRI ? '#4aaa4a' : '#2a2a2a' }} />
-                <span style={{ fontSize: '9px', color: '#666' }}>MRI ({MRI_BASE}%) — {hasMRI ? 'Complete' : 'Missing'}</span>
+                <span style={{ fontSize: '11px', color: '#aaa' }}>MRI ({MRI_BASE}%) — {hasMRI ? 'Complete' : 'Missing'}</span>
               </div>
               {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => activeConnectors.includes(c.id)).slice(0, 3).map(c => (
                 <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <div style={{ width: '8px', height: '5px', borderRadius: '2px', backgroundColor: gold }} />
-                  <span style={{ fontSize: '9px', color: '#666' }}>{c.name} (+{c.boost}%)</span>
+                  <span style={{ fontSize: '11px', color: '#aaa' }}>{c.name} (+{c.boost}%)</span>
                 </div>
               ))}
             </div>
@@ -416,7 +416,7 @@ export default function BusinessTwinPage() {
             <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '700' }}>{k.label}</div>
             <div style={{ fontSize: '20px', fontWeight: '800', color: k.color, lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
             <div style={{ fontSize: '10px', color: k.color, fontWeight: '600', marginBottom: '2px' }}>{k.trend}</div>
-            <div style={{ fontSize: '10px', color: '#555' }}>{k.sub}</div>
+            <div style={{ fontSize: '12px', color: '#999' }}>{k.sub}</div>
           </div>
         ))}
       </div>
@@ -430,7 +430,7 @@ export default function BusinessTwinPage() {
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>DATA SOURCE ARCHITECTURE™</div>
             <button onClick={() => setShowAllConnectors(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all connectors →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Connected systems feeding your Business Twin™</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Connected systems feeding your Business Twin™</div>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '0', marginBottom: '6px' }}>
             {['SOURCE','STATUS','QUALITY','BOOST'].map(h => (
               <div key={h} style={{ fontSize: '8px', color: '#444', letterSpacing: '0.1em', padding: '4px 0', borderBottom: '1px solid #1a1a1a', fontWeight: '600' }}>{h}</div>
@@ -468,7 +468,7 @@ export default function BusinessTwinPage() {
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>MANUAL INTELLIGENCE INPUTS™</div>
             <button onClick={() => setShowAllManual(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all inputs →</button>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>Add data manually to improve Business Twin™ completeness</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Add data manually to improve Business Twin™ completeness</div>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px', flex: 1, overflowY: 'auto' as const, maxHeight: '340px' }}>
             {CONNECTOR_GROUPS.flatMap(g => g.connectors).filter(c => c.auth === 'manual').slice(0, 6).map((c, i) => {
               const state = connectorStates[c.id]
@@ -479,7 +479,7 @@ export default function BusinessTwinPage() {
                     <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{c.name}</div>
                     <div style={{ fontSize: '10px', color: isActive ? '#4aaa4a' : gold, fontWeight: '600' }}>+{c.boost}%</div>
                   </div>
-                  <div style={{ fontSize: '10px', color: '#555', marginBottom: '7px' }}>
+                  <div style={{ fontSize: '12px', color: '#999', marginBottom: '7px' }}>
                     {isActive ? '✓ Submitted · ' + (state?.last_synced_at ? new Date(state.last_synced_at).toLocaleDateString('en-GB') : '') : c.fields.length + ' fields required'}
                   </div>
                   <button onClick={() => { setActiveModal(c.id); setFormData({}) }} style={{ width: '100%', padding: '6px', backgroundColor: isActive ? 'rgba(74,170,74,0.08)' : 'rgba(200,162,74,0.08)', border: '1px solid ' + (isActive ? 'rgba(74,170,74,0.2)' : 'rgba(200,162,74,0.2)'), borderRadius: '4px', color: isActive ? '#4aaa4a' : gold, fontSize: '10px', cursor: 'pointer', fontWeight: '600' }}>
@@ -498,7 +498,7 @@ export default function BusinessTwinPage() {
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600' }}>COVERAGE MAP™</div>
             <div style={{ fontSize: '14px', fontWeight: '800', color: gc(completeness) }}>{completeness}%</div>
           </div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '10px' }}>Real-time intelligence dimension coverage</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>Real-time intelligence dimension coverage</div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <svg width="100%" viewBox="0 0 260 280" style={{ maxWidth: '280px' }}>
               <defs><filter id="gw"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
@@ -524,7 +524,7 @@ export default function BusinessTwinPage() {
             {[['#4aaa4a','Strong'],['#C8A24A','Moderate'],['#e8923a','Weak']].map(([c,l]) => (
               <div key={l} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: c }} />
-                <span style={{ fontSize: '9px', color: '#555' }}>{l}</span>
+                <span style={{ fontSize: '11px', color: '#999' }}>{l}</span>
               </div>
             ))}
           </div>
@@ -533,7 +533,7 @@ export default function BusinessTwinPage() {
         {/* RECOMMENDED IMPROVEMENTS */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column' as const }}>
           <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>RECOMMENDED IMPROVEMENTS™</div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '14px' }}>Actions to increase Twin completeness</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '14px' }}>Actions to increase Twin completeness</div>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
             {(() => {
               // Group connectors by purpose — show primary + manual alternative
@@ -566,7 +566,7 @@ export default function BusinessTwinPage() {
                   </div>
                   {rec.manual && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', paddingTop: '6px', borderTop: '1px solid #1a1a1a' }}>
-                      <div style={{ fontSize: '10px', color: '#555', flex: 1 }}>or add manually · +{rec.manual.boost}%</div>
+                      <div style={{ fontSize: '12px', color: '#999', flex: 1 }}>or add manually · +{rec.manual.boost}%</div>
                       <button onClick={() => { setActiveModal(rec.manual.id); setFormData({}) }} style={{ padding: '3px 8px', backgroundColor: 'transparent', border: '1px solid #2a2a2a', borderRadius: '4px', color: '#666', fontSize: '9px', cursor: 'pointer' }}>
                         Add Manual Data
                       </button>
@@ -587,7 +587,7 @@ export default function BusinessTwinPage() {
         {/* DATA QUALITY ENGINE */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>DATA QUALITY ENGINE™</div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '16px' }}>Quality directly impacts intelligence accuracy</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '16px' }}>Quality directly impacts intelligence accuracy</div>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'space-between', marginBottom: '20px' }}>
             {[
               { label: 'Completeness', value: completeness },
@@ -618,7 +618,7 @@ export default function BusinessTwinPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + border }}>
             <div>
-              <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '4px', fontWeight: '600' }}>OVERALL DATA QUALITY SCORE</div>
+              <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.1em', marginBottom: '4px', fontWeight: '600' }}>OVERALL DATA QUALITY SCORE</div>
               <div style={{ fontSize: '28px', fontWeight: '900', color: gc(completeness), lineHeight: 1 }}>{Math.round(completeness * 0.93)}<span style={{ fontSize: '14px', color: '#555' }}>/100</span></div>
               <div style={{ fontSize: '10px', color: '#4aaa4a', marginTop: '4px' }}>↑ {Math.round(completeness * 0.06)} pts vs last 30 days</div>
             </div>
@@ -633,7 +633,7 @@ export default function BusinessTwinPage() {
         {/* INTELLIGENCE CONFIDENCE ENGINE */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>INTELLIGENCE CONFIDENCE ENGINE™</div>
-          <div style={{ fontSize: '11px', color: '#555', marginBottom: '16px' }}>How Business Twin™ quality impacts your intelligence</div>
+          <div style={{ fontSize: '13px', color: '#999', marginBottom: '16px' }}>How Business Twin™ quality impacts your intelligence</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '8px', marginBottom: '20px' }}>
             {[
               { label: 'Constraint Detection', value: hasMRI ? Math.round(completeness * 0.94) : 0 },
@@ -664,7 +664,7 @@ export default function BusinessTwinPage() {
             })}
           </div>
           <div style={{ padding: '12px 14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + border }}>
-            <div style={{ fontSize: '9px', color: '#555', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '600' }}>OVERALL INTELLIGENCE CONFIDENCE</div>
+            <div style={{ fontSize: '11px', color: '#999', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '600' }}>OVERALL INTELLIGENCE CONFIDENCE</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
               <div style={{ fontSize: '28px', fontWeight: '900', color: gc(completeness), lineHeight: 1 }}>{hasMRI ? Math.round(completeness * 0.93) : 0}%</div>
               <div style={{ fontSize: '12px', color: gc(completeness), fontWeight: '600' }}>{completeness >= 60 ? 'High Confidence' : completeness >= 40 ? 'Medium Confidence' : 'Low — Complete MRI'}</div>
@@ -684,7 +684,7 @@ export default function BusinessTwinPage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
           <div>
             <div style={{ fontSize: '10px', color: '#e0e0e0', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '2px' }}>BUSINESS TWIN™ TIMELINE</div>
-            <div style={{ fontSize: '11px', color: '#555' }}>Live audit trail of intelligence generation</div>
+            <div style={{ fontSize: '13px', color: '#999' }}>Live audit trail of intelligence generation</div>
           </div>
           <button onClick={() => setShowTimeline(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full timeline →</button>
         </div>
@@ -702,7 +702,7 @@ export default function BusinessTwinPage() {
               </div>
               <div>
                 <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', marginBottom: '2px' }}>{ev.label}</div>
-                <div style={{ fontSize: '10px', color: '#555', marginBottom: '3px' }}>{ev.desc}</div>
+                <div style={{ fontSize: '12px', color: '#999', marginBottom: '3px' }}>{ev.desc}</div>
                 <div style={{ fontSize: '9px', color: '#333' }}>{ev.time}</div>
               </div>
             </div>
@@ -785,7 +785,7 @@ export default function BusinessTwinPage() {
                             <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600', flex: 1 }}>{c.name}</div>
                             <div style={{ fontSize: '10px', color: isActive ? '#4aaa4a' : gold, fontWeight: '600', marginLeft: '8px' }}>+{c.boost}%</div>
                           </div>
-                          <div style={{ fontSize: '10px', color: '#555', marginBottom: '10px' }}>
+                          <div style={{ fontSize: '12px', color: '#999', marginBottom: '10px' }}>
                             {isActive ? '✓ Data submitted · ' + (state?.last_synced_at ? new Date(state.last_synced_at).toLocaleDateString('en-GB') : '') : c.fields.length + ' fields required'}
                           </div>
                           <button onClick={() => { setActiveModal(c.id); setFormData({}); setShowAllManual(false) }} style={{ width: '100%', padding: '7px', backgroundColor: isActive ? 'rgba(74,170,74,0.08)' : 'rgba(200,162,74,0.08)', border: '1px solid ' + (isActive ? 'rgba(74,170,74,0.2)' : 'rgba(200,162,74,0.2)'), borderRadius: '5px', color: isActive ? '#4aaa4a' : gold, fontSize: '11px', cursor: 'pointer', fontWeight: '600' }}>
@@ -831,7 +831,7 @@ export default function BusinessTwinPage() {
                 <div style={{ flex: 1, paddingBottom: '8px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                     <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700' }}>{ev.label}</div>
-                    <div style={{ fontSize: '10px', color: '#555' }}>{ev.time}</div>
+                    <div style={{ fontSize: '12px', color: '#999' }}>{ev.time}</div>
                   </div>
                   <div style={{ fontSize: '12px', color: '#888', marginBottom: '6px', lineHeight: '1.5' }}>{ev.desc}</div>
                   <div style={{ fontSize: '11px', color: ev.color, padding: '4px 10px', backgroundColor: ev.color + '10', border: '1px solid ' + ev.color + '25', borderRadius: '4px', display: 'inline-block' }}>{ev.detail}</div>
@@ -841,9 +841,9 @@ export default function BusinessTwinPage() {
             <div style={{ marginTop: '16px', padding: '12px 16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', display: 'flex', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 5px rgba(74,170,74,0.7)' }} />
-                <span style={{ fontSize: '11px', color: '#666' }}>BEI Intelligence Operations · All systems operational</span>
+                <span style={{ fontSize: '13px', color: '#aaa' }}>BEI Intelligence Operations · All systems operational</span>
               </div>
-              <span style={{ fontSize: '11px', color: '#555' }}>Last data sync: Just now</span>
+              <span style={{ fontSize: '13px', color: '#999' }}>Last data sync: Just now</span>
             </div>
           </div>
         </div>
