@@ -16,7 +16,7 @@ const NAV_ITEMS = [
   { id: 'performance', label: 'Performance Intelligence™', icon: '⟋', href: '/performance' },
   { id: 'industry', label: 'Industry Intelligence™', icon: '⊕', href: '/industry' },
   { id: 'deployment', label: 'Outcome & Deployment™', icon: '▹', href: '/deployments' },
-  { id: 'operations', label: 'Intelligence Operations™', icon: '⊛', href: '/connect', dividerBefore: true },
+  { id: 'operations', label: 'Intelligence Operations™', icon: '⊛', href: '/intelligence-ops', dividerBefore: true },
   { id: 'admin', label: 'Administration', icon: '⚙', href: '/account' },
 ]
 
