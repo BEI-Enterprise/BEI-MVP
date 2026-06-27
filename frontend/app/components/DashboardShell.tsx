@@ -197,7 +197,7 @@ export default function DashboardShell({ children, activeId }: { children: React
             textDecoration: 'none',
             letterSpacing: '0.05em',
           }} onClick={() => setChatOpen(true)}>
-            <span style={{ fontSize: \'14px\' }}>✦</span> Ask BEI
+            <span style={{ fontSize: '14px' }}>✦</span> Ask BEI
           </a>
 
           {/* Notifications */}
