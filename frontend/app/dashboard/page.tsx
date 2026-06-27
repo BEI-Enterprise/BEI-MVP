@@ -421,7 +421,7 @@ export default function DashboardPage() {
             </div>
             {pillarList.length > 0 ? (
               <>
-                <svg width="100%" viewBox="0 0 240 240" style={{ display: 'block', margin: '0 auto 4px', minHeight: '280px', overflow: 'visible' }}><rect x="0" y="0" width="240" height="240" fill="#0e0e0e" rx="8"/>
+                <svg width="100%" viewBox="0 0 260 260" style={{ display: 'block', margin: '0 auto 4px' }}><rect width="260" height="260" fill="#0e0e0e"/>
                   <defs>
                     <filter id="hglow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                   </defs>
@@ -435,7 +435,7 @@ export default function DashboardPage() {
                   ))}
                   {pillarList.map((_: any, i: number) => {
                     const a = (i/pillarList.length)*2*Math.PI - Math.PI/2
-                    return <line key={i} x1="120" y1="120" x2={120+72*Math.cos(a)} y2={120+72*Math.sin(a)} stroke="#2a2a2a" strokeWidth="0.8"/>
+                    return <line key={i} x1="130" y1="130" x2={130+88*Math.cos(a)} y2={120+72*Math.sin(a)} stroke="#2a2a2a" strokeWidth="0.8"/>
                   })}
                   <polygon
                     points={pillarList.map((_: any, i: number) => {
