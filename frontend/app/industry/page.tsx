@@ -345,11 +345,11 @@ export default function IndustryIntelligencePage() {
           { label: 'DISRUPTION INDEX', value: ID.disruptionIndex + '/100', sub: 'vs last 30 days', trend: 'Moderate', trendColor: gold },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
-            <div style={{ fontSize: i === 2 ? '18px' : '22px', fontWeight: '900', color: i === 2 ? ((k as any).riskColor || gold) : '#ffffff', lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
-            {(k as any).extra && <div style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '700', marginBottom: '3px' }}>{(k as any).extra}</div>}
-            <div style={{ fontSize: '10px', color: '#555', marginBottom: '4px' }}>{k.sub}</div>
-            <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600' }}>{k.trend}</div>
+            <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '700' }}>{k.label}</div>
+            <div style={{ fontSize: i === 2 ? '22px' : '28px', fontWeight: '900', color: i === 2 ? ((k as any).riskColor || gold) : '#ffffff', lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
+            {(k as any).extra && <div style={{ fontSize: '12px', color: '#4aaa4a', fontWeight: '700', marginBottom: '4px' }}>{(k as any).extra}</div>}
+            <div style={{ fontSize: '11px', color: '#555', marginBottom: '5px' }}>{k.sub}</div>
+            <div style={{ fontSize: '11px', color: k.trendColor, fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
       </div>
@@ -360,8 +360,8 @@ export default function IndustryIntelligencePage() {
         {/* INDUSTRY OVERVIEW */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ fontSize: '10px', color: '#aaaaaa', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '6px' }}>INDUSTRY OVERVIEW</div>
-          <div style={{ fontSize: '20px', fontWeight: '900', color: gold, lineHeight: 1.1, marginBottom: '10px' }}>{ID.label}</div>
-          <div style={{ fontSize: '11px', color: '#888', lineHeight: '1.65', marginBottom: '14px' }}>{ID.description}</div>
+          <div style={{ fontSize: '22px', fontWeight: '900', color: gold, lineHeight: 1.1, marginBottom: '12px' }}>{ID.label}</div>
+          <div style={{ fontSize: '12px', color: '#888', lineHeight: '1.7', marginBottom: '14px' }}>{ID.description}</div>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px', marginBottom: '12px' }}>
             {[
               { icon: '◈', label: 'Market Size', value: ID.marketSize },
@@ -372,8 +372,8 @@ export default function IndustryIntelligencePage() {
             ].map((m, i) => (
               <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
                 <span style={{ color: gold, fontSize: '10px', marginTop: '1px', flexShrink: 0 }}>{m.icon}</span>
-                <span style={{ fontSize: '11px', color: '#666', minWidth: '80px', flexShrink: 0 }}>{m.label}</span>
-                <span style={{ fontSize: '11px', color: '#cccccc', fontWeight: '600', lineHeight: '1.4' }}>{m.value}</span>
+                <span style={{ fontSize: '12px', color: '#666', minWidth: '85px', flexShrink: 0 }}>{m.label}</span>
+                <span style={{ fontSize: '12px', color: '#cccccc', fontWeight: '600', lineHeight: '1.4' }}>{m.value}</span>
               </div>
             ))}
           </div>
@@ -384,19 +384,19 @@ export default function IndustryIntelligencePage() {
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>INDUSTRY PERFORMANCE BENCHMARKING</div>
           <div style={{ fontSize: '11px', color: '#555', marginBottom: '12px' }}>How you compare against your industry peers</div>
-          {/* Bar chart */}
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '14px', alignItems: 'flex-end' }}>
-            <div style={{ display: 'flex', flexDirection: 'column' as const, justifyContent: 'space-between', height: '120px', paddingBottom: '18px' }}>
-              {[100,75,50,25].map(l => <div key={l} style={{ fontSize: '8px', color: '#333' }}>{l}</div>)}
+          {/* Bar chart — fixed width bars, no stretching */}
+          <div style={{ display: 'flex', gap: '4px', marginBottom: '14px', alignItems: 'flex-end' }}>
+            <div style={{ display: 'flex', flexDirection: 'column' as const, justifyContent: 'space-between', height: '130px', paddingBottom: '22px', marginRight: '4px' }}>
+              {[100,75,50,25].map(l => <div key={l} style={{ fontSize: '9px', color: '#444' }}>{l}</div>)}
             </div>
             {benchmarkChart.map((b, i) => (
-              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '3px' }}>
-                <div style={{ width: '100%', height: '120px', display: 'flex', alignItems: 'flex-end', gap: '2px', position: 'relative' as const }}>
-                  {[1,2,3,4].map(l => <div key={l} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: l*30, height: '0.5px', backgroundColor: '#0d0d0d' }} />)}
-                  <div style={{ flex: 1, backgroundColor: gold, borderRadius: '2px 2px 0 0', height: (b.yourScore/100*120)+'px', minHeight: '4px' }} />
-                  <div style={{ flex: 1, backgroundColor: '#333', borderRadius: '2px 2px 0 0', height: (b.industryAvg/100*120)+'px', minHeight: '4px' }} />
+              <div key={i} style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '5px', width: '54px', flexShrink: 0 }}>
+                <div style={{ width: '100%', height: '130px', display: 'flex', alignItems: 'flex-end', gap: '3px', position: 'relative' as const }}>
+                  {[1,2,3,4].map(l => <div key={l} style={{ position: 'absolute' as const, left: 0, right: 0, bottom: l*32, height: '0.5px', backgroundColor: '#111' }} />)}
+                  <div style={{ flex: 1, backgroundColor: gold, borderRadius: '2px 2px 0 0', height: (b.yourScore/100*128)+'px', minHeight: '4px' }} />
+                  <div style={{ flex: 1, backgroundColor: '#333', borderRadius: '2px 2px 0 0', height: (b.industryAvg/100*128)+'px', minHeight: '4px' }} />
                 </div>
-                <div style={{ fontSize: '8px', color: '#555', textAlign: 'center' as const, lineHeight: 1.2 }}>{b.label}</div>
+                <div style={{ fontSize: '9px', color: '#666', textAlign: 'center' as const, lineHeight: 1.3, width: '100%' }}>{b.label}</div>
               </div>
             ))}
           </div>
@@ -407,8 +407,8 @@ export default function IndustryIntelligencePage() {
           <div style={{ padding: '10px 12px', backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '6px', display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
             <span style={{ color: '#4aaa4a', fontSize: '12px', flexShrink: 0, marginTop: '1px' }}>↗</span>
             <div>
-              <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', marginBottom: '2px' }}>You outperform {beatPct}% of businesses in your industry</div>
-              <div style={{ fontSize: '10px', color: '#666' }}>Benchmark position: {benchmarkPosition} · Based on your MRI health score of {healthScore}/100</div>
+              <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700', marginBottom: '3px' }}>You outperform {beatPct}% of businesses in your industry</div>
+              <div style={{ fontSize: '11px', color: '#666' }}>Benchmark position: {benchmarkPosition} · Based on your MRI health score of {healthScore}/100</div>
             </div>
           </div>
         </div>
@@ -425,8 +425,8 @@ export default function IndustryIntelligencePage() {
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 0', borderBottom: i < 4 ? '1px solid #0d0d0d' : 'none' }}>
                 <div style={{ width: '18px', height: '18px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8px', color: gold, fontWeight: '700', flexShrink: 0 }}>{i+1}</div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{p.name}</div>
-                  <div style={{ fontSize: '9px', color: '#555' }}>{p.segment}</div>
+                  <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '700', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{p.name}</div>
+                  <div style={{ fontSize: '10px', color: '#666' }}>{p.segment}</div>
                 </div>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #4aaa4a44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <span style={{ fontSize: '10px', color: '#4aaa4a', fontWeight: '700' }}>{p.score}</span>
@@ -445,10 +445,10 @@ export default function IndustryIntelligencePage() {
             </div>
             {benchmarksWithUser.slice(0, 5).map((b: any, i: number) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.6fr 0.6fr 0.6fr', gap: '0', padding: '5px 0', borderBottom: i < 4 ? '1px solid #0a0a0a' : 'none', alignItems: 'center' }}>
-                <div style={{ fontSize: '10px', color: '#888' }}>{b.metric}</div>
-                <div style={{ fontSize: '10px', color: b.yourScore ? (b.yourScore >= b.industryAvg ? '#4aaa4a' : '#e8923a') : '#444', fontWeight: b.yourScore ? '700' : '400' }}>{b.yourScore ? b.yourScore + (b.unit || '') : '—'}</div>
-                <div style={{ fontSize: '10px', color: '#666' }}>{typeof b.industryAvg === 'number' ? b.industryAvg + (b.unit || '') : b.industryAvg}</div>
-                <div style={{ fontSize: '10px', color: gold, fontWeight: '600' }}>{typeof b.top25 === 'number' ? b.top25 + (b.unit || '') : b.top25}</div>
+                <div style={{ fontSize: '11px', color: '#888' }}>{b.metric}</div>
+                <div style={{ fontSize: '11px', color: b.yourScore ? (b.yourScore >= b.industryAvg ? '#4aaa4a' : '#e8923a') : '#444', fontWeight: b.yourScore ? '700' : '400' }}>{b.yourScore ? b.yourScore + (b.unit || '') : '—'}</div>
+                <div style={{ fontSize: '11px', color: '#666' }}>{typeof b.industryAvg === 'number' ? b.industryAvg + (b.unit || '') : b.industryAvg}</div>
+                <div style={{ fontSize: '11px', color: gold, fontWeight: '700' }}>{typeof b.top25 === 'number' ? b.top25 + (b.unit || '') : b.top25}</div>
               </div>
             ))}
             <button onClick={() => setShowBenchmarksModal(true)} style={{ width: '100%', marginTop: '8px', padding: '7px', backgroundColor: 'transparent', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '5px', color: gold, fontSize: '10px', fontWeight: '600', cursor: 'pointer' }}>View all benchmarks →</button>
@@ -490,13 +490,13 @@ export default function IndustryIntelligencePage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
                 <div style={{ display: 'flex', gap: '7px', alignItems: 'center', flex: 1 }}>
                   <div style={{ width: '22px', height: '22px', borderRadius: '5px', backgroundColor: o.impactColor+'18', border: '1px solid '+o.impactColor+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '9px', color: o.impactColor }}>◈</div>
-                  <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600', lineHeight: 1.2 }}>{o.name}</div>
+                  <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '700', lineHeight: 1.2 }}>{o.name}</div>
                 </div>
                 <div style={{ padding: '2px 6px', backgroundColor: o.impactColor+'18', border: '1px solid '+o.impactColor+'33', borderRadius: '3px', fontSize: '8px', color: o.impactColor, fontWeight: '700', flexShrink: 0, marginLeft: '6px' }}>{o.impact}</div>
               </div>
               <div style={{ display: 'flex', gap: '10px', paddingLeft: '29px' }}>
-                <span style={{ fontSize: '11px', color: gold, fontWeight: '700' }}>{o.value}</span>
-                <span style={{ fontSize: '10px', color: '#555' }}>{o.time}</span>
+                <span style={{ fontSize: '13px', color: gold, fontWeight: '800' }}>{o.value}</span>
+                <span style={{ fontSize: '11px', color: '#555' }}>{o.time}</span>
               </div>
             </div>
           ))}
@@ -512,7 +512,7 @@ export default function IndustryIntelligencePage() {
           {ID.risks.map((r: any, i: number) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 0', borderBottom: i < ID.risks.length-1 ? '1px solid #111' : 'none' }}>
               <div style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: r.levelColor+'18', border: '1px solid '+r.levelColor+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: r.levelColor }}>⚠</div>
-              <div style={{ flex: 1, fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{r.name}</div>
+              <div style={{ flex: 1, fontSize: '13px', color: '#e0e0e0', fontWeight: '600' }}>{r.name}</div>
               <div style={{ padding: '2px 7px', backgroundColor: r.levelColor+'18', border: '1px solid '+r.levelColor+'33', borderRadius: '4px', fontSize: '9px', color: r.levelColor, fontWeight: '700' }}>{r.level}</div>
             </div>
           ))}
@@ -538,13 +538,13 @@ export default function IndustryIntelligencePage() {
           </div>
           {ID.comparisonMatrix.map((row: any, i: number) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.7fr 0.7fr 0.8fr 0.7fr 0.9fr 0.9fr', gap: '0', padding: '8px 0', borderBottom: i < ID.comparisonMatrix.length-1 ? '1px solid #0d0d0d' : 'none', alignItems: 'center', backgroundColor: i === 0 ? 'rgba(200,162,74,0.04)' : 'transparent' }}>
-              <div style={{ fontSize: '11px', color: i === 0 ? gold : '#cccccc', fontWeight: i === 0 ? '700' : '500' }}>{row.industry}</div>
-              <div style={{ fontSize: '11px', color: i === 0 ? gold : '#888', fontWeight: i === 0 ? '700' : '400' }}>{i === 0 ? healthScore + '/100' : row.health + '/100'}</div>
-              <div style={{ fontSize: '11px', color: '#888' }}>{row.growth}</div>
-              <div style={{ fontSize: '11px', color: '#888' }}>{row.profitability}</div>
-              <div style={{ fontSize: '11px', color: row.risk === 'High' ? '#cc4444' : row.risk === 'Medium' ? gold : '#4aaa4a', fontWeight: '600' }}>{row.risk}</div>
-              <div style={{ fontSize: '11px', color: '#888' }}>{row.digital}%</div>
-              <div style={{ fontSize: '11px', color: '#888' }}>{row.satisfaction}%</div>
+              <div style={{ fontSize: '12px', color: i === 0 ? gold : '#cccccc', fontWeight: i === 0 ? '700' : '500' }}>{row.industry}</div>
+              <div style={{ fontSize: '12px', color: i === 0 ? gold : '#888', fontWeight: i === 0 ? '700' : '400' }}>{i === 0 ? healthScore + '/100' : row.health + '/100'}</div>
+              <div style={{ fontSize: '12px', color: '#888' }}>{row.growth}</div>
+              <div style={{ fontSize: '12px', color: '#888' }}>{row.profitability}</div>
+              <div style={{ fontSize: '12px', color: row.risk === 'High' ? '#cc4444' : row.risk === 'Medium' ? gold : '#4aaa4a', fontWeight: '600' }}>{row.risk}</div>
+              <div style={{ fontSize: '12px', color: '#888' }}>{row.digital}%</div>
+              <div style={{ fontSize: '12px', color: '#888' }}>{row.satisfaction}%</div>
             </div>
           ))}
         </div>
@@ -577,8 +577,8 @@ export default function IndustryIntelligencePage() {
               <div key={i} style={{ display: 'flex', gap: '8px', padding: '7px 0', borderBottom: i < ID.insights.length-1 ? '1px solid #0d0d0d' : 'none', alignItems: 'flex-start' }}>
                 <div style={{ width: '22px', height: '22px', borderRadius: '5px', backgroundColor: ins.color+'18', border: '1px solid '+ins.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: ins.color }}>◈</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '11px', color: '#cccccc', fontWeight: '600', lineHeight: 1.3, marginBottom: '2px' }}>{ins.title}</div>
-                  <div style={{ fontSize: '9px', color: '#444' }}>{ins.time}</div>
+                  <div style={{ fontSize: '12px', color: '#cccccc', fontWeight: '600', lineHeight: 1.3, marginBottom: '3px' }}>{ins.title}</div>
+                  <div style={{ fontSize: '10px', color: '#555' }}>{ins.time}</div>
                 </div>
               </div>
             ))}
@@ -589,14 +589,14 @@ export default function IndustryIntelligencePage() {
             <div style={{ fontSize: '10px', color: '#555', marginBottom: '8px' }}>12 month outlook</div>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '10px' }}>
               <div style={{ width: '70px', height: '70px', borderRadius: '50%', border: '3px solid ' + ID.outlookColor, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 16px ' + ID.outlookColor + '22' }}>
-                <div style={{ fontSize: '10px', fontWeight: '800', color: ID.outlookColor, textAlign: 'center' as const, lineHeight: 1.2 }}>{ID.outlook}</div>
-                <div style={{ fontSize: '7px', color: '#555', marginTop: '2px' }}>Outlook</div>
+                <div style={{ fontSize: '11px', fontWeight: '800', color: ID.outlookColor, textAlign: 'center' as const, lineHeight: 1.2 }}>{ID.outlook}</div>
+                <div style={{ fontSize: '8px', color: '#555', marginTop: '2px' }}>Outlook</div>
               </div>
               <div>
                 {ID.outlookPoints.map((p: string, i: number) => (
                   <div key={i} style={{ display: 'flex', gap: '5px', marginBottom: '4px' }}>
                     <span style={{ color: ID.outlookColor, fontSize: '8px', marginTop: '2px' }}>●</span>
-                    <span style={{ fontSize: '10px', color: '#888' }}>{p}</span>
+                    <span style={{ fontSize: '11px', color: '#888' }}>{p}</span>
                   </div>
                 ))}
               </div>
