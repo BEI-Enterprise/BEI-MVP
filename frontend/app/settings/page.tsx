@@ -1,4 +1,5 @@
 'use client'
+import { applyTheme } from '../components/ThemeProvider'
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import DashboardShell from '../components/DashboardShell'
@@ -26,6 +27,7 @@ export default function SettingsPage() {
 
   // Display
   const [defaultDash, setDefaultDash] = useState('Overview')
+  const [currentTheme, setCurrentTheme] = useState('Dark')
   const [chartRange, setChartRange] = useState('Last 90 days')
   const [itemsPerPage, setItemsPerPage] = useState('25')
 
@@ -71,6 +73,9 @@ export default function SettingsPage() {
   const [deleteConfirmText, setDeleteConfirmText] = useState('')
 
   useEffect(() => {
+    const saved = localStorage.getItem('bei_theme') || 'dark'
+    setCurrentTheme(saved === 'light' ? 'Light' : 'Dark')
+    applyTheme(saved)
     const load = async () => {
       try {
         const { data: { user } } = await supabase.auth.getUser()
@@ -208,7 +213,7 @@ export default function SettingsPage() {
           <Card>
             <CardTitle title="Display Preferences" sub="Customise how information is displayed across the platform." />
             {[
-              { label: 'Theme', val: 'Dark', opts: ['Dark'], disabled: true },
+              { label: 'Theme', val: currentTheme, set: (v: string) => { setCurrentTheme(v); applyTheme(v.toLowerCase()); }, opts: ['Dark', 'Light'], disabled: false },
               { label: 'Default Dashboard', val: defaultDash, set: setDefaultDash, opts: ['Overview','Executive Dashboard','Performance Intelligence','Risk Intelligence','Industry Intelligence'] },
               { label: 'Chart Time Range', val: chartRange, set: setChartRange, opts: ['Last 24 hours','Last 7 days','Last 30 days','Last 90 days','Last 12 months'] },
               { label: 'Items Per Page', val: itemsPerPage, set: setItemsPerPage, opts: ['10','25','50','100'] },
