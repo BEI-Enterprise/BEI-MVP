@@ -65,6 +65,29 @@ def run_connector():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/chat', methods=['POST'])
+def chat():
+    try:
+        import anthropic
+        data = request.get_json()
+        question = data.get('question', '')
+        context = data.get('context', '')
+        history = data.get('messages', [])
+        client = anthropic.Anthropic(api_key=os.environ.get('ANTHROPIC_API_KEY', ''))
+        system = """You are BEI Intelligence — AI assistant for Business Execution Intelligence.
+You are a senior business analyst. Be concise, specific, executive-grade.
+Always tie answers to the actual business data provided. Never give generic advice.
+Keep responses under 200 words. Be direct and actionable."""
+        if context:
+            system += "\n\nBUSINESS CONTEXT:\n" + context
+        msgs = [m for m in history[-10:] if m.get('role') in ('user','assistant')]
+        if not msgs or msgs[-1]['role'] != 'user':
+            msgs.append({'role': 'user', 'content': question})
+        response = client.messages.create(model='claude-sonnet-4-6', max_tokens=600, system=system, messages=msgs)
+        return jsonify({'response': response.content[0].text, 'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e), 'success': False}), 500
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)
