@@ -100,3 +100,88 @@ html.light [style*="border-top: 1px solid rgb(26, 26, 26)"],
 html.light [style*="border-left: 1px solid rgb(26, 26, 26)"] {
   border-color: #e0ddd8 !important;
 }
+
+/* Aggressive light mode — catch all remaining dark elements */
+html.light * {
+  border-color: #e0ddd8 !important;
+}
+
+html.light [style*="#050505"],
+html.light [style*="#0a0a0a"],
+html.light [style*="#0e0e0e"],
+html.light [style*="#080808"],
+html.light [style*="#111111"],
+html.light [style*="#111"],
+html.light [style*="#0d0d0d"],
+html.light [style*="#121212"],
+html.light [style*="#131313"],
+html.light [style*="#141414"],
+html.light [style*="#151515"],
+html.light [style*="#161616"],
+html.light [style*="#181818"],
+html.light [style*="#1a1a1a"],
+html.light [style*="#1e1e1e"] {
+  background-color: #ffffff !important;
+  border-color: #e8e5e0 !important;
+}
+
+html.light [style*="rgba(5,5,5"],
+html.light [style*="rgba(0,0,0,0.8"],
+html.light [style*="rgba(0,0,0,0.9"] {
+  background-color: #f5f5f0 !important;
+}
+
+/* Force all text to be dark and readable in light mode */
+html.light p,
+html.light span,
+html.light div,
+html.light a,
+html.light label,
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4 {
+  color: #1a1a18;
+}
+
+/* But keep gold accents */
+html.light [style*="color: rgb(200, 162, 74)"],
+html.light [style*="color: #C8A24A"],
+html.light [style*="color: #c8a24a"] {
+  color: #b8920a !important;
+}
+
+/* Keep green/red status colors */
+html.light [style*="color: rgb(74, 170, 74)"] { color: #2a8a2a !important; }
+html.light [style*="color: rgb(204, 68, 68)"] { color: #cc2222 !important; }
+html.light [style*="color: rgb(74, 200, 74)"] { color: #2a8a2a !important; }
+
+/* Bold up all text in light mode */
+html.light p,
+html.light span,
+html.light div,
+html.light label {
+  font-weight: 500;
+}
+
+html.light h1, html.light h2, html.light h3 {
+  font-weight: 800 !important;
+  color: #0a0a08 !important;
+}
+
+/* Card shadows for light mode depth */
+html.light [style*="border-radius: 12px"],
+html.light [style*="border-radius: 8px"],
+html.light [style*="borderRadius: 12px"],
+html.light [style*="borderRadius: 8px"] {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+}
+
+/* Inputs in light mode */
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #f5f5f0 !important;
+  color: #1a1a18 !important;
+  border-color: #d0cdc8 !important;
+}
