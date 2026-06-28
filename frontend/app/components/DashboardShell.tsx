@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import AskBEI from './AskBEI'
 import { createClient } from '../../lib/supabase'
 
@@ -38,7 +38,7 @@ export default function DashboardShell({ children, activeId }: { children: React
     ]},
   ]
 
-  const icons: Record<string, (a: boolean) => JSX.Element> = {
+  const icons: Record<string, (a: boolean) => React.ReactElement> = {
     dashboard: (a) => <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1L1 7h2v7h4v-4h2v4h4V7h2L8 1z" stroke={a?gold:'#555'} strokeWidth="1.3" fill={a?'rgba(200,162,74,0.15)':'none'} strokeLinejoin="round"/></svg>,
     twin: (a) => <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={a?gold:'#555'} strokeWidth="1.2"/><circle cx="8" cy="8" r="2.5" stroke={a?gold:'#555'} strokeWidth="1.2" fill={a?'rgba(200,162,74,0.2)':'none'}/><line x1="8" y1="1.5" x2="8" y2="5" stroke={a?gold:'#555'} strokeWidth="1.2"/><line x1="8" y1="11" x2="8" y2="14.5" stroke={a?gold:'#555'} strokeWidth="1.2"/><line x1="1.5" y1="8" x2="5" y2="8" stroke={a?gold:'#555'} strokeWidth="1.2"/><line x1="11" y1="8" x2="14.5" y2="8" stroke={a?gold:'#555'} strokeWidth="1.2"/></svg>,
     constraints: (a) => <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={a?gold:'#555'} strokeWidth="1.2"/><circle cx="8" cy="8" r="3" stroke={a?gold:'#555'} strokeWidth="1.2" fill={a?'rgba(200,162,74,0.15)':'none'}/><line x1="8" y1="5" x2="8" y2="3" stroke={a?gold:'#555'} strokeWidth="1.2"/><line x1="11" y1="8" x2="13" y2="8" stroke={a?gold:'#555'} strokeWidth="1.2"/><line x1="8" y1="11" x2="8" y2="13" stroke={a?gold:'#555'} strokeWidth="1.2"/><line x1="5" y1="8" x2="3" y2="8" stroke={a?gold:'#555'} strokeWidth="1.2"/></svg>,
