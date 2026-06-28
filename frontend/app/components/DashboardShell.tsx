@@ -24,17 +24,17 @@ export default function DashboardShell({ children, activeId }: { children: React
   const navSections = [
     { section: 'COMMAND CENTRE', items: [
       { id: 'dashboard', label: 'Executive Command Centre', href: '/dashboard' },
-      { id: 'twin', label: 'Business Twin\u2122 Centre', href: '/connect' },
-      { id: 'constraints', label: 'Constraint Intelligence\u2122', href: '/constraints' },
-      { id: 'opportunities', label: 'Opportunity Centre\u2122', href: '/opportunities' },
-      { id: 'risk', label: 'Risk Intelligence\u2122', href: '/risk' },
-      { id: 'performance', label: 'Performance Intelligence\u2122', href: '/performance' },
-      { id: 'industry', label: 'Industry Intelligence\u2122', href: '/industry' },
+      { id: 'twin', label: 'Business Twin™ Centre', href: '/connect' },
+      { id: 'constraints', label: 'Constraint Intelligence™', href: '/constraints' },
+      { id: 'opportunities', label: 'Opportunity Centre™', href: '/opportunities' },
+      { id: 'risk', label: 'Risk Intelligence™', href: '/risk' },
+      { id: 'performance', label: 'Performance Intelligence™', href: '/performance' },
+      { id: 'industry', label: 'Industry Intelligence™', href: '/industry' },
     ]},
     { section: 'EXECUTION', items: [
-      { id: 'deployment', label: 'Outcome & Deployment\u2122', href: '/deployments' },
-      { id: 'operations', label: 'Intelligence Operations\u2122', href: '/intelligence-ops' },
-      { id: 'admin', label: 'Administration', href: '/settings' },
+      { id: 'deployment', label: 'Outcome & Deployment™', href: '/deployments' },
+      { id: 'operations', label: 'Intelligence Operations™', href: '/intelligence-ops' },
+      { id: 'admin', label: 'Settings', href: '/settings' },
     ]},
   ]
 
@@ -59,8 +59,8 @@ export default function DashboardShell({ children, activeId }: { children: React
 
         {/* Logo */}
         <div style={{ padding: collapsed ? '18px 0' : '18px 18px', borderBottom: `1px solid ${sidebarBorder}`, display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'space-between', minHeight: '60px', flexShrink: 0 }}>
-          {!collapsed && <div><div style={{ fontSize: '18px', fontWeight: '900', color: gold, letterSpacing: '0.15em' }}>BEI<sup style={{ fontSize: '8px', verticalAlign: 'super' }}>\u2122</sup></div><div style={{ fontSize: '8px', color: '#444', letterSpacing: '0.18em', marginTop: '2px' }}>BUSINESS EXECUTION INTELLIGENCE</div></div>}
-          <button onClick={() => setCollapsed(!collapsed)} style={{ background: 'none', border: 'none', color: '#444', cursor: 'pointer', fontSize: '12px', padding: '4px', flexShrink: 0 }}>{collapsed ? '\u25B6' : '\u25C0'}</button>
+          {!collapsed && <div><div style={{ fontSize: '18px', fontWeight: '900', color: gold, letterSpacing: '0.15em' }}>BEI<sup style={{ fontSize: '8px', verticalAlign: 'super' }}>TM</sup></div><div style={{ fontSize: '8px', color: '#444', letterSpacing: '0.18em', marginTop: '2px' }}>BUSINESS EXECUTION INTELLIGENCE</div></div>}
+          <button onClick={() => setCollapsed(!collapsed)} style={{ background: 'none', border: 'none', color: '#444', cursor: 'pointer', fontSize: '12px', padding: '4px', flexShrink: 0 }}>{collapsed ? '▶' : '◀'}</button>
         </div>
 
         {/* Nav */}
@@ -92,10 +92,10 @@ export default function DashboardShell({ children, activeId }: { children: React
             <button onClick={() => window.dispatchEvent(new CustomEvent('open-ask-bei'))} style={{ width: '100%', backgroundColor: 'rgba(200,162,74,0.05)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '10px', padding: '11px 13px', cursor: 'pointer', textAlign: 'left' as const, display: 'block' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ fontSize: '12px', color: gold }}>\u2736</span>
+                  <span style={{ fontSize: '12px', color: gold }}>✦</span>
                   <span style={{ fontSize: '11px', fontWeight: '700', color: gold, letterSpacing: '0.05em' }}>BEI ASSISTANT</span>
                 </div>
-                <div style={{ width: '20px', height: '20px', borderRadius: '5px', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: gold }}>\u2192</div>
+                <div style={{ width: '20px', height: '20px', borderRadius: '5px', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: gold }}>→</div>
               </div>
               <div style={{ fontSize: '11px', color: '#444', lineHeight: '1.5' }}>Ask BEI anything about your Business Twin...</div>
             </button>
@@ -124,14 +124,14 @@ export default function DashboardShell({ children, activeId }: { children: React
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#444" strokeWidth="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#444" strokeWidth="1.5" strokeLinecap="round"/></svg>
               <input value={searchVal} onChange={e => setSearchVal(e.target.value)} placeholder="Search BEI Intelligence..." style={{ background: 'none', border: 'none', outline: 'none', color: '#666', fontSize: '13px', flex: 1, minWidth: 0 }} />
               <div style={{ display: 'flex', alignItems: 'center', gap: '2px', flexShrink: 0 }}>
-                <kbd style={{ fontSize: '9px', color: '#333', backgroundColor: '#111', border: '1px solid #1e1e1e', borderRadius: '3px', padding: '1px 4px' }}>\u2318</kbd>
+                <kbd style={{ fontSize: '9px', color: '#333', backgroundColor: '#111', border: '1px solid #1e1e1e', borderRadius: '3px', padding: '1px 4px' }}>⌘</kbd>
                 <kbd style={{ fontSize: '9px', color: '#333', backgroundColor: '#111', border: '1px solid #1e1e1e', borderRadius: '3px', padding: '1px 4px' }}>K</kbd>
               </div>
             </div>
           </div>
           <div style={{ flex: 1 }} />
           <button onClick={() => window.dispatchEvent(new CustomEvent('open-ask-bei'))} style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '8px 16px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '8px', color: gold, fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
-            <span>\u2736</span> Ask BEI
+            <span>✦</span> Ask BEI
           </button>
           <button onClick={() => setNotifOpen(!notifOpen)} style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#0e0e0e', border: '1px solid #1e1e1e', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'relative' as const }}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.5 1.5 4 3.5 4 6v4l-1.5 1.5h11L12 10V6c0-2.5-1.5-4.5-4-4.5z" stroke="#666" strokeWidth="1.3" fill="none"/><path d="M6.5 13a1.5 1.5 0 003 0" stroke="#666" strokeWidth="1.3" fill="none"/></svg>
@@ -161,7 +161,7 @@ export default function DashboardShell({ children, activeId }: { children: React
           </div>
           <span style={{ fontSize: '10px', color: '#222' }}>All systems operational</span>
           <div style={{ flex: 1 }} />
-          <span style={{ fontSize: '10px', color: '#222' }}>Last sync: Just now \u2713</span>
+          <span style={{ fontSize: '10px', color: '#222' }}>Last sync: Just now ✓</span>
         </div>
       </div>
     </div>
