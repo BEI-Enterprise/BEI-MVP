@@ -12,7 +12,7 @@ export default function AskBEI() {
   const [open, setOpen] = useState(false)
   const [view, setView] = useState<'chat'|'history'>('chat')
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hello. I'm BEI Intelligence. Ask me anything about your business \u2014 constraints, health score, opportunities, or what to focus on next.", time: 'now' }
+    { role: 'assistant', content: "Hello. I'm BEI Intelligence. Ask me anything about your business — constraints, health score, opportunities, or what to focus on next.", time: 'now' }
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -104,21 +104,21 @@ export default function AskBEI() {
     <div style={{ position: 'fixed' as const, bottom: '20px', right: '24px', width: '420px', height: '580px', backgroundColor: '#080808', border: '1px solid rgba(200,162,74,0.28)', borderRadius: '16px', zIndex: 1000, display: 'flex', flexDirection: 'column' as const, boxShadow: '0 16px 60px rgba(0,0,0,0.85)', overflow: 'hidden' }}>
       {/* Header */}
       <div style={{ padding: '13px 15px', borderBottom: '1px solid #141414', display: 'flex', alignItems: 'center', gap: '10px', backgroundColor: '#0a0a0a', flexShrink: 0 }}>
-        <div style={{ width: '30px', height: '30px', borderRadius: '8px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', color: gold, flexShrink: 0 }}>\u2736</div>
+        <div style={{ width: '30px', height: '30px', borderRadius: '8px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', color: gold, flexShrink: 0 }}>✦</div>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: '13px', fontWeight: '700', color: gold }}>Ask BEI</div>
-          <div style={{ fontSize: '9px', color: '#444', letterSpacing: '0.1em' }}>INTELLIGENCE ASSISTANT{biz ? ' \u00B7 ' + biz.business_name : ''}</div>
+          <div style={{ fontSize: '9px', color: '#444', letterSpacing: '0.1em' }}>INTELLIGENCE ASSISTANT{biz ? ' · ' + biz.business_name : ''}</div>
         </div>
-        <button onClick={newChat} title="New chat" style={{ background: 'none', border: '1px solid #1e1e1e', borderRadius: '6px', color: '#555', cursor: 'pointer', fontSize: '12px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\u270E</button>
-        <button onClick={() => setView(v => v === 'history' ? 'chat' : 'history')} title="History" style={{ background: 'none', border: '1px solid #1e1e1e', borderRadius: '6px', color: view === 'history' ? gold : '#555', cursor: 'pointer', fontSize: '13px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\u2630</button>
-        <button onClick={() => { if (messages.filter(m=>m.role==='user').length>0) saveToHistory(messages); setOpen(false) }} style={{ background: 'none', border: '1px solid #1e1e1e', borderRadius: '6px', color: '#555', cursor: 'pointer', fontSize: '13px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\u2715</button>
+        <button onClick={newChat} title="New chat" style={{ background: 'none', border: '1px solid #1e1e1e', borderRadius: '6px', color: '#555', cursor: 'pointer', fontSize: '12px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✎</button>
+        <button onClick={() => setView(v => v === 'history' ? 'chat' : 'history')} title="History" style={{ background: 'none', border: '1px solid #1e1e1e', borderRadius: '6px', color: view === 'history' ? gold : '#555', cursor: 'pointer', fontSize: '13px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>☰</button>
+        <button onClick={() => { if (messages.filter(m=>m.role==='user').length>0) saveToHistory(messages); setOpen(false) }} style={{ background: 'none', border: '1px solid #1e1e1e', borderRadius: '6px', color: '#555', cursor: 'pointer', fontSize: '13px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
       </div>
 
       {view === 'history' ? (
         <div style={{ flex: 1, overflowY: 'auto' as const, padding: '14px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
             <div style={{ fontSize: '11px', color: '#444', letterSpacing: '0.1em', fontWeight: '600' }}>CHAT HISTORY</div>
-            <button onClick={() => setView('chat')} style={{ background: 'none', border: 'none', color: gold, cursor: 'pointer', fontSize: '11px' }}>\u2190 Back</button>
+            <button onClick={() => setView('chat')} style={{ background: 'none', border: 'none', color: gold, cursor: 'pointer', fontSize: '11px' }}>← Back</button>
           </div>
           {history.length === 0 ? (
             <div style={{ textAlign: 'center' as const, padding: '40px 20px', color: '#333', fontSize: '13px' }}>No previous conversations</div>
@@ -126,9 +126,9 @@ export default function AskBEI() {
             <div key={conv.id} style={{ backgroundColor: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '11px 13px', marginBottom: '8px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }} onClick={() => { setMessages(conv.messages); setView('chat') }}>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: '13px', color: '#ccc', fontWeight: '500', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{conv.title}</div>
-                <div style={{ fontSize: '10px', color: '#444', marginTop: '3px' }}>{conv.date} \u00B7 {conv.messages.filter(m=>m.role==='user').length} message{conv.messages.filter(m=>m.role==='user').length!==1?'s':''}</div>
+                <div style={{ fontSize: '10px', color: '#444', marginTop: '3px' }}>{conv.date} · {conv.messages.filter(m=>m.role==='user').length} message{conv.messages.filter(m=>m.role==='user').length!==1?'s':''}</div>
               </div>
-              <button onClick={e => { e.stopPropagation(); deleteConv(conv.id) }} style={{ background: 'none', border: 'none', color: '#333', cursor: 'pointer', fontSize: '12px', padding: '0 2px', flexShrink: 0 }}>\u2715</button>
+              <button onClick={e => { e.stopPropagation(); deleteConv(conv.id) }} style={{ background: 'none', border: 'none', color: '#333', cursor: 'pointer', fontSize: '12px', padding: '0 2px', flexShrink: 0 }}>✕</button>
             </div>
           ))}
         </div>
@@ -137,7 +137,7 @@ export default function AskBEI() {
           <div style={{ flex: 1, overflowY: 'auto' as const, padding: '14px', display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
             {messages.map((m, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: m.role==='user'?'flex-end':'flex-start', alignItems: 'flex-start', gap: '7px' }}>
-                {m.role==='assistant' && <div style={{ width: '22px', height: '22px', borderRadius: '5px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: gold, flexShrink: 0, marginTop: '2px' }}>\u2736</div>}
+                {m.role==='assistant' && <div style={{ width: '22px', height: '22px', borderRadius: '5px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: gold, flexShrink: 0, marginTop: '2px' }}>✦</div>}
                 <div>
                   <div style={{ maxWidth: '300px', padding: '9px 13px', backgroundColor: m.role==='user'?'rgba(200,162,74,0.07)':'#0e0e0e', border: '1px solid '+(m.role==='user'?'rgba(200,162,74,0.15)':'#1a1a1a'), borderRadius: m.role==='user'?'10px 10px 2px 10px':'10px 10px 10px 2px', fontSize: '13px', color: '#e0e0e0', lineHeight: '1.65', whiteSpace: 'pre-wrap' as const }}>{m.content}</div>
                   {m.time && <div style={{ fontSize: '10px', color: '#2a2a2a', marginTop: '3px', textAlign: m.role==='user'?'right' as const:'left' as const }}>{m.time}</div>}
@@ -146,7 +146,7 @@ export default function AskBEI() {
             ))}
             {loading && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                <div style={{ width: '22px', height: '22px', borderRadius: '5px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: gold }}>\u2736</div>
+                <div style={{ width: '22px', height: '22px', borderRadius: '5px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: gold }}>✦</div>
                 <div style={{ padding: '9px 13px', backgroundColor: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: '10px 10px 10px 2px', fontSize: '13px', color: '#444' }}>Analysing your intelligence...</div>
               </div>
             )}
@@ -159,7 +159,7 @@ export default function AskBEI() {
           )}
           <div style={{ padding: '12px 14px', borderTop: '1px solid #141414', display: 'flex', gap: '8px', flexShrink: 0 }}>
             <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key==='Enter' && send()} placeholder="Ask BEI anything..." style={{ flex: 1, padding: '9px 13px', backgroundColor: '#0e0e0e', border: '1px solid #1e1e1e', borderRadius: '8px', color: '#e0e0e0', fontSize: '13px', outline: 'none' }} />
-            <button onClick={() => send()} disabled={loading||!input.trim()} style={{ padding: '9px 16px', backgroundColor: input.trim()?gold:'#111', color: input.trim()?'#050505':'#333', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '14px', cursor: input.trim()?'pointer':'default' }}>\u2192</button>
+            <button onClick={() => send()} disabled={loading||!input.trim()} style={{ padding: '9px 16px', backgroundColor: input.trim()?gold:'#111', color: input.trim()?'#050505':'#333', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '14px', cursor: input.trim()?'pointer':'default' }}>→</button>
           </div>
         </>
       )}
