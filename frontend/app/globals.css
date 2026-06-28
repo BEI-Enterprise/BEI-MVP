@@ -54,3 +54,49 @@ body {
   color: var(--text-primary);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+/* Light mode overrides for all hardcoded dark colors */
+html.light {
+  background-color: #f5f5f0 !important;
+  color: #1a1a18 !important;
+}
+
+html.light body {
+  background-color: #f5f5f0 !important;
+  color: #1a1a18 !important;
+}
+
+html.light [style*="background-color: rgb(5, 5, 5)"],
+html.light [style*="background-color: rgb(10, 10, 10)"],
+html.light [style*="background-color: rgb(14, 14, 14)"],
+html.light [style*="background-color: rgb(8, 8, 8)"],
+html.light [style*="background-color: rgb(17, 17, 17)"],
+html.light [style*="background-color: rgb(13, 13, 13)"],
+html.light [style*="background-color: rgb(18, 18, 18)"],
+html.light [style*="background-color: rgb(20, 20, 20)"] {
+  background-color: #ffffff !important;
+}
+
+html.light [style*="color: rgb(255, 255, 255)"],
+html.light [style*="color: white"] {
+  color: #1a1a18 !important;
+}
+
+html.light [style*="color: rgb(204, 204, 204)"],
+html.light [style*="color: rgb(200, 200, 200)"] {
+  color: #4a4a44 !important;
+}
+
+html.light [style*="color: rgb(136, 136, 136)"],
+html.light [style*="color: rgb(119, 119, 119)"],
+html.light [style*="color: rgb(102, 102, 102)"] {
+  color: #666660 !important;
+}
+
+html.light [style*="border: 1px solid rgb(30, 30, 30)"],
+html.light [style*="border-right: 1px solid rgb(26, 26, 26)"],
+html.light [style*="border-bottom: 1px solid rgb(26, 26, 26)"],
+html.light [style*="border-top: 1px solid rgb(26, 26, 26)"],
+html.light [style*="border-left: 1px solid rgb(26, 26, 26)"] {
+  border-color: #e0ddd8 !important;
+}
