@@ -258,29 +258,6 @@ export default function DashboardShell({ children, activeId }: { children: React
         </div>
 
         <AskBEI />
-              {chatMessages.map((msg,i)=>(
-                <div key={i} style={{display:'flex',justifyContent:msg.role==='user'?'flex-end':'flex-start',alignItems:'flex-start',gap:'8px'}}>
-                  {msg.role==='assistant'&&<div style={{width:'24px',height:'24px',borderRadius:'6px',backgroundColor:'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.25)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',color:'#C8A24A',flexShrink:0,marginTop:'2px'}}>✦</div>}
-                  <div style={{maxWidth:'82%',padding:'10px 13px',backgroundColor:msg.role==='user'?'rgba(200,162,74,0.1)':'#1a1a1a',border:'1px solid '+(msg.role==='user'?'rgba(200,162,74,0.22)':'#2a2a2a'),borderRadius:msg.role==='user'?'12px 12px 3px 12px':'12px 12px 12px 3px',fontSize:'13px',color:'#e0e0e0',lineHeight:'1.65',whiteSpace:'pre-wrap' as const}}>{msg.text}</div>
-                </div>
-              ))}
-              {chatLoading&&(
-                <div style={{display:'flex',alignItems:'center',gap:'8px'}}>
-                  <div style={{width:'24px',height:'24px',borderRadius:'6px',backgroundColor:'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.25)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',color:'#C8A24A'}}>✦</div>
-                  <div style={{padding:'10px 13px',backgroundColor:'#1a1a1a',border:'1px solid #2a2a2a',borderRadius:'12px 12px 12px 3px',fontSize:'13px',color:'#555'}}>Analysing your intelligence...</div>
-                </div>
-              )}
-              <div ref={chatEndRef}/>
-            </div>
-            <div style={{padding:'12px 14px',borderTop:'1px solid #1e1e1e',flexShrink:0}}>
-              <div style={{display:'flex',gap:'8px',alignItems:'flex-end'}}>
-                <textarea value={chatInput} onChange={(e:any)=>setChatInput(e.target.value)} onKeyDown={(e:any)=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat()}}} placeholder="Ask about your business intelligence..." rows={2} style={{flex:1,backgroundColor:'#1a1a1a',border:'1px solid #2a2a2a',borderRadius:'10px',color:'#e0e0e0',fontSize:'13px',padding:'9px 13px',resize:'none' as const,outline:'none',fontFamily:'inherit',lineHeight:'1.5'}}/>
-                <button onClick={sendChat} disabled={chatLoading||!chatInput.trim()} style={{width:'38px',height:'38px',backgroundColor:chatInput.trim()?'#C8A24A':'#1a1a1a',border:'1px solid '+(chatInput.trim()?'#C8A24A':'#2a2a2a'),borderRadius:'10px',color:chatInput.trim()?'#050505':'#555',fontSize:'16px',cursor:chatInput.trim()?'pointer':'default',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>→</button>
-              </div>
-              <div style={{fontSize:'10px',color:'#444',marginTop:'5px',textAlign:'center' as const}}>Powered by BEI Decision Intelligence</div>
-            </div>
-          </div>
-        )}
         {/* BOTTOM STATUS BAR */}
         <div style={{ height: '32px', backgroundColor: '#080808', borderTop: `1px solid ${sidebarBorder}`, display: 'flex', alignItems: 'center', padding: '0 24px', gap: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
