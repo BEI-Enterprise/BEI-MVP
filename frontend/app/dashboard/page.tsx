@@ -178,31 +178,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div style={{ marginBottom: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-          <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
-          <div style={{ fontSize: '10px', color: '#aaa', letterSpacing: '0.2em', fontWeight: '600' }}>SINCE YOUR LAST LOGIN</div>
-          <div style={{ fontSize: '10px', color: '#444', marginLeft: '4px' }}>· 8 hours ago</div>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '10px' }}>
-          {[
-            { label: 'HEALTH CHANGE', value: healthScore > 0 ? '+4 pts' : '—', color: '#4aaa4a', sub: 'vs previous ' + Math.max(0, healthScore - 4) + '/100', trend: 'up' },
-            { label: 'RISK CHANGE', value: '-12%', color: '#4aaa4a', sub: 'vs previous Very High', trend: 'down' },
-            { label: 'OPPORTUNITY CHANGE', value: oppLow > 0 ? '+' + fmt(Math.round(oppLow * 0.15)) : '—', color: gold, sub: 'vs previous ' + (oppLow > 0 ? fmt(Math.round(oppLow * 0.85)) : '—'), trend: 'up' },
-            { label: 'NEW CONSTRAINTS', value: String(1 + secondary.length), color: '#e0e0e0', sub: 'vs previous 0', trend: 'neutral' },
-            { label: 'ACTIONS COMPLETED', value: '3', color: '#4aaa4a', sub: 'vs previous 1', trend: 'up' },
-            { label: 'NEW ALERTS', value: String(alerts.length), color: alerts.length > 1 ? '#cc4444' : gold, sub: 'vs previous 2', trend: 'neutral' },
-          ].map((item, i) => (
-            <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '16px' }}>
-              <div style={{ fontSize: '9px', color: '#777', letterSpacing: '0.15em', marginBottom: '8px', fontWeight: '600' }}>{item.label}</div>
-              <div style={{ fontSize: '22px', fontWeight: '800', color: item.color, lineHeight: 1, marginBottom: '4px' }}>{item.value}</div>
-              <div style={{ fontSize: '10px', color: '#888', marginBottom: '8px' }}>{item.sub}</div>
-              {sparkline(item.trend, item.color, i)}
-            </div>
-          ))}
-        </div>
-      </div>
-
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '10px', marginBottom: '20px' }}>
         {[
           { label: 'OVERALL HEALTH', value: healthScore + '/100', color: healthColor, trend: '↑ ' + healthDelta + ' pts', prevVal: 'vs last month ' + prevHealth, spark: 'up', trendColor: '#4aaa4a' },
