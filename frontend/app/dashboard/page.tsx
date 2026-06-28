@@ -389,56 +389,6 @@ export default function DashboardPage() {
 
         <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
 
-          {oppHigh > 0 && (
-            <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY SNAPSHOT</div>
-                <a href="/opportunities" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View pipeline →</a>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <div style={{ flexShrink: 0 }}>
-                  <svg width="110" height="110" viewBox="0 0 80 80">
-                    {(() => {
-                      let offset = 0
-                      const r = 28
-                      const c = r * 2 * Math.PI
-                      return oppBreakdown.map((o, i) => {
-                        const dash = (o.pct / 100) * c
-                        const gap = c - dash
-                        const el = (
-                          <circle key={i} cx="40" cy="40" r={r} fill="none" stroke={o.color} strokeWidth="10"
-                            strokeDasharray={String(dash) + ' ' + String(gap)} strokeDashoffset={String(-offset)}
-                            strokeOpacity="0.85" transform="rotate(-90 40 40)"/>
-                        )
-                        offset += dash
-                        return el
-                      })
-                    })()}
-                    <text x="40" y="36" textAnchor="middle" fill={gold} fontSize="9" fontWeight="800">{fmtShort(oppLow)}+</text>
-                    <text x="40" y="48" textAnchor="middle" fill="#555" fontSize="7">Total</text>
-                  </svg>
-                </div>
-                <div style={{ flex: 1 }}>
-                  {oppBreakdown.map((o, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: i < oppBreakdown.length - 1 ? '5px' : '0' }}>
-                      <div style={{ width: '7px', height: '7px', borderRadius: '2px', backgroundColor: o.color, flexShrink: 0 }} />
-                      <div style={{ flex: 1, fontSize: '10px', color: '#aaaaaa' }}>{o.label}</div>
-                      <div style={{ fontSize: '10px', color: o.color, fontWeight: '600' }}>{o.val}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div style={{ borderTop: '1px solid ' + border, paddingTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ fontSize: '10px', color: '#888' }}>Avg. Confidence: <span style={{ color: confColor, fontWeight: '600' }}>78%</span></div>
-                <div style={{ fontSize: '10px', color: '#888' }}>{oppBreakdown.length} opportunities</div>
-              </div>
-            </div>
-          )}
-
-        </div>
-      </div>
-          <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div style={{ fontSize: '11px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '700' }}>BUSINESS HEALTH RADAR</div>
               <button onClick={() => setShowRadarModal(true)} style={{ fontSize: '11px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontWeight: '600' }}>View full →</button>
             </div>
@@ -547,6 +497,56 @@ export default function DashboardPage() {
             })}
           </div>
 
+          {oppHigh > 0 && (
+            <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY SNAPSHOT</div>
+                <a href="/opportunities" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View pipeline →</a>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <div style={{ flexShrink: 0 }}>
+                  <svg width="110" height="110" viewBox="0 0 80 80">
+                    {(() => {
+                      let offset = 0
+                      const r = 28
+                      const c = r * 2 * Math.PI
+                      return oppBreakdown.map((o, i) => {
+                        const dash = (o.pct / 100) * c
+                        const gap = c - dash
+                        const el = (
+                          <circle key={i} cx="40" cy="40" r={r} fill="none" stroke={o.color} strokeWidth="10"
+                            strokeDasharray={String(dash) + ' ' + String(gap)} strokeDashoffset={String(-offset)}
+                            strokeOpacity="0.85" transform="rotate(-90 40 40)"/>
+                        )
+                        offset += dash
+                        return el
+                      })
+                    })()}
+                    <text x="40" y="36" textAnchor="middle" fill={gold} fontSize="9" fontWeight="800">{fmtShort(oppLow)}+</text>
+                    <text x="40" y="48" textAnchor="middle" fill="#555" fontSize="7">Total</text>
+                  </svg>
+                </div>
+                <div style={{ flex: 1 }}>
+                  {oppBreakdown.map((o, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: i < oppBreakdown.length - 1 ? '5px' : '0' }}>
+                      <div style={{ width: '7px', height: '7px', borderRadius: '2px', backgroundColor: o.color, flexShrink: 0 }} />
+                      <div style={{ flex: 1, fontSize: '10px', color: '#aaaaaa' }}>{o.label}</div>
+                      <div style={{ fontSize: '10px', color: o.color, fontWeight: '600' }}>{o.val}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ borderTop: '1px solid ' + border, paddingTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ fontSize: '10px', color: '#888' }}>Avg. Confidence: <span style={{ color: confColor, fontWeight: '600' }}>78%</span></div>
+                <div style={{ fontSize: '10px', color: '#888' }}>{oppBreakdown.length} opportunities</div>
+              </div>
+            </div>
+          )}
+
+        </div>
+      </div>
+          <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
       {showRadarModal && (
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowRadarModal(false)}>
           <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '740px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
