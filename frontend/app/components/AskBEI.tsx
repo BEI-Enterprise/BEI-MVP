@@ -33,7 +33,7 @@ export default function AskBEI() {
       try {
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) return
-        const { data } = await supabase.from('businesses').select('business_name, mri_result, industry').eq('email', user.email).order('updated_at', { ascending: false }).limit(1).single()
+        const { data } = await supabase.from('businesses').select('id, business_name, industry, email').eq('email', user.email).order('updated_at', { ascending: false }).limit(1).single()
         if (data) setBiz(data)
       } catch (e) {}
     }
@@ -77,6 +77,8 @@ export default function AskBEI() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          userEmail: (await supabase.auth.getUser()).data?.user?.email || '',
+          businessId: biz?.id || '',
           primary: primary ? { name: primary.name || primary.key, verification_score: primary.verification_score || 70, severity: primary.severity || 'high', is_root_cause: primary.is_root_cause !== false, hypothesis: primary.hypothesis || '', opportunity: { value_low: totalOpp.total_low || 0, value_high: totalOpp.total_high || 0 } } : null,
           secondary: (r.secondary_constraints || []).map((c: any) => ({ name: c.name || c.key, verification_score: c.verification_score || 60, severity: c.severity || 'medium' })),
           pillars: r.health?.pillars || [],
