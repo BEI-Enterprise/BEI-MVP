@@ -465,3 +465,37 @@ input, select, textarea { font-size: 14px !important; }
 [style*="fontSize: '18px'"] { font-size: 21px !important; }
 [style*="fontSize: '26px'"] { font-size: 30px !important; }
 [style*="fontSize: '32px'"] { font-size: 36px !important; }
+
+/* ============================================
+   READABLE TEXT — TARGET ACTUAL RENDERED CSS
+   ============================================ */
+
+/* Catch all tiny rendered text and make it readable */
+html * { 
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Override all small font sizes at the rendered CSS level */
+html [style*="font-size: 9px"] { font-size: 12px !important; }
+html [style*="font-size: 10px"] { font-size: 12px !important; }
+html [style*="font-size: 11px"] { font-size: 13px !important; }
+html [style*="font-size: 12px"] { font-size: 14px !important; }
+html [style*="font-size: 13px"] { font-size: 15px !important; }
+html [style*="font-size: 14px"] { font-size: 15px !important; }
+html [style*="font-size: 8px"] { font-size: 11px !important; }
+
+/* Target the body font directly */
+body {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+}
+
+/* All paragraph and span text */
+p, span, div, label, li, td, th, a {
+  line-height: 1.6;
+}
+
+/* Minimum readable size for everything */
+body * {
+  min-font-size: 12px;
+}
