@@ -63,7 +63,7 @@ export default function IntelligenceOperationsPage() {
             .single()
           if (biz) {
             setBusinessName(biz.business_name || 'Your Business')
-            if (biz.mri_result) setResult(biz.mri_result)
+            if (biz.mri_result && biz.mri_result.mri_source !== 'free') setResult(biz.mri_result)
             const { data: conns } = await supabase
               .from('connectors')
               .select('connector_type, connector_name, status, last_synced_at, data_snapshot, error_message, sync_frequency_hours, created_at')

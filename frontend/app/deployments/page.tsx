@@ -69,7 +69,7 @@ export default function OutcomeDeploymentPage() {
           if (data) {
             setBusinessName(data.business_name || 'Your Business')
             setIndustry(data.industry || '')
-            if (data.mri_result) setResult(data.mri_result)
+            if (data.mri_result && data.mri_result.mri_source !== 'free') setResult(data.mri_result)
           }
         }
       } catch (e) {}

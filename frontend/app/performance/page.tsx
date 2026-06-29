@@ -65,7 +65,7 @@ export default function PerformancePage() {
             .single()
           if (data) {
             setBusinessName(data.business_name || 'Your Business')
-            if (data.mri_result) setResult(data.mri_result)
+            if (data.mri_result && data.mri_result.mri_source !== 'free') setResult(data.mri_result)
             if (data.mri_answers) setAnswers(data.mri_answers)
           }
         }
