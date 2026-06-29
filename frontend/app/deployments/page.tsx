@@ -49,7 +49,7 @@ export default function OutcomeDeploymentPage() {
   }, [])
 
   if (loading) return (
-    <main style={{ backgroundColor: '#050505', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>LOADING OUTCOME & DEPLOYMENT...</div>
     </main>
   )
@@ -211,16 +211,16 @@ export default function OutcomeDeploymentPage() {
       {/* HEADER */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid ' + border }}>
         <div>
-          <h1 style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: '#ffffff' }}>Outcome & Deployment</h1>
-          <div style={{ fontSize: '12px', color: '#666' }}>Track expected outcomes, manage deployment plans and measure real-world impact.</div>
+          <h1 style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: 'var(--text-primary)' }}>Outcome & Deployment</h1>
+          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Track expected outcomes, manage deployment plans and measure real-world impact.</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#888' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)' }}>
             Business Twin™: <span style={{ color: '#4aaa4a', fontWeight: '600' }}>Active</span>
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
           </div>
           <button style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>⊙ Outcome Scan</button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#555', fontSize: '16px' }}>⋮</div>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
         </div>
       </div>
 
@@ -244,9 +244,9 @@ export default function OutcomeDeploymentPage() {
           { label: 'AVERAGE TIME TO VALUE', value: '42 days', sub: 'From start to value', trend: '↓ 8 days vs last 30 days', trendColor: '#4aaa4a' },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: '#aaaaaa', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
-            <div style={{ fontSize: '20px', fontWeight: '900', color: '#ffffff', lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
-            <div style={{ fontSize: '12px', color: '#999', marginBottom: '4px' }}>{k.sub}</div>
+            <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
+            <div style={{ fontSize: '20px', fontWeight: '900', color: 'var(--text-primary)', lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>{k.sub}</div>
             <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
@@ -259,21 +259,21 @@ export default function OutcomeDeploymentPage() {
           {/* OUTCOME IMPACT SUMMARY */}
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
             <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>OUTCOME IMPACT SUMMARY</div>
-            <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Breakdown of expected vs realised impact across key areas.</div>
+            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>Breakdown of expected vs realised impact across key areas.</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.9fr 0.9fr 0.7fr 40px', gap: '0', marginBottom: '6px', paddingBottom: '6px', borderBottom: '1px solid #1a1a1a' }}>
-              {['AREA','EXPECTED','REALISED','RATE',''].map(h => <div key={h} style={{ fontSize: '8px', color: '#444', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>)}
+              {['AREA','EXPECTED','REALISED','RATE',''].map(h => <div key={h} style={{ fontSize: '8px', color: 'var(--text-secondary)', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>)}
             </div>
             {outcomeAreas.map((row, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.9fr 0.9fr 0.7fr 40px', gap: '0', padding: '7px 0', borderBottom: i < outcomeAreas.length-1 ? '1px solid #0d0d0d' : 'none', alignItems: 'center' }}>
-                <div style={{ fontSize: '11px', color: '#cccccc', fontWeight: '500' }}>{row.area}</div>
-                <div style={{ fontSize: '11px', color: '#888' }}>{row.expected}</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: '500' }}>{row.area}</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{row.expected}</div>
                 <div style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>{row.realised}</div>
                 <div style={{ fontSize: '10px', color: row.rate >= 40 ? '#4aaa4a' : gold }}>{row.rate}%</div>
                 {trendSpark(row.trend, row.rate >= 40 ? '#4aaa4a' : gold)}
               </div>
             ))}
             <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.9fr 0.9fr 0.7fr 40px', gap: '0', padding: '8px 0', borderTop: '1px solid #1a1a1a', marginTop: '4px', alignItems: 'center' }}>
-              <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '700' }}>TOTAL</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '700' }}>TOTAL</div>
               <div style={{ fontSize: '12px', color: gold, fontWeight: '700' }}>{fmt(totalExpected)}</div>
               <div style={{ fontSize: '12px', color: '#4aaa4a', fontWeight: '700' }}>{fmt(valueRealised)}</div>
               <div style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>{realisationRate}%</div>
@@ -284,11 +284,11 @@ export default function OutcomeDeploymentPage() {
           {/* DEPLOYMENT PIPELINE */}
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
             <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>DEPLOYMENT PIPELINE</div>
-            <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>Your initiatives moving from planning to value realisation.</div>
+            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>Your initiatives moving from planning to value realisation.</div>
             {/* Stage counters */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '6px', marginBottom: '14px' }}>
               {[
-                { label: 'PLANNED', count: planned + 6, color: '#555' },
+                { label: 'PLANNED', count: planned + 6, color: 'var(--text-muted)' },
                 { label: 'IN PROGRESS', count: inProgress + 5, color: '#4a8ab0', highlight: true },
                 { label: 'VALIDATING', count: validating + 2, color: gold },
                 { label: 'REALISING VALUE', count: realisingValue + 4, color: '#4aaa4a' },
@@ -296,25 +296,25 @@ export default function OutcomeDeploymentPage() {
               ].map((s, i) => (
                 <div key={i} style={{ textAlign: 'center' as const, padding: '8px 4px', backgroundColor: s.highlight ? s.color+'18' : '#0a0a0a', borderRadius: '6px', border: '1px solid ' + (s.highlight ? s.color+'44' : border) }}>
                   <div style={{ fontSize: '18px', fontWeight: '900', color: s.color, lineHeight: 1 }}>{s.count}</div>
-                  <div style={{ fontSize: '7px', color: '#555', marginTop: '3px', lineHeight: 1.2 }}>{s.label}</div>
+                  <div style={{ fontSize: '7px', color: 'var(--text-muted)', marginTop: '3px', lineHeight: 1.2 }}>{s.label}</div>
                 </div>
               ))}
             </div>
             {/* Deployment rows */}
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '6px' }}>
               {deployments.slice(0, 5).map((d, i) => (
-                <div key={i} onClick={() => { setSelectedDeploy(d); setAgentContent('') }} style={{ display: 'flex', gap: '8px', padding: '9px 10px', backgroundColor: '#0a0a0a', borderRadius: '7px', border: '1px solid ' + border, cursor: 'pointer', alignItems: 'center' }}>
+                <div key={i} onClick={() => { setSelectedDeploy(d); setAgentContent('') }} style={{ display: 'flex', gap: '8px', padding: '9px 10px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '7px', border: '1px solid ' + border, cursor: 'pointer', alignItems: 'center' }}>
                   <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: d.tierColor+'18', border: '1px solid '+d.tierColor+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '9px', color: d.tierColor, fontWeight: '700' }}>T{d.tier}</div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{d.title}</div>
-                    <div style={{ fontSize: '11px', color: '#999' }}>{d.area}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{d.title}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{d.area}</div>
                   </div>
                   <div style={{ padding: '2px 6px', backgroundColor: statusColor(d.status)+'18', border: '1px solid '+statusColor(d.status)+'33', borderRadius: '3px', fontSize: '8px', color: statusColor(d.status), fontWeight: '700', flexShrink: 0 }}>{d.status}</div>
                   <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
                     <div style={{ fontSize: '10px', color: gold, fontWeight: '700' }}>{d.expectedValue}</div>
-                    <div style={{ fontSize: '8px', color: '#555' }}>ETA: {d.eta}</div>
+                    <div style={{ fontSize: '8px', color: 'var(--text-muted)' }}>ETA: {d.eta}</div>
                   </div>
-                  <div style={{ fontSize: '14px', color: '#444' }}>›</div>
+                  <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>›</div>
                 </div>
               ))}
             </div>
@@ -325,14 +325,14 @@ export default function OutcomeDeploymentPage() {
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
               <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', fontWeight: '600' }}>OUTCOME FORECAST</div>
-              <select style={{ backgroundColor: '#0a0a0a', border: '1px solid ' + border, borderRadius: '4px', color: '#888', fontSize: '9px', padding: '2px 6px', cursor: 'pointer' }}><option>12 Months</option></select>
+              <select style={{ backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '4px', color: 'var(--text-muted)', fontSize: '9px', padding: '2px 6px', cursor: 'pointer' }}><option>12 Months</option></select>
             </div>
-            <div style={{ fontSize: '13px', color: '#999', marginBottom: '10px' }}>Projected value realisation over time.</div>
+            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '10px' }}>Projected value realisation over time.</div>
             <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
               {[['#e0e0e0','Expected (Cumulative)'],[gold,'Forecast (Cumulative)'],['#4a8ab0','Actual (Cumulative)']].map(([c,l]) => (
                 <div key={l} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <div style={{ width: '10px', height: '3px', backgroundColor: c, borderRadius: '2px' }}/>
-                  <span style={{ fontSize: '8px', color: '#555' }}>{l}</span>
+                  <span style={{ fontSize: '8px', color: 'var(--text-muted)' }}>{l}</span>
                 </div>
               ))}
             </div>
@@ -349,7 +349,7 @@ export default function OutcomeDeploymentPage() {
               <polyline points="28,172 60,163 90,146 120,133 150,84" fill="none" stroke="#4a8ab0" strokeWidth="1.6" strokeLinecap="round"/>
               <circle cx="150" cy="84" r="3" fill="#4a8ab0"/>
               {/* Forecast end label */}
-              <rect x="218" y="2" width="72" height="32" fill="#0e0e0e" stroke={gold+'44'} strokeWidth="0.8" rx="3"/>
+              <rect x="218" y="2" width="72" height="32" fill="var(--bg-card)" stroke={gold+'44'} strokeWidth="0.8" rx="3"/>
               <text x="254" y="13" textAnchor="middle" fill="#aaa" fontSize="7">Forecast at 12 months</text>
               <text x="254" y="24" textAnchor="middle" fill={gold} fontSize="10" fontWeight="800">{fmt(Math.round(totalExpected * 0.93))}</text>
               {['MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB'].map((m,i) => (
@@ -359,7 +359,7 @@ export default function OutcomeDeploymentPage() {
             <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a' }} />
-                <span style={{ fontSize: '11px', color: '#999' }}>On track to realise {fmt(Math.round(totalExpected * 0.93))} (93%) of expected value within 12 months.</span>
+                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>On track to realise {fmt(Math.round(totalExpected * 0.93))} (93%) of expected value within 12 months.</span>
               </div>
             </div>
             <button onClick={() => setShowForecastModal(true)} style={{ marginTop: '8px', padding: '5px 10px', backgroundColor: 'transparent', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '4px', color: gold, fontSize: '10px', cursor: 'pointer' }}>View forecast details →</button>
@@ -374,7 +374,7 @@ export default function OutcomeDeploymentPage() {
           {/* VALUE REALISATION HEALTH */}
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
             <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>VALUE REALISATION HEALTH</div>
-            <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>How your initiatives are performing overall.</div>
+            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>How your initiatives are performing overall.</div>
             <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginBottom: '14px' }}>
               {/* Health donut */}
               <svg width="120" height="120" viewBox="0 0 80 80" style={{ flexShrink: 0 }}>
@@ -401,7 +401,7 @@ export default function OutcomeDeploymentPage() {
                 ].map((s, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '5px' }}>
                     <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: s.color }} />
-                    <span style={{ flex: 1, fontSize: '11px', color: '#888' }}>{s.label}</span>
+                    <span style={{ flex: 1, fontSize: '11px', color: 'var(--text-muted)' }}>{s.label}</span>
                     <span style={{ fontSize: '12px', fontWeight: '700', color: s.color }}>{s.count}</span>
                   </div>
                 ))}
@@ -421,7 +421,7 @@ export default function OutcomeDeploymentPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <div>
                 <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', fontWeight: '600' }}>RECENT VALUE DELIVERED</div>
-                <div style={{ fontSize: '13px', color: '#999', marginTop: '2px' }}>Latest outcomes and value realised.</div>
+                <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '2px' }}>Latest outcomes and value realised.</div>
               </div>
               <button onClick={() => setShowOutcomesModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all realised outcomes →</button>
             </div>
@@ -429,12 +429,12 @@ export default function OutcomeDeploymentPage() {
               <div key={i} style={{ display: 'flex', gap: '10px', padding: '10px 0', borderBottom: i < recentOutcomes.length-1 ? '1px solid #0d0d0d' : 'none', alignItems: 'center' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '6px', backgroundColor: '#4aaa4a18', border: '1px solid #4aaa4a33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: '#4aaa4a' }}>↗</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '12px', color: '#e0e0e0', fontWeight: '600' }}>{o.title}</div>
-                  <div style={{ fontSize: '12px', color: '#999' }}>{o.area}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>{o.title}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{o.area}</div>
                 </div>
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
                   <div style={{ fontSize: '13px', color: '#4aaa4a', fontWeight: '800' }}>{o.value}</div>
-                  <div style={{ fontSize: '11px', color: '#999' }}>Realised · {o.time}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Realised · {o.time}</div>
                 </div>
                 <div style={{ padding: '2px 7px', backgroundColor: '#4aaa4a18', border: '1px solid #4aaa4a33', borderRadius: '4px', fontSize: '9px', color: '#4aaa4a', fontWeight: '700' }}>Realised</div>
               </div>
@@ -450,10 +450,10 @@ export default function OutcomeDeploymentPage() {
             {outcomeDrivers.map((d, i) => (
               <div key={i} style={{ marginBottom: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '12px', color: '#cccccc', fontWeight: '500' }}>{d.label}</span>
+                  <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '500' }}>{d.label}</span>
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <span style={{ fontSize: '11px', color: d.color, fontWeight: '700' }}>{d.pct}%</span>
-                    <span style={{ fontSize: '12px', color: '#888' }}>{d.value}</span>
+                    <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{d.value}</span>
                   </div>
                 </div>
                 <div style={{ height: '6px', backgroundColor: '#1a1a1a', borderRadius: '3px', overflow: 'hidden' }}>
@@ -481,26 +481,26 @@ export default function OutcomeDeploymentPage() {
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: color, boxShadow: '0 0 6px ' + color + '88' }} />
                   <div style={{ fontSize: '13px', color, fontWeight: '700', letterSpacing: '0.05em' }}>{label} ({tierDeployments.length})</div>
                 </div>
-                <div style={{ fontSize: '13px', color: '#999', marginBottom: '14px' }}>{desc}</div>
+                <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '14px' }}>{desc}</div>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
                   {tierDeployments.map((d, i) => (
-                    <div key={i} style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + color + '22' }}>
+                    <div key={i} style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + color + '22' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                         <div>
-                          <div style={{ fontSize: '14px', color: '#ffffff', fontWeight: '700', marginBottom: '3px' }}>{d.title}</div>
-                          <div style={{ fontSize: '13px', color: '#aaa' }}>{d.area}</div>
+                          <div style={{ fontSize: '14px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '3px' }}>{d.title}</div>
+                          <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{d.area}</div>
                         </div>
                         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                           <div style={{ padding: '3px 8px', backgroundColor: statusColor(d.status)+'18', border: '1px solid '+statusColor(d.status)+'33', borderRadius: '4px', fontSize: '10px', color: statusColor(d.status), fontWeight: '700' }}>{d.status}</div>
                           <div style={{ fontSize: '13px', color: gold, fontWeight: '700' }}>{d.expectedValue}</div>
-                          <div style={{ fontSize: '12px', color: '#999' }}>ETA: {d.eta}</div>
+                          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>ETA: {d.eta}</div>
                         </div>
                       </div>
-                      {d.desc && <div style={{ fontSize: '12px', color: '#888', lineHeight: '1.6', marginBottom: '10px' }}>{d.desc}</div>}
+                      {d.desc && <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '10px' }}>{d.desc}</div>}
                       {d.progress > 0 && (
                         <div style={{ marginBottom: '10px' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                            <span style={{ fontSize: '12px', color: '#999' }}>Progress</span>
+                            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Progress</span>
                             <span style={{ fontSize: '10px', color: color, fontWeight: '600' }}>{d.progress}%</span>
                           </div>
                           <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
@@ -529,15 +529,15 @@ export default function OutcomeDeploymentPage() {
       {(activeTab === 'overview' || activeTab === 'impact') && (
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', fontWeight: '600', marginBottom: '4px' }}>DEPLOYMENT RECOMMENDATIONS</div>
-          <div style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>AI-powered recommendations to improve your deployment success.</div>
+          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>AI-powered recommendations to improve your deployment success.</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '10px' }}>
             {recommendations.map((r, i) => (
-              <div key={i} style={{ padding: '12px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + border }}>
+              <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + border }}>
                 <div style={{ display: 'flex', gap: '7px', alignItems: 'flex-start', marginBottom: '7px' }}>
                   <div style={{ width: '24px', height: '24px', borderRadius: '5px', backgroundColor: r.impactColor+'18', border: '1px solid '+r.impactColor+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: r.impactColor, flexShrink: 0 }}>{r.icon}</div>
-                  <div style={{ fontSize: '11px', color: '#e0e0e0', fontWeight: '700', lineHeight: 1.3 }}>{r.title}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: '700', lineHeight: 1.3 }}>{r.title}</div>
                 </div>
-                <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.5', marginBottom: '7px' }}>{r.desc}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.5', marginBottom: '7px' }}>{r.desc}</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <div style={{ padding: '2px 6px', backgroundColor: r.impactColor+'18', border: '1px solid '+r.impactColor+'33', borderRadius: '3px', fontSize: '9px', color: r.impactColor, fontWeight: '700' }}>{r.impact}</div>
                   <div style={{ fontSize: '11px', color: gold, fontWeight: '700' }}>{r.value}</div>
@@ -551,31 +551,31 @@ export default function OutcomeDeploymentPage() {
       {/* ——— DEPLOYMENT DETAIL MODAL with AI agent ——— */}
       {selectedDeploy && (
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => { setSelectedDeploy(null); setAgentContent('') }}>
-          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '800px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
+          <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '800px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
                   <div style={{ padding: '3px 10px', backgroundColor: selectedDeploy.tierColor+'18', border: '1px solid '+selectedDeploy.tierColor+'44', borderRadius: '4px', fontSize: '10px', color: selectedDeploy.tierColor, fontWeight: '700' }}>TIER {selectedDeploy.tier} — {selectedDeploy.tierLabel.toUpperCase()}</div>
                 </div>
-                <div style={{ fontSize: '22px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>{selectedDeploy.title}</div>
-                <div style={{ fontSize: '12px', color: '#666' }}>{selectedDeploy.area} · Expected: {selectedDeploy.expectedValue} · ETA: {selectedDeploy.eta}</div>
+                <div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>{selectedDeploy.title}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{selectedDeploy.area} · Expected: {selectedDeploy.expectedValue} · ETA: {selectedDeploy.eta}</div>
               </div>
-              <button onClick={() => { setSelectedDeploy(null); setAgentContent('') }} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <button onClick={() => { setSelectedDeploy(null); setAgentContent('') }} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
-              <div style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
+              <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
                 <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>DESCRIPTION</div>
-                <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.65' }}>{selectedDeploy.desc || 'Deployment action to address ' + selectedDeploy.area}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.65' }}>{selectedDeploy.desc || 'Deployment action to address ' + selectedDeploy.area}</div>
               </div>
-              <div style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
+              <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
                 <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>EXPECTED OUTCOME</div>
-                <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.65' }}>{selectedDeploy.outcome || 'Improved performance against ' + selectedDeploy.area}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.65' }}>{selectedDeploy.outcome || 'Improved performance against ' + selectedDeploy.area}</div>
               </div>
               {selectedDeploy.measurement && (
-                <div style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', gridColumn: '1 / -1' }}>
+                <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', gridColumn: '1 / -1' }}>
                   <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>MEASUREMENT PLAN</div>
-                  <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.65' }}>{selectedDeploy.measurement}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.65' }}>{selectedDeploy.measurement}</div>
                 </div>
               )}
             </div>
@@ -585,7 +585,7 @@ export default function OutcomeDeploymentPage() {
               <div style={{ padding: '14px', backgroundColor: 'rgba(200,162,74,0.06)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', marginBottom: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <div style={{ fontSize: '12px', color: gold, fontWeight: '700', marginBottom: '2px' }}>Ready for your approval</div>
-                  <div style={{ fontSize: '13px', color: '#aaa' }}>Golden Rule 6: Approval Before Execution — BEI never deploys without your approval.</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Golden Rule 6: Approval Before Execution — BEI never deploys without your approval.</div>
                 </div>
                 <button onClick={() => { setApprovedTier2(prev => new Set(prev).add(selectedDeploy.id)) }} style={{ padding: '10px 20px', backgroundColor: gold, color: '#050505', border: 'none', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}>✓ Approve Deployment</button>
               </div>
@@ -597,19 +597,19 @@ export default function OutcomeDeploymentPage() {
             )}
 
             {/* AI Deployment Agent */}
-            <div style={{ padding: '16px', backgroundColor: '#080808', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px' }}>
+            <div style={{ padding: '16px', backgroundColor: 'var(--bg-sidebar)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                 <div>
                   <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '2px', fontWeight: '600' }}>⚡ BEI DEPLOYMENT AGENT</div>
-                  <div style={{ fontSize: '13px', color: '#999' }}>Generate ready-to-use implementation content for this deployment</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Generate ready-to-use implementation content for this deployment</div>
                 </div>
                 <button onClick={() => callDeploymentAgent(selectedDeploy)} disabled={agentLoading} style={{ padding: '8px 16px', backgroundColor: agentLoading ? '#1a1a1a' : gold, color: agentLoading ? '#555' : '#050505', border: 'none', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: agentLoading ? 'default' : 'pointer' }}>
                   {agentLoading ? '⏳ Generating...' : '⚡ Generate Deployment Content'}
                 </button>
               </div>
               {agentContent && (
-                <div style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '6px', border: '1px solid #1a1a1a', maxHeight: '400px', overflowY: 'auto' as const }}>
-                  <pre style={{ fontSize: '12px', color: '#cccccc', lineHeight: '1.75', whiteSpace: 'pre-wrap' as const, margin: 0, fontFamily: 'inherit' }}>{agentContent}</pre>
+                <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '6px', border: '1px solid var(--border)', maxHeight: '400px', overflowY: 'auto' as const }}>
+                  <pre style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.75', whiteSpace: 'pre-wrap' as const, margin: 0, fontFamily: 'inherit' }}>{agentContent}</pre>
                 </div>
               )}
             </div>
@@ -620,22 +620,22 @@ export default function OutcomeDeploymentPage() {
       {/* ALL DEPLOYMENT PLANS MODAL */}
       {showAllPlansModal && (
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowAllPlansModal(false)}>
-          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '800px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
+          <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '800px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>ALL DEPLOYMENT PLANS</div><div style={{ fontSize: '22px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>Complete Deployment Registry</div><div style={{ fontSize: '12px', color: '#666' }}>{businessName} · {deployments.length} deployments · Total expected value: {fmt(totalExpected)}</div></div>
-              <button onClick={() => setShowAllPlansModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>ALL DEPLOYMENT PLANS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Complete Deployment Registry</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{businessName} · {deployments.length} deployments · Total expected value: {fmt(totalExpected)}</div></div>
+              <button onClick={() => setShowAllPlansModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             {deployments.map((d, i) => (
-              <div key={i} style={{ display: 'flex', gap: '14px', padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', marginBottom: '8px', alignItems: 'center' }}>
+              <div key={i} style={{ display: 'flex', gap: '14px', padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '8px', alignItems: 'center' }}>
                 <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: d.tierColor+'18', border: '1px solid '+d.tierColor+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: d.tierColor, fontWeight: '700' }}>T{d.tier}</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: '700', marginBottom: '2px' }}>{d.title}</div>
-                  <div style={{ fontSize: '13px', color: '#999' }}>{d.area} · {d.tierLabel}</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{d.title}</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{d.area} · {d.tierLabel}</div>
                 </div>
                 <div style={{ padding: '2px 8px', backgroundColor: statusColor(d.status)+'18', border: '1px solid '+statusColor(d.status)+'33', borderRadius: '4px', fontSize: '10px', color: statusColor(d.status), fontWeight: '700' }}>{d.status}</div>
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
                   <div style={{ fontSize: '14px', color: gold, fontWeight: '800' }}>{d.expectedValue}</div>
-                  <div style={{ fontSize: '12px', color: '#999' }}>ETA: {d.eta}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>ETA: {d.eta}</div>
                 </div>
                 <button onClick={() => { setShowAllPlansModal(false); setSelectedDeploy(d); setAgentContent('') }} style={{ padding: '6px 12px', backgroundColor: d.tierColor+'18', border: '1px solid '+d.tierColor+'33', borderRadius: '5px', color: d.tierColor, fontSize: '11px', fontWeight: '600', cursor: 'pointer', flexShrink: 0 }}>Open →</button>
               </div>
@@ -647,10 +647,10 @@ export default function OutcomeDeploymentPage() {
       {/* AT-RISK MODAL */}
       {showAtRiskModal && (
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowAtRiskModal(false)}>
-          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '700px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
+          <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '700px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>AT-RISK INITIATIVES</div><div style={{ fontSize: '22px', fontWeight: '800', color: '#fff' }}>Initiatives Requiring Attention</div></div>
-              <button onClick={() => setShowAtRiskModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>AT-RISK INITIATIVES</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)' }}>Initiatives Requiring Attention</div></div>
+              <button onClick={() => setShowAtRiskModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             {[
               { title: 'Process Optimisation Initiative', risk: 'Behind Schedule', reason: '20% value at risk due to resource constraint', value: fmt(Math.round(oppMid*0.09)), action: 'Assign additional resource immediately', color: '#e8923a' },
@@ -658,15 +658,15 @@ export default function OutcomeDeploymentPage() {
               { title: 'Market Positioning Review', risk: 'At Risk', reason: 'No owner assigned — strategic decisions pending', value: fmt(Math.round(oppMid*0.07)), action: 'Assign senior stakeholder as initiative owner', color: '#e8923a' },
               { title: 'Sales Process Standardisation', risk: 'Behind Schedule', reason: 'Team adoption slower than planned', value: fmt(Math.round(oppMid*0.08)), action: 'Schedule team training session', color: gold },
             ].map((item, i) => (
-              <div key={i} style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid ' + item.color + '33', marginBottom: '8px' }}>
+              <div key={i} style={{ padding: '16px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + item.color + '33', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                   <div>
-                    <div style={{ fontSize: '14px', color: '#ffffff', fontWeight: '700', marginBottom: '3px' }}>{item.title}</div>
+                    <div style={{ fontSize: '14px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '3px' }}>{item.title}</div>
                     <div style={{ fontSize: '11px', color: item.color, fontWeight: '600' }}>{item.risk}</div>
                   </div>
                   <div style={{ fontSize: '16px', color: gold, fontWeight: '800' }}>{item.value}</div>
                 </div>
-                <div style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>{item.reason}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px' }}>{item.reason}</div>
                 <div style={{ padding: '8px 10px', backgroundColor: item.color+'0a', border: '1px solid '+item.color+'22', borderRadius: '5px', fontSize: '11px', color: item.color, fontWeight: '600' }}>→ {item.action}</div>
               </div>
             ))}
@@ -677,17 +677,17 @@ export default function OutcomeDeploymentPage() {
       {/* REALISED OUTCOMES MODAL */}
       {showOutcomesModal && (
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowOutcomesModal(false)}>
-          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '720px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
+          <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '720px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>REALISED OUTCOMES</div><div style={{ fontSize: '22px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>All Realised Value</div><div style={{ fontSize: '12px', color: '#666' }}>Total realised: <span style={{ color: '#4aaa4a', fontWeight: '700' }}>{fmt(valueRealised)}</span></div></div>
-              <button onClick={() => setShowOutcomesModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>REALISED OUTCOMES</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Realised Value</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Total realised: <span style={{ color: '#4aaa4a', fontWeight: '700' }}>{fmt(valueRealised)}</span></div></div>
+              <button onClick={() => setShowOutcomesModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             {recentOutcomes.map((o, i) => (
-              <div key={i} style={{ display: 'flex', gap: '14px', padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid rgba(74,170,74,0.15)', marginBottom: '8px', alignItems: 'center' }}>
+              <div key={i} style={{ display: 'flex', gap: '14px', padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid rgba(74,170,74,0.15)', marginBottom: '8px', alignItems: 'center' }}>
                 <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: '#4aaa4a18', border: '1px solid #4aaa4a33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '14px', color: '#4aaa4a' }}>↗</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '14px', color: '#ffffff', fontWeight: '700', marginBottom: '2px' }}>{o.title}</div>
-                  <div style={{ fontSize: '13px', color: '#999' }}>{o.area} · {o.time}</div>
+                  <div style={{ fontSize: '14px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{o.title}</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{o.area} · {o.time}</div>
                 </div>
                 <div style={{ textAlign: 'right' as const }}>
                   <div style={{ fontSize: '18px', color: '#4aaa4a', fontWeight: '900' }}>{o.value}</div>
@@ -695,8 +695,8 @@ export default function OutcomeDeploymentPage() {
                 </div>
               </div>
             ))}
-            <div style={{ padding: '12px 16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', marginTop: '4px', display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '12px', color: '#666' }}>Total realised value to date</span>
+            <div style={{ padding: '12px 16px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginTop: '4px', display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Total realised value to date</span>
               <span style={{ fontSize: '16px', color: '#4aaa4a', fontWeight: '800' }}>{fmt(valueRealised)}</span>
             </div>
           </div>
@@ -706,10 +706,10 @@ export default function OutcomeDeploymentPage() {
       {/* FORECAST MODAL */}
       {showForecastModal && (
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowForecastModal(false)}>
-          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '700px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
+          <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '700px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>OUTCOME FORECAST</div><div style={{ fontSize: '22px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>12-Month Value Forecast</div><div style={{ fontSize: '12px', color: '#666' }}>Forecast at 12 months: <span style={{ color: gold, fontWeight: '700' }}>{fmt(Math.round(totalExpected*0.93))}</span> · Likely range: {fmt(Math.round(totalExpected*0.85))} – {fmt(Math.round(totalExpected*1.02))}</div></div>
-              <button onClick={() => setShowForecastModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>OUTCOME FORECAST</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>12-Month Value Forecast</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Forecast at 12 months: <span style={{ color: gold, fontWeight: '700' }}>{fmt(Math.round(totalExpected*0.93))}</span> · Likely range: {fmt(Math.round(totalExpected*0.85))} – {fmt(Math.round(totalExpected*1.02))}</div></div>
+              <button onClick={() => setShowForecastModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '10px', marginBottom: '16px' }}>
               {[
@@ -717,15 +717,15 @@ export default function OutcomeDeploymentPage() {
                 { label: 'MONTHS 3-6', value: fmt(Math.round(totalExpected*0.38)), sub: 'Mid-term value', color: gold },
                 { label: 'MONTHS 6-12', value: fmt(Math.round(totalExpected*0.40)), sub: 'Full realisation', color: '#4aaa4a' },
               ].map((m, i) => (
-                <div key={i} style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '11px', color: '#999', marginBottom: '5px' }}>{m.label}</div>
+                <div key={i} style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '5px' }}>{m.label}</div>
                   <div style={{ fontSize: '20px', fontWeight: '800', color: m.color }}>{m.value}</div>
-                  <div style={{ fontSize: '10px', color: '#777', marginTop: '2px' }}>{m.sub}</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '2px' }}>{m.sub}</div>
                 </div>
               ))}
             </div>
-            <div style={{ padding: '14px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e' }}>
-              <div style={{ fontSize: '13px', color: '#aaa', lineHeight: '1.7' }}>
+            <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
+              <div style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.7' }}>
                 Forecast assumes deployment of all Tier 1 and 2 actions within 30 days and Tier 3 strategic recommendations within 90 days. Key risks that could impact forecast: {Math.round(totalExpected*0.07)} at risk from process dependency. Confidence level: <span style={{ color: gold, fontWeight: '600' }}>High</span> ({confidence.toUpperCase()} intelligence confidence).
               </div>
             </div>
@@ -736,17 +736,17 @@ export default function OutcomeDeploymentPage() {
       {/* DRIVER ANALYSIS MODAL */}
       {showDriverModal && (
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowDriverModal(false)}>
-          <div style={{ backgroundColor: '#0e0e0e', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '660px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
+          <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '660px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>OUTCOME DRIVERS</div><div style={{ fontSize: '22px', fontWeight: '800', color: '#fff', marginBottom: '4px' }}>Value Driver Analysis</div><div style={{ fontSize: '12px', color: '#666' }}>Total realised: {fmt(valueRealised)} across {outcomeDrivers.length} driver categories</div></div>
-              <button onClick={() => setShowDriverModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#888', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>OUTCOME DRIVERS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Value Driver Analysis</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Total realised: {fmt(valueRealised)} across {outcomeDrivers.length} driver categories</div></div>
+              <button onClick={() => setShowDriverModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             {outcomeDrivers.map((d, i) => (
-              <div key={i} style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px', border: '1px solid #1e1e1e', marginBottom: '8px' }}>
+              <div key={i} style={{ padding: '16px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: d.color }} />
-                    <span style={{ fontSize: '14px', color: '#e0e0e0', fontWeight: '700' }}>{d.label}</span>
+                    <span style={{ fontSize: '14px', color: 'var(--text-secondary)', fontWeight: '700' }}>{d.label}</span>
                   </div>
                   <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                     <span style={{ fontSize: '14px', color: d.color, fontWeight: '800' }}>{d.pct}%</span>
