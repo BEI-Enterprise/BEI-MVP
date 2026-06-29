@@ -125,19 +125,27 @@ export default function OpportunitiesPage() {
   const quickWinValue = opportunities.filter(o => o.timeToRealise === '1-3 months').reduce((s, o) => s + o.value, 0)
   const longTermValue = opportunities.filter(o => o.timeToRealise === '12+ months' || o.timeToRealise === '6-12 months').reduce((s, o) => s + o.value, 0)
 
-  const typeBreakdown = [
-    { label: 'Revenue Expansion', color: gold, pct: 27, val: opportunities[0].value },
-    { label: 'Operational Efficiency', color: '#4a8ab0', pct: 21, val: opportunities[1].value },
-    { label: 'Client Retention', color: '#9a6ab0', pct: 18, val: opportunities[2].value },
-    { label: 'Cost Reduction', color: '#cc4444', pct: 13, val: opportunities[3].value },
-    { label: 'Productivity Improvement', color: '#e8923a', pct: 11, val: opportunities[4].value },
-    { label: 'Risk Reduction', color: 'var(--text-muted)', pct: 7, val: opportunities[5].value },
-    { label: 'Market Expansion', color: '#4aaa4a', pct: 3, val: opportunities[6].value },
-  ]
+  // Real type breakdown from actual opportunities
+  const typeGroups: Record<string, number> = {}
+  opportunities.forEach((o: any) => { typeGroups[o.type] = (typeGroups[o.type] || 0) + o.value })
+  const totalOppVal = Object.values(typeGroups).reduce((s: any, v: any) => s + v, 0) || 1
+  const typeColors: Record<string,string> = { Growth: gold, Operations: '#4a8ab0', Client: '#9a6ab0', Finance: '#cc4444', Leadership: '#e8923a', Risk: 'var(--text-muted)', Market: '#4aaa4a', Sales: gold, Strategy: '#4a8ab0', People: '#e8923a' }
+  const typeBreakdown = Object.entries(typeGroups).map(([label, val]: any) => ({
+    label, color: typeColors[label] || gold, pct: Math.round(val / totalOppVal * 100), val
+  }))
 
+  // Real maturity stages from actual opportunities
+  const maturityGroups: Record<string, {count:number,val:number}> = {}
+  opportunities.forEach((o: any) => {
+    const m = o.maturity || 'Identified'
+    if (!maturityGroups[m]) maturityGroups[m] = { count: 0, val: 0 }
+    maturityGroups[m].count++
+    maturityGroups[m].val += o.value
+  })
+  const maturityColors: Record<string,string> = { 'In Progress': '#4aaa4a', 'Planned': gold, 'Analysing': '#4a8ab0', 'Identified': '#555', 'Complete': '#2a6a2a' }
   const maturityStages = [
-    { label: 'Identified', count: 16, val: 180000, color: '#4a8ab0' },
-    { label: 'Analysing', count: 12, val: 95000, color: gold },
+    { label: 'Identified', count: maturityGroups['Identified']?.count || 0, val: maturityGroups['Identified']?.val || 0, color: '#4a8ab0' },
+    { label: 'Analysing', count: maturityGroups['Analysing']?.count || 0, val: maturityGroups['Analysing']?.val || 0, color: gold },
     { label: 'Planned', count: 8, val: 85000, color: '#e8923a' },
     { label: 'In Progress', count: 5, val: 60000, color: '#4aaa4a' },
     { label: 'Realised', count: 9, val: 30000, color: '#9a6ab0' },
