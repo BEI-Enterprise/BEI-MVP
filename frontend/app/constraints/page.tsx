@@ -306,7 +306,7 @@ export default function ConstraintsPage() {
             ].map((n, i) => (
               <g key={i}>
                 <circle cx="90" cy={n.y} r="20" fill="rgba(200,162,74,0.08)" filter="url(#cglow)"/>
-                <circle cx="90" cy={n.y} r="14" fill="#080808" stroke="#aa8820" strokeWidth="1"/>
+                <circle cx="90" cy={n.y} r="14" fill="var(--bg-elevated)" stroke="#aa8820" strokeWidth="1"/>
                 <circle cx="90" cy={n.y} r="10" fill="url(#cnMed)"/>
                 <circle cx="86" cy={n.y - 4} r="3.5" fill="white" fillOpacity="0.5"/>
                 <text x="115" y={n.y - 3} fill="#C8A24A" fontSize="9" fontWeight="600">{n.label}</text>
@@ -329,7 +329,7 @@ export default function ConstraintsPage() {
             ].map((n, i) => (
               <g key={i}>
                 <circle cx={n.x} cy={n.y} r={n.r + 6} fill="rgba(0,0,0,0.2)" filter="url(#cglow)"/>
-                <circle cx={n.x} cy={n.y} r={n.r} fill="#080808" stroke={n.grad === 'cnCrit' ? '#cc4444' : n.grad === 'cnHigh' ? '#e8923a' : '#aa8820'} strokeWidth="1"/>
+                <circle cx={n.x} cy={n.y} r={n.r} fill="var(--bg-elevated)" stroke={n.grad === 'cnCrit' ? '#cc4444' : n.grad === 'cnHigh' ? '#e8923a' : '#aa8820'} strokeWidth="1"/>
                 <circle cx={n.x} cy={n.y} r={n.r - 3} fill={'url(#' + n.grad + ')'}/>
                 <text x={n.x + n.r + 6} y={n.y - 2} fill={n.grad === 'cnCrit' ? '#cc4444' : n.grad === 'cnHigh' ? '#e8923a' : gold} fontSize="9" fontWeight="600">{n.label}</text>
                 <text x={n.x + n.r + 6} y={n.y + 9} fill="#555" fontSize="9">{n.sub}</text>
@@ -343,7 +343,7 @@ export default function ConstraintsPage() {
               { x: 480, y: 250, label: 'Revenue Impact', col: gold },
             ].map((n, i) => (
               <g key={i}>
-                <circle cx={n.x} cy={n.y} r="10" fill="#080808" stroke={n.col} strokeWidth="0.8" strokeOpacity="0.6"/>
+                <circle cx={n.x} cy={n.y} r="10" fill="var(--bg-elevated)" stroke={n.col} strokeWidth="0.8" strokeOpacity="0.6"/>
                 <circle cx={n.x} cy={n.y} r="7" fill={n.col} fillOpacity="0.3"/>
                 <text x={n.x + 14} y={n.y + 4} fill={n.col} fontSize="8.5" fontWeight="600">{n.label}</text>
               </g>

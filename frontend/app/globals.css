@@ -261,3 +261,24 @@ html.light [style*="background: linear-gradient"],
 html.light [style*="backgroundImage"] {
   background: #fff8ee !important;
 }
+
+/* Primary constraint card — warm gold-tinted cream in light mode */
+html.light [style*="rgba(200,162,74,0.3)"] {
+  background-color: #fdf8ee !important;
+  border-color: rgba(200,162,74,0.4) !important;
+}
+
+/* Constraint network SVG node circles */
+html.light circle[fill="var(--bg-elevated)"],
+html.light circle[fill="var(--bg-card)"],
+html.light circle[fill="var(--bg-primary)"] {
+  fill: #f0ece0 !important;
+}
+
+/* SVG stroke colors for network lines */
+html.light [stroke="#1a1a1a"],
+html.light [stroke="#1e1e1e"],
+html.light [stroke="#333"],
+html.light [stroke="#222"] {
+  stroke: #d0cdc8 !important;
+}
