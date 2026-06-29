@@ -202,7 +202,7 @@ export default function DashboardPage() {
         <div style={{ gridColumn: '1 / 3', display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
 
           {primary ? (
-            <div style={{ backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '10px', padding: '28px', position: 'relative' as const, overflow: 'hidden' as const }}>
+            <div style={{ backgroundColor: 'var(--bg-constraint-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '10px', padding: '28px', position: 'relative' as const, overflow: 'hidden' as const }}>
               <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, ' + gold + ', transparent)' }} />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 180px 200px 200px', gap: '24px', marginBottom: '24px' }}>
 
@@ -215,7 +215,7 @@ export default function DashboardPage() {
                       <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em' }}>VERIFICATION SCORE</div>
                       <div style={{ fontSize: '13px', fontWeight: '800', color: verificationScore >= 70 ? '#4aaa4a' : gold }}>{verificationScore}/100</div>
                     </div>
-                    <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
+                    <div style={{ height: '4px', backgroundColor: 'var(--border)', borderRadius: '2px', overflow: 'hidden' }}>
                       <div style={{ width: verificationScore + '%', height: '100%', background: 'linear-gradient(90deg, ' + (verificationScore >= 70 ? '#2a6a2a' : '#6a4a10') + ', ' + (verificationScore >= 70 ? '#4aaa4a' : gold) + ')', borderRadius: '2px', transition: 'width 1.5s ease' }} />
                     </div>
                   </div>
@@ -461,7 +461,7 @@ export default function DashboardPage() {
                       <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: p.color, flexShrink: 0 }} />
                       <div style={{ flex: 1, fontSize: '11px', color: 'var(--text-muted)' }}>{p.name}</div>
                       <div style={{ fontSize: '11px', fontWeight: '700', color: p.color }}>{p.score}/20</div>
-                      <div style={{ width: '60px', height: '3px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
+                      <div style={{ width: '60px', height: '3px', backgroundColor: 'var(--border)', borderRadius: '2px', overflow: 'hidden' }}>
                         <div style={{ width: String((p.score/20)*100) + '%', height: '100%', backgroundColor: p.color }} />
                       </div>
                     </div>

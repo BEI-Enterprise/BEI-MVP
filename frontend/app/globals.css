@@ -33,6 +33,7 @@ body {
   --text-faint: #333333;
   --sidebar-border: #1a1a1a;
   --input-bg: #0e0e0e;
+  --bg-constraint-card: #080f04;
 }
 
 :root.light {
@@ -47,6 +48,7 @@ body {
   --text-faint: #bbbbaa;
   --sidebar-border: #e8e5e0;
   --input-bg: #f0f0ea;
+  --bg-constraint-card: #fdf6e3;
 }
 
 body {
