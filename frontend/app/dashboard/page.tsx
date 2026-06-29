@@ -53,7 +53,7 @@ export default function DashboardPage() {
         if (user) {
           const { data } = await supabase
             .from('businesses')
-            .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at, industry, location_country')
+            .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at, industry, location_country, connected_sources')
             .eq('email', user.email)
             .order('updated_at', { ascending: false })
           if (data && data.length > 0) setSelected(data[0])
