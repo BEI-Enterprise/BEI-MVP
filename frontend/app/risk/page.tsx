@@ -160,7 +160,7 @@ export default function RiskIntelligencePage() {
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
           </div>
           <button onClick={() => setShowReportModal(true)} style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>⊙ Risk Scan</button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '14px' }}>⋮</div>
         </div>
       </div>
 
@@ -414,7 +414,7 @@ export default function RiskIntelligencePage() {
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
                   <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
-                  <div style={{ fontSize: '16px', fontWeight: '800', color: m.color }}>{m.value}</div>
+                  <div style={{ fontSize: '14px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
             </div>
@@ -640,7 +640,7 @@ export default function RiskIntelligencePage() {
               {[{l:'OVERALL SCORE',v:overallRiskScore+'/100',c:'#cc4444'},{l:'CRITICAL RISKS',v:String(criticalCount),c:'#cc4444'},{l:'TOTAL EXPOSURE',v:fmt(totalRiskValue),c:gold},{l:'RISK TREND',v:'Increasing',c:'#cc4444'}].map((m,i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
                   <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '4px', fontWeight: '600' }}>{m.l}</div>
-                  <div style={{ fontSize: '16px', fontWeight: '800', color: m.c }}>{m.v}</div>
+                  <div style={{ fontSize: '14px', fontWeight: '800', color: m.c }}>{m.v}</div>
                 </div>
               ))}
             </div>

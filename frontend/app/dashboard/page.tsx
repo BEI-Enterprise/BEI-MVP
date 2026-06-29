@@ -290,7 +290,7 @@ export default function DashboardPage() {
                   </div>
                   <div>
                     <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '4px' }}>EXPECTED OUTCOME</div>
-                    <div style={{ fontSize: '16px', fontWeight: '800', color: '#4aaa4a' }}>+{oppLow > 0 ? fmt(Math.round((oppLow + oppHigh) / 2)) : fmt(120000)}</div>
+                    <div style={{ fontSize: '14px', fontWeight: '800', color: '#4aaa4a' }}>+{oppLow > 0 ? fmt(Math.round((oppLow + oppHigh) / 2)) : fmt(120000)}</div>
                     <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Annual value impact</div>
                   </div>
                 </div>
@@ -367,7 +367,7 @@ export default function DashboardPage() {
           ) : (
             <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '40px', textAlign: 'center' as const }}>
               <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '12px' }}>PRIMARY CONSTRAINT</div>
-              <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '20px' }}>No MRI analysis found. Generate your Business MRI to activate intelligence.</div>
+              <div style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '20px' }}>No MRI analysis found. Generate your Business MRI to activate intelligence.</div>
               <a href="/book" style={{ padding: '10px 24px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>Generate Business MRI →</a>
             </div>
           )}

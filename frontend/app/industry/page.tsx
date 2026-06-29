@@ -360,7 +360,7 @@ export default function IndustryIntelligencePage() {
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
           </div>
           <button onClick={() => setShowInsightsModal(true)} style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>⊕ Industry Scan</button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '14px' }}>⋮</div>
         </div>
       </div>
 
@@ -686,7 +686,7 @@ export default function IndustryIntelligencePage() {
               <div key={i} style={{ display: 'flex', gap: '16px', padding: '16px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '8px', alignItems: 'center' }}>
                 <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', color: gold, fontWeight: '700' }}>{i+1}</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '15px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{p.name}</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{p.name}</div>
                   <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{p.segment} · {ID.label}</div>
                 </div>
                 <div style={{ textAlign: 'center' as const }}>
@@ -723,7 +723,7 @@ export default function IndustryIntelligencePage() {
                   </div>
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <div style={{ padding: '3px 9px', backgroundColor: (t.level === 'High' ? '#e8923a' : gold)+'18', border: '1px solid '+(t.level === 'High' ? '#e8923a' : gold)+'44', borderRadius: '4px', fontSize: '10px', color: t.level === 'High' ? '#e8923a' : gold, fontWeight: '700' }}>{t.level}</div>
-                    <div style={{ fontSize: '16px', color: t.dir === 'up' ? '#4aaa4a' : '#555' }}>{t.dir === 'up' ? '↑' : '→'}</div>
+                    <div style={{ fontSize: '14px', color: t.dir === 'up' ? '#4aaa4a' : '#555' }}>{t.dir === 'up' ? '↑' : '→'}</div>
                   </div>
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.6' }}>This trend is reshaping the {ID.label} sector. Businesses adapting early are seeing measurable competitive advantage. Impact on your business: <span style={{ color: t.level === 'High' ? '#e8923a' : gold, fontWeight: '600' }}>{t.level} priority.</span></div>
@@ -749,7 +749,7 @@ export default function IndustryIntelligencePage() {
                 </div>
                 <div style={{ padding: '3px 9px', backgroundColor: o.impactColor+'18', border: '1px solid '+o.impactColor+'33', borderRadius: '4px', fontSize: '10px', color: o.impactColor, fontWeight: '700' }}>{o.impact}</div>
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
-                  <div style={{ fontSize: '16px', fontWeight: '800', color: gold }}>{o.value}</div>
+                  <div style={{ fontSize: '14px', fontWeight: '800', color: gold }}>{o.value}</div>
                   <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Market opportunity</div>
                 </div>
               </div>

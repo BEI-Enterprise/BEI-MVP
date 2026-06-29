@@ -250,7 +250,7 @@ export default function OutcomeDeploymentPage() {
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
           </div>
           <button style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>⊙ Outcome Scan</button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '14px' }}>⋮</div>
         </div>
       </div>
 
@@ -694,7 +694,7 @@ export default function OutcomeDeploymentPage() {
                     <div style={{ fontSize: '14px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '3px' }}>{item.title}</div>
                     <div style={{ fontSize: '11px', color: item.color, fontWeight: '600' }}>{item.risk}</div>
                   </div>
-                  <div style={{ fontSize: '16px', color: gold, fontWeight: '800' }}>{item.value}</div>
+                  <div style={{ fontSize: '14px', color: gold, fontWeight: '800' }}>{item.value}</div>
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px' }}>{item.reason}</div>
                 <div style={{ padding: '8px 10px', backgroundColor: item.color+'0a', border: '1px solid '+item.color+'22', borderRadius: '5px', fontSize: '11px', color: item.color, fontWeight: '600' }}>→ {item.action}</div>
@@ -727,7 +727,7 @@ export default function OutcomeDeploymentPage() {
             ))}
             <div style={{ padding: '12px 16px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginTop: '4px', display: 'flex', justifyContent: 'space-between' }}>
               <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Total realised value to date</span>
-              <span style={{ fontSize: '16px', color: '#4aaa4a', fontWeight: '800' }}>{fmt(valueRealised)}</span>
+              <span style={{ fontSize: '14px', color: '#4aaa4a', fontWeight: '800' }}>{fmt(valueRealised)}</span>
             </div>
           </div>
         </div>
@@ -780,7 +780,7 @@ export default function OutcomeDeploymentPage() {
                   </div>
                   <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                     <span style={{ fontSize: '14px', color: d.color, fontWeight: '800' }}>{d.pct}%</span>
-                    <span style={{ fontSize: '16px', color: gold, fontWeight: '900' }}>{d.value}</span>
+                    <span style={{ fontSize: '14px', color: gold, fontWeight: '900' }}>{d.value}</span>
                   </div>
                 </div>
                 <div style={{ height: '8px', backgroundColor: '#1a1a1a', borderRadius: '4px', overflow: 'hidden' }}>

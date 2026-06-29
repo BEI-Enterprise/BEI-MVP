@@ -209,7 +209,7 @@ export default function PerformancePage() {
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
           </div>
           <button onClick={() => setShowInsightsModal(true)} style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>⊙ Performance Scan</button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '14px' }}>⋮</div>
         </div>
       </div>
 
@@ -468,7 +468,7 @@ export default function PerformancePage() {
                   <div style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '700' }}>{d.name}</div>
                   <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{d.pillar} Pillar · {d.desc}</div>
                 </div>
-                <div style={{ fontSize: '15px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
+                <div style={{ fontSize: '13px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
                 <div>
                   {d.answer && <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '4px' }}>MRI answer: <span style={{ color: 'var(--text-muted)', fontWeight: '600' }}>"{d.answer}"</span></div>}
                   <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>

@@ -346,7 +346,7 @@ export default function OpportunitiesPage() {
               <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>VALUE OVER TIME</div>
               <button onClick={() => setShowForecastModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View forecast →</button>
             </div>
-            <div style={{ fontSize: '16px', fontWeight: '800', color: gold, marginBottom: '2px' }}>{fmt(totalValue)}</div>
+            <div style={{ fontSize: '14px', fontWeight: '800', color: gold, marginBottom: '2px' }}>{fmt(totalValue)}</div>
             <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px' }}>Total forecasted value</div>
             <div style={{ display: 'flex', gap: '10px', marginBottom: '6px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: gold, borderRadius: '2px' }}/><span style={{ fontSize: '9px', color: 'var(--text-muted)' }}>Forecast</span></div>
@@ -429,7 +429,7 @@ export default function OpportunitiesPage() {
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
                   <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
-                  <div style={{ fontSize: '16px', fontWeight: '800', color: m.color }}>{m.value}</div>
+                  <div style={{ fontSize: '14px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
             </div>
@@ -444,7 +444,7 @@ export default function OpportunitiesPage() {
               </div>
               <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
                 <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>MATURITY STATUS</div>
-                <div style={{ fontSize: '16px', fontWeight: '700', color: 'var(--text-secondary)', marginBottom: '4px' }}>{selectedOpp.maturity}</div>
+                <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text-secondary)', marginBottom: '4px' }}>{selectedOpp.maturity}</div>
                 <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Current stage in opportunity pipeline</div>
               </div>
             </div>
@@ -482,7 +482,7 @@ export default function OpportunitiesPage() {
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
                   <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
-                  <div style={{ fontSize: '16px', fontWeight: '800', color: m.color }}>{m.value}</div>
+                  <div style={{ fontSize: '14px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
             </div>
@@ -496,7 +496,7 @@ export default function OpportunitiesPage() {
                       <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{opp.desc} · {opp.type} · {opp.timeToRealise}</div>
                     </div>
                     <div style={{ textAlign: 'right' as const, flexShrink: 0, marginLeft: '16px' }}>
-                      <div style={{ fontSize: '15px', fontWeight: '800', color: gold }}>{fmt(opp.value)}</div>
+                      <div style={{ fontSize: '13px', fontWeight: '800', color: gold }}>{fmt(opp.value)}</div>
                       <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{opp.confidence}% confidence</div>
                     </div>
                   </div>

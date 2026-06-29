@@ -174,7 +174,7 @@ export default function IntelligenceOperationsPage() {
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#e8923a', boxShadow: '0 0 6px ' + (hasMRI ? 'rgba(74,170,74,0.7)' : 'rgba(232,146,58,0.5)') }} />
           </div>
           <button style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>⊕ Operations Scan</button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '14px' }}>⋮</div>
         </div>
       </div>
 
@@ -206,7 +206,7 @@ export default function IntelligenceOperationsPage() {
         {/* DATA PIPELINE FLOW */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '15px', fontWeight: '700', color: 'var(--text-primary)' }}>Data Pipeline Flow</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-primary)' }}>Data Pipeline Flow</div>
             <button onClick={() => setShowPipelineModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View pipeline →</button>
           </div>
           <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '18px' }}>Real-time view of your data pipeline</div>
@@ -249,7 +249,7 @@ export default function IntelligenceOperationsPage() {
         {/* SYSTEM HEALTH */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '15px', fontWeight: '700', color: 'var(--text-primary)' }}>System Health</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-primary)' }}>System Health</div>
             <button onClick={() => setShowSystemModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View system health →</button>
           </div>
           <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '14px' }}>Overall system and infrastructure health</div>
@@ -300,7 +300,7 @@ export default function IntelligenceOperationsPage() {
             ].map((m, i) => (
               <div key={i} style={{ padding: '10px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '7px', border: '1px solid var(--border)' }}>
                 <div style={{ fontSize: '8px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '4px', fontWeight: '600' }}>{m.label}</div>
-                <div style={{ fontSize: '16px', fontWeight: '900', color: m.color, lineHeight: 1 }}>{m.value}</div>
+                <div style={{ fontSize: '14px', fontWeight: '900', color: m.color, lineHeight: 1 }}>{m.value}</div>
                 <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>{m.sub}</div>
               </div>
             ))}
@@ -412,7 +412,7 @@ export default function IntelligenceOperationsPage() {
               <div key={i} style={{ padding: '14px', backgroundColor: a.color + '08', borderRadius: '8px', border: '1px solid ' + a.color + '25', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '5px' }}>
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                    <span style={{ fontSize: '15px', color: a.color }}>{a.level === 'success' ? '✓' : a.level === 'info' ? 'ℹ' : '⚠'}</span>
+                    <span style={{ fontSize: '13px', color: a.color }}>{a.level === 'success' ? '✓' : a.level === 'info' ? 'ℹ' : '⚠'}</span>
                     <span style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700' }}>{a.title}</span>
                   </div>
                   <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{a.time}</span>

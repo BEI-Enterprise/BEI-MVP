@@ -152,7 +152,7 @@ export default function ConstraintsPage() {
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke={gold} strokeWidth="1.2"/><circle cx="7" cy="7" r="2" stroke={gold} strokeWidth="1.2"/><line x1="7" y1="1" x2="7" y2="3" stroke={gold} strokeWidth="1.2"/><line x1="7" y1="11" x2="7" y2="13" stroke={gold} strokeWidth="1.2"/><line x1="1" y1="7" x2="3" y2="7" stroke={gold} strokeWidth="1.2"/><line x1="11" y1="7" x2="13" y2="7" stroke={gold} strokeWidth="1.2"/></svg>
             Constraint Scan
           </button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '14px' }}>⋮</div>
         </div>
       </div>
 
@@ -622,7 +622,7 @@ export default function ConstraintsPage() {
               ].map((m, i) => (
                 <div key={i} style={{ padding: '14px 16px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
-                  <div style={{ fontSize: '16px', fontWeight: '700', color: (m as any).color || '#cccccc' }}>{m.value}</div>
+                  <div style={{ fontSize: '14px', fontWeight: '700', color: (m as any).color || '#cccccc' }}>{m.value}</div>
                 </div>
               ))}
             </div>
@@ -830,7 +830,7 @@ export default function ConstraintsPage() {
               {impactRows.map((row, i) => (
                 <div key={i} style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
                   <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '6px', fontWeight: '600' }}>{row.area.toUpperCase()}</div>
-                  <div style={{ fontSize: '16px', fontWeight: '800', color: row.levelColor, marginBottom: '3px' }}>{fmtShort(row.impact)}</div>
+                  <div style={{ fontSize: '14px', fontWeight: '800', color: row.levelColor, marginBottom: '3px' }}>{fmtShort(row.impact)}</div>
                   <div style={{ fontSize: '10px', color: row.levelColor, fontWeight: '600' }}>{row.level} Impact</div>
                 </div>
               ))}
