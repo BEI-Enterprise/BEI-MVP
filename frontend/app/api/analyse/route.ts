@@ -31,14 +31,16 @@ export async function POST(request: NextRequest) {
 
     const { result } = await intelligenceResponse.json()
 
-    // Save to Supabase
+    // Save to Supabase — tagged as free MRI (marketing layer, NOT platform intelligence)
+    const taggedResult = { ...result, mri_source: 'free', generated_at: new Date().toISOString() }
     const { error: updateError } = await supabase
       .from('businesses')
       .update({
         mri_completed: true,
         mri_version: result.confidence === 'high' ? 'v1.1-verified' : 'v1.0-rules-based',
         status: 'mri_complete',
-        mri_result: result,
+        mri_result: taggedResult,
+        free_mri_result: taggedResult,
       })
       .eq('id', business_id)
 

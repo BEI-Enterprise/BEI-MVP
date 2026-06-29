@@ -95,7 +95,35 @@ export default function DashboardPage() {
   const businessName = selected?.business_name || 'Your Business'
   if (twinCompleteness < 75) return <DashboardShell activeId="dashboard"><CompletenessGate completeness={twinCompleteness} businessName={businessName} /></DashboardShell>
 
-  const result = selected?.mri_result || null
+  // Only use platform data — never free MRI results from marketing layer
+  const rawResult = selected?.mri_result || null
+  const result = (rawResult && rawResult.mri_source !== 'free') ? rawResult : null
+
+  // No platform data — user only has free MRI or no data at all
+  if (!result) {
+    const hasFreeOnly = selected?.mri_result?.mri_source === 'free'
+    return (
+      <DashboardShell activeId="dashboard">
+        <main style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+          <div style={{ maxWidth: '520px', textAlign: 'center' as const, padding: '40px 24px' }}>
+            <div style={{ fontSize: '11px', color: '#C8A24A', letterSpacing: '0.3em', marginBottom: '24px', fontWeight: '600' }}>BEI INTELLIGENCE</div>
+            <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.1)', border: '2px solid rgba(200,162,74,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', fontSize: '28px' }}>◎</div>
+            <h2 style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '12px' }}>No Platform Data Yet</h2>
+            <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '28px' }}>
+              {hasFreeOnly
+                ? 'Your free Business MRI report is available, but platform intelligence requires data from connected sources or manual inputs. Connect a data source or add manual data to unlock your dashboard.'
+                : 'Connect a data source or add manual inputs to start building your Business Twin and unlock BEI Intelligence.'}
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' as const }}>
+              <a href="/connect" style={{ padding: '12px 24px', backgroundColor: '#C8A24A', color: '#050505', fontWeight: '700', borderRadius: '8px', textDecoration: 'none', fontSize: '14px' }}>Connect Data Sources →</a>
+              {hasFreeOnly && <a href={'/report/' + selected?.id} style={{ padding: '12px 24px', backgroundColor: 'transparent', color: '#C8A24A', fontWeight: '600', borderRadius: '8px', textDecoration: 'none', fontSize: '14px', border: '1px solid rgba(200,162,74,0.4)' }}>View Free MRI Report</a>}
+            </div>
+          </div>
+        </main>
+      </DashboardShell>
+    )
+  }
+
   const health = result?.health || {}
   const primary = result?.primary_constraint || null
   const secondary = result?.secondary_constraints || []
