@@ -414,3 +414,54 @@ html.light textarea {
 html.light input::placeholder {
   color: #888 !important;
 }
+
+/* ============================================
+   GLOBAL TEXT SIZE INCREASE — BOTH MODES
+   ============================================ */
+
+/* Base font size increase */
+html {
+  font-size: 17px;
+}
+
+/* Boost all small text globally */
+[style*="fontSize: '9px'"] { font-size: 11px !important; }
+[style*="fontSize: '10px'"] { font-size: 12px !important; }
+[style*="fontSize: '11px'"] { font-size: 13px !important; }
+[style*="fontSize: '12px'"] { font-size: 14px !important; }
+[style*="fontSize: '13px'"] { font-size: 15px !important; }
+[style*="fontSize: '14px'"] { font-size: 16px !important; }
+[style*="fontSize: '15px'"] { font-size: 16px !important; }
+[style*="fontSize: '16px'"] { font-size: 17px !important; }
+
+/* Nav items bigger */
+nav a { font-size: 14px !important; }
+
+/* Card labels */
+[style*="letterSpacing: '0.15em'"],
+[style*="letterSpacing: '0.2em'"],
+[style*="letterSpacing: '0.25em'"] {
+  font-size: 11px !important;
+}
+
+/* Headings */
+h1 { font-size: 2.2rem !important; }
+h2 { font-size: 1.8rem !important; }
+h3 { font-size: 1.4rem !important; }
+
+/* Table text */
+th, td { font-size: 14px !important; }
+
+/* Button text */
+button { font-size: 14px !important; }
+
+/* Input text */
+input, select, textarea { font-size: 14px !important; }
+
+/* KPI values — the big numbers */
+[style*="fontSize: '28px'"] { font-size: 32px !important; }
+[style*="fontSize: '24px'"] { font-size: 28px !important; }
+[style*="fontSize: '20px'"] { font-size: 24px !important; }
+[style*="fontSize: '18px'"] { font-size: 21px !important; }
+[style*="fontSize: '26px'"] { font-size: 30px !important; }
+[style*="fontSize: '32px'"] { font-size: 36px !important; }
