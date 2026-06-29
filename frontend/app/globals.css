@@ -185,3 +185,79 @@ html.light textarea {
   color: #1a1a18 !important;
   border-color: #d0cdc8 !important;
 }
+
+/* Catch rgba dark backgrounds */
+html.light [style*="rgba(0,0,0"],
+html.light [style*="rgba(5, 5, 5"],
+html.light [style*="rgba(10, 10, 10"],
+html.light [style*="rgba(14, 14, 14"],
+html.light [style*="rgba(20, 20, 20"],
+html.light [style*="rgba(0, 0, 0, 0.8"],
+html.light [style*="rgba(0, 0, 0, 0.9"],
+html.light [style*="background-color: rgb(30, 30, 30)"],
+html.light [style*="background-color: rgb(26, 26, 26)"],
+html.light [style*="background-color: rgb(22, 22, 22)"],
+html.light [style*="background-color: rgb(15, 15, 15)"],
+html.light [style*="background-color: rgb(12, 12, 12)"] {
+  background-color: #ffffff !important;
+}
+
+/* SVG backgrounds in light mode */
+html.light svg rect[fill="#0e0e0e"],
+html.light svg rect[fill="#050505"],
+html.light svg rect[fill="#0a0a0a"],
+html.light svg rect[fill="#111"],
+html.light svg rect[fill="#111111"],
+html.light svg rect[fill="#1a1a1a"],
+html.light svg rect[fill="black"],
+html.light svg rect[fill="#000"],
+html.light svg rect[fill="#000000"] {
+  fill: #f5f5f0 !important;
+}
+
+html.light svg text {
+  fill: #1a1a18 !important;
+}
+
+html.light svg line[stroke="#1e1e1e"],
+html.light svg line[stroke="#333"],
+html.light svg line[stroke="#222"] {
+  stroke: #d0cdc8 !important;
+}
+
+/* Canvas elements - force white bg */
+html.light canvas {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Catch any remaining dark divs by background-color style value */
+html.light [style*="background: #0"],
+html.light [style*="background:#0"] {
+  background: #ffffff !important;
+}
+
+/* Force inline dark background colors */
+html.light [style*="backgroundColor: "#0"],
+html.light [style*="backgroundColor:"#0"] {
+  background-color: #ffffff !important;
+}
+
+/* Target specific known dark card patterns */
+html.light [style*="background-color: rgb(5, 5, 5)"] { background-color: #f8f8f5 !important; }
+html.light [style*="background-color: rgb(8, 8, 8)"] { background-color: #ffffff !important; }
+html.light [style*="background-color: rgb(10, 10, 10)"] { background-color: #fafaf8 !important; }
+html.light [style*="background-color: rgb(12, 12, 12)"] { background-color: #ffffff !important; }
+html.light [style*="background-color: rgb(14, 14, 14)"] { background-color: #ffffff !important; }
+html.light [style*="background-color: rgb(17, 17, 17)"] { background-color: #ffffff !important; }
+html.light [style*="background-color: rgb(18, 18, 18)"] { background-color: #ffffff !important; }
+html.light [style*="background-color: rgb(20, 20, 20)"] { background-color: #ffffff !important; }
+html.light [style*="background-color: rgb(22, 22, 22)"] { background-color: #ffffff !important; }
+html.light [style*="background-color: rgb(24, 24, 24)"] { background-color: #ffffff !important; }
+html.light [style*="background-color: rgb(26, 26, 26)"] { background-color: #f0f0ea !important; }
+html.light [style*="background-color: rgb(30, 30, 30)"] { background-color: #f0f0ea !important; }
+
+/* Specifically target the primary constraint dark card */
+html.light [style*="background: linear-gradient"],
+html.light [style*="backgroundImage"] {
+  background: #fff8ee !important;
+}
