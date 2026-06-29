@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import { getCurrencySymbol } from '../../lib/currency'
 import DashboardShell from '../components/DashboardShell'
+import { useBEIIntelligence } from '../hooks/useBEIIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -44,6 +45,7 @@ export default function DashboardPage() {
   const [selected, setSelected] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [showRadarModal, setShowRadarModal] = useState(false)
+  const bei = useBEIIntelligence()
 
   useEffect(() => {
     const load = async () => {
@@ -98,6 +100,8 @@ export default function DashboardPage() {
   // Only use platform data — never free MRI results from marketing layer
   const rawResult = selected?.mri_result || null
   const result = (rawResult && rawResult.mri_source !== 'free') ? rawResult : null
+  // Override with live connector intelligence if available
+  const liveIntel = bei.intelligence
 
   // No platform data — user only has free MRI or no data at all
   if (!result) {
@@ -124,9 +128,9 @@ export default function DashboardPage() {
     )
   }
 
-  const health = result?.health || {}
-  const primary = result?.primary_constraint || null
-  const secondary = result?.secondary_constraints || []
+  const health = liveIntel?.health || result?.health || {}
+  const primary = liveIntel?.primary || result?.primary_constraint || null
+  const secondary = liveIntel?.secondary || result?.secondary_constraints || []
   const pillars = health.pillars || {}
   const opportunity = result?.total_opportunity || null
   const confidence = result?.confidence || 'low'
