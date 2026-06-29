@@ -37,8 +37,8 @@ export default function DashboardPage() {
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div>
-        <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em', marginBottom: '12px', textAlign: 'center' as const }}>BEI INTELLIGENCE</div>
-        <div style={{ fontSize: '13px', color: 'var(--text-muted)', letterSpacing: '0.1em' }}>Loading executive intelligence...</div>
+        <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.3em', marginBottom: '12px', textAlign: 'center' as const }}>BEI INTELLIGENCE</div>
+        <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.1em' }}>Loading executive intelligence...</div>
       </div>
     </main>
   )
@@ -46,9 +46,9 @@ export default function DashboardPage() {
   if (!user) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ textAlign: 'center' as const }}>
-        <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em', marginBottom: '16px' }}>BEI INTELLIGENCE</div>
-        <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '20px' }}>Sign in to access your Executive Command Centre.</div>
-        <a href='/login' style={{ padding: '12px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '13px' }}>Sign In →</a>
+        <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.3em', marginBottom: '16px' }}>BEI INTELLIGENCE</div>
+        <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '20px' }}>Sign in to access your Executive Command Centre.</div>
+        <a href='/login' style={{ padding: '12px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none', fontSize: '17px' }}>Sign In →</a>
       </div>
     </main>
   )
@@ -164,16 +164,16 @@ export default function DashboardPage() {
     <DashboardShell activeId="dashboard">
 
       <div style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid ' + border }}>
-        <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>EXECUTIVE COMMAND CENTRE</div>
+        <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>EXECUTIVE COMMAND CENTRE</div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <h1 style={{ fontSize: '28px', fontWeight: '800', letterSpacing: '-0.02em', margin: '0 0 4px 0', color: 'var(--text-primary)' }}>Welcome back, {userName}.</h1>
-            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '2px' }}>{businessName} · {tier} Plan · {industryLabel}</div>
-            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '3px', letterSpacing: '0.04em' }}>Your real-time executive intelligence overview.</div>
+            <h1 style={{ fontSize: '36px', fontWeight: '800', letterSpacing: '-0.02em', margin: '0 0 4px 0', color: 'var(--text-primary)' }}>Welcome back, {userName}.</h1>
+            <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '2px' }}>{businessName} · {tier} Plan · {industryLabel}</div>
+            <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '3px', letterSpacing: '0.04em' }}>Your real-time executive intelligence overview.</div>
           </div>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <a href="/book" style={{ padding: '9px 18px', border: '1px solid var(--border)', borderRadius: '6px', color: '#bbb', fontSize: '12px', textDecoration: 'none' }}>Book Strategy Session</a>
-            <a href="/report" style={{ padding: '9px 18px', backgroundColor: gold, borderRadius: '6px', color: '#050505', fontSize: '12px', fontWeight: '700', textDecoration: 'none' }}>View Full Report →</a>
+            <a href="/book" style={{ padding: '9px 18px', border: '1px solid var(--border)', borderRadius: '6px', color: '#bbb', fontSize: '17px', textDecoration: 'none' }}>Book Strategy Session</a>
+            <a href="/report" style={{ padding: '9px 18px', backgroundColor: gold, borderRadius: '6px', color: '#050505', fontSize: '17px', fontWeight: '700', textDecoration: 'none' }}>View Full Report →</a>
           </div>
         </div>
       </div>
@@ -188,10 +188,10 @@ export default function DashboardPage() {
           { label: 'SUBSCRIPTION STATUS', value: 'ACTIVE', color: '#4aaa4a', trend: tier + ' Plan', prevVal: 'Renews in 28 days', spark: 'neutral', trendColor: '#4aaa4a' },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>{k.label}</div>
+            <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>{k.label}</div>
             <div style={{ fontSize: '19px', fontWeight: '800', color: k.color, lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
-            <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600', marginBottom: '2px' }}>{k.trend}</div>
-            <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '8px' }}>{k.prevVal}</div>
+            <div style={{ fontSize: '17px', color: k.trendColor, fontWeight: '600', marginBottom: '2px' }}>{k.trend}</div>
+            <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '8px' }}>{k.prevVal}</div>
             {sparkline(k.spark, k.trendColor, 10 + i)}
           </div>
         ))}
@@ -207,50 +207,50 @@ export default function DashboardPage() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 180px 200px 200px', gap: '24px', marginBottom: '24px' }}>
 
                 <div>
-                  <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', fontWeight: '600', marginBottom: '10px' }}>PRIMARY CONSTRAINT</div>
-                  <h2 style={{ fontSize: '26px', fontWeight: '900', color: gold, marginBottom: '10px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>{primary.name}™</h2>
-                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '16px' }}>{primary.hypothesis || 'Leadership capacity and decision velocity are limiting execution speed and business growth.'}</p>
+                  <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.25em', fontWeight: '600', marginBottom: '10px' }}>PRIMARY CONSTRAINT</div>
+                  <h2 style={{ fontSize: '29px', fontWeight: '900', color: gold, marginBottom: '10px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>{primary.name}™</h2>
+                  <p style={{ fontSize: '17px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '16px' }}>{primary.hypothesis || 'Leadership capacity and decision velocity are limiting execution speed and business growth.'}</p>
                   <div style={{ marginBottom: '14px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                      <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em' }}>VERIFICATION SCORE</div>
-                      <div style={{ fontSize: '13px', fontWeight: '800', color: verificationScore >= 70 ? '#4aaa4a' : gold }}>{verificationScore}/100</div>
+                      <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.15em' }}>VERIFICATION SCORE</div>
+                      <div style={{ fontSize: '17px', fontWeight: '800', color: verificationScore >= 70 ? '#4aaa4a' : gold }}>{verificationScore}/100</div>
                     </div>
                     <div style={{ height: '4px', backgroundColor: 'var(--border)', borderRadius: '2px', overflow: 'hidden' }}>
                       <div style={{ width: verificationScore + '%', height: '100%', background: 'linear-gradient(90deg, ' + (verificationScore >= 70 ? '#2a6a2a' : '#6a4a10') + ', ' + (verificationScore >= 70 ? '#4aaa4a' : gold) + ')', borderRadius: '2px', transition: 'width 1.5s ease' }} />
                     </div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '3px' }}>CONFIDENCE LEVEL</div>
-                    <div style={{ fontSize: '18px', fontWeight: '800', color: confColor }}>{confidence.toUpperCase()}</div>
-                    <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>85% confidence</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '3px' }}>CONFIDENCE LEVEL</div>
+                    <div style={{ fontSize: '22px', fontWeight: '800', color: confColor }}>{confidence.toUpperCase()}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>85% confidence</div>
                   </div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '8px' }}>ANNUAL OPPORTUNITY</div>
-                  <div style={{ fontSize: '20px', fontWeight: '900', color: gold, marginBottom: '2px', lineHeight: 1.1 }}>{oppLow > 0 ? fmt(oppLow) : '—'}</div>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: gold + 'bb', marginBottom: '16px' }}>{oppHigh > 0 ? '– ' + fmt(oppHigh) : ''}</div>
-                  <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '10px' }}>AFFECTED AREAS</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '8px' }}>ANNUAL OPPORTUNITY</div>
+                  <div style={{ fontSize: '22px', fontWeight: '900', color: gold, marginBottom: '2px', lineHeight: 1.1 }}>{oppLow > 0 ? fmt(oppLow) : '—'}</div>
+                  <div style={{ fontSize: '17px', fontWeight: '700', color: gold + 'bb', marginBottom: '16px' }}>{oppHigh > 0 ? '– ' + fmt(oppHigh) : ''}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '10px' }}>AFFECTED AREAS</div>
                   <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px' }}>
                     {affectedAreas.slice(0, 4).map((area: string, i: number) => (
-                      <div key={i} style={{ padding: '4px 10px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.25)', borderRadius: '4px', fontSize: '10px', color: gold, fontWeight: '600' }}>{area}</div>
+                      <div key={i} style={{ padding: '4px 10px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.25)', borderRadius: '4px', fontSize: '17px', color: gold, fontWeight: '600' }}>{area}</div>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '8px' }}>WHY IT MATTERS</div>
-                  <p style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '14px' }}>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '8px' }}>WHY IT MATTERS</div>
+                  <p style={{ fontSize: '17px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '14px' }}>
                     {primary.evidence?.[0] || 'Critical constraints are delaying decisions, reducing team productivity and slowing revenue growth.'}
                   </p>
                   <div style={{ backgroundColor: 'rgba(200,162,74,0.07)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '6px', padding: '10px 12px', marginBottom: '10px' }}>
-                    <div style={{ fontSize: '9px', color: gold, letterSpacing: '0.15em', marginBottom: '5px', fontWeight: '600' }}>RECOMMENDED NEXT ACTION</div>
-                    <div style={{ fontSize: '12px', color: 'var(--text-primary)', fontWeight: '600', lineHeight: '1.4' }}>Deploy Tier 1 {primary.name} Framework →</div>
+                    <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.15em', marginBottom: '5px', fontWeight: '600' }}>RECOMMENDED NEXT ACTION</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '600', lineHeight: '1.4' }}>Deploy Tier 1 {primary.name} Framework →</div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '4px' }}>EXPECTED OUTCOME</div>
-                    <div style={{ fontSize: '16px', fontWeight: '800', color: '#4aaa4a' }}>+{oppLow > 0 ? fmt(Math.round((oppLow + oppHigh) / 2)) : fmt(120000)}</div>
-                    <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Annual value impact</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '4px' }}>EXPECTED OUTCOME</div>
+                    <div style={{ fontSize: '17px', fontWeight: '800', color: '#4aaa4a' }}>+{oppLow > 0 ? fmt(Math.round((oppLow + oppHigh) / 2)) : fmt(120000)}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Annual value impact</div>
                   </div>
                 </div>
 
@@ -312,22 +312,22 @@ export default function DashboardPage() {
                 <div style={{ display: 'flex', gap: '20px' }}>
                   {primary.evidence?.slice(0, 2).map((e: string, idx: number) => (
                     <div key={idx} style={{ display: 'flex', gap: '6px', alignItems: 'flex-start', maxWidth: '280px' }}>
-                      <span style={{ color: gold, flexShrink: 0, fontSize: '10px', marginTop: '2px' }}>◈</span>
-                      <span style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.5' }}>{e}</span>
+                      <span style={{ color: gold, flexShrink: 0, fontSize: '17px', marginTop: '2px' }}>◈</span>
+                      <span style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.5' }}>{e}</span>
                     </div>
                   ))}
                 </div>
                 <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
-                  <a href="/constraints" style={{ padding: '9px 20px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontSize: '12px', fontWeight: '700', textDecoration: 'none', whiteSpace: 'nowrap' as const }}>View Constraint Intelligence →</a>
-                  <a href="/deployments" style={{ padding: '9px 20px', border: '1px solid var(--border)', color: 'var(--text-muted)', borderRadius: '6px', fontSize: '12px', textDecoration: 'none', whiteSpace: 'nowrap' as const }}>Deployment Packages</a>
+                  <a href="/constraints" style={{ padding: '9px 20px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontSize: '17px', fontWeight: '700', textDecoration: 'none', whiteSpace: 'nowrap' as const }}>View Constraint Intelligence →</a>
+                  <a href="/deployments" style={{ padding: '9px 20px', border: '1px solid var(--border)', color: 'var(--text-muted)', borderRadius: '6px', fontSize: '17px', textDecoration: 'none', whiteSpace: 'nowrap' as const }}>Deployment Packages</a>
                 </div>
               </div>
             </div>
           ) : (
             <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '40px', textAlign: 'center' as const }}>
-              <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.2em', marginBottom: '12px' }}>PRIMARY CONSTRAINT</div>
-              <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '20px' }}>No MRI analysis found. Generate your Business MRI to activate intelligence.</div>
-              <a href="/book" style={{ padding: '10px 24px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>Generate Business MRI →</a>
+              <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '12px' }}>PRIMARY CONSTRAINT</div>
+              <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '20px' }}>No MRI analysis found. Generate your Business MRI to activate intelligence.</div>
+              <a href="/book" style={{ padding: '10px 24px', backgroundColor: gold, color: '#050505', borderRadius: '6px', fontWeight: '700', textDecoration: 'none', fontSize: '17px' }}>Generate Business MRI →</a>
             </div>
           )}
 
@@ -335,8 +335,8 @@ export default function DashboardPage() {
 
             <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.2em', fontWeight: '600' }}>EXECUTIVE ACTION CENTRE</div>
-                <a href="/deployments" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View all actions →</a>
+                <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.2em', fontWeight: '600' }}>EXECUTIVE ACTION CENTRE</div>
+                <a href="/deployments" style={{ fontSize: '17px', color: gold, textDecoration: 'none' }}>View all actions →</a>
               </div>
               {actions.slice(0, 4).map((a: any, i: number) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px', backgroundColor: a.bg, border: '1px solid ' + a.color + '33', borderRadius: '6px', marginBottom: i < 3 ? '8px' : '0' }}>
@@ -345,43 +345,43 @@ export default function DashboardPage() {
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
-                      <div style={{ fontSize: '9px', color: a.color, fontWeight: '700', letterSpacing: '0.1em' }}>{a.priority}</div>
-                      <div style={{ fontSize: '10px', color: a.color, fontWeight: '600' }}>{a.value}</div>
+                      <div style={{ fontSize: '17px', color: a.color, fontWeight: '700', letterSpacing: '0.1em' }}>{a.priority}</div>
+                      <div style={{ fontSize: '17px', color: a.color, fontWeight: '600' }}>{a.value}</div>
                     </div>
-                    <div style={{ fontSize: '12px', color: 'var(--text-primary)', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.title}</div>
-                    <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '1px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.desc}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.title}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '1px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.desc}</div>
                   </div>
-                  <div style={{ fontSize: '14px', color: 'var(--text-muted)', flexShrink: 0 }}>→</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', flexShrink: 0 }}>→</div>
                 </div>
               ))}
               <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid ' + border, textAlign: 'center' as const }}>
-                <a href="/deployments" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View all actions →</a>
+                <a href="/deployments" style={{ fontSize: '17px', color: gold, textDecoration: 'none' }}>View all actions →</a>
               </div>
             </div>
 
             <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.2em', fontWeight: '600' }}>DECISION INTELLIGENCE FEED</div>
+                <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.2em', fontWeight: '600' }}>DECISION INTELLIGENCE FEED</div>
                 <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
                   <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 4px rgba(74,170,74,0.6)' }} />
-                  <span style={{ fontSize: '9px', color: '#4aaa4a', letterSpacing: '0.1em' }}>LIVE</span>
+                  <span style={{ fontSize: '17px', color: '#4aaa4a', letterSpacing: '0.1em' }}>LIVE</span>
                 </div>
               </div>
               {feed.map((f, i) => (
                 <div key={i} style={{ display: 'flex', gap: '10px', padding: '10px 0', borderBottom: i < feed.length - 1 ? '1px solid ' + border : 'none' }}>
                   <div style={{ flexShrink: 0, marginTop: '2px' }}>
                     <div style={{ width: '20px', height: '20px', borderRadius: '50%', backgroundColor: i === 0 ? 'rgba(200,162,74,0.15)' : i === 1 ? 'rgba(74,138,176,0.15)' : 'rgba(74,170,74,0.15)', border: '1px solid ' + (i === 0 ? gold + '44' : i === 1 ? '#4a8ab044' : '#4aaa4a44'), display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <div style={{ fontSize: '9px', color: i === 0 ? gold : i === 1 ? '#4a8ab0' : '#4aaa4a' }}>{i === 0 ? '★' : i === 1 ? '↗' : '◎'}</div>
+                      <div style={{ fontSize: '17px', color: i === 0 ? gold : i === 1 ? '#4a8ab0' : '#4aaa4a' }}>{i === 0 ? '★' : i === 1 ? '↗' : '◎'}</div>
                     </div>
                   </div>
                   <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.6', margin: '0 0 3px 0' }}>{f.text}</p>
-                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{f.time}</div>
+                    <p style={{ fontSize: '17px', color: 'var(--text-secondary)', lineHeight: '1.6', margin: '0 0 3px 0' }}>{f.text}</p>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{f.time}</div>
                   </div>
                 </div>
               ))}
               <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid ' + border, textAlign: 'center' as const }}>
-                <a href="/insights" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View all insights →</a>
+                <a href="/insights" style={{ fontSize: '17px', color: gold, textDecoration: 'none' }}>View all insights →</a>
               </div>
             </div>
           </div>
@@ -391,8 +391,8 @@ export default function DashboardPage() {
 
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <div style={{ fontSize: '11px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '700' }}>BUSINESS HEALTH RADAR</div>
-              <button onClick={() => setShowRadarModal(true)} style={{ fontSize: '11px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontWeight: '600' }}>View full →</button>
+              <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '700' }}>BUSINESS HEALTH RADAR</div>
+              <button onClick={() => setShowRadarModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontWeight: '600' }}>View full →</button>
             </div>
             {pillarList.length > 0 ? (
               <>
@@ -444,23 +444,23 @@ export default function DashboardPage() {
                 <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginBottom: '10px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <svg width="18" height="6"><line x1="0" y1="3" x2="18" y2="3" stroke={gold} strokeWidth="1.5"/></svg>
-                    <span style={{ fontSize: '9px', color: 'var(--text-muted)' }}>Your score</span>
+                    <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Your score</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <svg width="18" height="6"><line x1="0" y1="3" x2="18" y2="3" stroke={gold} strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.5"/></svg>
-                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Industry benchmark</span>
+                    <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Industry benchmark</span>
                   </div>
                 </div>
                 <div style={{ textAlign: 'center' as const, marginBottom: '12px' }}>
-                  <div style={{ fontSize: '28px', fontWeight: '900', color: healthColor, lineHeight: 1 }}>{healthScore}</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '3px', letterSpacing: '0.1em' }}>HEALTH SCORE</div>
+                  <div style={{ fontSize: '36px', fontWeight: '900', color: healthColor, lineHeight: 1 }}>{healthScore}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '3px', letterSpacing: '0.1em' }}>HEALTH SCORE</div>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '6px' }}>
                   {pillarList.map((p: any, i: number) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: p.color, flexShrink: 0 }} />
-                      <div style={{ flex: 1, fontSize: '11px', color: 'var(--text-muted)' }}>{p.name}</div>
-                      <div style={{ fontSize: '11px', fontWeight: '700', color: p.color }}>{p.score}/20</div>
+                      <div style={{ flex: 1, fontSize: '17px', color: 'var(--text-muted)' }}>{p.name}</div>
+                      <div style={{ fontSize: '17px', fontWeight: '700', color: p.color }}>{p.score}/20</div>
                       <div style={{ width: '60px', height: '3px', backgroundColor: 'var(--border)', borderRadius: '2px', overflow: 'hidden' }}>
                         <div style={{ width: String((p.score/20)*100) + '%', height: '100%', backgroundColor: p.color }} />
                       </div>
@@ -469,14 +469,14 @@ export default function DashboardPage() {
                 </div>
               </>
             ) : (
-              <div style={{ textAlign: 'center' as const, padding: '20px 0', color: 'var(--text-muted)', fontSize: '12px' }}>Generate MRI to see health radar</div>
+              <div style={{ textAlign: 'center' as const, padding: '20px 0', color: 'var(--text-muted)', fontSize: '17px' }}>Generate MRI to see health radar</div>
             )}
           </div>
 
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-              <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>INTELLIGENCE ALERTS</div>
-              <a href="/constraints" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View all →</a>
+              <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>INTELLIGENCE ALERTS</div>
+              <a href="/constraints" style={{ fontSize: '17px', color: gold, textDecoration: 'none' }}>View all →</a>
             </div>
             {alerts.map((a: any, i: number) => {
               const c = a.level === 'critical' ? '#cc4444' : a.level === 'high' ? '#e8923a' : a.level === 'medium' ? gold : '#4a8ab0'
@@ -488,11 +488,11 @@ export default function DashboardPage() {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
-                      <div style={{ fontSize: '9px', color: c, fontWeight: '700', letterSpacing: '0.1em' }}>{levelLabel}</div>
-                      <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{a.time}</div>
+                      <div style={{ fontSize: '17px', color: c, fontWeight: '700', letterSpacing: '0.1em' }}>{levelLabel}</div>
+                      <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{a.time}</div>
                     </div>
-                    <div style={{ fontSize: '12px', color: 'var(--text-primary)', fontWeight: '600' }}>{a.title}</div>
-                    <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '2px' }}>{a.desc}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '600' }}>{a.title}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '2px' }}>{a.desc}</div>
                   </div>
                 </div>
               )
@@ -502,8 +502,8 @@ export default function DashboardPage() {
           {oppHigh > 0 && (
             <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY SNAPSHOT</div>
-                <a href="/opportunities" style={{ fontSize: '10px', color: gold, textDecoration: 'none' }}>View pipeline →</a>
+                <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY SNAPSHOT</div>
+                <a href="/opportunities" style={{ fontSize: '17px', color: gold, textDecoration: 'none' }}>View pipeline →</a>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ flexShrink: 0 }}>
@@ -532,15 +532,15 @@ export default function DashboardPage() {
                   {oppBreakdown.map((o, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: i < oppBreakdown.length - 1 ? '5px' : '0' }}>
                       <div style={{ width: '7px', height: '7px', borderRadius: '2px', backgroundColor: o.color, flexShrink: 0 }} />
-                      <div style={{ flex: 1, fontSize: '10px', color: 'var(--text-muted)' }}>{o.label}</div>
-                      <div style={{ fontSize: '10px', color: o.color, fontWeight: '600' }}>{o.val}</div>
+                      <div style={{ flex: 1, fontSize: '17px', color: 'var(--text-muted)' }}>{o.label}</div>
+                      <div style={{ fontSize: '17px', color: o.color, fontWeight: '600' }}>{o.val}</div>
                     </div>
                   ))}
                 </div>
               </div>
               <div style={{ borderTop: '1px solid ' + border, paddingTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Avg. Confidence: <span style={{ color: confColor, fontWeight: '600' }}>78%</span></div>
-                <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{oppBreakdown.length} opportunities</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Avg. Confidence: <span style={{ color: confColor, fontWeight: '600' }}>78%</span></div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{oppBreakdown.length} opportunities</div>
               </div>
             </div>
           )}
@@ -552,11 +552,11 @@ export default function DashboardPage() {
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '740px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
               <div>
-                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>BUSINESS HEALTH RADAR</div>
+                <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>BUSINESS HEALTH RADAR</div>
                 <div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Full Business Health Analysis</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{businessName} · Health Score: {healthScore}/100 · {pillarList.length} pillars</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{businessName} · Health Score: {healthScore}/100 · {pillarList.length} pillars</div>
               </div>
-              <button onClick={() => setShowRadarModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <button onClick={() => setShowRadarModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '22px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '20px' }}>
               <div>
@@ -574,8 +574,8 @@ export default function DashboardPage() {
                   <text x="130" y="150" textAnchor="middle" fill={healthColor} fontSize="10" fontWeight="700">{health.vs_benchmark === 'above' ? '↑ Above benchmark' : 'At benchmark'}</text>
                 </svg>
                 <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '8px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><div style={{ width: '10px', height: '3px', backgroundColor: gold }}/><span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Your score</span></div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><div style={{ width: '10px', height: '2px', backgroundColor: gold, opacity: 0.4 }}/><span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Industry benchmark</span></div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><div style={{ width: '10px', height: '3px', backgroundColor: gold }}/><span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Your score</span></div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><div style={{ width: '10px', height: '2px', backgroundColor: gold, opacity: 0.4 }}/><span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Industry benchmark</span></div>
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
@@ -584,14 +584,14 @@ export default function DashboardPage() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: p.color }} />
-                        <span style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '700' }}>{p.name}</span>
+                        <span style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '700' }}>{p.name}</span>
                       </div>
-                      <span style={{ fontSize: '14px', color: p.color, fontWeight: '900' }}>{p.score}/20</span>
+                      <span style={{ fontSize: '17px', color: p.color, fontWeight: '900' }}>{p.score}/20</span>
                     </div>
                     <div style={{ height: '6px', backgroundColor: '#1a1a1a', borderRadius: '3px', overflow: 'hidden', marginBottom: '3px' }}>
                       <div style={{ width: (p.score/20*100)+'%', height: '100%', backgroundColor: p.color, borderRadius: '3px' }} />
                     </div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{p.label || (p.score >= 14 ? 'Strong' : p.score >= 9 ? 'Moderate' : 'Needs Attention')}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{p.label || (p.score >= 14 ? 'Strong' : p.score >= 9 ? 'Moderate' : 'Needs Attention')}</div>
                   </div>
                 ))}
               </div>
@@ -599,9 +599,9 @@ export default function DashboardPage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '10px' }}>
               {pillarList.map((p: any, i: number) => (
                 <div key={i} style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid '+p.color+'33', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '6px', fontWeight: '600' }}>{p.name.toUpperCase()}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '6px', fontWeight: '600' }}>{p.name.toUpperCase()}</div>
                   <div style={{ fontSize: '22px', fontWeight: '900', color: p.color }}>{p.score}/20</div>
-                  <div style={{ fontSize: '11px', color: p.score >= 14 ? '#4aaa4a' : p.score >= 9 ? gold : '#e8923a', marginTop: '3px', fontWeight: '600' }}>{p.label || (p.score >= 14 ? 'Strong' : p.score >= 9 ? 'Moderate' : 'Needs Attention')}</div>
+                  <div style={{ fontSize: '17px', color: p.score >= 14 ? '#4aaa4a' : p.score >= 9 ? gold : '#e8923a', marginTop: '3px', fontWeight: '600' }}>{p.label || (p.score >= 14 ? 'Strong' : p.score >= 9 ? 'Moderate' : 'Needs Attention')}</div>
                 </div>
               ))}
             </div>

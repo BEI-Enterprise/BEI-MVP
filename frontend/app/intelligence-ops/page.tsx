@@ -50,7 +50,7 @@ export default function IntelligenceOperationsPage() {
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>LOADING INTELLIGENCE OPERATIONS...</div>
+      <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.3em' }}>LOADING INTELLIGENCE OPERATIONS...</div>
     </main>
   )
 
@@ -135,16 +135,16 @@ export default function IntelligenceOperationsPage() {
       {/* HEADER */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid ' + border }}>
         <div>
-          <h1 style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: 'var(--text-primary)' }}>Intelligence Operations™</h1>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Monitor and manage the BEI intelligence infrastructure and data operations.</div>
+          <h1 style={{ fontSize: '29px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: 'var(--text-primary)' }}>Intelligence Operations™</h1>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Monitor and manage the BEI intelligence infrastructure and data operations.</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '17px', color: 'var(--text-muted)' }}>
             Business Twin™: <span style={{ color: hasMRI ? '#4aaa4a' : '#e8923a', fontWeight: '600' }}>{hasMRI ? 'Active' : 'Inactive'}</span>
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: hasMRI ? '#4aaa4a' : '#e8923a', boxShadow: '0 0 6px ' + (hasMRI ? 'rgba(74,170,74,0.7)' : 'rgba(232,146,58,0.5)') }} />
           </div>
-          <button style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>⊕ Operations Scan</button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
+          <button style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '17px', fontWeight: '600', cursor: 'pointer' }}>⊕ Operations Scan</button>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '17px' }}>⋮</div>
         </div>
       </div>
 
@@ -159,12 +159,12 @@ export default function IntelligenceOperationsPage() {
           { label: 'Active Integrations', icon: '⊕', value: String(totalConns), sub: activeConns.length + ' connected, ' + pendingConns.length + ' pending', subColor: activeConns.length > 0 ? '#4aaa4a' : '#888', trend: errorConns.length > 0 ? '⚠ ' + errorConns.length + ' error' : 'All synced', trendColor: errorConns.length > 0 ? '#e8923a' : '#4aaa4a' },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-            <div style={{ fontSize: '18px', color: gold, flexShrink: 0, marginTop: '2px' }}>{k.icon}</div>
+            <div style={{ fontSize: '22px', color: gold, flexShrink: 0, marginTop: '2px' }}>{k.icon}</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: '10px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '4px', fontWeight: '600' }}>{k.label}</div>
+              <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '4px', fontWeight: '600' }}>{k.label}</div>
               <div style={{ fontSize: i === 1 ? '16px' : '20px', fontWeight: '900', color: i === 1 ? (k as any).subColor : '#ffffff', lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
-              <div style={{ fontSize: '10px', color: k.subColor, fontWeight: '600', marginBottom: '3px' }}>{k.sub}</div>
-              <div style={{ fontSize: '10px', color: k.trendColor }}>{k.trend}</div>
+              <div style={{ fontSize: '17px', color: k.subColor, fontWeight: '600', marginBottom: '3px' }}>{k.sub}</div>
+              <div style={{ fontSize: '17px', color: k.trendColor }}>{k.trend}</div>
             </div>
           </div>
         ))}
@@ -176,10 +176,10 @@ export default function IntelligenceOperationsPage() {
         {/* DATA PIPELINE FLOW */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '15px', fontWeight: '700', color: 'var(--text-primary)' }}>Data Pipeline Flow</div>
-            <button onClick={() => setShowPipelineModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View pipeline →</button>
+            <div style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text-primary)' }}>Data Pipeline Flow</div>
+            <button onClick={() => setShowPipelineModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View pipeline →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '18px' }}>Real-time view of your data pipeline</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '18px' }}>Real-time view of your data pipeline</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0', marginBottom: '20px' }}>
             {[
               { icon: '⊞', label: 'Ingestion', metric: String(sourcesCount), sub: 'Sources', color: '#4a8ab0', active: sourcesCount > 0 },
@@ -190,15 +190,15 @@ export default function IntelligenceOperationsPage() {
               'arrow',
               { icon: '◈', label: 'Insights', metric: String(hasMRI ? 632 + activeConns.length * 14 : 0), sub: 'Insights', color: '#9a6ab0', active: hasMRI },
             ].map((stage, i) => {
-              if (stage === 'arrow') return <div key={i} style={{ fontSize: '20px', color: '#2a2a2a', marginTop: '-20px', flexShrink: 0, padding: '0 4px' }}>→</div>
+              if (stage === 'arrow') return <div key={i} style={{ fontSize: '22px', color: '#2a2a2a', marginTop: '-20px', flexShrink: 0, padding: '0 4px' }}>→</div>
               const s = stage as any
               return (
                 <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '52px', height: '52px', borderRadius: '12px', backgroundColor: s.active ? s.color+'18' : '#0a0a0a', border: '2px solid ' + (s.active ? s.color : '#1e1e1e'), display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', color: s.active ? s.color : '#333' }}>{s.icon}</div>
+                  <div style={{ width: '52px', height: '52px', borderRadius: '12px', backgroundColor: s.active ? s.color+'18' : '#0a0a0a', border: '2px solid ' + (s.active ? s.color : '#1e1e1e'), display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', color: s.active ? s.color : '#333' }}>{s.icon}</div>
                   <div style={{ textAlign: 'center' as const }}>
-                    <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '3px' }}>{s.label}</div>
-                    <div style={{ fontSize: '18px', fontWeight: '800', color: s.active ? s.color : '#333', lineHeight: 1 }}>{s.metric}</div>
-                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{s.sub}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '3px' }}>{s.label}</div>
+                    <div style={{ fontSize: '22px', fontWeight: '800', color: s.active ? s.color : '#333', lineHeight: 1 }}>{s.metric}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{s.sub}</div>
                   </div>
                 </div>
               )
@@ -207,11 +207,11 @@ export default function IntelligenceOperationsPage() {
           <div style={{ display: 'flex', gap: '20px', padding: '10px 14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: sourcesCount > 0 ? '#4aaa4a' : '#333' }} />
-              <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Throughput: <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>{processingSpeed.toLocaleString()} records/min</span></span>
+              <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Throughput: <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>{processingSpeed.toLocaleString()} records/min</span></span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: sourcesCount > 0 ? '#4aaa4a' : '#333' }} />
-              <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Latency: <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>{latency}s</span></span>
+              <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Latency: <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>{latency}s</span></span>
             </div>
           </div>
         </div>
@@ -219,10 +219,10 @@ export default function IntelligenceOperationsPage() {
         {/* SYSTEM HEALTH */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '15px', fontWeight: '700', color: 'var(--text-primary)' }}>System Health</div>
-            <button onClick={() => setShowSystemModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View system health →</button>
+            <div style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text-primary)' }}>System Health</div>
+            <button onClick={() => setShowSystemModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View system health →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '14px' }}>Overall system and infrastructure health</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '14px' }}>Overall system and infrastructure health</div>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
             <svg width="140" height="140" viewBox="0 0 90 90" style={{ flexShrink: 0 }}>
               {(() => {
@@ -242,9 +242,9 @@ export default function IntelligenceOperationsPage() {
                 <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 0', borderBottom: i < systemComponents.length - 1 ? '1px solid #0d0d0d' : 'none' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                     <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: comp.color, flexShrink: 0 }} />
-                    <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>{comp.name}</span>
+                    <span style={{ fontSize: '17px', color: 'var(--text-secondary)' }}>{comp.name}</span>
                   </div>
-                  <span style={{ fontSize: '10px', color: comp.color, fontWeight: '600', maxWidth: '170px', textAlign: 'right' as const, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{comp.status}</span>
+                  <span style={{ fontSize: '17px', color: comp.color, fontWeight: '600', maxWidth: '170px', textAlign: 'right' as const, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{comp.status}</span>
                 </div>
               ))}
             </div>
@@ -258,10 +258,10 @@ export default function IntelligenceOperationsPage() {
         {/* INTELLIGENCE ENGINE PERFORMANCE */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text-primary)' }}>Intelligence Engine Performance</div>
-            <button onClick={() => setShowPerformanceModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View performance →</button>
+            <div style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text-primary)' }}>Intelligence Engine Performance</div>
+            <button onClick={() => setShowPerformanceModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View performance →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '14px' }}>Performance metrics over the last 24 hours</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '14px' }}>Performance metrics over the last 24 hours</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '8px', marginBottom: '14px' }}>
             {[
               { label: 'Processing Speed', value: processingSpeed.toLocaleString() + '/min', sub: 'Records processed', color: '#4aaa4a' },
@@ -269,9 +269,9 @@ export default function IntelligenceOperationsPage() {
               { label: 'Engine Accuracy', value: engineAccuracy > 0 ? engineAccuracy.toFixed(1) + '%' : 'No MRI', sub: engineAccuracy > 0 ? 'Prediction accuracy' : 'Complete MRI', color: engineAccuracy > 0 ? '#4aaa4a' : '#555' },
             ].map((m, i) => (
               <div key={i} style={{ padding: '10px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '7px', border: '1px solid var(--border)' }}>
-                <div style={{ fontSize: '8px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '4px', fontWeight: '600' }}>{m.label}</div>
-                <div style={{ fontSize: '16px', fontWeight: '900', color: m.color, lineHeight: 1 }}>{m.value}</div>
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>{m.sub}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '4px', fontWeight: '600' }}>{m.label}</div>
+                <div style={{ fontSize: '17px', fontWeight: '900', color: m.color, lineHeight: 1 }}>{m.value}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '2px' }}>{m.sub}</div>
               </div>
             ))}
           </div>
@@ -294,12 +294,12 @@ export default function IntelligenceOperationsPage() {
           </svg>
           {(headcount || utilisation || onTimePct || automationPct) && (
             <div style={{ marginTop: '10px', padding: '10px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '7px', border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: '8px', color: gold, letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '600' }}>YOUR OPERATIONAL DATA</div>
+              <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '600' }}>YOUR OPERATIONAL DATA</div>
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' as const }}>
-                {headcount && <div><div style={{ fontSize: '8px', color: 'var(--text-muted)' }}>Headcount</div><div style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '700' }}>{headcount}</div></div>}
-                {utilisation && <div><div style={{ fontSize: '8px', color: 'var(--text-muted)' }}>Utilisation</div><div style={{ fontSize: '13px', color: utilisation >= 85 ? '#e8923a' : '#4aaa4a', fontWeight: '700' }}>{utilisation}%</div></div>}
-                {onTimePct && <div><div style={{ fontSize: '8px', color: 'var(--text-muted)' }}>On-Time</div><div style={{ fontSize: '13px', color: onTimePct >= 80 ? '#4aaa4a' : gold, fontWeight: '700' }}>{onTimePct}%</div></div>}
-                {automationPct && <div><div style={{ fontSize: '8px', color: 'var(--text-muted)' }}>Automation</div><div style={{ fontSize: '13px', color: gold, fontWeight: '700' }}>{automationPct}%</div></div>}
+                {headcount && <div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Headcount</div><div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '700' }}>{headcount}</div></div>}
+                {utilisation && <div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Utilisation</div><div style={{ fontSize: '17px', color: utilisation >= 85 ? '#e8923a' : '#4aaa4a', fontWeight: '700' }}>{utilisation}%</div></div>}
+                {onTimePct && <div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>On-Time</div><div style={{ fontSize: '17px', color: onTimePct >= 80 ? '#4aaa4a' : gold, fontWeight: '700' }}>{onTimePct}%</div></div>}
+                {automationPct && <div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Automation</div><div style={{ fontSize: '17px', color: gold, fontWeight: '700' }}>{automationPct}%</div></div>}
               </div>
             </div>
           )}
@@ -308,24 +308,24 @@ export default function IntelligenceOperationsPage() {
         {/* RECENT ALERTS */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text-primary)' }}>Recent Alerts</div>
-            <button onClick={() => setShowAlertsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all alerts →</button>
+            <div style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text-primary)' }}>Recent Alerts</div>
+            <button onClick={() => setShowAlertsModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all alerts →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '14px' }}>Live system alerts from your BEI environment</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '14px' }}>Live system alerts from your BEI environment</div>
           {alerts.length === 0 ? (
-            <div style={{ textAlign: 'center' as const, padding: '24px', color: 'var(--text-faint)', fontSize: '12px' }}>Complete your MRI to activate monitoring</div>
+            <div style={{ textAlign: 'center' as const, padding: '24px', color: 'var(--text-faint)', fontSize: '17px' }}>Complete your MRI to activate monitoring</div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '7px' }}>
               {alerts.slice(0, 5).map((a, i) => (
                 <div key={i} style={{ display: 'flex', gap: '9px', padding: '9px 11px', backgroundColor: a.color + '08', borderRadius: '7px', border: '1px solid ' + a.color + '25', alignItems: 'flex-start' }}>
-                  <div style={{ fontSize: '13px', color: a.color, flexShrink: 0, marginTop: '1px' }}>
+                  <div style={{ fontSize: '17px', color: a.color, flexShrink: 0, marginTop: '1px' }}>
                     {a.level === 'success' ? '✓' : a.level === 'info' ? 'ℹ' : '⚠'}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: '600', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.title}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{a.title}</div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{a.area}</span>
-                      <span style={{ fontSize: '9px', color: 'var(--text-secondary)' }}>{a.time}</span>
+                      <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{a.area}</span>
+                      <span style={{ fontSize: '17px', color: 'var(--text-secondary)' }}>{a.time}</span>
                     </div>
                   </div>
                 </div>
@@ -337,32 +337,32 @@ export default function IntelligenceOperationsPage() {
         {/* RECENT INTEGRATIONS */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text-primary)' }}>Recent Integrations</div>
-            <button onClick={() => setShowIntegrationsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all integrations →</button>
+            <div style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text-primary)' }}>Recent Integrations</div>
+            <button onClick={() => setShowIntegrationsModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all integrations →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '14px' }}>Connected data sources for this business</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '14px' }}>Connected data sources for this business</div>
           {recentIntegrations.length === 0 ? (
             <div style={{ textAlign: 'center' as const, padding: '20px' }}>
-              <div style={{ fontSize: '12px', color: 'var(--text-faint)', marginBottom: '10px' }}>No integrations connected yet</div>
-              <a href="/connect" style={{ fontSize: '11px', color: gold, textDecoration: 'none', fontWeight: '600' }}>→ Add your first data source</a>
+              <div style={{ fontSize: '17px', color: 'var(--text-faint)', marginBottom: '10px' }}>No integrations connected yet</div>
+              <a href="/connect" style={{ fontSize: '17px', color: gold, textDecoration: 'none', fontWeight: '600' }}>→ Add your first data source</a>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '7px' }}>
               {recentIntegrations.map((int, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '9px', padding: '9px 11px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '7px', border: '1px solid var(--border)' }}>
-                  <div style={{ width: '30px', height: '30px', borderRadius: '7px', backgroundColor: int.statusColor + '18', border: '1px solid ' + int.statusColor + '33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', color: int.statusColor, fontWeight: '700' }}>
+                  <div style={{ width: '30px', height: '30px', borderRadius: '7px', backgroundColor: int.statusColor + '18', border: '1px solid ' + int.statusColor + '33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '17px', color: int.statusColor, fontWeight: '700' }}>
                     {int.name.charAt(0).toUpperCase()}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{int.name}</div>
-                    <div style={{ fontSize: '10px', color: int.statusColor, fontWeight: '600' }}>{int.status}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{int.name}</div>
+                    <div style={{ fontSize: '17px', color: int.statusColor, fontWeight: '600' }}>{int.status}</div>
                   </div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'right' as const, flexShrink: 0 }}>{int.time}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', textAlign: 'right' as const, flexShrink: 0 }}>{int.time}</div>
                 </div>
               ))}
             </div>
           )}
-          <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #1a1a1a', display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--text-muted)' }}>
+          <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #1a1a1a', display: 'flex', justifyContent: 'space-between', fontSize: '17px', color: 'var(--text-muted)' }}>
             <span>Total: <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>{totalConns}</span></span>
             <span>Active: <span style={{ color: '#4aaa4a', fontWeight: '600' }}>{activeConns.length}</span> · Errors: <span style={{ color: errorConns.length > 0 ? '#cc4444' : '#555', fontWeight: '600' }}>{errorConns.length}</span></span>
           </div>
@@ -374,21 +374,21 @@ export default function IntelligenceOperationsPage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowAlertsModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '660px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>ALL ALERTS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)' }}>System Alerts — {businessName}</div></div>
-              <button onClick={() => setShowAlertsModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>ALL ALERTS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)' }}>System Alerts — {businessName}</div></div>
+              <button onClick={() => setShowAlertsModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '22px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             {alerts.length === 0 && <div style={{ textAlign: 'center' as const, padding: '30px', color: 'var(--text-secondary)' }}>No alerts — complete your MRI to activate monitoring</div>}
             {alerts.map((a, i) => (
               <div key={i} style={{ padding: '14px', backgroundColor: a.color + '08', borderRadius: '8px', border: '1px solid ' + a.color + '25', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '5px' }}>
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                    <span style={{ fontSize: '15px', color: a.color }}>{a.level === 'success' ? '✓' : a.level === 'info' ? 'ℹ' : '⚠'}</span>
-                    <span style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700' }}>{a.title}</span>
+                    <span style={{ fontSize: '17px', color: a.color }}>{a.level === 'success' ? '✓' : a.level === 'info' ? 'ℹ' : '⚠'}</span>
+                    <span style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '700' }}>{a.title}</span>
                   </div>
-                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{a.time}</span>
+                  <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{a.time}</span>
                 </div>
-                <div style={{ fontSize: '11px', color: a.color, fontWeight: '600', marginBottom: '4px' }}>{a.area}</div>
-                <div style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.5' }}>
+                <div style={{ fontSize: '17px', color: a.color, fontWeight: '600', marginBottom: '4px' }}>{a.area}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.5' }}>
                   {a.level === 'critical' ? 'Immediate action required to restore full intelligence capability.' : a.level === 'warning' ? 'Monitor closely and address at earliest opportunity.' : a.level === 'success' ? 'System operating normally.' : 'For your information — no action required.'}
                 </div>
               </div>
@@ -401,32 +401,32 @@ export default function IntelligenceOperationsPage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowIntegrationsModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '700px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>ALL INTEGRATIONS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Connected Data Sources</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{totalConns} total · {activeConns.length} active · {errorConns.length} errors</div></div>
-              <button onClick={() => setShowIntegrationsModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>ALL INTEGRATIONS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Connected Data Sources</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{totalConns} total · {activeConns.length} active · {errorConns.length} errors</div></div>
+              <button onClick={() => setShowIntegrationsModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '22px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             {safeConnectors.length === 0 ? (
               <div style={{ textAlign: 'center' as const, padding: '30px' }}>
-                <div style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '10px' }}>No integrations connected</div>
-                <a href="/connect" style={{ padding: '10px 20px', backgroundColor: gold, color: '#050505', borderRadius: '6px', textDecoration: 'none', fontSize: '12px', fontWeight: '700' }}>Connect data sources →</a>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '10px' }}>No integrations connected</div>
+                <a href="/connect" style={{ padding: '10px 20px', backgroundColor: gold, color: '#050505', borderRadius: '6px', textDecoration: 'none', fontSize: '17px', fontWeight: '700' }}>Connect data sources →</a>
               </div>
             ) : safeConnectors.map((c, i) => (
               <div key={i} style={{ display: 'flex', gap: '14px', padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '8px', alignItems: 'center' }}>
-                <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: (c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#555') + '18', border: '1px solid ' + (c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#555') + '33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '14px', color: c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#888', fontWeight: '700' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: (c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#555') + '18', border: '1px solid ' + (c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#555') + '33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '17px', color: c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#888', fontWeight: '700' }}>
                   {(c.connector_name || '?').charAt(0).toUpperCase()}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{c.connector_name}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Type: {c.connector_type} · Sync every {c.sync_frequency_hours || 24}h</div>
-                  {c.error_message && <div style={{ fontSize: '10px', color: '#cc4444', marginTop: '2px' }}>{c.error_message}</div>}
+                  <div style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{c.connector_name}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Type: {c.connector_type} · Sync every {c.sync_frequency_hours || 24}h</div>
+                  {c.error_message && <div style={{ fontSize: '17px', color: '#cc4444', marginTop: '2px' }}>{c.error_message}</div>}
                 </div>
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
-                  <div style={{ fontSize: '12px', color: c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#888', fontWeight: '700', marginBottom: '2px' }}>{c.status === 'active' ? 'Connected' : c.status === 'error' ? 'Error' : 'Pending'}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{c.last_synced_at ? 'Synced ' + new Date(c.last_synced_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Not yet synced'}</div>
+                  <div style={{ fontSize: '17px', color: c.status === 'active' ? '#4aaa4a' : c.status === 'error' ? '#cc4444' : '#888', fontWeight: '700', marginBottom: '2px' }}>{c.status === 'active' ? 'Connected' : c.status === 'error' ? 'Error' : 'Pending'}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{c.last_synced_at ? 'Synced ' + new Date(c.last_synced_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Not yet synced'}</div>
                 </div>
               </div>
             ))}
             <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}>
-              <a href="/connect" style={{ padding: '10px 20px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '6px', color: gold, textDecoration: 'none', fontSize: '12px', fontWeight: '600' }}>Manage all integrations →</a>
+              <a href="/connect" style={{ padding: '10px 20px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '6px', color: gold, textDecoration: 'none', fontSize: '17px', fontWeight: '600' }}>Manage all integrations →</a>
             </div>
           </div>
         </div>
@@ -436,20 +436,20 @@ export default function IntelligenceOperationsPage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowSystemModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '660px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>SYSTEM HEALTH</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Full System Health Report</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Overall: {systemHealthPct.toFixed(1)}% — {systemHealthLabel}</div></div>
-              <button onClick={() => setShowSystemModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>SYSTEM HEALTH</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Full System Health Report</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Overall: {systemHealthPct.toFixed(1)}% — {systemHealthLabel}</div></div>
+              <button onClick={() => setShowSystemModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '22px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             {systemComponents.map((comp, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + comp.color + '22', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: comp.color, boxShadow: '0 0 6px ' + comp.color + '88' }} />
-                  <span style={{ fontSize: '14px', color: 'var(--text-secondary)', fontWeight: '700' }}>{comp.name}</span>
+                  <span style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '700' }}>{comp.name}</span>
                 </div>
-                <span style={{ fontSize: '12px', color: comp.color, fontWeight: '600' }}>{comp.status}</span>
+                <span style={{ fontSize: '17px', color: comp.color, fontWeight: '600' }}>{comp.status}</span>
               </div>
             ))}
             <div style={{ padding: '12px 14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginTop: '4px' }}>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.7' }}>System health of {systemHealthPct.toFixed(1)}% is calculated from MRI completion, active connectors ({activeConns.length}), and error states ({errorConns.length}). Add more data sources to improve your score.</div>
+              <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.7' }}>System health of {systemHealthPct.toFixed(1)}% is calculated from MRI completion, active connectors ({activeConns.length}), and error states ({errorConns.length}). Add more data sources to improve your score.</div>
             </div>
           </div>
         </div>
@@ -459,8 +459,8 @@ export default function IntelligenceOperationsPage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowPipelineModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '680px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>DATA PIPELINE</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Pipeline Detail</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{sourcesCount} source(s) · {fmtNum(dataPoints)} data points</div></div>
-              <button onClick={() => setShowPipelineModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>DATA PIPELINE</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Pipeline Detail</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{sourcesCount} source(s) · {fmtNum(dataPoints)} data points</div></div>
+              <button onClick={() => setShowPipelineModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '22px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '10px', marginBottom: '16px' }}>
               {[
@@ -470,27 +470,27 @@ export default function IntelligenceOperationsPage() {
                 { label: 'INSIGHTS', value: String(hasMRI ? 632 + activeConns.length * 14 : 0), color: '#9a6ab0' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
-                  <div style={{ fontSize: '18px', fontWeight: '800', color: m.color }}>{m.value}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '22px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
             </div>
             <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '600' }}>ACTIVE DATA SOURCES</div>
-              {!hasMRI && activeConns.length === 0 && <div style={{ fontSize: '12px', color: 'var(--text-secondary)', textAlign: 'center' as const, padding: '10px' }}>Complete your Business MRI to activate the data pipeline.</div>}
+              <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '600' }}>ACTIVE DATA SOURCES</div>
+              {!hasMRI && activeConns.length === 0 && <div style={{ fontSize: '17px', color: 'var(--text-secondary)', textAlign: 'center' as const, padding: '10px' }}>Complete your Business MRI to activate the data pipeline.</div>}
               {hasMRI && (
                 <div style={{ display: 'flex', gap: '8px', padding: '8px 10px', backgroundColor: 'var(--bg-card)', borderRadius: '6px', marginBottom: '5px', alignItems: 'center' }}>
                   <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a' }} />
-                  <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', flex: 1 }}>Business MRI (Primary Source)</span>
-                  <span style={{ fontSize: '11px', color: '#4aaa4a' }}>Active</span>
+                  <span style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600', flex: 1 }}>Business MRI (Primary Source)</span>
+                  <span style={{ fontSize: '17px', color: '#4aaa4a' }}>Active</span>
                 </div>
               )}
               {activeConns.map((c, i) => (
                 <div key={i} style={{ display: 'flex', gap: '8px', padding: '8px 10px', backgroundColor: 'var(--bg-card)', borderRadius: '6px', marginBottom: '4px', alignItems: 'center' }}>
                   <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4aaa4a' }} />
-                  <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', flex: 1 }}>{c.connector_name}</span>
-                  <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{c.last_synced_at ? new Date(c.last_synced_at).toLocaleDateString('en-GB') : 'Pending'}</span>
-                  <span style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>Active</span>
+                  <span style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600', flex: 1 }}>{c.connector_name}</span>
+                  <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{c.last_synced_at ? new Date(c.last_synced_at).toLocaleDateString('en-GB') : 'Pending'}</span>
+                  <span style={{ fontSize: '17px', color: '#4aaa4a', fontWeight: '600' }}>Active</span>
                 </div>
               ))}
             </div>
@@ -502,8 +502,8 @@ export default function IntelligenceOperationsPage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowPerformanceModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '660px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>ENGINE PERFORMANCE</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Intelligence Engine Report</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Accuracy: {engineAccuracy > 0 ? engineAccuracy + '%' : 'Awaiting MRI'} · Confidence: {confidence.toUpperCase()}</div></div>
-              <button onClick={() => setShowPerformanceModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>ENGINE PERFORMANCE</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Intelligence Engine Report</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Accuracy: {engineAccuracy > 0 ? engineAccuracy + '%' : 'Awaiting MRI'} · Confidence: {confidence.toUpperCase()}</div></div>
+              <button onClick={() => setShowPerformanceModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '22px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '10px', marginBottom: '16px' }}>
               {[
@@ -512,24 +512,24 @@ export default function IntelligenceOperationsPage() {
                 { label: 'ENGINE ACCURACY', value: engineAccuracy > 0 ? engineAccuracy + '%' : 'No MRI', color: engineAccuracy > 0 ? '#4aaa4a' : '#555' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>{m.label}</div>
-                  <div style={{ fontSize: '20px', fontWeight: '900', color: m.color }}>{m.value}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '22px', fontWeight: '900', color: m.color }}>{m.value}</div>
                 </div>
               ))}
             </div>
             {hasMRI && (
               <div style={{ padding: '14px', backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', marginBottom: '12px' }}>
-                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '600' }}>MRI INTELLIGENCE SUMMARY</div>
+                <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.1em', marginBottom: '8px', fontWeight: '600' }}>MRI INTELLIGENCE SUMMARY</div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                  <div><div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '2px' }}>Primary Constraint</div><div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>{primary?.name || 'None detected'}</div></div>
-                  <div><div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '2px' }}>Confidence Level</div><div style={{ fontSize: '12px', color: confidence === 'high' ? '#4aaa4a' : gold, fontWeight: '600' }}>{confidence.toUpperCase()}</div></div>
-                  <div><div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '2px' }}>Health Score</div><div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>{healthScore}/100</div></div>
-                  <div><div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '2px' }}>Operations Pillar</div><div style={{ fontSize: '12px', color: opsScore ? (opsScore >= 70 ? '#4aaa4a' : gold) : '#555', fontWeight: '600' }}>{opsScore ? opsScore + '/100' : 'N/A'}</div></div>
+                  <div><div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '2px' }}>Primary Constraint</div><div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600' }}>{primary?.name || 'None detected'}</div></div>
+                  <div><div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '2px' }}>Confidence Level</div><div style={{ fontSize: '17px', color: confidence === 'high' ? '#4aaa4a' : gold, fontWeight: '600' }}>{confidence.toUpperCase()}</div></div>
+                  <div><div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '2px' }}>Health Score</div><div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600' }}>{healthScore}/100</div></div>
+                  <div><div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '2px' }}>Operations Pillar</div><div style={{ fontSize: '17px', color: opsScore ? (opsScore >= 70 ? '#4aaa4a' : gold) : '#555', fontWeight: '600' }}>{opsScore ? opsScore + '/100' : 'N/A'}</div></div>
                 </div>
               </div>
             )}
             <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.7' }}>Engine accuracy derives from MRI confidence ({confidence}) and {activeConns.length} connected source(s). More connected sources increase accuracy. {!hasMRI && 'Complete your Business MRI to activate the intelligence engine.'}</div>
+              <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.7' }}>Engine accuracy derives from MRI confidence ({confidence}) and {activeConns.length} connected source(s). More connected sources increase accuracy. {!hasMRI && 'Complete your Business MRI to activate the intelligence engine.'}</div>
             </div>
           </div>
         </div>

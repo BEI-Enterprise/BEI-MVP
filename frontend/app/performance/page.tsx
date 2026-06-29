@@ -47,7 +47,7 @@ export default function PerformancePage() {
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>LOADING PERFORMANCE INTELLIGENCE...</div>
+      <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.3em' }}>LOADING PERFORMANCE INTELLIGENCE...</div>
     </main>
   )
 
@@ -161,7 +161,7 @@ export default function PerformancePage() {
   }
 
   const CloseBtn = ({ onClose }: { onClose: () => void }) => (
-    <button onClick={onClose} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+    <button onClick={onClose} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '22px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
   )
 
   return (
@@ -170,16 +170,16 @@ export default function PerformancePage() {
       {/* HEADER */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', paddingBottom: '18px', borderBottom: '1px solid ' + border }}>
         <div>
-          <h1 style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: 'var(--text-primary)' }}>Performance Intelligence™</h1>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Track, analyse and optimise the performance drivers that fuel business success.</div>
+          <h1 style={{ fontSize: '29px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: 'var(--text-primary)' }}>Performance Intelligence™</h1>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Track, analyse and optimise the performance drivers that fuel business success.</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '17px', color: 'var(--text-muted)' }}>
             Business Twin™: <span style={{ color: '#4aaa4a', fontWeight: '600' }}>Active</span>
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
           </div>
-          <button onClick={() => setShowInsightsModal(true)} style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>⊙ Performance Scan</button>
-          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px' }}>⋮</div>
+          <button onClick={() => setShowInsightsModal(true)} style={{ padding: '8px 14px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '6px', color: gold, fontSize: '17px', fontWeight: '600', cursor: 'pointer' }}>⊙ Performance Scan</button>
+          <div style={{ width: '32px', height: '32px', border: '1px solid ' + border, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '17px' }}>⋮</div>
         </div>
       </div>
 
@@ -194,11 +194,11 @@ export default function PerformancePage() {
           { label: 'PERFORMANCE RISK', value: riskScore >= 70 ? 'Low' : riskScore >= 50 ? 'Medium' : 'High', sub: 'vs last 30 days', trend: riskScore >= 70 ? 'Stable' : 'Monitor', trendColor: driverColor(riskScore) },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
+            <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '700' }}>{k.label}</div>
             <div style={{ fontSize: i === 5 ? '18px' : '22px', fontWeight: '900', color: i === 5 ? driverColor(riskScore) : '#ffffff', lineHeight: 1, marginBottom: '3px' }}>{k.value}</div>
-            {i === 0 && <div style={{ fontSize: '11px', color: driverColor(overallPerf), fontWeight: '700', marginBottom: '3px' }}>{statusLabel(overallPerf)}</div>}
-            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>{k.sub}</div>
-            <div style={{ fontSize: '10px', color: k.trendColor, fontWeight: '600' }}>{k.trend}</div>
+            {i === 0 && <div style={{ fontSize: '17px', color: driverColor(overallPerf), fontWeight: '700', marginBottom: '3px' }}>{statusLabel(overallPerf)}</div>}
+            <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '4px' }}>{k.sub}</div>
+            <div style={{ fontSize: '17px', color: k.trendColor, fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
       </div>
@@ -209,10 +209,10 @@ export default function PerformancePage() {
         {/* PERFORMANCE DRIVER ANALYSIS — radar */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE DRIVER ANALYSIS</div>
-            <button onClick={() => setShowFullAnalysis(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full analysis →</button>
+            <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE DRIVER ANALYSIS</div>
+            <button onClick={() => setShowFullAnalysis(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full analysis →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '10px' }}>How each pillar is contributing to your results</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '10px' }}>How each pillar is contributing to your results</div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <svg width="100%" height="260" viewBox="0 0 240 240">
               <defs><filter id="pglow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
@@ -228,18 +228,18 @@ export default function PerformancePage() {
             </svg>
           </div>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' as const }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: '#4aaa4a', borderRadius: '2px' }}/><span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Your Score</span></div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '2px', backgroundColor: gold, borderRadius: '2px', borderStyle: 'dashed' }}/><span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Industry Average</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: '#4aaa4a', borderRadius: '2px' }}/><span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Your Score</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '2px', backgroundColor: gold, borderRadius: '2px', borderStyle: 'dashed' }}/><span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Industry Average</span></div>
           </div>
         </div>
 
         {/* PERFORMANCE TRENDS — line chart */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE TRENDS</div>
-            <div style={{ padding: '3px 8px', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '4px', fontSize: '11px', color: 'var(--text-muted)' }}>Last 90 Days</div>
+            <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE TRENDS</div>
+            <div style={{ padding: '3px 8px', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '4px', fontSize: '17px', color: 'var(--text-muted)' }}>Last 90 Days</div>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '10px' }}>Track performance progression over time</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '10px' }}>Track performance progression over time</div>
           <svg width="100%" height="280" viewBox="0 0 300 280">
             {[0,1,2,3].map(i => <line key={i} x1="28" y1={i*50+10} x2="295" y2={i*50+10} stroke="#111" strokeWidth="0.8"/>)}
             {[100,75,50,25].map((l,i) => <text key={l} x="0" y={i*50+14} fill="#333" fontSize="8">{l}</text>)}
@@ -262,7 +262,7 @@ export default function PerformancePage() {
             {[['#ffffff','Overall Performance'],['#4aaa4a','Growth'],['#4a8ab0','Operations'],[gold,'Strategy'],['#9a6ab0','Context']].map(([c,l]) => (
               <div key={l} style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
                 <div style={{ width: '8px', height: '3px', backgroundColor: c, borderRadius: '1px' }} />
-                <span style={{ fontSize: '8px', color: 'var(--text-muted)' }}>{l}</span>
+                <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{l}</span>
               </div>
             ))}
           </div>
@@ -271,18 +271,18 @@ export default function PerformancePage() {
         {/* PERFORMANCE SCORECARD */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE SCORECARD</div>
-            <button onClick={() => setShowFullScorecard(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full scorecard →</button>
+            <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE SCORECARD</div>
+            <button onClick={() => setShowFullScorecard(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full scorecard →</button>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.7fr 0.8fr 0.8fr', gap: '0', marginBottom: '6px', paddingBottom: '6px', borderBottom: '1px solid #1a1a1a' }}>
-            {['AREA','SCORE','TREND','STATUS'].map(h => <div key={h} style={{ fontSize: '8px', color: 'var(--text-secondary)', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>)}
+            {['AREA','SCORE','TREND','STATUS'].map(h => <div key={h} style={{ fontSize: '17px', color: 'var(--text-secondary)', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>)}
           </div>
           {drivers.map((d, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.7fr 0.8fr 0.8fr', gap: '0', padding: '6px 0', borderBottom: i < drivers.length-1 ? '1px solid #0d0d0d' : 'none', alignItems: 'center' }}>
-              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: '500' }}>{d.name}</div>
-              <div style={{ fontSize: '12px', color: driverColor(d.score), fontWeight: '700' }}>{d.score}/100</div>
+              <div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '500' }}>{d.name}</div>
+              <div style={{ fontSize: '17px', color: driverColor(d.score), fontWeight: '700' }}>{d.score}/100</div>
               {miniSparkline(d.score, driverColor(d.score), i)}
-              <div style={{ padding: '2px 5px', backgroundColor: statusBg(d.score), borderRadius: '3px', fontSize: '8px', color: driverColor(d.score), fontWeight: '700', display: 'inline-block' }}>{statusLabel(d.score)}</div>
+              <div style={{ padding: '2px 5px', backgroundColor: statusBg(d.score), borderRadius: '3px', fontSize: '17px', color: driverColor(d.score), fontWeight: '700', display: 'inline-block' }}>{statusLabel(d.score)}</div>
             </div>
           ))}
         </div>
@@ -294,20 +294,20 @@ export default function PerformancePage() {
         {/* STRENGTHS */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>TOP PERFORMANCE STRENGTHS</div>
-            <button onClick={() => setShowStrengthsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
+            <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>TOP PERFORMANCE STRENGTHS</div>
+            <button onClick={() => setShowStrengthsModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>Your highest performing areas</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '12px' }}>Your highest performing areas</div>
           {strengths.map((d, i) => (
             <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center', padding: '8px 0', borderBottom: i < strengths.length-1 ? '1px solid #111' : 'none' }}>
-              <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: '#4aaa4a18', border: '1px solid #4aaa4a33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: '#4aaa4a' }}>✓</div>
+              <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: '#4aaa4a18', border: '1px solid #4aaa4a33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '17px', color: '#4aaa4a' }}>✓</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>{d.name}</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{d.desc}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600' }}>{d.name}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{d.desc}</div>
               </div>
               <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
-                <div style={{ fontSize: '13px', color: '#4aaa4a', fontWeight: '800' }}>{d.score}/100</div>
-                <div style={{ fontSize: '9px', color: '#4aaa4a' }}>↑ {Math.max(1, Math.round((d.score - 65) * 0.12))} pts</div>
+                <div style={{ fontSize: '17px', color: '#4aaa4a', fontWeight: '800' }}>{d.score}/100</div>
+                <div style={{ fontSize: '17px', color: '#4aaa4a' }}>↑ {Math.max(1, Math.round((d.score - 65) * 0.12))} pts</div>
               </div>
             </div>
           ))}
@@ -316,20 +316,20 @@ export default function PerformancePage() {
         {/* PERFORMANCE GAPS */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE GAPS</div>
-            <button onClick={() => setShowGapsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
+            <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE GAPS</div>
+            <button onClick={() => setShowGapsModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>Areas requiring attention and improvement</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '12px' }}>Areas requiring attention and improvement</div>
           {gaps.map((d, i) => (
             <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center', padding: '8px 0', borderBottom: i < gaps.length-1 ? '1px solid #111' : 'none' }}>
-              <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: driverColor(d.score)+'18', border: '1px solid '+driverColor(d.score)+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '10px', color: driverColor(d.score) }}>⚠</div>
+              <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: driverColor(d.score)+'18', border: '1px solid '+driverColor(d.score)+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '17px', color: driverColor(d.score) }}>⚠</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>{d.name}</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{d.answer ? d.answer.toLowerCase() : d.desc}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600' }}>{d.name}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{d.answer ? d.answer.toLowerCase() : d.desc}</div>
               </div>
               <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
-                <div style={{ fontSize: '13px', color: driverColor(d.score), fontWeight: '800' }}>{d.score}/100</div>
-                <div style={{ fontSize: '9px', color: driverColor(d.score) }}>{d.score >= 55 ? '↑ 1 pt' : '↓ ' + Math.max(1,Math.round((55-d.score)*0.1)) + ' pts'}</div>
+                <div style={{ fontSize: '17px', color: driverColor(d.score), fontWeight: '800' }}>{d.score}/100</div>
+                <div style={{ fontSize: '17px', color: driverColor(d.score) }}>{d.score >= 55 ? '↑ 1 pt' : '↓ ' + Math.max(1,Math.round((55-d.score)*0.1)) + ' pts'}</div>
               </div>
             </div>
           ))}
@@ -338,19 +338,19 @@ export default function PerformancePage() {
         {/* IMPROVEMENT OPPORTUNITIES */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE IMPROVEMENT OPPORTUNITIES</div>
-            <button onClick={() => setShowOppsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
+            <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE IMPROVEMENT OPPORTUNITIES</div>
+            <button onClick={() => setShowOppsModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>High-impact opportunities to boost performance</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '12px' }}>High-impact opportunities to boost performance</div>
           {oppImprovements.map((o, i) => (
             <div key={i} style={{ padding: '9px 0', borderBottom: i < oppImprovements.length-1 ? '1px solid #111' : 'none' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '3px' }}>
-                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', flex: 1, marginRight: '6px' }}>{o.name}</div>
-                <div style={{ padding: '2px 5px', backgroundColor: o.impactColor+'18', border: '1px solid '+o.impactColor+'44', borderRadius: '3px', fontSize: '8px', color: o.impactColor, fontWeight: '700', flexShrink: 0 }}>{o.impact}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600', flex: 1, marginRight: '6px' }}>{o.name}</div>
+                <div style={{ padding: '2px 5px', backgroundColor: o.impactColor+'18', border: '1px solid '+o.impactColor+'44', borderRadius: '3px', fontSize: '17px', color: o.impactColor, fontWeight: '700', flexShrink: 0 }}>{o.impact}</div>
               </div>
               <div style={{ display: 'flex', gap: '10px' }}>
-                <span style={{ fontSize: '11px', color: gold, fontWeight: '700' }}>{o.value}</span>
-                <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{o.time}</span>
+                <span style={{ fontSize: '17px', color: gold, fontWeight: '700' }}>{o.value}</span>
+                <span style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{o.time}</span>
               </div>
             </div>
           ))}
@@ -359,10 +359,10 @@ export default function PerformancePage() {
         {/* PERFORMANCE CORRELATION */}
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE CORRELATION</div>
-            <button onClick={() => setShowCorrelationModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View analysis →</button>
+            <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE CORRELATION</div>
+            <button onClick={() => setShowCorrelationModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View analysis →</button>
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>Understanding what drives performance</div>
+          <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '12px' }}>Understanding what drives performance</div>
           {[
             { a: strengths[0]?.name || 'Growth', b: 'Overall Performance', corr: 0.78, color: '#4aaa4a' },
             { a: strengths[1]?.name || 'Operations', b: 'Productivity', corr: 0.72, color: '#4aaa4a' },
@@ -371,13 +371,13 @@ export default function PerformancePage() {
             { a: 'Innovation', b: 'Growth', corr: 0.58, color: gold },
           ].map((c, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 0', borderBottom: i < 4 ? '1px solid #0d0d0d' : 'none' }}>
-              <div style={{ flex: 1, fontSize: '10px', color: 'var(--text-muted)' }}>{c.a}</div>
-              <div style={{ fontSize: '9px', color: 'var(--text-secondary)' }}>↔</div>
-              <div style={{ flex: 1, fontSize: '10px', color: 'var(--text-muted)' }}>{c.b}</div>
+              <div style={{ flex: 1, fontSize: '17px', color: 'var(--text-muted)' }}>{c.a}</div>
+              <div style={{ fontSize: '17px', color: 'var(--text-secondary)' }}>↔</div>
+              <div style={{ flex: 1, fontSize: '17px', color: 'var(--text-muted)' }}>{c.b}</div>
               <div style={{ width: '50px', height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
                 <div style={{ width: (c.corr * 100) + '%', height: '100%', backgroundColor: c.color, borderRadius: '2px' }} />
               </div>
-              <div style={{ fontSize: '10px', color: c.color, fontWeight: '700', minWidth: '32px', textAlign: 'right' as const }}>+{c.corr.toFixed(2)}</div>
+              <div style={{ fontSize: '17px', color: c.color, fontWeight: '700', minWidth: '32px', textAlign: 'right' as const }}>+{c.corr.toFixed(2)}</div>
             </div>
           ))}
         </div>
@@ -387,22 +387,22 @@ export default function PerformancePage() {
       <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
           <div>
-            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE INSIGHTS & RECOMMENDATIONS</div>
-            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '2px' }}>AI-powered insights derived from your MRI data</div>
+            <div style={{ fontSize: '17px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>PERFORMANCE INSIGHTS & RECOMMENDATIONS</div>
+            <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '2px' }}>AI-powered insights derived from your MRI data</div>
           </div>
-          <button onClick={() => setShowInsightsModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all insights →</button>
+          <button onClick={() => setShowInsightsModal(true)} style={{ fontSize: '17px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View all insights →</button>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '10px' }}>
           {insights.map((ins, i) => (
             <div key={i} style={{ padding: '12px 14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + border }}>
-              <div style={{ fontSize: '9px', color: ins.color, letterSpacing: '0.08em', fontWeight: '700', marginBottom: '6px' }}>{ins.type}</div>
+              <div style={{ fontSize: '17px', color: ins.color, letterSpacing: '0.08em', fontWeight: '700', marginBottom: '6px' }}>{ins.type}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-                <div style={{ width: '24px', height: '24px', borderRadius: '5px', backgroundColor: ins.color+'18', border: '1px solid '+ins.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: ins.color, flexShrink: 0 }}>{ins.icon}</div>
-                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: '600', lineHeight: 1.3 }}>{ins.title}</div>
+                <div style={{ width: '24px', height: '24px', borderRadius: '5px', backgroundColor: ins.color+'18', border: '1px solid '+ins.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '17px', color: ins.color, flexShrink: 0 }}>{ins.icon}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600', lineHeight: 1.3 }}>{ins.title}</div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontSize: '10px', color: ins.color, fontWeight: '600' }}>{ins.conf}</div>
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{ins.meta}</div>
+                <div style={{ fontSize: '17px', color: ins.color, fontWeight: '600' }}>{ins.conf}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{ins.meta}</div>
               </div>
             </div>
           ))}
@@ -416,36 +416,36 @@ export default function PerformancePage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowFullAnalysis(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '780px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>FULL PERFORMANCE ANALYSIS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Performance Driver Breakdown</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{businessName} · Derived from Business MRI · {drivers.length} drivers analysed</div></div>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>FULL PERFORMANCE ANALYSIS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Performance Driver Breakdown</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{businessName} · Derived from Business MRI · {drivers.length} drivers analysed</div></div>
               <CloseBtn onClose={() => setShowFullAnalysis(false)} />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '10px', marginBottom: '16px' }}>
               {pillarList.map((p, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + p.color + '33', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '5px', fontWeight: '600' }}>{p.name.toUpperCase()} PILLAR</div>
-                  <div style={{ fontSize: '20px', fontWeight: '900', color: p.color }}>{p.score}/100</div>
-                  <div style={{ fontSize: '10px', color: driverColor(p.score), marginTop: '2px' }}>{statusLabel(p.score)}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '5px', fontWeight: '600' }}>{p.name.toUpperCase()} PILLAR</div>
+                  <div style={{ fontSize: '22px', fontWeight: '900', color: p.color }}>{p.score}/100</div>
+                  <div style={{ fontSize: '17px', color: driverColor(p.score), marginTop: '2px' }}>{statusLabel(p.score)}</div>
                   <div style={{ height: '3px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden', marginTop: '6px' }}>
                     <div style={{ width: p.score + '%', height: '100%', backgroundColor: p.color }} />
                   </div>
                 </div>
               ))}
             </div>
-            <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>ALL PERFORMANCE DRIVERS — FROM YOUR MRI RESPONSES</div>
+            <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.12em', marginBottom: '10px', fontWeight: '600' }}>ALL PERFORMANCE DRIVERS — FROM YOUR MRI RESPONSES</div>
             {drivers.map((d, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.5fr 2fr 0.8fr', gap: '12px', alignItems: 'center', padding: '10px 12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '7px', border: '1px solid var(--border)', marginBottom: '6px' }}>
                 <div>
-                  <div style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '700' }}>{d.name}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{d.pillar} Pillar · {d.desc}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '700' }}>{d.name}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{d.pillar} Pillar · {d.desc}</div>
                 </div>
-                <div style={{ fontSize: '15px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
+                <div style={{ fontSize: '17px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
                 <div>
-                  {d.answer && <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '4px' }}>MRI answer: <span style={{ color: 'var(--text-muted)', fontWeight: '600' }}>"{d.answer}"</span></div>}
+                  {d.answer && <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '4px' }}>MRI answer: <span style={{ color: 'var(--text-muted)', fontWeight: '600' }}>"{d.answer}"</span></div>}
                   <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
                     <div style={{ width: d.score + '%', height: '100%', backgroundColor: driverColor(d.score), borderRadius: '2px' }} />
                   </div>
                 </div>
-                <div style={{ padding: '3px 8px', backgroundColor: statusBg(d.score), borderRadius: '4px', fontSize: '10px', color: driverColor(d.score), fontWeight: '700', textAlign: 'center' as const }}>{statusLabel(d.score)}</div>
+                <div style={{ padding: '3px 8px', backgroundColor: statusBg(d.score), borderRadius: '4px', fontSize: '17px', color: driverColor(d.score), fontWeight: '700', textAlign: 'center' as const }}>{statusLabel(d.score)}</div>
               </div>
             ))}
           </div>
@@ -457,24 +457,24 @@ export default function PerformancePage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowFullScorecard(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '760px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>FULL SCORECARD</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Complete Performance Scorecard</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{businessName} · Overall: {overallPerf}/100</div></div>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>FULL SCORECARD</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Complete Performance Scorecard</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{businessName} · Overall: {overallPerf}/100</div></div>
               <CloseBtn onClose={() => setShowFullScorecard(false)} />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.7fr 0.8fr 1fr 0.8fr', gap: '0', padding: '8px 0', borderBottom: '1px solid #1a1a1a', marginBottom: '4px' }}>
-              {['DRIVER','SCORE','VS LAST 30 DAYS','EVIDENCE','STATUS'].map(h => <div key={h} style={{ fontSize: '9px', color: 'var(--text-secondary)', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>)}
+              {['DRIVER','SCORE','VS LAST 30 DAYS','EVIDENCE','STATUS'].map(h => <div key={h} style={{ fontSize: '17px', color: 'var(--text-secondary)', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>)}
             </div>
             {drivers.map((d, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.7fr 0.8fr 1fr 0.8fr', gap: '0', padding: '10px 0', borderBottom: i < drivers.length-1 ? '1px solid #111' : 'none', alignItems: 'center' }}>
-                <div><div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>{d.name}</div><div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{d.pillar}</div></div>
-                <div style={{ fontSize: '14px', fontWeight: '800', color: driverColor(d.score) }}>{d.score}/100</div>
+                <div><div style={{ fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600' }}>{d.name}</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{d.pillar}</div></div>
+                <div style={{ fontSize: '17px', fontWeight: '800', color: driverColor(d.score) }}>{d.score}/100</div>
                 {miniSparkline(d.score, driverColor(d.score), i)}
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{d.answer ? '"' + d.answer + '"' : 'MRI data'}</div>
-                <div style={{ padding: '3px 7px', backgroundColor: statusBg(d.score), borderRadius: '4px', fontSize: '9px', color: driverColor(d.score), fontWeight: '700', display: 'inline-block' }}>{statusLabel(d.score)}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{d.answer ? '"' + d.answer + '"' : 'MRI data'}</div>
+                <div style={{ padding: '3px 7px', backgroundColor: statusBg(d.score), borderRadius: '4px', fontSize: '17px', color: driverColor(d.score), fontWeight: '700', display: 'inline-block' }}>{statusLabel(d.score)}</div>
               </div>
             ))}
             <div style={{ marginTop: '14px', padding: '12px 16px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between' }}>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Overall performance: <span style={{ color: driverColor(overallPerf), fontWeight: '700' }}>{overallPerf}/100 — {statusLabel(overallPerf)}</span></div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Drivers analysed: <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>{drivers.length}</span></div>
+              <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Overall performance: <span style={{ color: driverColor(overallPerf), fontWeight: '700' }}>{overallPerf}/100 — {statusLabel(overallPerf)}</span></div>
+              <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Drivers analysed: <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>{drivers.length}</span></div>
             </div>
           </div>
         </div>
@@ -485,20 +485,20 @@ export default function PerformancePage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowStrengthsModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '700px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>PERFORMANCE STRENGTHS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Strengths — Ranked by Score</div></div>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>PERFORMANCE STRENGTHS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Strengths — Ranked by Score</div></div>
               <CloseBtn onClose={() => setShowStrengthsModal(false)} />
             </div>
             {[...drivers].sort((a, b) => b.score - a.score).map((d, i) => (
               <div key={i} style={{ display: 'flex', gap: '14px', padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '7px', alignItems: 'center' }}>
-                <div style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: driverColor(d.score)+'18', border: '1px solid '+driverColor(d.score)+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: driverColor(d.score), fontWeight: '700' }}>{i+1}</div>
+                <div style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: driverColor(d.score)+'18', border: '1px solid '+driverColor(d.score)+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '17px', color: driverColor(d.score), fontWeight: '700' }}>{i+1}</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{d.name}</div>
-                  <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{d.pillar} Pillar · {d.desc}</div>
-                  {d.answer && <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '3px' }}>MRI: "{d.answer}"</div>}
+                  <div style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{d.name}</div>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{d.pillar} Pillar · {d.desc}</div>
+                  {d.answer && <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '3px' }}>MRI: "{d.answer}"</div>}
                 </div>
                 <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
-                  <div style={{ fontSize: '18px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
-                  <div style={{ padding: '2px 7px', backgroundColor: statusBg(d.score), borderRadius: '4px', fontSize: '9px', color: driverColor(d.score), fontWeight: '700' }}>{statusLabel(d.score)}</div>
+                  <div style={{ fontSize: '22px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
+                  <div style={{ padding: '2px 7px', backgroundColor: statusBg(d.score), borderRadius: '4px', fontSize: '17px', color: driverColor(d.score), fontWeight: '700' }}>{statusLabel(d.score)}</div>
                 </div>
               </div>
             ))}
@@ -511,31 +511,31 @@ export default function PerformancePage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowGapsModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '700px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>PERFORMANCE GAPS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Gaps — Priority Order</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Derived from your actual MRI responses</div></div>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>PERFORMANCE GAPS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Gaps — Priority Order</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Derived from your actual MRI responses</div></div>
               <CloseBtn onClose={() => setShowGapsModal(false)} />
             </div>
             {[...drivers].sort((a, b) => a.score - b.score).map((d, i) => (
               <div key={i} style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + driverColor(d.score) + '22', marginBottom: '7px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                   <div>
-                    <div style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{d.name}</div>
-                    <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{d.pillar} Pillar · {d.desc}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{d.name}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{d.pillar} Pillar · {d.desc}</div>
                   </div>
                   <div style={{ textAlign: 'right' as const }}>
-                    <div style={{ fontSize: '18px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
-                    <div style={{ fontSize: '10px', color: driverColor(d.score), fontWeight: '600' }}>{statusLabel(d.score)}</div>
+                    <div style={{ fontSize: '22px', fontWeight: '900', color: driverColor(d.score) }}>{d.score}/100</div>
+                    <div style={{ fontSize: '17px', color: driverColor(d.score), fontWeight: '600' }}>{statusLabel(d.score)}</div>
                   </div>
                 </div>
                 {d.answer && (
                   <div style={{ padding: '8px 10px', backgroundColor: driverColor(d.score)+'0a', border: '1px solid '+driverColor(d.score)+'22', borderRadius: '6px', marginBottom: '6px' }}>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '2px' }}>Your MRI response:</div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>"{d.answer}"</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginBottom: '2px' }}>Your MRI response:</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-secondary)' }}>"{d.answer}"</div>
                   </div>
                 )}
                 <div style={{ height: '4px', backgroundColor: '#1a1a1a', borderRadius: '2px', overflow: 'hidden' }}>
                   <div style={{ width: d.score + '%', height: '100%', backgroundColor: driverColor(d.score), borderRadius: '2px' }} />
                 </div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '6px' }}>Gap to Good: {Math.max(0, 75 - d.score)} points to reach Good status</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)', marginTop: '6px' }}>Gap to Good: {Math.max(0, 75 - d.score)} points to reach Good status</div>
               </div>
             ))}
           </div>
@@ -547,7 +547,7 @@ export default function PerformancePage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowOppsModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '740px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>IMPROVEMENT OPPORTUNITIES</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Performance Improvement Opportunities</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{businessName} · Total potential: {fmt(oppHigh > 0 ? Math.round(oppHigh * 0.82) : 210000)}</div></div>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>IMPROVEMENT OPPORTUNITIES</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Performance Improvement Opportunities</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{businessName} · Total potential: {fmt(oppHigh > 0 ? Math.round(oppHigh * 0.82) : 210000)}</div></div>
               <CloseBtn onClose={() => setShowOppsModal(false)} />
             </div>
             {[...gaps.map((d, i) => ({ ...oppImprovements[i] || {}, driver: d }))].map((o: any, i: number) => (
@@ -555,23 +555,23 @@ export default function PerformancePage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
-                      <div style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700' }}>{o.name || 'Improvement ' + (i+1)}</div>
-                      <div style={{ padding: '2px 7px', backgroundColor: (o.impactColor||gold)+'18', border: '1px solid '+(o.impactColor||gold)+'44', borderRadius: '4px', fontSize: '9px', color: o.impactColor||gold, fontWeight: '700' }}>{o.impact || 'High Impact'}</div>
+                      <div style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '700' }}>{o.name || 'Improvement ' + (i+1)}</div>
+                      <div style={{ padding: '2px 7px', backgroundColor: (o.impactColor||gold)+'18', border: '1px solid '+(o.impactColor||gold)+'44', borderRadius: '4px', fontSize: '17px', color: o.impactColor||gold, fontWeight: '700' }}>{o.impact || 'High Impact'}</div>
                     </div>
-                    <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{o.driver?.pillar || ''} Pillar · {o.time || '3-6 months'}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{o.driver?.pillar || ''} Pillar · {o.time || '3-6 months'}</div>
                   </div>
                   <div style={{ textAlign: 'right' as const }}>
-                    <div style={{ fontSize: '18px', fontWeight: '800', color: gold }}>{o.value || fmt(50000)}</div>
-                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Potential annual value</div>
+                    <div style={{ fontSize: '22px', fontWeight: '800', color: gold }}>{o.value || fmt(50000)}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Potential annual value</div>
                   </div>
                 </div>
                 {o.driver?.answer && (
-                  <div style={{ fontSize: '13px', color: 'var(--text-muted)', padding: '8px 10px', backgroundColor: 'var(--bg-card)', borderRadius: '5px', marginBottom: '6px' }}>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', padding: '8px 10px', backgroundColor: 'var(--bg-card)', borderRadius: '5px', marginBottom: '6px' }}>
                     Current state: "{o.driver.answer}" → Target: Significantly improved
                   </div>
                 )}
                 <div style={{ display: 'flex', gap: '10px' }}>
-                  <button style={{ flex: 1, padding: '8px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '5px', color: gold, fontSize: '11px', fontWeight: '600', cursor: 'pointer' }}>Deploy Improvement Plan →</button>
+                  <button style={{ flex: 1, padding: '8px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '5px', color: gold, fontSize: '17px', fontWeight: '600', cursor: 'pointer' }}>Deploy Improvement Plan →</button>
                 </div>
               </div>
             ))}
@@ -584,12 +584,12 @@ export default function PerformancePage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowCorrelationModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '680px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>PERFORMANCE CORRELATION</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>What Drives Your Performance</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Correlation analysis across all {drivers.length} performance drivers</div></div>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>PERFORMANCE CORRELATION</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>What Drives Your Performance</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>Correlation analysis across all {drivers.length} performance drivers</div></div>
               <CloseBtn onClose={() => setShowCorrelationModal(false)} />
             </div>
             <div style={{ padding: '14px', backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', marginBottom: '16px' }}>
-              <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '600' }}>ANALYSIS METHODOLOGY</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.7' }}>These correlations are derived from your MRI responses and show which performance drivers have the strongest relationship with overall business outcomes. Higher correlation = larger impact if improved.</div>
+              <div style={{ fontSize: '17px', color: gold, letterSpacing: '0.1em', marginBottom: '6px', fontWeight: '600' }}>ANALYSIS METHODOLOGY</div>
+              <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.7' }}>These correlations are derived from your MRI responses and show which performance drivers have the strongest relationship with overall business outcomes. Higher correlation = larger impact if improved.</div>
             </div>
             {[
               { a: strengths[0]?.name || 'Revenue Growth', b: 'Overall Performance', corr: 0.78, desc: 'Strong positive relationship' },
@@ -601,14 +601,14 @@ export default function PerformancePage() {
               { a: 'Market Positioning', b: 'Client Acquisition', corr: 0.54, desc: 'Differentiation aids acquisition' },
             ].map((c, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 0', borderBottom: i < 6 ? '1px solid #111' : 'none' }}>
-                <div style={{ flex: 1, fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>{c.a}</div>
-                <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>↔</div>
-                <div style={{ flex: 1, fontSize: '12px', color: 'var(--text-secondary)' }}>{c.b}</div>
+                <div style={{ flex: 1, fontSize: '17px', color: 'var(--text-secondary)', fontWeight: '600' }}>{c.a}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-secondary)' }}>↔</div>
+                <div style={{ flex: 1, fontSize: '17px', color: 'var(--text-secondary)' }}>{c.b}</div>
                 <div style={{ width: '80px', height: '5px', backgroundColor: '#1a1a1a', borderRadius: '3px', overflow: 'hidden' }}>
                   <div style={{ width: (c.corr*100)+'%', height: '100%', backgroundColor: c.corr >= 0.7 ? '#4aaa4a' : gold, borderRadius: '3px' }} />
                 </div>
-                <div style={{ fontSize: '12px', color: c.corr >= 0.7 ? '#4aaa4a' : gold, fontWeight: '700', minWidth: '36px' }}>+{c.corr.toFixed(2)}</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)', minWidth: '140px' }}>{c.desc}</div>
+                <div style={{ fontSize: '17px', color: c.corr >= 0.7 ? '#4aaa4a' : gold, fontWeight: '700', minWidth: '36px' }}>+{c.corr.toFixed(2)}</div>
+                <div style={{ fontSize: '17px', color: 'var(--text-muted)', minWidth: '140px' }}>{c.desc}</div>
               </div>
             ))}
           </div>
@@ -620,26 +620,26 @@ export default function PerformancePage() {
         <div style={{ position: 'fixed' as const, inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', zIndex: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '40px', overflowY: 'auto' as const }} onClick={() => setShowInsightsModal(false)}>
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '760px', maxWidth: '95vw', marginBottom: '40px' }} onClick={(e: any) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div><div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>PERFORMANCE INSIGHTS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Performance Insights & Recommendations</div><div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{businessName} · Derived from MRI data · {insights.length} insights generated</div></div>
+              <div><div style={{ fontSize: '17px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>PERFORMANCE INSIGHTS</div><div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>All Performance Insights & Recommendations</div><div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{businessName} · Derived from MRI data · {insights.length} insights generated</div></div>
               <CloseBtn onClose={() => setShowInsightsModal(false)} />
             </div>
             {insights.map((ins, i) => (
               <div key={i} style={{ padding: '16px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + ins.color + '22', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                   <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: ins.color+'18', border: '1px solid '+ins.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', color: ins.color }}>{ins.icon}</div>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: ins.color+'18', border: '1px solid '+ins.color+'33', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '17px', color: ins.color }}>{ins.icon}</div>
                     <div>
-                      <div style={{ fontSize: '9px', color: ins.color, letterSpacing: '0.1em', fontWeight: '700', marginBottom: '2px' }}>{ins.type}</div>
-                      <div style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700' }}>{ins.title}</div>
+                      <div style={{ fontSize: '17px', color: ins.color, letterSpacing: '0.1em', fontWeight: '700', marginBottom: '2px' }}>{ins.type}</div>
+                      <div style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: '700' }}>{ins.title}</div>
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' as const, flexShrink: 0, marginLeft: '12px' }}>
-                    <div style={{ fontSize: '11px', color: ins.color, fontWeight: '600' }}>{ins.conf}</div>
-                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{ins.meta}</div>
+                    <div style={{ fontSize: '17px', color: ins.color, fontWeight: '600' }}>{ins.conf}</div>
+                    <div style={{ fontSize: '17px', color: 'var(--text-muted)' }}>{ins.meta}</div>
                   </div>
                 </div>
                 <div style={{ padding: '8px 10px', backgroundColor: ins.color+'08', borderRadius: '5px' }}>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                  <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
                     {i === 0 && 'Improving ' + (strengths[0]?.name || 'top performance area') + ' from ' + (strengths[0]?.score || 75) + '/100 toward 90/100 would cascade improvements across all connected drivers.'}
                     {i === 1 && 'Revenue trajectory (' + (revTrend || 'see MRI data') + ') directly impacts Growth pillar score (' + growthScore + '/100) and flows into all performance metrics.'}
                     {i === 2 && 'Addressing ' + (gaps[0]?.name || 'lowest-scoring driver') + ' (currently ' + (gaps[0]?.score || 40) + '/100) represents the single highest-ROI performance improvement available.'}
