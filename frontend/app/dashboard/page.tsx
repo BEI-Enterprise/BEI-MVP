@@ -87,7 +87,7 @@ export default function DashboardPage() {
   // Calculate twin completeness — same logic as Business Twin Centre
   const MRI_BASE = 40
   const CONNECTOR_WEIGHTS: Record<string, number> = { hubspot: 10, salesforce: 10, xero: 12, quickbooks: 12, google_analytics: 7, manual_crm: 6, manual_finance: 7, manual_revenue: 8, manual_ops: 5, manual_people: 5 }
-  const hasMRI = !!(selected?.mri_result)
+  const hasMRI = !!(selected?.mri_result) && selected?.mri_result?.mri_source !== 'free'
   let twinCompleteness = hasMRI ? MRI_BASE : 0
   const connectedSources = selected?.connected_sources || {}
   Object.keys(connectedSources).forEach(id => { if (connectedSources[id]?.connected && CONNECTOR_WEIGHTS[id]) twinCompleteness += CONNECTOR_WEIGHTS[id] })

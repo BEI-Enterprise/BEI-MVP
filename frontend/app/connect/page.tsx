@@ -213,7 +213,7 @@ export default function BusinessTwinPage() {
   if (loading) return <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>LOADING BUSINESS TWIN...</div></main>
   if (!user) return <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><a href='/login' style={{ padding: '12px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none' }}>Sign In</a></main>
 
-  const hasMRI = !!(selected?.mri_result)
+  const hasMRI = !!(selected?.mri_result) && selected?.mri_result?.mri_source !== 'free'
   const result = selected?.mri_result || null
   const health = result?.health || {}
   const businessName = selected?.business_name || 'Your Business'
