@@ -49,7 +49,7 @@ export default function OpportunitiesPage() {
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.3em' }}>LOADING OPPORTUNITY INTELLIGENCE...</div>
+      <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>LOADING OPPORTUNITY INTELLIGENCE...</div>
     </main>
   )
 
@@ -137,7 +137,7 @@ export default function OpportunitiesPage() {
   }
 
   const impBadge = (level: string, color: string) => (
-    <div style={{ padding: '3px 8px', backgroundColor: color + '18', border: '1px solid ' + color + '44', borderRadius: '4px', fontSize: '16px', color, fontWeight: '700', whiteSpace: 'nowrap' as const, display: 'inline-block', width: 'fit-content' }}>{level}</div>
+    <div style={{ padding: '3px 8px', backgroundColor: color + '18', border: '1px solid ' + color + '44', borderRadius: '4px', fontSize: '10px', color, fontWeight: '700', whiteSpace: 'nowrap' as const, display: 'inline-block', width: 'fit-content' }}>{level}</div>
   )
 
   return (
@@ -145,16 +145,16 @@ export default function OpportunitiesPage() {
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid ' + border }}>
         <div>
-          <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>OPPORTUNITY CENTRE™</div>
+          <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.25em', marginBottom: '6px', fontWeight: '600' }}>OPPORTUNITY CENTRE™</div>
           <h1 style={{ fontSize: '24px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0 0 6px', color: 'var(--text-primary)', lineHeight: 1.1 }}>Discover, prioritise and realise your highest-value opportunities.</h1>
-          <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>AI-powered opportunity intelligence based on your business data, constraints and performance.</div>
+          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>AI-powered opportunity intelligence based on your business data, constraints and performance.</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0, marginLeft: '20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '16px', color: 'var(--text-muted)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)' }}>
             Business Twin: <span style={{ color: '#4aaa4a', fontWeight: '600' }}>Active</span>
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 6px rgba(74,170,74,0.7)' }} />
           </div>
-          <button onClick={() => setShowReportModal(true)} style={{ padding: '9px 16px', backgroundColor: gold, border: 'none', borderRadius: '6px', color: '#050505', fontSize: '16px', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap' as const }}>View Full Opportunity Report →</button>
+          <button onClick={() => setShowReportModal(true)} style={{ padding: '9px 16px', backgroundColor: gold, border: 'none', borderRadius: '6px', color: '#050505', fontSize: '12px', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap' as const }}>View Full Opportunity Report →</button>
         </div>
       </div>
 
@@ -168,10 +168,10 @@ export default function OpportunitiesPage() {
           { label: 'REALISATION RATE', value: '64%', sub: 'Opportunities achieved', color: gold, trend: '↑ 8% vs last 30 days' },
         ].map((k, i) => (
           <div key={i} style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '8px', padding: '14px 16px' }}>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '7px', fontWeight: '700' }}>{k.label}</div>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '7px', fontWeight: '700' }}>{k.label}</div>
             <div style={{ fontSize: '24px', fontWeight: '900', color: k.color, lineHeight: 1, marginBottom: '4px' }}>{k.value}</div>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '6px' }}>{k.sub}</div>
-            <div style={{ fontSize: '16px', color: '#4aaa4a', fontWeight: '600' }}>{k.trend}</div>
+            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '6px' }}>{k.sub}</div>
+            <div style={{ fontSize: '11px', color: '#4aaa4a', fontWeight: '600' }}>{k.trend}</div>
           </div>
         ))}
       </div>
@@ -180,11 +180,11 @@ export default function OpportunitiesPage() {
 
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-            <div style={{ fontSize: '16px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>FILTER OPPORTUNITIES</div>
-            <button onClick={() => { setFilterImpact([]); setFilterTime('All Timeframes'); setFilterType('All Types'); setFilterArea('All Areas'); setFilterConfidence(0); setSearchTerm('') }} style={{ fontSize: '16px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Clear all</button>
+            <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>FILTER OPPORTUNITIES</div>
+            <button onClick={() => { setFilterImpact([]); setFilterTime('All Timeframes'); setFilterType('All Types'); setFilterArea('All Areas'); setFilterConfidence(0); setSearchTerm('') }} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Clear all</button>
           </div>
           <div style={{ marginBottom: '14px' }}>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '8px', fontWeight: '600' }}>Impact Level</div>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '8px', fontWeight: '600' }}>Impact Level</div>
             {['Critical','High','Medium','Low'].map(level => {
               const c = level === 'Critical' ? '#cc4444' : level === 'High' ? '#e8923a' : level === 'Medium' ? gold : '#4a8ab0'
               const checked = filterImpact.includes(level)
@@ -194,86 +194,86 @@ export default function OpportunitiesPage() {
                     {checked && <div style={{ width: '6px', height: '6px', borderRadius: '2px', backgroundColor: c }} />}
                   </div>
                   <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
-                  <span style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>{level}</span>
+                  <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>{level}</span>
                 </div>
               )
             })}
           </div>
           <div style={{ marginBottom: '12px' }}>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Time to Realise</div>
-            <select value={filterTime} onChange={e => setFilterTime(e.target.value)} style={{ width: '100%', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '5px', color: 'var(--text-secondary)', fontSize: '16px', padding: '7px 8px', cursor: 'pointer' }}>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Time to Realise</div>
+            <select value={filterTime} onChange={e => setFilterTime(e.target.value)} style={{ width: '100%', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '5px', color: 'var(--text-secondary)', fontSize: '11px', padding: '7px 8px', cursor: 'pointer' }}>
               {['All Timeframes','1-3 months','3-6 months','6-12 months','12+ months'].map(o => <option key={o}>{o}</option>)}
             </select>
           </div>
           <div style={{ marginBottom: '12px' }}>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Opportunity Type</div>
-            <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ width: '100%', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '5px', color: 'var(--text-secondary)', fontSize: '16px', padding: '7px 8px', cursor: 'pointer' }}>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Opportunity Type</div>
+            <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ width: '100%', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '5px', color: 'var(--text-secondary)', fontSize: '11px', padding: '7px 8px', cursor: 'pointer' }}>
               {['All Types','Growth','Operations','Finance','Client','Risk'].map(o => <option key={o}>{o}</option>)}
             </select>
           </div>
           <div style={{ marginBottom: '12px' }}>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Affected Areas</div>
-            <select value={filterArea} onChange={e => setFilterArea(e.target.value)} style={{ width: '100%', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '5px', color: 'var(--text-secondary)', fontSize: '16px', padding: '7px 8px', cursor: 'pointer' }}>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Affected Areas</div>
+            <select value={filterArea} onChange={e => setFilterArea(e.target.value)} style={{ width: '100%', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '5px', color: 'var(--text-secondary)', fontSize: '11px', padding: '7px 8px', cursor: 'pointer' }}>
               {['All Areas','Sales','Operations','Finance','Team','Client','Leadership','Growth','Risk','Strategy','Market'].map(o => <option key={o}>{o}</option>)}
             </select>
           </div>
           <div style={{ marginBottom: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <div style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: '600' }}>Confidence</div>
-              <span style={{ fontSize: '16px', color: gold }}>{filterConfidence}%</span>
+              <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: '600' }}>Confidence</div>
+              <span style={{ fontSize: '10px', color: gold }}>{filterConfidence}%</span>
             </div>
             <input type="range" min="0" max="100" step="5" value={filterConfidence} onChange={e => setFilterConfidence(Number(e.target.value))} style={{ width: '100%', accentColor: gold }} />
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
-              <span style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>0%</span><span style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>100%</span>
+              <span style={{ fontSize: '9px', color: 'var(--text-secondary)' }}>0%</span><span style={{ fontSize: '9px', color: 'var(--text-secondary)' }}>100%</span>
             </div>
           </div>
           <div>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Search Opportunities</div>
-            <input type="text" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} placeholder="Search by name..." style={{ width: '100%', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '5px', color: 'var(--text-secondary)', fontSize: '16px', padding: '7px 8px', boxSizing: 'border-box' as const }} />
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Search Opportunities</div>
+            <input type="text" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} placeholder="Search by name..." style={{ width: '100%', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '5px', color: 'var(--text-secondary)', fontSize: '11px', padding: '7px 8px', boxSizing: 'border-box' as const }} />
           </div>
         </div>
 
         <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
-          <div style={{ fontSize: '16px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '12px' }}>OPPORTUNITY PIPELINE</div>
+          <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '12px' }}>OPPORTUNITY PIPELINE</div>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 0.6fr 1fr 0.7fr 0.9fr 0.6fr 0.9fr 55px 20px', gap: '0', paddingBottom: '7px', borderBottom: '1px solid #1a1a1a', marginBottom: '2px' }}>
             {['OPPORTUNITY','TYPE','AFFECTED AREAS','IMPACT','VALUE','CONF.','TIME','TREND',''].map(h => (
-              <div key={h} style={{ fontSize: '16px', color: 'var(--text-muted)', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>
+              <div key={h} style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.08em', fontWeight: '600' }}>{h}</div>
             ))}
           </div>
           {pagedOpps.map((opp, i) => (
             <div key={opp.id} onClick={() => setSelectedOpp(opp)} style={{ display: 'grid', gridTemplateColumns: '2fr 0.6fr 1fr 0.7fr 0.9fr 0.6fr 0.9fr 55px 20px', gap: '0', padding: '9px 0', borderBottom: i < pagedOpps.length - 1 ? '1px solid #111' : 'none', alignItems: 'center', cursor: 'pointer' }}>
               <div style={{ display: 'flex', gap: '7px', alignItems: 'center' }}>
-                <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: opp.iconBg + '22', border: '1px solid ' + opp.iconBg + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '16px', color: opp.iconBg }}>{opp.icon}</div>
+                <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: opp.iconBg + '22', border: '1px solid ' + opp.iconBg + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '11px', color: opp.iconBg }}>{opp.icon}</div>
                 <div>
-                  <div style={{ fontSize: '16px', color: 'var(--text-secondary)', fontWeight: '700' }}>{opp.name}</div>
-                  <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{opp.desc}</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '700' }}>{opp.name}</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{opp.desc}</div>
                 </div>
               </div>
-              <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{opp.type}</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{opp.type}</div>
               <div style={{ display: 'flex', gap: '2px', flexWrap: 'wrap' as const }}>
                 {opp.areas.slice(0,2).map(a => (
-                  <div key={a} style={{ padding: '1px 4px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '3px', fontSize: '16px', color: 'var(--text-muted)' }}>{a}</div>
+                  <div key={a} style={{ padding: '1px 4px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '3px', fontSize: '8px', color: 'var(--text-muted)' }}>{a}</div>
                 ))}
               </div>
               {impBadge(opp.impact, opp.impactColor)}
               <div>
-                <div style={{ fontSize: '16px', color: 'var(--text-secondary)', fontWeight: '700' }}>{fmt(opp.value)}</div>
-                <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>Annual</div>
+                <div style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '700' }}>{fmt(opp.value)}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Annual</div>
               </div>
               {confCircle(opp.confidence, opp.confidence >= 80 ? '#4aaa4a' : opp.confidence >= 65 ? gold : '#e8923a')}
-              <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{opp.timeToRealise}</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{opp.timeToRealise}</div>
               {sparkline(opp.trend, opp.impactColor, opp.id)}
-              <div style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>›</div>
+              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>›</div>
             </div>
           ))}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px', paddingTop: '10px', borderTop: '1px solid ' + border }}>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>Showing {Math.min((currentPage-1)*perPage+1, filteredOpps.length)}–{Math.min(currentPage*perPage, filteredOpps.length)} of {filteredOpps.length}</div>
+            <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Showing {Math.min((currentPage-1)*perPage+1, filteredOpps.length)}–{Math.min(currentPage*perPage, filteredOpps.length)} of {filteredOpps.length}</div>
             <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-              <button onClick={() => setCurrentPage(p => Math.max(1,p-1))} disabled={currentPage===1} style={{ width: '26px', height: '26px', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '4px', color: currentPage===1 ? '#333' : '#888', cursor: currentPage===1 ? 'default' : 'pointer', fontSize: '16px' }}>‹</button>
+              <button onClick={() => setCurrentPage(p => Math.max(1,p-1))} disabled={currentPage===1} style={{ width: '26px', height: '26px', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '4px', color: currentPage===1 ? '#333' : '#888', cursor: currentPage===1 ? 'default' : 'pointer', fontSize: '12px' }}>‹</button>
               {Array.from({length: totalPages}, (_,i) => i+1).map(p => (
-                <button key={p} onClick={() => setCurrentPage(p)} style={{ width: '26px', height: '26px', backgroundColor: p===currentPage ? gold : '#0a0a0a', border: '1px solid ' + (p===currentPage ? gold : border), borderRadius: '4px', color: p===currentPage ? '#050505' : '#888', cursor: 'pointer', fontSize: '16px', fontWeight: p===currentPage ? '700' : '400' }}>{p}</button>
+                <button key={p} onClick={() => setCurrentPage(p)} style={{ width: '26px', height: '26px', backgroundColor: p===currentPage ? gold : '#0a0a0a', border: '1px solid ' + (p===currentPage ? gold : border), borderRadius: '4px', color: p===currentPage ? '#050505' : '#888', cursor: 'pointer', fontSize: '11px', fontWeight: p===currentPage ? '700' : '400' }}>{p}</button>
               ))}
-              <button onClick={() => setCurrentPage(p => Math.min(totalPages,p+1))} disabled={currentPage===totalPages} style={{ width: '26px', height: '26px', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '4px', color: currentPage===totalPages ? '#333' : '#888', cursor: currentPage===totalPages ? 'default' : 'pointer', fontSize: '16px' }}>›</button>
+              <button onClick={() => setCurrentPage(p => Math.min(totalPages,p+1))} disabled={currentPage===totalPages} style={{ width: '26px', height: '26px', backgroundColor: 'var(--bg-sidebar)', border: '1px solid ' + border, borderRadius: '4px', color: currentPage===totalPages ? '#333' : '#888', cursor: currentPage===totalPages ? 'default' : 'pointer', fontSize: '12px' }}>›</button>
             </div>
           </div>
         </div>
@@ -281,8 +281,8 @@ export default function OpportunitiesPage() {
         <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-              <div style={{ fontSize: '16px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY BY TYPE</div>
-              <button onClick={() => setShowTypeModal(true)} style={{ fontSize: '16px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full →</button>
+              <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY BY TYPE</div>
+              <button onClick={() => setShowTypeModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View full →</button>
             </div>
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
               <svg width="120" height="120" viewBox="0 0 80 80" style={{ flexShrink: 0 }}>
@@ -303,8 +303,8 @@ export default function OpportunitiesPage() {
                 {typeBreakdown.slice(0,5).map((o, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
                     <div style={{ width: '6px', height: '6px', borderRadius: '2px', backgroundColor: o.color, flexShrink: 0 }} />
-                    <div style={{ flex: 1, fontSize: '16px', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{o.label}</div>
-                    <div style={{ fontSize: '16px', color: o.color, fontWeight: '600', flexShrink: 0 }}>{o.pct}%</div>
+                    <div style={{ flex: 1, fontSize: '9px', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const }}>{o.label}</div>
+                    <div style={{ fontSize: '9px', color: o.color, fontWeight: '600', flexShrink: 0 }}>{o.pct}%</div>
                   </div>
                 ))}
               </div>
@@ -313,14 +313,14 @@ export default function OpportunitiesPage() {
 
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <div style={{ fontSize: '16px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>VALUE OVER TIME</div>
-              <button onClick={() => setShowForecastModal(true)} style={{ fontSize: '16px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View forecast →</button>
+              <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>VALUE OVER TIME</div>
+              <button onClick={() => setShowForecastModal(true)} style={{ fontSize: '10px', color: gold, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View forecast →</button>
             </div>
             <div style={{ fontSize: '16px', fontWeight: '800', color: gold, marginBottom: '2px' }}>{fmt(totalValue)}</div>
-            <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '8px' }}>Total forecasted value</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px' }}>Total forecasted value</div>
             <div style={{ display: 'flex', gap: '10px', marginBottom: '6px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: gold, borderRadius: '2px' }}/><span style={{ fontSize: '16px', color: 'var(--text-muted)' }}>Forecast</span></div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: '#4aaa4a', borderRadius: '2px' }}/><span style={{ fontSize: '16px', color: 'var(--text-muted)' }}>Achieved</span></div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: gold, borderRadius: '2px' }}/><span style={{ fontSize: '9px', color: 'var(--text-muted)' }}>Forecast</span></div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><div style={{ width: '8px', height: '3px', backgroundColor: '#4aaa4a', borderRadius: '2px' }}/><span style={{ fontSize: '9px', color: 'var(--text-muted)' }}>Achieved</span></div>
             </div>
             <svg width="100%" height="110" viewBox="0 0 230 110">
               <polyline points="0,62 38,52 76,42 115,28 153,18 191,10 230,4" fill="none" stroke={gold} strokeWidth="1.5" strokeLinecap="round"/>
@@ -334,13 +334,13 @@ export default function OpportunitiesPage() {
 
           <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-              <div style={{ fontSize: '16px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY MATURITY</div>
+              <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600' }}>OPPORTUNITY MATURITY</div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '4px', marginBottom: '8px' }}>
               {maturityStages.map((s, i) => (
                 <div key={i} style={{ textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '20px', fontWeight: '900', color: s.color, lineHeight: 1 }}>{s.count}</div>
-                  <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginTop: '2px' }}>{s.label}</div>
+                  <div style={{ fontSize: '18px', fontWeight: '900', color: s.color, lineHeight: 1 }}>{s.count}</div>
+                  <div style={{ fontSize: '8px', color: 'var(--text-muted)', marginTop: '2px' }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -348,15 +348,15 @@ export default function OpportunitiesPage() {
               {maturityStages.map((s, i) => <div key={i} style={{ flex: s.count, backgroundColor: s.color, opacity: 0.7 }} />)}
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              {maturityStages.map((s, i) => <div key={i} style={{ fontSize: '16px', color: s.color, fontWeight: '600' }}>{fmt(s.val)}</div>)}
+              {maturityStages.map((s, i) => <div key={i} style={{ fontSize: '8px', color: s.color, fontWeight: '600' }}>{fmt(s.val)}</div>)}
             </div>
-            <div style={{ fontSize: '16px', color: 'var(--text-secondary)', marginTop: '6px' }}>Avg time to realise: 4.2 months</div>
+            <div style={{ fontSize: '9px', color: 'var(--text-secondary)', marginTop: '6px' }}>Avg time to realise: 4.2 months</div>
           </div>
         </div>
       </div>
 
       <div style={{ backgroundColor: card, border: '1px solid ' + border, borderRadius: '10px', padding: '16px' }}>
-        <div style={{ fontSize: '16px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '12px' }}>TOP OPPORTUNITY HIGHLIGHTS</div>
+        <div style={{ fontSize: '10px', color: '#dddddd', letterSpacing: '0.15em', fontWeight: '600', marginBottom: '12px' }}>TOP OPPORTUNITY HIGHLIGHTS</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '10px' }}>
           {[
             { badge: 'HIGHEST VALUE', badgeColor: gold, name: opportunities[0].name, metric: fmt(opportunities[0].value), metricSub: 'Annual value', extra: opportunities[0].confidence + '% confidence', icon: opportunities[0].icon, iconBg: opportunities[0].iconBg },
@@ -366,14 +366,14 @@ export default function OpportunitiesPage() {
             { badge: 'STRATEGIC PLAY', badgeColor: '#4a8ab0', name: opportunities[6].name, metric: '12+ months', metricSub: 'Time to realise', extra: fmt(opportunities[6].value) + ' value', icon: opportunities[6].icon, iconBg: opportunities[6].iconBg },
           ].map((h, i) => (
             <div key={i} style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid ' + border }}>
-              <div style={{ fontSize: '16px', color: h.badgeColor, letterSpacing: '0.1em', fontWeight: '700', marginBottom: '8px' }}>{h.badge}</div>
+              <div style={{ fontSize: '9px', color: h.badgeColor, letterSpacing: '0.1em', fontWeight: '700', marginBottom: '8px' }}>{h.badge}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
-                <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: h.iconBg + '22', border: '1px solid ' + h.iconBg + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', color: h.iconBg }}>{h.icon}</div>
-                <div style={{ fontSize: '16px', color: 'var(--text-primary)', fontWeight: '700', lineHeight: 1.2 }}>{h.name}</div>
+                <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: h.iconBg + '22', border: '1px solid ' + h.iconBg + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: h.iconBg }}>{h.icon}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-primary)', fontWeight: '700', lineHeight: 1.2 }}>{h.name}</div>
               </div>
               <div style={{ fontSize: '20px', fontWeight: '900', color: h.badgeColor, lineHeight: 1, marginBottom: '2px' }}>{h.metric}</div>
-              <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '3px' }}>{h.metricSub}</div>
-              <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{h.extra}</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '3px' }}>{h.metricSub}</div>
+              <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{h.extra}</div>
             </div>
           ))}
         </div>
@@ -384,11 +384,11 @@ export default function OpportunitiesPage() {
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '700px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
               <div>
-                <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>OPPORTUNITY DETAIL</div>
-                <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>{selectedOpp.name}</div>
-                <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{selectedOpp.desc} · Type: {selectedOpp.type}</div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>OPPORTUNITY DETAIL</div>
+                <div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>{selectedOpp.name}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{selectedOpp.desc} · Type: {selectedOpp.type}</div>
               </div>
-              <button onClick={() => setSelectedOpp(null)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '20px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <button onClick={() => setSelectedOpp(null)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '10px', marginBottom: '14px' }}>
               {[
@@ -398,35 +398,35 @@ export default function OpportunitiesPage() {
                 { label: 'TIME TO REALISE', value: selectedOpp.timeToRealise, color: 'var(--text-muted)' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '16px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
                   <div style={{ fontSize: '16px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
               <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
-                <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>AFFECTED AREAS</div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>AFFECTED AREAS</div>
                 <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' as const }}>
                   {selectedOpp.areas.map((a: string) => (
-                    <div key={a} style={{ padding: '4px 10px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '4px', fontSize: '16px', color: gold, fontWeight: '600' }}>{a}</div>
+                    <div key={a} style={{ padding: '4px 10px', backgroundColor: 'rgba(200,162,74,0.08)', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '4px', fontSize: '11px', color: gold, fontWeight: '600' }}>{a}</div>
                   ))}
                 </div>
               </div>
               <div style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)' }}>
-                <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>MATURITY STATUS</div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>MATURITY STATUS</div>
                 <div style={{ fontSize: '16px', fontWeight: '700', color: 'var(--text-secondary)', marginBottom: '4px' }}>{selectedOpp.maturity}</div>
-                <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>Current stage in opportunity pipeline</div>
+                <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Current stage in opportunity pipeline</div>
               </div>
             </div>
             <div style={{ padding: '14px', backgroundColor: '#080f04', border: '1px solid rgba(200,162,74,0.2)', borderRadius: '8px', marginBottom: '14px' }}>
-              <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>HOW TO REALISE THIS OPPORTUNITY</div>
-              <div style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: '1.75' }}>
+              <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.12em', marginBottom: '8px', fontWeight: '600' }}>HOW TO REALISE THIS OPPORTUNITY</div>
+              <div style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.75' }}>
                 This {selectedOpp.name.toLowerCase()} opportunity of {fmt(selectedOpp.value)} can be realised within {selectedOpp.timeToRealise} by resolving the {primary?.name || 'primary constraint'} and implementing the recommended deployment framework. Verification score: {verScore}/100. Confidence: {selectedOpp.confidence}%.
               </div>
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
-              <button onClick={() => setSelectedOpp(null)} style={{ flex: 1, padding: '10px', backgroundColor: gold, color: '#050505', border: 'none', borderRadius: '6px', fontWeight: '700', fontSize: '16px', cursor: 'pointer' }}>Deploy Resolution Framework →</button>
-              <button onClick={() => setSelectedOpp(null)} style={{ padding: '10px 20px', backgroundColor: 'transparent', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', fontSize: '16px', cursor: 'pointer' }}>Close</button>
+              <button onClick={() => setSelectedOpp(null)} style={{ flex: 1, padding: '10px', backgroundColor: gold, color: '#050505', border: 'none', borderRadius: '6px', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}>Deploy Resolution Framework →</button>
+              <button onClick={() => setSelectedOpp(null)} style={{ padding: '10px 20px', backgroundColor: 'transparent', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', fontSize: '12px', cursor: 'pointer' }}>Close</button>
             </div>
           </div>
         </div>
@@ -437,11 +437,11 @@ export default function OpportunitiesPage() {
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '820px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
               <div>
-                <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>FULL OPPORTUNITY REPORT</div>
-                <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Complete Opportunity Intelligence</div>
-                <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{businessName} · Total: {fmt(totalValue)} · {opportunities.length} opportunities identified</div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>FULL OPPORTUNITY REPORT</div>
+                <div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Complete Opportunity Intelligence</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{businessName} · Total: {fmt(totalValue)} · {opportunities.length} opportunities identified</div>
               </div>
-              <button onClick={() => setShowReportModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '20px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <button onClick={() => setShowReportModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '10px', marginBottom: '16px' }}>
               {[
@@ -451,23 +451,23 @@ export default function OpportunitiesPage() {
                 { label: 'REALISATION RATE', value: '64%', color: '#4aaa4a' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '16px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '5px', fontWeight: '600' }}>{m.label}</div>
                   <div style={{ fontSize: '16px', fontWeight: '800', color: m.color }}>{m.value}</div>
                 </div>
               ))}
             </div>
             {opportunities.map((opp, i) => (
               <div key={i} style={{ display: 'flex', gap: '14px', padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '7px', alignItems: 'center' }}>
-                <div style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: opp.iconBg + '22', border: '1px solid ' + opp.iconBg + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '16px', color: opp.iconBg }}>{opp.icon}</div>
+                <div style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: opp.iconBg + '22', border: '1px solid ' + opp.iconBg + '44', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '13px', color: opp.iconBg }}>{opp.icon}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                      <div style={{ fontSize: '16px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{opp.name}</div>
-                      <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{opp.desc} · {opp.type} · {opp.timeToRealise}</div>
+                      <div style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: '700', marginBottom: '2px' }}>{opp.name}</div>
+                      <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{opp.desc} · {opp.type} · {opp.timeToRealise}</div>
                     </div>
                     <div style={{ textAlign: 'right' as const, flexShrink: 0, marginLeft: '16px' }}>
-                      <div style={{ fontSize: '16px', fontWeight: '800', color: gold }}>{fmt(opp.value)}</div>
-                      <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{opp.confidence}% confidence</div>
+                      <div style={{ fontSize: '15px', fontWeight: '800', color: gold }}>{fmt(opp.value)}</div>
+                      <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{opp.confidence}% confidence</div>
                     </div>
                   </div>
                 </div>
@@ -483,11 +483,11 @@ export default function OpportunitiesPage() {
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '680px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
               <div>
-                <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>VALUE FORECAST</div>
-                <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>6-Month Value Realisation Forecast</div>
-                <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>Projected value unlock based on deployment timeline</div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>VALUE FORECAST</div>
+                <div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>6-Month Value Realisation Forecast</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Projected value unlock based on deployment timeline</div>
               </div>
-              <button onClick={() => setShowForecastModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '20px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <button onClick={() => setShowForecastModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '10px', marginBottom: '16px' }}>
               {[
@@ -496,9 +496,9 @@ export default function OpportunitiesPage() {
                 { month: 'Month 6-12', value: fmt(Math.round(totalValue * 0.30)), label: 'Long-term strategic', color: '#4a8ab0' },
               ].map((m, i) => (
                 <div key={i} style={{ padding: '14px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'center' as const }}>
-                  <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '5px' }}>{m.month}</div>
-                  <div style={{ fontSize: '20px', fontWeight: '800', color: m.color, marginBottom: '3px' }}>{m.value}</div>
-                  <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>{m.label}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '5px' }}>{m.month}</div>
+                  <div style={{ fontSize: '18px', fontWeight: '800', color: m.color, marginBottom: '3px' }}>{m.value}</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{m.label}</div>
                 </div>
               ))}
             </div>
@@ -512,7 +512,7 @@ export default function OpportunitiesPage() {
               {['MAY','JUN','JUL','AUG','SEP','OCT','NOV'].map((m,i) => <text key={m} x={50+i*88} y="132" fill="#333" fontSize="8">{m}</text>)}
             </svg>
             <div style={{ padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', marginTop: '12px' }}>
-              <div style={{ fontSize: '16px', color: 'var(--text-muted)', lineHeight: '1.6' }}>Forecast assumes deployment of Tier 1 actions within 30 days. Achieved line represents conservative 70% realisation rate based on industry benchmarks.</div>
+              <div style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.6' }}>Forecast assumes deployment of Tier 1 actions within 30 days. Achieved line represents conservative 70% realisation rate based on industry benchmarks.</div>
             </div>
           </div>
         </div>
@@ -523,28 +523,28 @@ export default function OpportunitiesPage() {
           <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '14px', padding: '32px', width: '660px', maxWidth: '95vw', marginBottom: '40px' }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
               <div>
-                <div style={{ fontSize: '16px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>OPPORTUNITY BY TYPE</div>
-                <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Full Type Breakdown</div>
-                <div style={{ fontSize: '16px', color: 'var(--text-muted)' }}>All opportunity types · Total: {fmt(totalValue)}</div>
+                <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.2em', marginBottom: '6px', fontWeight: '600' }}>OPPORTUNITY BY TYPE</div>
+                <div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '4px' }}>Full Type Breakdown</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>All opportunity types · Total: {fmt(totalValue)}</div>
               </div>
-              <button onClick={() => setShowTypeModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '20px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+              <button onClick={() => setShowTypeModal(false)} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '6px', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '18px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
             </div>
             {typeBreakdown.map((o, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.5fr 50px 2fr 80px', gap: '12px', alignItems: 'center', padding: '12px 0', borderBottom: i < typeBreakdown.length-1 ? '1px solid #111' : 'none' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: o.color, flexShrink: 0 }} />
-                  <span style={{ fontSize: '16px', color: 'var(--text-secondary)', fontWeight: '600' }}>{o.label}</span>
+                  <span style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '600' }}>{o.label}</span>
                 </div>
-                <div style={{ fontSize: '16px', color: o.color, fontWeight: '700' }}>{o.pct}%</div>
+                <div style={{ fontSize: '13px', color: o.color, fontWeight: '700' }}>{o.pct}%</div>
                 <div style={{ height: '5px', backgroundColor: '#1a1a1a', borderRadius: '3px', overflow: 'hidden' }}>
                   <div style={{ width: o.pct + '%', height: '100%', backgroundColor: o.color, borderRadius: '3px' }} />
                 </div>
-                <div style={{ fontSize: '16px', color: o.color, fontWeight: '700', textAlign: 'right' as const }}>{fmt(o.val)}</div>
+                <div style={{ fontSize: '13px', color: o.color, fontWeight: '700', textAlign: 'right' as const }}>{fmt(o.val)}</div>
               </div>
             ))}
             <div style={{ marginTop: '14px', padding: '12px', backgroundColor: 'var(--bg-sidebar)', borderRadius: '8px', border: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '16px', color: 'var(--text-muted)' }}>Total opportunity value</span>
-              <span style={{ fontSize: '16px', fontWeight: '800', color: gold }}>{fmt(totalValue)}</span>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Total opportunity value</span>
+              <span style={{ fontSize: '14px', fontWeight: '800', color: gold }}>{fmt(totalValue)}</span>
             </div>
           </div>
         </div>

@@ -71,20 +71,20 @@ export default function DashboardShell({ children, activeId }: { children: React
 
         {/* Logo */}
         <div style={{ padding: collapsed ? '18px 0' : '18px 18px', borderBottom: '1px solid var(--sidebar-border)', display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'space-between', minHeight: '60px', flexShrink: 0 }}>
-          {!collapsed && <div><div style={{ fontSize: '20px', fontWeight: '900', color: gold, letterSpacing: '0.15em' }}>BEI<sup style={{ fontSize: '16px', verticalAlign: 'super' }}>TM</sup></div><div style={{ fontSize: '16px', color: 'var(--text-secondary)', letterSpacing: '0.18em', marginTop: '2px' }}>BUSINESS EXECUTION INTELLIGENCE</div></div>}
-          <button onClick={() => setCollapsed(!collapsed)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '16px', padding: '4px', flexShrink: 0 }}>{collapsed ? '▶' : '◀'}</button>
+          {!collapsed && <div><div style={{ fontSize: '18px', fontWeight: '900', color: gold, letterSpacing: '0.15em' }}>BEI<sup style={{ fontSize: '8px', verticalAlign: 'super' }}>TM</sup></div><div style={{ fontSize: '8px', color: 'var(--text-secondary)', letterSpacing: '0.18em', marginTop: '2px' }}>BUSINESS EXECUTION INTELLIGENCE</div></div>}
+          <button onClick={() => setCollapsed(!collapsed)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '12px', padding: '4px', flexShrink: 0 }}>{collapsed ? '▶' : '◀'}</button>
         </div>
 
         {/* Nav */}
         <nav style={{ flex: 1, padding: '8px 0', overflowY: 'auto' as const }}>
           {navSections.map(({ section, items }) => (
             <div key={section}>
-              {!collapsed && <div style={{ fontSize: '16px', color: 'var(--text-faint)', letterSpacing: '0.2em', fontWeight: '700', padding: '12px 18px 5px', textTransform: 'uppercase' as const }}>{section}</div>}
+              {!collapsed && <div style={{ fontSize: '9px', color: 'var(--text-faint)', letterSpacing: '0.2em', fontWeight: '700', padding: '12px 18px 5px', textTransform: 'uppercase' as const }}>{section}</div>}
               {items.map(item => {
                 const isActive = activeId === item.id
                 const Icon = icons[item.id]
                 return (
-                  <a key={item.id} href={item.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: collapsed ? '10px 0' : '9px 16px', justifyContent: collapsed ? 'center' : 'flex-start', textDecoration: 'none', backgroundColor: isActive ? 'rgba(200,162,74,0.08)' : 'transparent', borderLeft: isActive ? `2px solid ${gold}` : '2px solid transparent', color: isActive ? gold : '#777', fontSize: '16px', fontWeight: isActive ? '600' : '400', transition: 'all 0.15s', whiteSpace: 'nowrap' as const }}
+                  <a key={item.id} href={item.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: collapsed ? '10px 0' : '9px 16px', justifyContent: collapsed ? 'center' : 'flex-start', textDecoration: 'none', backgroundColor: isActive ? 'rgba(200,162,74,0.08)' : 'transparent', borderLeft: isActive ? `2px solid ${gold}` : '2px solid transparent', color: isActive ? gold : '#777', fontSize: '13px', fontWeight: isActive ? '600' : '400', transition: 'all 0.15s', whiteSpace: 'nowrap' as const }}
                     onMouseEnter={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#ccc'; (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(255,255,255,0.03)' }}}
                     onMouseLeave={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#777'; (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent' }}}
                   >
@@ -104,12 +104,12 @@ export default function DashboardShell({ children, activeId }: { children: React
             <button onClick={() => window.dispatchEvent(new CustomEvent('open-ask-bei'))} style={{ width: '100%', backgroundColor: 'rgba(200,162,74,0.05)', border: '1px solid rgba(200,162,74,0.15)', borderRadius: '10px', padding: '11px 13px', cursor: 'pointer', textAlign: 'left' as const, display: 'block' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ fontSize: '16px', color: gold }}>✦</span>
-                  <span style={{ fontSize: '16px', fontWeight: '700', color: gold, letterSpacing: '0.05em' }}>BEI ASSISTANT</span>
+                  <span style={{ fontSize: '12px', color: gold }}>✦</span>
+                  <span style={{ fontSize: '11px', fontWeight: '700', color: gold, letterSpacing: '0.05em' }}>BEI ASSISTANT</span>
                 </div>
-                <div style={{ width: '20px', height: '20px', borderRadius: '5px', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', color: gold }}>→</div>
+                <div style={{ width: '20px', height: '20px', borderRadius: '5px', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: gold }}>→</div>
               </div>
-              <div style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>Ask BEI anything about your Business Twin...</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>Ask BEI anything about your Business Twin...</div>
             </button>
           </div>
         )}
@@ -118,10 +118,10 @@ export default function DashboardShell({ children, activeId }: { children: React
         {!collapsed && (
           <div style={{ padding: '10px 16px', borderTop: '1px solid var(--sidebar-border)', flexShrink: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 5px rgba(74,170,74,0.7)' }} />
-              <span style={{ fontSize: '16px', color: '#4aaa4a', fontWeight: '600', letterSpacing: '0.12em' }}>INTELLIGENCE ACTIVE</span>
+              <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 5px rgba(74,170,74,0.7)' }} />
+              <span style={{ fontSize: '9px', color: '#4aaa4a', fontWeight: '600', letterSpacing: '0.12em' }}>INTELLIGENCE ACTIVE</span>
             </div>
-            <div style={{ fontSize: '16px', color: 'var(--text-faint)', marginTop: '2px' }}>All systems operational</div>
+            <div style={{ fontSize: '9px', color: 'var(--text-faint)', marginTop: '2px' }}>All systems operational</div>
           </div>
         )}
       </div>
@@ -130,36 +130,36 @@ export default function DashboardShell({ children, activeId }: { children: React
       <div style={{ marginLeft: collapsed ? '60px' : '240px', flex: 1, display: 'flex', flexDirection: 'column' as const, transition: 'margin-left 0.2s ease', minWidth: 0 }}>
 
         {/* TOP BAR */}
-        <div style={{ height: '42px', backgroundColor: 'var(--bg-primary)', borderBottom: '1px solid var(--sidebar-border)', display: 'flex', alignItems: 'center', padding: '0 20px', gap: '12px', position: 'sticky' as const, top: 0, zIndex: 40 }}>
+        <div style={{ height: '56px', backgroundColor: 'var(--bg-primary)', borderBottom: '1px solid var(--sidebar-border)', display: 'flex', alignItems: 'center', padding: '0 20px', gap: '12px', position: 'sticky' as const, top: 0, zIndex: 40 }}>
           <div style={{ flex: 1, maxWidth: '380px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', padding: '7px 12px' }}>
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#444" strokeWidth="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#444" strokeWidth="1.5" strokeLinecap="round"/></svg>
-              <input value={searchVal} onChange={e => setSearchVal(e.target.value)} placeholder="Search BEI Intelligence..." style={{ background: 'none', border: 'none', outline: 'none', color: 'var(--text-muted)', fontSize: '16px', flex: 1, minWidth: 0 }} />
+              <input value={searchVal} onChange={e => setSearchVal(e.target.value)} placeholder="Search BEI Intelligence..." style={{ background: 'none', border: 'none', outline: 'none', color: 'var(--text-muted)', fontSize: '13px', flex: 1, minWidth: 0 }} />
               <div style={{ display: 'flex', alignItems: 'center', gap: '2px', flexShrink: 0 }}>
-                <kbd style={{ fontSize: '16px', color: 'var(--text-faint)', backgroundColor: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: '3px', padding: '1px 4px' }}>⌘</kbd>
-                <kbd style={{ fontSize: '16px', color: 'var(--text-faint)', backgroundColor: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: '3px', padding: '1px 4px' }}>K</kbd>
+                <kbd style={{ fontSize: '9px', color: 'var(--text-faint)', backgroundColor: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: '3px', padding: '1px 4px' }}>⌘</kbd>
+                <kbd style={{ fontSize: '9px', color: 'var(--text-faint)', backgroundColor: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: '3px', padding: '1px 4px' }}>K</kbd>
               </div>
             </div>
           </div>
           <div style={{ flex: 1 }} />
-          <button onClick={() => window.dispatchEvent(new CustomEvent('open-ask-bei'))} style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '8px 16px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '8px', color: gold, fontSize: '16px', fontWeight: '600', cursor: 'pointer' }}>
+          <button onClick={() => window.dispatchEvent(new CustomEvent('open-ask-bei'))} style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '8px 16px', backgroundColor: 'rgba(200,162,74,0.1)', border: '1px solid rgba(200,162,74,0.3)', borderRadius: '8px', color: gold, fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
             <span>✦</span> Ask BEI
           </button>
-          <button onClick={toggleTheme} title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'} style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '16px' }}>
+          <button onClick={toggleTheme} title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'} style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '15px' }}>
             {theme === 'dark' ? '☀' : '◑'}
           </button>
-          <button onClick={() => setNotifOpen(!notifOpen)} style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'relative' as const }}>
+          <button onClick={() => setNotifOpen(!notifOpen)} style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'relative' as const }}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.5 1.5 4 3.5 4 6v4l-1.5 1.5h11L12 10V6c0-2.5-1.5-4.5-4-4.5z" stroke="#666" strokeWidth="1.3" fill="none"/><path d="M6.5 13a1.5 1.5 0 003 0" stroke="#666" strokeWidth="1.3" fill="none"/></svg>
             <div style={{ position: 'absolute' as const, top: '7px', right: '7px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#cc4444', border: '1.5px solid #050505' }} />
           </button>
-          <a href="/book" style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--text-muted)', fontSize: '16px', textDecoration: 'none', whiteSpace: 'nowrap' as const }}>
+          <a href="/book" style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--text-muted)', fontSize: '12px', textDecoration: 'none', whiteSpace: 'nowrap' as const }}>
             <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="3.5" width="13" height="11" rx="1.5" stroke="#555" strokeWidth="1.3"/><line x1="1.5" y1="7" x2="14.5" y2="7" stroke="#555" strokeWidth="1.3"/><line x1="5" y1="1.5" x2="5" y2="5" stroke="#555" strokeWidth="1.3" strokeLinecap="round"/><line x1="11" y1="1.5" x2="11" y2="5" stroke="#555" strokeWidth="1.3" strokeLinecap="round"/></svg>
             Book Session
           </a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '4px 8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '6px' }}>
-            <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', fontWeight: '700', color: gold }}>{userInitial}</div>
-            <div><div style={{ fontSize: '16px', color: '#ccc', fontWeight: '600', lineHeight: '1' }}>{userName}</div><div style={{ fontSize: '16px', color: 'var(--text-secondary)', marginTop: '2px' }}>Executive</div></div>
-            <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/login' }} style={{ background: 'none', border: 'none', color: 'var(--text-faint)', cursor: 'pointer', fontSize: '16px', padding: '2px 4px' }}>Sign out</button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 10px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px' }}>
+            <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '700', color: gold }}>{userInitial}</div>
+            <div><div style={{ fontSize: '12px', color: '#ccc', fontWeight: '600', lineHeight: '1' }}>{userName}</div><div style={{ fontSize: '10px', color: 'var(--text-secondary)', marginTop: '2px' }}>Executive</div></div>
+            <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/login' }} style={{ background: 'none', border: 'none', color: 'var(--text-faint)', cursor: 'pointer', fontSize: '11px', padding: '2px 4px' }}>Sign out</button>
           </div>
         </div>
 
@@ -172,11 +172,11 @@ export default function DashboardShell({ children, activeId }: { children: React
         <div style={{ height: '30px', backgroundColor: 'var(--bg-sidebar)', borderTop: '1px solid var(--sidebar-border)', display: 'flex', alignItems: 'center', padding: '0 20px', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#4aaa4a' }} />
-            <span style={{ fontSize: '16px', color: '#4aaa4a', letterSpacing: '0.08em' }}>BEI Intelligence Active</span>
+            <span style={{ fontSize: '10px', color: '#4aaa4a', letterSpacing: '0.08em' }}>BEI Intelligence Active</span>
           </div>
-          <span style={{ fontSize: '16px', color: '#222' }}>All systems operational</span>
+          <span style={{ fontSize: '10px', color: '#222' }}>All systems operational</span>
           <div style={{ flex: 1 }} />
-          <span style={{ fontSize: '16px', color: '#222' }}>Last sync: Just now ✓</span>
+          <span style={{ fontSize: '10px', color: '#222' }}>Last sync: Just now ✓</span>
         </div>
       </div>
     </div>
