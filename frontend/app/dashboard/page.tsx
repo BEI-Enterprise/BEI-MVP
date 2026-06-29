@@ -9,6 +9,36 @@ const gold = '#C8A24A'
 const card = '#0e0e0e'
 const border = '#1e1e1e'
 
+
+// Completeness gate — requires 75%+ twin completeness to show intelligence
+function CompletenessGate({ completeness, businessName }: { completeness: number, businessName: string }) {
+  const gold = '#C8A24A'
+  const needed = 75 - completeness
+  return (
+    <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ maxWidth: '520px', textAlign: 'center' as const, padding: '40px 24px' }}>
+        <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em', marginBottom: '24px', fontWeight: '600' }}>BEI INTELLIGENCE</div>
+        <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: 'rgba(200,162,74,0.1)', border: '2px solid rgba(200,162,74,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', fontSize: '24px' }}>⟳</div>
+        <h2 style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '12px' }}>Intelligence Unavailable</h2>
+        <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '28px' }}>
+          {businessName} needs at least <strong style={{ color: gold }}>75% Business Twin completeness</strong> before BEI Intelligence can generate accurate analysis. You are currently at <strong style={{ color: completeness >= 50 ? gold : '#cc4444' }}>{completeness}%</strong> — {needed}% more needed.
+        </p>
+        <div style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '10px', padding: '20px', marginBottom: '28px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Twin Completeness</span>
+            <span style={{ fontSize: '12px', fontWeight: '700', color: completeness >= 50 ? gold : '#cc4444' }}>{completeness}% / 75% required</span>
+          </div>
+          <div style={{ height: '6px', backgroundColor: 'var(--border)', borderRadius: '3px', overflow: 'hidden' }}>
+            <div style={{ width: completeness + '%', height: '100%', backgroundColor: completeness >= 75 ? '#4aaa4a' : completeness >= 50 ? gold : '#cc4444', borderRadius: '3px', transition: 'width 1s ease' }} />
+          </div>
+          <div style={{ marginTop: '8px', fontSize: '11px', color: 'var(--text-muted)' }}>Complete your Business Twin to unlock intelligence</div>
+        </div>
+        <a href="/connect" style={{ display: 'inline-block', padding: '12px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '8px', textDecoration: 'none', fontSize: '14px' }}>Complete Business Twin →</a>
+      </div>
+    </main>
+  )
+}
+
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [selected, setSelected] = useState<any>(null)
@@ -53,6 +83,18 @@ export default function DashboardPage() {
     </main>
   )
 
+
+  // Calculate twin completeness — same logic as Business Twin Centre
+  const MRI_BASE = 40
+  const CONNECTOR_WEIGHTS: Record<string, number> = { hubspot: 10, salesforce: 10, xero: 12, quickbooks: 12, google_analytics: 7, manual_crm: 6, manual_finance: 7, manual_revenue: 8, manual_ops: 5, manual_people: 5 }
+  const hasMRI = !!(selected?.mri_result)
+  let twinCompleteness = hasMRI ? MRI_BASE : 0
+  const connectedSources = selected?.connected_sources || {}
+  Object.keys(connectedSources).forEach(id => { if (connectedSources[id]?.connected && CONNECTOR_WEIGHTS[id]) twinCompleteness += CONNECTOR_WEIGHTS[id] })
+  twinCompleteness = Math.min(100, twinCompleteness)
+  const businessName = selected?.business_name || 'Your Business'
+  if (twinCompleteness < 75) return <DashboardShell activeId="dashboard"><CompletenessGate completeness={twinCompleteness} businessName={businessName} /></DashboardShell>
+
   const result = selected?.mri_result || null
   const health = result?.health || {}
   const primary = result?.primary_constraint || null
@@ -67,7 +109,6 @@ export default function DashboardPage() {
   const healthColor = healthScore >= 70 ? '#4aaa4a' : healthScore >= 45 ? gold : '#cc4444'
   const confColor = confidence === 'high' ? '#4aaa4a' : confidence === 'medium' ? gold : '#cc4444'
   const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Executive'
-  const businessName = selected?.business_name || 'Your Business'
   const tier = (selected?.subscription_tier || 'analysis').toUpperCase()
 
   const industry = (selected?.industry || '').toLowerCase()
