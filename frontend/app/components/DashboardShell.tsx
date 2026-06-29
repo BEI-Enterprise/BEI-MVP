@@ -130,7 +130,7 @@ export default function DashboardShell({ children, activeId }: { children: React
       <div style={{ marginLeft: collapsed ? '60px' : '240px', flex: 1, display: 'flex', flexDirection: 'column' as const, transition: 'margin-left 0.2s ease', minWidth: 0 }}>
 
         {/* TOP BAR */}
-        <div style={{ height: '48px', backgroundColor: 'var(--bg-primary)', borderBottom: '1px solid var(--sidebar-border)', display: 'flex', alignItems: 'center', padding: '0 20px', gap: '12px', position: 'sticky' as const, top: 0, zIndex: 40 }}>
+        <div style={{ height: '42px', backgroundColor: 'var(--bg-primary)', borderBottom: '1px solid var(--sidebar-border)', display: 'flex', alignItems: 'center', padding: '0 20px', gap: '12px', position: 'sticky' as const, top: 0, zIndex: 40 }}>
           <div style={{ flex: 1, maxWidth: '380px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', padding: '7px 12px' }}>
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#444" strokeWidth="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#444" strokeWidth="1.5" strokeLinecap="round"/></svg>
