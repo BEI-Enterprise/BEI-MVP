@@ -118,7 +118,7 @@ export default function DashboardShell({ children, activeId }: { children: React
         {!collapsed && (
           <div style={{ padding: '10px 16px', borderTop: '1px solid var(--sidebar-border)', flexShrink: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 5px rgba(74,170,74,0.7)' }} />
+              <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#4aaa4a', boxShadow: '0 0 5px rgba(74,170,74,0.7)' }} />
               <span style={{ fontSize: '16px', color: '#4aaa4a', fontWeight: '600', letterSpacing: '0.12em' }}>INTELLIGENCE ACTIVE</span>
             </div>
             <div style={{ fontSize: '16px', color: 'var(--text-faint)', marginTop: '2px' }}>All systems operational</div>
@@ -130,7 +130,7 @@ export default function DashboardShell({ children, activeId }: { children: React
       <div style={{ marginLeft: collapsed ? '60px' : '240px', flex: 1, display: 'flex', flexDirection: 'column' as const, transition: 'margin-left 0.2s ease', minWidth: 0 }}>
 
         {/* TOP BAR */}
-        <div style={{ height: '56px', backgroundColor: 'var(--bg-primary)', borderBottom: '1px solid var(--sidebar-border)', display: 'flex', alignItems: 'center', padding: '0 20px', gap: '12px', position: 'sticky' as const, top: 0, zIndex: 40 }}>
+        <div style={{ height: '48px', backgroundColor: 'var(--bg-primary)', borderBottom: '1px solid var(--sidebar-border)', display: 'flex', alignItems: 'center', padding: '0 20px', gap: '12px', position: 'sticky' as const, top: 0, zIndex: 40 }}>
           <div style={{ flex: 1, maxWidth: '380px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', padding: '7px 12px' }}>
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#444" strokeWidth="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#444" strokeWidth="1.5" strokeLinecap="round"/></svg>
@@ -148,7 +148,7 @@ export default function DashboardShell({ children, activeId }: { children: React
           <button onClick={toggleTheme} title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'} style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '16px' }}>
             {theme === 'dark' ? '☀' : '◑'}
           </button>
-          <button onClick={() => setNotifOpen(!notifOpen)} style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'relative' as const }}>
+          <button onClick={() => setNotifOpen(!notifOpen)} style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'relative' as const }}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.5 1.5 4 3.5 4 6v4l-1.5 1.5h11L12 10V6c0-2.5-1.5-4.5-4-4.5z" stroke="#666" strokeWidth="1.3" fill="none"/><path d="M6.5 13a1.5 1.5 0 003 0" stroke="#666" strokeWidth="1.3" fill="none"/></svg>
             <div style={{ position: 'absolute' as const, top: '7px', right: '7px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#cc4444', border: '1.5px solid #050505' }} />
           </button>
@@ -156,7 +156,7 @@ export default function DashboardShell({ children, activeId }: { children: React
             <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="3.5" width="13" height="11" rx="1.5" stroke="#555" strokeWidth="1.3"/><line x1="1.5" y1="7" x2="14.5" y2="7" stroke="#555" strokeWidth="1.3"/><line x1="5" y1="1.5" x2="5" y2="5" stroke="#555" strokeWidth="1.3" strokeLinecap="round"/><line x1="11" y1="1.5" x2="11" y2="5" stroke="#555" strokeWidth="1.3" strokeLinecap="round"/></svg>
             Book Session
           </a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 10px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '4px 8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '6px' }}>
             <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: 'rgba(200,162,74,0.12)', border: '1px solid rgba(200,162,74,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', fontWeight: '700', color: gold }}>{userInitial}</div>
             <div><div style={{ fontSize: '16px', color: '#ccc', fontWeight: '600', lineHeight: '1' }}>{userName}</div><div style={{ fontSize: '16px', color: 'var(--text-secondary)', marginTop: '2px' }}>Executive</div></div>
             <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/login' }} style={{ background: 'none', border: 'none', color: 'var(--text-faint)', cursor: 'pointer', fontSize: '16px', padding: '2px 4px' }}>Sign out</button>
