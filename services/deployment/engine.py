@@ -641,6 +641,215 @@ DEPLOYMENT_CATALOGUE = {
             "rollback_plan": "No system changes are made automatically; nothing to roll back.",
         },
     ],
+
+    # ---------- Batch 7.2 (Finance) ----------
+    "unfavourable_cac_ltv_ratio": [
+        {
+            "tier": 1,
+            "tier_name": "Automatic",
+            "action_type": "cac_ltv_monitoring",
+            "action_title": "Activate CAC:LTV Ratio Monitoring",
+            "action_description": (
+                "Automatically calculate customer acquisition cost and lifetime "
+                "value monthly, track the ratio against the healthy benchmark "
+                "(typically 3:1 or better), and alert on sustained deterioration."
+            ),
+            "implementation_steps": [
+                "Pull monthly marketing/sales spend and new customer count for CAC",
+                "Pull average customer revenue and retention/churn data for LTV",
+                "Calculate CAC:LTV ratio monthly",
+                "Compare against 3:1 benchmark and trailing 6-month trend",
+                "Trigger alert if ratio falls below 3:1 or trends downward 2+ months",
+            ],
+            "expected_outcome": (
+                "CAC:LTV deterioration is flagged within 30 days, with visibility "
+                "into whether CAC or LTV is the driver."
+            ),
+            "measurement_plan": (
+                "Track: CAC:LTV ratio monthly, CAC trend, LTV trend, "
+                "time-to-alert from first deterioration."
+            ),
+            "requires_approval": False,
+            "rollback_plan": "Disable CAC:LTV monitoring alerts. No data loss.",
+        },
+        {
+            "tier": 2,
+            "tier_name": "Approval-Based",
+            "action_type": "retention_lifecycle_system",
+            "action_title": "Build Customer Retention & Lifecycle Sequence",
+            "action_description": (
+                "Prepare and activate an automated lifecycle sequence "
+                "(onboarding, engagement check-ins, renewal/repeat-purchase "
+                "prompts) aimed at lifting LTV by improving retention and "
+                "repeat revenue. Requires approval before activating."
+            ),
+            "implementation_steps": [
+                "Map current customer lifecycle and identify the highest-churn stage",
+                "Draft onboarding sequence to improve early retention",
+                "Draft mid-lifecycle engagement/check-in sequence",
+                "Draft renewal or repeat-purchase prompt sequence",
+                "Submit for approval before activating in CRM/email platform",
+            ],
+            "expected_outcome": (
+                "Lifecycle sequence live within 30 days. Measurable improvement "
+                "in retention rate and repeat revenue within 90 days."
+            ),
+            "measurement_plan": (
+                "Track: retention rate, repeat purchase rate, LTV, "
+                "CAC:LTV ratio at 90/180 days post-activation."
+            ),
+            "requires_approval": True,
+            "rollback_plan": "Deactivate lifecycle sequence. Revert to previous customer communication flow.",
+        },
+        {
+            "tier": 3,
+            "tier_name": "Recommendation",
+            "action_type": "acquisition_efficiency_plan",
+            "action_title": "CAC Reduction & Channel Efficiency Plan",
+            "action_description": (
+                "BEI prepares a diagnosis of acquisition cost drivers by "
+                "channel and a prioritised set of options to reduce CAC "
+                "(channel mix, targeting, conversion funnel). Requires "
+                "owner judgement on budget reallocation and execution."
+            ),
+            "implementation_steps": [
+                "Break down CAC by acquisition channel",
+                "Identify highest-cost, lowest-efficiency channels",
+                "Benchmark channel performance against industry comparables",
+                "Present prioritised reallocation/efficiency recommendations",
+                "Owner reviews and decides which actions to pursue",
+            ],
+            "expected_outcome": (
+                "Owner has an evidenced view of where acquisition spend is "
+                "inefficient and a ranked set of options to reduce CAC."
+            ),
+            "measurement_plan": (
+                "Track: CAC by channel, blended CAC, CAC:LTV ratio "
+                "at 90/180 days post-recommendation."
+            ),
+            "requires_approval": True,
+            "rollback_plan": "No system changes are made automatically; nothing to roll back.",
+        },
+    ],
+
+    "excessive_leverage": [
+        {
+            "tier": 1,
+            "tier_name": "Automatic",
+            "action_type": "leverage_monitoring",
+            "action_title": "Activate Debt & Leverage Ratio Monitoring",
+            "action_description": (
+                "Automatically track total debt relative to revenue/EBITDA "
+                "monthly and alert if leverage exceeds the healthy threshold "
+                "or trends upward over consecutive periods."
+            ),
+            "implementation_steps": [
+                "Pull total debt obligations and monthly revenue/EBITDA data",
+                "Calculate debt-to-revenue and debt-to-EBITDA ratios monthly",
+                "Compare against industry-appropriate leverage threshold",
+                "Trigger alert on threshold breach or 2+ month upward trend",
+                "Log leverage trend to the Business Twin",
+            ],
+            "expected_outcome": (
+                "Rising leverage risk is flagged within 30 days of occurring, "
+                "before it constrains financing options or covenant headroom."
+            ),
+            "measurement_plan": (
+                "Track: debt-to-revenue ratio monthly, debt-to-EBITDA ratio monthly, "
+                "time-to-alert from threshold breach."
+            ),
+            "requires_approval": False,
+            "rollback_plan": "Disable leverage monitoring alerts. No data loss.",
+        },
+        {
+            "tier": 3,
+            "tier_name": "Recommendation",
+            "action_type": "debt_restructuring_plan",
+            "action_title": "Leverage Reduction & Debt Structuring Plan",
+            "action_description": (
+                "BEI prepares a diagnosis of the debt structure and a "
+                "prioritised set of options to reduce leverage or improve "
+                "terms (refinancing, paydown sequencing, covenant review). "
+                "Financial and legal judgement required; not software-executable."
+            ),
+            "implementation_steps": [
+                "Map current debt structure: facility, rate, maturity, covenants",
+                "Identify highest-cost or highest-risk obligations",
+                "Model impact of paydown, refinancing, or restructuring options",
+                "Present ranked options with estimated leverage and cost impact",
+                "Owner reviews and decides which actions to pursue",
+            ],
+            "expected_outcome": (
+                "Owner has a clear, evidenced set of options to reduce leverage "
+                "risk, ranked by impact and feasibility."
+            ),
+            "measurement_plan": (
+                "Track: debt-to-revenue and debt-to-EBITDA ratios at "
+                "90/180 days post-recommendation vs. the plan's projection."
+            ),
+            "requires_approval": True,
+            "rollback_plan": "No system changes are made automatically; nothing to roll back.",
+        },
+    ],
+
+    "revenue_growth_stagnation": [
+        {
+            "tier": 1,
+            "tier_name": "Automatic",
+            "action_type": "growth_monitoring",
+            "action_title": "Activate Revenue Growth Trend Monitoring",
+            "action_description": (
+                "Automatically track revenue growth rate monthly against the "
+                "business's historical trend and industry benchmark, and "
+                "alert on sustained stagnation or deceleration."
+            ),
+            "implementation_steps": [
+                "Pull monthly revenue data",
+                "Calculate trailing 3/6/12-month growth rate",
+                "Compare against historical growth trend and industry benchmark",
+                "Trigger alert on 2+ consecutive periods of deceleration or flat growth",
+                "Log growth trend to the Business Twin",
+            ],
+            "expected_outcome": (
+                "Growth stagnation is flagged within 30 days of onset, "
+                "rather than discovered at year-end review."
+            ),
+            "measurement_plan": (
+                "Track: revenue growth rate monthly, variance vs. historical trend "
+                "and benchmark, time-to-alert."
+            ),
+            "requires_approval": False,
+            "rollback_plan": "Disable growth monitoring alerts. No data loss.",
+        },
+        {
+            "tier": 3,
+            "tier_name": "Recommendation",
+            "action_type": "growth_strategy_plan",
+            "action_title": "Revenue Growth Re-Acceleration Plan",
+            "action_description": (
+                "BEI prepares a diagnosis of where growth has stalled "
+                "(new business, expansion, retention, market saturation) "
+                "and a prioritised set of growth levers. Strategic judgement "
+                "and execution required; not software-executable."
+            ),
+            "implementation_steps": [
+                "Decompose revenue growth into new business, expansion, and retention",
+                "Identify which component is driving the stagnation",
+                "Benchmark growth drivers against industry comparables",
+                "Present prioritised growth levers ranked by impact and feasibility",
+                "Owner reviews and decides which actions to pursue",
+            ],
+            "expected_outcome": (
+                "Owner has an evidenced view of why growth has stalled and a "
+                "ranked set of options to re-accelerate it."
+            ),
+            "measurement_plan": (
+                "Track: revenue growth rate at 90/180 days vs. pre-stagnation baseline."
+            ),
+            "requires_approval": True,
+            "rollback_plan": "No system changes are made automatically; nothing to roll back.",
+        },
+    ],
 }
 
 
