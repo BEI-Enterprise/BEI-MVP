@@ -201,6 +201,8 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "scenario_planning": answers.get("scenario_planning", ""),
             "regulatory_bodies": answers.get("regulatory_bodies", ""),
             "regulatory_status": answers.get("regulatory_status", ""),
+            "cash_runway_months": answers.get("cash_runway_months", ""),
+            "key_person_dependency": answers.get("key_person_dependency", ""),
         },
 
         # Context sub-twin
