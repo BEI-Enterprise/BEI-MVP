@@ -185,6 +185,14 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "brand_awareness_pct": answers.get("brand_awareness_pct", ""),
             "competitive_set": answers.get("competitive_set", ""),
             "differentiation_strength": answers.get("differentiation_strength", ""),
+            "referral_revenue_pct": answers.get("referral_revenue_pct", ""),
+            "market_geography": answers.get("market_geography", ""),
+            "awards_accreditations": answers.get("awards_accreditations", ""),
+            "analyst_coverage": answers.get("analyst_coverage", ""),
+            "social_following": answers.get("social_following", ""),
+            "media_coverage": answers.get("media_coverage", ""),
+            "thought_leadership": answers.get("thought_leadership", ""),
+            "total_addressable_market": answers.get("total_addressable_market", ""),
         },
 
         # Strategy sub-twin
