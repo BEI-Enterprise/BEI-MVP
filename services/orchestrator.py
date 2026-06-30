@@ -15,7 +15,7 @@ from services.opportunity.engine import calculate_opportunities, calculate_total
 from services.decision.engine import select_primary_constraint
 from services.network.engine import build_constraint_network
 from services.deployment.engine import build_deployment_packages
-from services.benchmarks.engine import BenchmarkEngine
+from services.benchmarks.engine import BenchmarkStore
 
 
 def run_intelligence(
@@ -62,7 +62,7 @@ def run_intelligence(
 
     # Step 8 — Attach sector benchmark comparison (read-only, display only)
     # Does not influence detection, verification, scoring or decision in any way.
-    benchmark_engine = BenchmarkEngine()
+    benchmark_engine = BenchmarkStore()
     constraint_frequency = benchmark_engine.get_constraint_frequency(industry)
     benchmark_confidence = benchmark_engine.get_confidence(industry)
 

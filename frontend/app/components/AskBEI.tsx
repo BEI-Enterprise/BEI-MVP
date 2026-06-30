@@ -70,19 +70,65 @@ export default function AskBEI() {
     setMessages(nm)
     setLoading(true)
     try {
-      const r = biz?.mri_result || {}
-      const primary = r.primary_constraint || null
-      const totalOpp = r.total_opportunity || {}
+      if (!biz?.id) throw new Error('No business profile found')
+
+      // Pull live connector/manual data — same source the dashboard uses
+      const { data: connData } = await supabase
+        .from('connectors')
+        .select('connector_type, status, data_snapshot')
+        .eq('business_id', biz.id)
+
+      const active = (connData || []).filter((c: any) => c.status === 'active')
+      const merged: Record<string, any> = {}
+      active.forEach((c: any) => { if (c.data_snapshot) Object.assign(merged, c.data_snapshot) })
+
+      if (Object.keys(merged).length === 0) {
+        const t2 = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+        setMessages([...nm, { role: 'assistant', content: "I don't have enough connected business data yet to answer that. Add data sources in Business Twin Centre and I'll be able to analyse real constraints.", time: t2 }])
+        setLoading(false)
+        return
+      }
+
+      // Run the real, Master-Architecture-compliant orchestrator
+      // (Twin -> Health -> Detection -> Verification -> Decision -> Network)
+      const intelRes = await fetch('https://mindful-reverence-production-e010.up.railway.app/analyse-connector-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          business_id: biz.id,
+          industry: biz?.industry || 'default',
+          connector_data: merged,
+        }),
+      })
+      const intelData = await intelRes.json()
+      const result = intelData.result || {}
+      const primary = result.primary_constraint || null
+      const totalOpp = result.total_opportunity || {}
+
       const res = await fetch('/api/agents/decision', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userEmail: (await supabase.auth.getUser()).data?.user?.email || '',
           businessId: biz?.id || '',
-          primary: primary ? { name: primary.name || primary.key, verification_score: primary.verification_score || 70, severity: primary.severity || 'high', is_root_cause: primary.is_root_cause !== false, hypothesis: primary.hypothesis || '', opportunity: { value_low: totalOpp.total_low || 0, value_high: totalOpp.total_high || 0 } } : null,
-          secondary: (r.secondary_constraints || []).map((c: any) => ({ name: c.name || c.key, verification_score: c.verification_score || 60, severity: c.severity || 'medium' })),
-          pillars: r.health?.pillars || [],
-          confidence: r.confidence || 'medium',
+          primary: primary ? {
+            name: primary.name || primary.key,
+            verification_score: primary.verification_score || 70,
+            severity: primary.severity || 'high',
+            is_root_cause: primary.is_root_cause !== false,
+            root_cause_depth: primary.root_cause_depth,
+            tests_passed: primary.tests_passed,
+            total_tests: primary.total_tests,
+            detection_score: primary.detection_score,
+            hypothesis: primary.hypothesis || '',
+            opportunity: { value_low: totalOpp.total_low || 0, value_high: totalOpp.total_high || 0 },
+          } : null,
+          secondary: (result.secondary_constraints || []).map((c: any) => ({ name: c.name || c.key, verification_score: c.verification_score || 60, severity: c.severity || 'medium', is_root_cause: c.is_root_cause })),
+          decision_score: result.decision_score,
+          decision_explanation: result.decision_explanation,
+          recommended_focus: result.recommended_focus,
+          pillars: result.health?.pillars || [],
+          confidence: result.confidence || 'medium',
           industry: biz?.industry || '',
           businessName: biz?.business_name || 'Your Business',
           question: q,

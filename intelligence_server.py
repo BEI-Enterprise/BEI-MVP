@@ -222,3 +222,39 @@ def refresh_oauth_token(connector_type):
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/analyse-connector-data', methods=['POST'])
+def analyse_connector_data():
+    """
+    Runs the SAME verified BEI intelligence pipeline (run_intelligence)
+    used by the MRI flow, but sourced from real connector/manual data
+    instead of intake answers. Connector data is mapped into the exact
+    MRI-band vocabulary via connector_mapper, then passed through the
+    unchanged orchestrator -- no parallel logic, no shadow engine.
+
+    Golden Rule 8: Accuracy Over Volume.
+    Golden Rule 2: Verification Before Recommendation.
+    """
+    try:
+        data = request.get_json()
+        business_id = data.get('business_id')
+        connector_data = data.get('connector_data', {})
+        industry = data.get('industry', '')
+
+        if not business_id:
+            return jsonify({'error': 'Missing business_id'}), 400
+        if not connector_data:
+            return jsonify({'error': 'No connector data provided'}), 400
+
+        from services.twin.connector_mapper import map_connector_data_to_answers, map_annual_revenue_to_band
+
+        answers = map_connector_data_to_answers(connector_data)
+        annual_revenue = float(connector_data.get('annual_revenue', 0) or 0)
+        revenue_band = map_annual_revenue_to_band(annual_revenue)
+
+        result = run_intelligence(answers, business_id, industry, revenue_band, connector_updates=connector_data)
+        return jsonify({'result': result, 'business_id': business_id, 'mapped_answers': answers})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

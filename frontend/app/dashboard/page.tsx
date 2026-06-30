@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import { getCurrencySymbol } from '../../lib/currency'
 import DashboardShell from '../components/DashboardShell'
-import { useBEIIntelligence } from '../hooks/useBEIIntelligence'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -43,9 +43,10 @@ function CompletenessGate({ completeness, businessName }: { completeness: number
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [selected, setSelected] = useState<any>(null)
+  const { intelligence: liveIntelligence } = useLiveIntelligence(selected?.id, selected?.industry)
   const [loading, setLoading] = useState(true)
   const [showRadarModal, setShowRadarModal] = useState(false)
-  const bei = useBEIIntelligence()
+
 
   useEffect(() => {
     const load = async () => {
@@ -101,7 +102,8 @@ export default function DashboardPage() {
   const rawResult = selected?.mri_result || null
   const result = (rawResult && rawResult.mri_source !== 'free') ? rawResult : null
   // Override with live connector intelligence if available
-  const liveIntel = bei.intelligence
+  const liveIntel = liveIntelligence
+
 
   // No platform data — user only has free MRI or no data at all
   if (!result) {
