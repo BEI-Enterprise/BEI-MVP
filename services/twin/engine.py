@@ -223,6 +223,8 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "media_coverage": answers.get("media_coverage", ""),
             "thought_leadership": answers.get("thought_leadership", ""),
             "total_addressable_market": answers.get("total_addressable_market", ""),
+            "client_satisfaction_score": answers.get("client_satisfaction_score", ""),
+            "planning_horizon": answers.get("planning_horizon", ""),
         },
 
         # Strategy sub-twin
