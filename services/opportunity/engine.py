@@ -191,6 +191,36 @@ IMPACT_RATES = {
         "accountancy_firm": {"dimension": "revenue",          "low": 0.03, "high": 0.08},
         "default":          {"dimension": "revenue",          "low": 0.04, "high": 0.10},
     },
+    "pipeline_coverage_gap": {
+        "estate_agency":    {"dimension": "revenue",          "low": 0.05, "high": 0.12},
+        "marketing_agency": {"dimension": "revenue",          "low": 0.06, "high": 0.14},
+        "accountancy_firm": {"dimension": "revenue",          "low": 0.04, "high": 0.10},
+        "default":          {"dimension": "revenue",          "low": 0.05, "high": 0.12},
+    },
+    "long_sales_cycle": {
+        "estate_agency":    {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+        "marketing_agency": {"dimension": "capacity",         "low": 0.03, "high": 0.08},
+        "accountancy_firm": {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+        "default":          {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+    },
+    "client_churn_exceeds_growth": {
+        "estate_agency":    {"dimension": "revenue",          "low": 0.06, "high": 0.15},
+        "marketing_agency": {"dimension": "revenue",          "low": 0.08, "high": 0.18},
+        "accountancy_firm": {"dimension": "revenue",          "low": 0.05, "high": 0.12},
+        "default":          {"dimension": "revenue",          "low": 0.06, "high": 0.15},
+    },
+    "low_win_rate": {
+        "estate_agency":    {"dimension": "revenue",          "low": 0.04, "high": 0.10},
+        "marketing_agency": {"dimension": "revenue",          "low": 0.05, "high": 0.12},
+        "accountancy_firm": {"dimension": "revenue",          "low": 0.03, "high": 0.08},
+        "default":          {"dimension": "revenue",          "low": 0.04, "high": 0.10},
+    },
+    "expansion_revenue_shortfall": {
+        "estate_agency":    {"dimension": "revenue",          "low": 0.03, "high": 0.08},
+        "marketing_agency": {"dimension": "revenue",          "low": 0.04, "high": 0.10},
+        "accountancy_firm": {"dimension": "revenue",          "low": 0.04, "high": 0.10},
+        "default":          {"dimension": "revenue",          "low": 0.03, "high": 0.08},
+    },
 }
 
 

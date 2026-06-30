@@ -41,6 +41,11 @@ INDUSTRY_RELEVANCE = {
         "unfavourable_cac_ltv_ratio": "medium",
         "excessive_leverage": "high",
         "revenue_growth_stagnation": "medium",
+        "pipeline_coverage_gap": "high",
+        "long_sales_cycle": "medium",
+        "client_churn_exceeds_growth": "high",
+        "low_win_rate": "medium",
+        "expansion_revenue_shortfall": "low",
     },
     "marketing_agency": {
         "trust_infrastructure_deficit": "medium",
@@ -67,6 +72,11 @@ INDUSTRY_RELEVANCE = {
         "unfavourable_cac_ltv_ratio": "high",
         "excessive_leverage": "medium",
         "revenue_growth_stagnation": "high",
+        "pipeline_coverage_gap": "high",
+        "long_sales_cycle": "medium",
+        "client_churn_exceeds_growth": "high",
+        "low_win_rate": "high",
+        "expansion_revenue_shortfall": "medium",
     },
     "accountancy_firm": {
         "trust_infrastructure_deficit": "medium",
@@ -93,6 +103,11 @@ INDUSTRY_RELEVANCE = {
         "unfavourable_cac_ltv_ratio": "low",
         "excessive_leverage": "medium",
         "revenue_growth_stagnation": "medium",
+        "pipeline_coverage_gap": "medium",
+        "long_sales_cycle": "low",
+        "client_churn_exceeds_growth": "medium",
+        "low_win_rate": "low",
+        "expansion_revenue_shortfall": "medium",
     },
     "default": {
         "trust_infrastructure_deficit": "medium",
@@ -119,6 +134,11 @@ INDUSTRY_RELEVANCE = {
         "unfavourable_cac_ltv_ratio": "medium",
         "excessive_leverage": "medium",
         "revenue_growth_stagnation": "medium",
+        "pipeline_coverage_gap": "medium",
+        "long_sales_cycle": "medium",
+        "client_churn_exceeds_growth": "medium",
+        "low_win_rate": "medium",
+        "expansion_revenue_shortfall": "medium",
     },
 }
 
@@ -672,6 +692,117 @@ def detect_constraints(
             ],
             base_score=7 if growth_pct < 0 else 5,
             severity="high" if growth_pct < 0 else "medium",
+            industry=industry,
+        ))
+
+    # 25. Pipeline Coverage Gap
+    pipeline_value = twin["revenue"].get("pipeline_value", "")
+    revenue_target = twin["strategy"].get("revenue_target_12m", "")
+    try:
+        pipeline_val = float(pipeline_value) if pipeline_value else None
+        target_val = float(revenue_target) if revenue_target else None
+        coverage_ratio = (pipeline_val / target_val) if pipeline_val is not None and target_val else None
+    except (ValueError, TypeError, ZeroDivisionError):
+        coverage_ratio = None
+    if coverage_ratio is not None and coverage_ratio < 3:
+        detected.append(_make_constraint(
+            key="pipeline_coverage_gap",
+            name="Pipeline Coverage Gap",
+            hypothesis="Pipeline value relative to revenue target is below the multiple needed to reliably hit growth targets, indicating a lead generation or qualification shortfall.",
+            evidence=[
+                f"Pipeline value: {pipeline_val:,.0f} against a 12-month revenue target of {target_val:,.0f}.",
+                f"Coverage ratio of {round(coverage_ratio, 1)}x is below the 3x multiple generally needed to reliably hit target given typical win rates.",
+                f"Growth pillar score: {health['pillars']['growth']['score']}.",
+            ],
+            base_score=8 if coverage_ratio < 1.5 else 6,
+            severity="high" if coverage_ratio < 1.5 else "medium",
+            industry=industry,
+        ))
+
+    # 26. Long Sales Cycle
+    cycle_days = twin["revenue"].get("average_sales_cycle_days", "")
+    try:
+        cycle_val = float(cycle_days) if cycle_days else None
+    except (ValueError, TypeError):
+        cycle_val = None
+    if cycle_val is not None and cycle_val > 90:
+        detected.append(_make_constraint(
+            key="long_sales_cycle",
+            name="Long Sales Cycle",
+            hypothesis="An extended average sales cycle ties up pipeline, delays cash conversion and increases the effective cost of customer acquisition.",
+            evidence=[
+                f"Average sales cycle: {cycle_val} days.",
+                "Exceeds the 90-day threshold considered healthy for this scale of service business.",
+                f"Growth pillar score: {health['pillars']['growth']['score']}.",
+            ],
+            base_score=7 if cycle_val > 150 else 5,
+            severity="high" if cycle_val > 150 else "medium",
+            industry=industry,
+        ))
+
+    # 27. Client Churn Exceeds Growth
+    new_clients = twin["revenue"].get("new_clients_last_12m", "")
+    lost_clients = twin["revenue"].get("lost_clients_last_12m", "")
+    try:
+        new_val = float(new_clients) if new_clients else None
+        lost_val = float(lost_clients) if lost_clients else None
+    except (ValueError, TypeError):
+        new_val = None
+        lost_val = None
+    if new_val is not None and lost_val is not None and lost_val > 0 and lost_val >= new_val:
+        detected.append(_make_constraint(
+            key="client_churn_exceeds_growth",
+            name="Client Churn Exceeds Growth",
+            hypothesis="Losing clients at a rate equal to or greater than new client acquisition means the business is treading water or shrinking beneath the surface, regardless of headline revenue figures.",
+            evidence=[
+                f"New clients in the last 12 months: {int(new_val)}.",
+                f"Lost clients in the last 12 months: {int(lost_val)}.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=8 if lost_val > new_val else 6,
+            severity="high" if lost_val > new_val else "medium",
+            industry=industry,
+        ))
+
+    # 28. Low Win Rate
+    win_rate = twin["sales"].get("win_rate_pct", "")
+    try:
+        win_rate_val = float(win_rate) if win_rate else None
+    except (ValueError, TypeError):
+        win_rate_val = None
+    if win_rate_val is not None and win_rate_val < 20:
+        detected.append(_make_constraint(
+            key="low_win_rate",
+            name="Low Win Rate",
+            hypothesis="A low proposal-to-close win rate indicates qualification, pricing or competitive positioning weaknesses that waste sales capacity on deals unlikely to close.",
+            evidence=[
+                f"Win rate: {win_rate_val}%.",
+                "Below the 20% threshold typical for a healthy, well-qualified sales process.",
+                f"Growth pillar score: {health['pillars']['growth']['score']}.",
+            ],
+            base_score=7 if win_rate_val < 10 else 5,
+            severity="high" if win_rate_val < 10 else "medium",
+            industry=industry,
+        ))
+
+    # 29. Expansion Revenue Shortfall
+    expansion = twin["revenue"].get("expansion_revenue_pct", "")
+    try:
+        expansion_val = float(expansion) if expansion else None
+    except (ValueError, TypeError):
+        expansion_val = None
+    if expansion_val is not None and expansion_val < 10:
+        detected.append(_make_constraint(
+            key="expansion_revenue_shortfall",
+            name="Expansion Revenue Shortfall",
+            hypothesis="Low expansion revenue from existing clients indicates under-investment in account growth, cross-sell and upsell, forcing disproportionate reliance on costlier new client acquisition.",
+            evidence=[
+                f"Expansion revenue: {expansion_val}% of total revenue.",
+                "Below the 10% threshold considered healthy for capturing growth from the existing client base.",
+                f"Strategy pillar score: {health['pillars']['strategy']['score']}.",
+            ],
+            base_score=6,
+            severity="medium",
             industry=industry,
         ))
 
