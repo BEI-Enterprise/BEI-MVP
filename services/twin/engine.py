@@ -126,6 +126,10 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "gdpr_compliant": answers.get("gdpr_compliant", ""),
             "pending_litigation": answers.get("pending_litigation", ""),
             "contract_renewal_risk": answers.get("contract_renewal_risk", ""),
+            "debt_to_ebitda": answers.get("debt_to_ebitda", ""),
+            "net_debt": answers.get("net_debt", ""),
+            "credit_facility": answers.get("credit_facility", ""),
+            "top_10_clients_revenue_pct": answers.get("top_10_clients_revenue_pct", ""),
         },
 
         # Context sub-twin
@@ -152,6 +156,36 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "ownership_structure": answers.get("ownership_structure", ""),
             "board_meeting_frequency": answers.get("board_meeting_frequency", ""),
             "decision_making_structure": answers.get("decision_making_structure", ""),
+        },
+
+        # Financial sub-twin (new -- Enterprise Field Wiring Plan)
+        "financial": {
+            "annual_revenue": answers.get("annual_revenue", ""),
+            "revenue_last_12m": answers.get("revenue_last_12m", ""),
+            "revenue_growth_rate_pct": answers.get("revenue_growth_rate_pct", ""),
+            "gross_profit": answers.get("gross_profit", ""),
+            "gross_margin_pct": answers.get("gross_margin_pct", ""),
+            "ebitda": answers.get("ebitda", ""),
+            "net_profit": answers.get("net_profit", ""),
+            "total_operating_costs": answers.get("total_operating_costs", ""),
+            "cash_and_equivalents": answers.get("cash_and_equivalents", ""),
+            "total_debt": answers.get("total_debt", ""),
+            "recurring_revenue_pct": answers.get("recurring_revenue_pct", ""),
+            "arr": answers.get("arr", ""),
+            "customer_lifetime_value": answers.get("customer_lifetime_value", ""),
+            "cac": answers.get("cac", ""),
+            "payback_period_months": answers.get("payback_period_months", ""),
+            "working_capital": answers.get("working_capital", ""),
+            "capex_last_12m": answers.get("capex_last_12m", ""),
+            "rd_spend": answers.get("rd_spend", ""),
+            "dividend_policy": answers.get("dividend_policy", ""),
+            "revenue_by_division": answers.get("revenue_by_division", ""),
+            "num_business_units": answers.get("num_business_units", ""),
+            "highest_margin_division": answers.get("highest_margin_division", ""),
+            "lowest_margin_division": answers.get("lowest_margin_division", ""),
+            "investment_divisions": answers.get("investment_divisions", ""),
+            "revenue_concentration_top_product": answers.get("revenue_concentration_top_product", ""),
+            "cross_sell_rate_pct": answers.get("cross_sell_rate_pct", ""),
         },
 
         # People sub-twin
