@@ -161,6 +161,18 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "net_debt": answers.get("net_debt", ""),
             "credit_facility": answers.get("credit_facility", ""),
             "top_10_clients_revenue_pct": answers.get("top_10_clients_revenue_pct", ""),
+            "geographic_concentration": answers.get("geographic_concentration", ""),
+            "professional_insurance": answers.get("professional_insurance", ""),
+            "insurance_total_cover": answers.get("insurance_total_cover", ""),
+            "last_financial_review": answers.get("last_financial_review", ""),
+            "audit_firm": answers.get("audit_firm", ""),
+            "contracts_in_place": answers.get("contracts_in_place", ""),
+            "ip_protected": answers.get("ip_protected", ""),
+            "third_party_risk_management": answers.get("third_party_risk_management", ""),
+            "environmental_risk": answers.get("environmental_risk", ""),
+            "scenario_planning": answers.get("scenario_planning", ""),
+            "regulatory_bodies": answers.get("regulatory_bodies", ""),
+            "regulatory_status": answers.get("regulatory_status", ""),
         },
 
         # Context sub-twin
