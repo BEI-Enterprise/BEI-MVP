@@ -221,6 +221,18 @@ IMPACT_RATES = {
         "accountancy_firm": {"dimension": "revenue",          "low": 0.04, "high": 0.10},
         "default":          {"dimension": "revenue",          "low": 0.03, "high": 0.08},
     },
+    "stale_pricing_position": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.03, "high": 0.08},
+        "marketing_agency": {"dimension": "profit",           "low": 0.05, "high": 0.12},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.04, "high": 0.10},
+        "default":          {"dimension": "profit",           "low": 0.03, "high": 0.08},
+    },
+    "stale_price_review": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.02, "high": 0.06},
+        "marketing_agency": {"dimension": "profit",           "low": 0.03, "high": 0.08},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.03, "high": 0.08},
+        "default":          {"dimension": "profit",           "low": 0.02, "high": 0.06},
+    },
 }
 
 

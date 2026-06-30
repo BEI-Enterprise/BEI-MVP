@@ -46,6 +46,8 @@ INDUSTRY_RELEVANCE = {
         "client_churn_exceeds_growth": "high",
         "low_win_rate": "medium",
         "expansion_revenue_shortfall": "low",
+        "stale_pricing_position": "medium",
+        "stale_price_review": "medium",
     },
     "marketing_agency": {
         "trust_infrastructure_deficit": "medium",
@@ -77,6 +79,8 @@ INDUSTRY_RELEVANCE = {
         "client_churn_exceeds_growth": "high",
         "low_win_rate": "high",
         "expansion_revenue_shortfall": "medium",
+        "stale_pricing_position": "high",
+        "stale_price_review": "high",
     },
     "accountancy_firm": {
         "trust_infrastructure_deficit": "medium",
@@ -108,6 +112,8 @@ INDUSTRY_RELEVANCE = {
         "client_churn_exceeds_growth": "medium",
         "low_win_rate": "low",
         "expansion_revenue_shortfall": "medium",
+        "stale_pricing_position": "medium",
+        "stale_price_review": "medium",
     },
     "default": {
         "trust_infrastructure_deficit": "medium",
@@ -139,6 +145,8 @@ INDUSTRY_RELEVANCE = {
         "client_churn_exceeds_growth": "medium",
         "low_win_rate": "medium",
         "expansion_revenue_shortfall": "medium",
+        "stale_pricing_position": "medium",
+        "stale_price_review": "medium",
     },
 }
 
@@ -803,6 +811,44 @@ def detect_constraints(
             ],
             base_score=6,
             severity="medium",
+            industry=industry,
+        ))
+
+    # 30. Stale Pricing Position
+    price_position = twin["strategy"].get("price_vs_market", "")
+    if "below" in str(price_position).lower():
+        detected.append(_make_constraint(
+            key="stale_pricing_position",
+            name="Stale Pricing Position",
+            hypothesis="Pricing positioned below market indicates the business is leaving margin on the table relative to the value it delivers, and may be signalling lower quality than is actually the case.",
+            evidence=[
+                f"Pricing position reported as: '{price_position}'.",
+                "Below-market pricing typically reflects pricing strategy that hasn't kept pace with delivered value or market conditions.",
+                f"Strategy pillar score: {health['pillars']['strategy']['score']}.",
+            ],
+            base_score=6,
+            severity="medium",
+            industry=industry,
+        ))
+
+    # 31. Stale Price Review
+    last_increase = twin["strategy"].get("last_price_increase_months", "")
+    try:
+        months_since_increase = float(last_increase) if last_increase else None
+    except (ValueError, TypeError):
+        months_since_increase = None
+    if months_since_increase is not None and months_since_increase > 24:
+        detected.append(_make_constraint(
+            key="stale_price_review",
+            name="Stale Price Review",
+            hypothesis="No price increase in over 24 months, combined with inflation and rising cost-to-serve, is structurally eroding real margin even if headline revenue appears stable.",
+            evidence=[
+                f"Months since last price increase: {int(months_since_increase)}.",
+                "Exceeds the 24-month threshold considered the maximum healthy interval between pricing reviews.",
+                f"Strategy pillar score: {health['pillars']['strategy']['score']}.",
+            ],
+            base_score=7 if months_since_increase > 36 else 5,
+            severity="high" if months_since_increase > 36 else "medium",
             industry=industry,
         ))
 
