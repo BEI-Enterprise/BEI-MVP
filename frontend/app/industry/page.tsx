@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import DashboardShell from '../components/DashboardShell'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -258,6 +259,7 @@ export default function IndustryIntelligencePage() {
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [businessName, setBusinessName] = useState('Your Business')
   const [industryRaw, setIndustryRaw] = useState('')
+  const [businessId, setBusinessId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [showBenchmarksModal, setShowBenchmarksModal] = useState(false)
   const [showPerformersModal, setShowPerformersModal] = useState(false)
@@ -282,6 +284,7 @@ export default function IndustryIntelligencePage() {
           if (data) {
             setBusinessName(data.business_name || 'Your Business')
             setIndustryRaw(data.industry || '')
+            setBusinessId(data.id)
             if (data.mri_result && data.mri_result.mri_source !== 'free') setResult(data.mri_result)
             if (data.mri_answers) setAnswers(data.mri_answers)
           }
@@ -291,6 +294,11 @@ export default function IndustryIntelligencePage() {
     }
     load()
   }, [])
+
+  const { intelligence: liveIntelligence } = useLiveIntelligence(businessId, industryRaw)
+  useEffect(() => {
+    if (liveIntelligence) setResult(liveIntelligence)
+  }, [liveIntelligence])
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import DashboardShell from '../components/DashboardShell'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -42,6 +43,7 @@ export default function OutcomeDeploymentPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
   const [industry, setIndustry] = useState('')
+  const [businessId, setBusinessId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'overview'|'deployments'|'tracker'|'value'|'impact'>('overview')
   const [selectedDeploy, setSelectedDeploy] = useState<any>(null)
@@ -69,6 +71,7 @@ export default function OutcomeDeploymentPage() {
           if (data) {
             setBusinessName(data.business_name || 'Your Business')
             setIndustry(data.industry || '')
+            setBusinessId(data.id)
             if (data.mri_result && data.mri_result.mri_source !== 'free') setResult(data.mri_result)
           }
         }
@@ -77,6 +80,11 @@ export default function OutcomeDeploymentPage() {
     }
     load()
   }, [])
+
+  const { intelligence: liveIntelligence } = useLiveIntelligence(businessId, industry)
+  useEffect(() => {
+    if (liveIntelligence) setResult(liveIntelligence)
+  }, [liveIntelligence])
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import DashboardShell from '../components/DashboardShell'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -42,6 +43,8 @@ export default function ConstraintsPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
   const [loading, setLoading] = useState(true)
+  const [businessId, setBusinessId] = useState<string | null>(null)
+  const [liveIndustry, setLiveIndustry] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'active' | 'resolved' | 'monitoring'>('active')
   const [selectedConstraint, setSelectedConstraint] = useState<any>(null)
   const [showFullAnalysis, setShowFullAnalysis] = useState(false)
@@ -56,13 +59,15 @@ export default function ConstraintsPage() {
         if (user) {
           const { data } = await supabase
             .from('businesses')
-            .select('id, business_name, mri_result, location_country')
+            .select('id, business_name, mri_result, location_country, industry')
             .eq('email', user.email)
             .order('updated_at', { ascending: false })
             .limit(1)
             .single()
           if (data) {
             setBusinessName(data.business_name || 'Your Business')
+            setBusinessId(data.id)
+            setLiveIndustry(data.industry || null)
             if (data.mri_result && data.mri_result.mri_source !== 'free') {
               setResult(data.mri_result)
               setSelectedConstraint(data.mri_result.primary_constraint || null)
@@ -74,6 +79,11 @@ export default function ConstraintsPage() {
     }
     load()
   }, [])
+
+  const { intelligence: liveIntelligence } = useLiveIntelligence(businessId, liveIndustry)
+  useEffect(() => {
+    if (liveIntelligence) setResult(liveIntelligence)
+  }, [liveIntelligence])
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

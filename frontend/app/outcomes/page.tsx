@@ -7,21 +7,29 @@ import { colors, fontSize, fontWeight, navHeight, cardStyle, pageWrapper, conten
 const supabase = createClient()
 
 import DashboardShell from '../components/DashboardShell'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 export default function OutcomesPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
   const [loading, setLoading] = useState(true)
+  const [businessId, setBusinessId] = useState<string | null>(null)
+  const [liveIndustry, setLiveIndustry] = useState<string | null>(null)
 
   useEffect(() => {
     const load = async () => {
       try {
-        const { data } = await supabase.from('businesses').select('id, business_name, mri_result').eq('status', 'mri_complete').order('updated_at', { ascending: false }).limit(1).single()
-        if (data) { setBusinessName(data.business_name || 'Your Business'); if (data.mri_result) setResult(data.mri_result) }
+        const { data } = await supabase.from('businesses').select('id, business_name, mri_result, industry').eq('status', 'mri_complete').order('updated_at', { ascending: false }).limit(1).single()
+        if (data) { setBusinessName(data.business_name || 'Your Business'); setBusinessId(data.id); setLiveIndustry(data.industry || null); if (data.mri_result) setResult(data.mri_result) }
       } catch (e) {}
       setLoading(false)
     }
     load()
   }, [])
+
+  const { intelligence: liveIntelligence } = useLiveIntelligence(businessId, liveIndustry)
+  useEffect(() => {
+    if (liveIntelligence) setResult(liveIntelligence)
+  }, [liveIntelligence])
 
   const nav = [
     { label: 'Dashboard', href: '/dashboard' },

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import DashboardShell from '../components/DashboardShell'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -43,6 +44,8 @@ export default function IntelligenceOperationsPage() {
   const [connectors, setConnectors] = useState<any[]>([])
   const [businessName, setBusinessName] = useState('Your Business')
   const [loading, setLoading] = useState(true)
+  const [businessId, setBusinessId] = useState<string | null>(null)
+  const [liveIndustry, setLiveIndustry] = useState<string | null>(null)
   const [showAlertsModal, setShowAlertsModal] = useState(false)
   const [showIntegrationsModal, setShowIntegrationsModal] = useState(false)
   const [showSystemModal, setShowSystemModal] = useState(false)
@@ -56,13 +59,15 @@ export default function IntelligenceOperationsPage() {
         if (user) {
           const { data: biz } = await supabase
             .from('businesses')
-            .select('id, business_name, mri_result, updated_at')
+            .select('id, business_name, mri_result, updated_at, industry')
             .eq('email', user.email)
             .order('updated_at', { ascending: false })
             .limit(1)
             .single()
           if (biz) {
             setBusinessName(biz.business_name || 'Your Business')
+            setBusinessId(biz.id)
+            setLiveIndustry(biz.industry || null)
             if (biz.mri_result && biz.mri_result.mri_source !== 'free') setResult(biz.mri_result)
             const { data: conns } = await supabase
               .from('connectors')
@@ -77,6 +82,11 @@ export default function IntelligenceOperationsPage() {
     }
     load()
   }, [])
+
+  const { intelligence: liveIntelligence } = useLiveIntelligence(businessId, liveIndustry)
+  useEffect(() => {
+    if (liveIntelligence) setResult(liveIntelligence)
+  }, [liveIntelligence])
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

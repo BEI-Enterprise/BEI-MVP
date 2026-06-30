@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import DashboardShell from '../components/DashboardShell'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -42,6 +43,8 @@ export default function OpportunitiesPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
   const [loading, setLoading] = useState(true)
+  const [businessId, setBusinessId] = useState<string | null>(null)
+  const [liveIndustry, setLiveIndustry] = useState<string | null>(null)
   const [filterImpact, setFilterImpact] = useState<string[]>([])
   const [filterTime, setFilterTime] = useState('All Timeframes')
   const [filterType, setFilterType] = useState('All Types')
@@ -68,6 +71,8 @@ export default function OpportunitiesPage() {
             .single()
           if (data) {
             setBusinessName(data.business_name || 'Your Business')
+            setBusinessId(data.id)
+            setLiveIndustry(data.industry || null)
             if (data.mri_result && data.mri_result.mri_source !== 'free') setResult(data.mri_result)
           }
         }
@@ -76,6 +81,11 @@ export default function OpportunitiesPage() {
     }
     load()
   }, [])
+
+  const { intelligence: liveIntelligence } = useLiveIntelligence(businessId, liveIndustry)
+  useEffect(() => {
+    if (liveIntelligence) setResult(liveIntelligence)
+  }, [liveIntelligence])
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

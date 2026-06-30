@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import DashboardShell from '../components/DashboardShell'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -43,6 +44,8 @@ export default function PerformancePage() {
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [businessName, setBusinessName] = useState('Your Business')
   const [loading, setLoading] = useState(true)
+  const [businessId, setBusinessId] = useState<string | null>(null)
+  const [liveIndustry, setLiveIndustry] = useState<string | null>(null)
   const [showFullAnalysis, setShowFullAnalysis] = useState(false)
   const [showFullScorecard, setShowFullScorecard] = useState(false)
   const [showStrengthsModal, setShowStrengthsModal] = useState(false)
@@ -58,13 +61,15 @@ export default function PerformancePage() {
         if (user) {
           const { data } = await supabase
             .from('businesses')
-            .select('id, business_name, mri_result, mri_answers')
+            .select('id, business_name, mri_result, mri_answers, industry')
             .eq('email', user.email)
             .order('updated_at', { ascending: false })
             .limit(1)
             .single()
           if (data) {
             setBusinessName(data.business_name || 'Your Business')
+            setBusinessId(data.id)
+            setLiveIndustry(data.industry || null)
             if (data.mri_result && data.mri_result.mri_source !== 'free') setResult(data.mri_result)
             if (data.mri_answers) setAnswers(data.mri_answers)
           }
@@ -74,6 +79,11 @@ export default function PerformancePage() {
     }
     load()
   }, [])
+
+  const { intelligence: liveIntelligence } = useLiveIntelligence(businessId, liveIndustry)
+  useEffect(() => {
+    if (liveIntelligence) setResult(liveIntelligence)
+  }, [liveIntelligence])
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

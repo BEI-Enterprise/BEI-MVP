@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '../../lib/supabase'
 import DashboardShell from '../components/DashboardShell'
+import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
 
 const supabase = createClient()
 const gold = '#C8A24A'
@@ -42,6 +43,8 @@ export default function RiskIntelligencePage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
   const [loading, setLoading] = useState(true)
+  const [businessId, setBusinessId] = useState<string | null>(null)
+  const [liveIndustry, setLiveIndustry] = useState<string | null>(null)
   const [showHeatMapModal, setShowHeatMapModal] = useState(false)
   const [showRiskRegisterModal, setShowRiskRegisterModal] = useState(false)
   const [showBreakdownModal, setShowBreakdownModal] = useState(false)
@@ -65,6 +68,8 @@ export default function RiskIntelligencePage() {
             .single()
           if (data) {
             setBusinessName(data.business_name || 'Your Business')
+            setBusinessId(data.id)
+            setLiveIndustry(data.industry || null)
             if (data.mri_result && data.mri_result.mri_source !== 'free') setResult(data.mri_result)
           }
         }
@@ -73,6 +78,11 @@ export default function RiskIntelligencePage() {
     }
     load()
   }, [])
+
+  const { intelligence: liveIntelligence } = useLiveIntelligence(businessId, liveIndustry)
+  useEffect(() => {
+    if (liveIntelligence) setResult(liveIntelligence)
+  }, [liveIntelligence])
 
   if (loading) return (
     <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
