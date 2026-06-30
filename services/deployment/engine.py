@@ -459,6 +459,188 @@ DEPLOYMENT_CATALOGUE = {
             "rollback_plan": "N/A — recommendation only.",
         },
     ],
+
+    # ---------- Batch 7.1 (Finance) ----------
+    "weak_gross_margin": [
+        {
+            "tier": 1,
+            "tier_name": "Automatic",
+            "action_type": "margin_monitoring",
+            "action_title": "Activate Gross Margin Monitoring & Alerts",
+            "action_description": (
+                "Automatically track gross margin monthly against the industry "
+                "benchmark and the business's own historical baseline. "
+                "Trigger an alert if margin drops below the threshold or "
+                "declines for two consecutive months."
+            ),
+            "implementation_steps": [
+                "Pull monthly revenue and COGS from connected financial data",
+                "Calculate gross margin % monthly",
+                "Compare against industry benchmark and 12-month rolling average",
+                "Trigger alert on breach of threshold or 2-month consecutive decline",
+                "Log margin trend to the Business Twin for the Learning Engine",
+            ],
+            "expected_outcome": (
+                "Margin deterioration is flagged within 30 days of occurring, "
+                "rather than discovered at year-end."
+            ),
+            "measurement_plan": (
+                "Track: gross margin % monthly, variance vs benchmark, "
+                "time-to-alert from first deterioration."
+            ),
+            "requires_approval": False,
+            "rollback_plan": "Disable margin monitoring alerts. No data loss; historical tracking remains.",
+        },
+        {
+            "tier": 3,
+            "tier_name": "Recommendation",
+            "action_type": "margin_restructuring",
+            "action_title": "Gross Margin Improvement Plan",
+            "action_description": (
+                "BEI prepares a structured margin diagnosis — pricing position, "
+                "input cost trends, and service/product mix — and a prioritised "
+                "set of margin-improvement options for the owner to evaluate "
+                "and execute. Human judgement and negotiation required; "
+                "not software-executable."
+            ),
+            "implementation_steps": [
+                "Break down margin erosion by cost driver (COGS, labour, discounting)",
+                "Benchmark pricing and costs against industry comparables",
+                "Identify highest-impact, lowest-disruption improvement levers",
+                "Present prioritised recommendations with estimated margin impact",
+                "Owner reviews and decides which actions to pursue",
+            ],
+            "expected_outcome": (
+                "Owner has a clear, evidenced set of options to close the "
+                "margin gap, ranked by expected impact and difficulty."
+            ),
+            "measurement_plan": (
+                "Track: gross margin % at 90/180 days post-recommendation "
+                "vs. the plan's projected improvement."
+            ),
+            "requires_approval": True,
+            "rollback_plan": "No system changes are made automatically; nothing to roll back.",
+        },
+    ],
+
+    "profitability_erosion": [
+        {
+            "tier": 1,
+            "tier_name": "Automatic",
+            "action_type": "profitability_monitoring",
+            "action_title": "Activate Profitability Trend Monitoring",
+            "action_description": (
+                "Automatically track net/operating profit trend monthly, "
+                "isolating whether erosion is revenue-driven, cost-driven, "
+                "or both, and alert on sustained decline."
+            ),
+            "implementation_steps": [
+                "Pull monthly revenue, COGS, and operating expense data",
+                "Calculate operating margin trend over trailing 6 months",
+                "Decompose trend into revenue vs. cost contribution",
+                "Trigger alert on 2+ consecutive months of margin decline",
+                "Log profitability trend to the Business Twin",
+            ],
+            "expected_outcome": (
+                "Profitability erosion is identified and attributed to a "
+                "cause (revenue or cost) within 30 days of onset."
+            ),
+            "measurement_plan": (
+                "Track: operating margin % monthly, erosion attribution accuracy, "
+                "time-to-alert."
+            ),
+            "requires_approval": False,
+            "rollback_plan": "Disable profitability monitoring alerts. No data loss.",
+        },
+        {
+            "tier": 3,
+            "tier_name": "Recommendation",
+            "action_type": "profitability_recovery_plan",
+            "action_title": "Profitability Recovery Plan",
+            "action_description": (
+                "BEI prepares a diagnosis of whether erosion is structural "
+                "(pricing, cost base) or cyclical (one-off cost spike, "
+                "temporary revenue dip), with recommended corrective actions. "
+                "Requires owner judgement and execution."
+            ),
+            "implementation_steps": [
+                "Classify erosion as structural vs. cyclical using trend data",
+                "Identify largest controllable cost and revenue levers",
+                "Model the profit impact of 2-3 corrective scenarios",
+                "Present recommendations ranked by impact and risk",
+                "Owner reviews and decides on execution",
+            ],
+            "expected_outcome": (
+                "Owner has an evidenced view of why profitability is eroding "
+                "and a ranked set of corrective options."
+            ),
+            "measurement_plan": (
+                "Track: operating margin % at 90/180 days vs. pre-erosion baseline."
+            ),
+            "requires_approval": True,
+            "rollback_plan": "No system changes are made automatically; nothing to roll back.",
+        },
+    ],
+
+    "cash_runway_risk": [
+        {
+            "tier": 1,
+            "tier_name": "Automatic",
+            "action_type": "runway_monitoring",
+            "action_title": "Activate Cash Runway Monitoring & Early Warning",
+            "action_description": (
+                "Automatically calculate cash runway monthly from current cash "
+                "position and trailing burn rate, and trigger an escalating "
+                "alert as runway shortens below safe thresholds."
+            ),
+            "implementation_steps": [
+                "Pull current cash position and monthly burn rate",
+                "Calculate runway in months (cash / average monthly burn)",
+                "Set alert thresholds (e.g. <6 months, <3 months)",
+                "Trigger escalating alert as runway crosses each threshold",
+                "Log runway trend to the Business Twin",
+            ],
+            "expected_outcome": (
+                "Owner has continuous visibility of runway with no more than "
+                "a 30-day lag, and an early warning before the position becomes critical."
+            ),
+            "measurement_plan": (
+                "Track: runway in months monthly, alert lead time before "
+                "critical threshold, false-alarm rate."
+            ),
+            "requires_approval": False,
+            "rollback_plan": "Disable runway monitoring alerts. No data loss.",
+        },
+        {
+            "tier": 3,
+            "tier_name": "Recommendation",
+            "action_type": "cash_preservation_plan",
+            "action_title": "Cash Runway Extension Plan",
+            "action_description": (
+                "BEI prepares a structured options analysis for extending "
+                "runway — cost reduction, collections acceleration, financing, "
+                "or revenue actions — with estimated impact on runway. "
+                "Financial and legal judgement required; not software-executable."
+            ),
+            "implementation_steps": [
+                "Identify largest near-term controllable cash levers (cost, collections)",
+                "Estimate runway extension from each lever in isolation and combined",
+                "Flag any financing or facility options worth exploring",
+                "Present ranked options with estimated runway impact and risk",
+                "Owner reviews and decides which actions to pursue",
+            ],
+            "expected_outcome": (
+                "Owner has a clear, evidenced set of options to extend runway "
+                "before the position becomes critical, ranked by impact and speed."
+            ),
+            "measurement_plan": (
+                "Track: runway in months at 30/60/90 days post-recommendation "
+                "vs. the plan's projected extension."
+            ),
+            "requires_approval": True,
+            "rollback_plan": "No system changes are made automatically; nothing to roll back.",
+        },
+    ],
 }
 
 
