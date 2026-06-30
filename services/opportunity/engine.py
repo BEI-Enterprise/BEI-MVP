@@ -233,6 +233,36 @@ IMPACT_RATES = {
         "accountancy_firm": {"dimension": "profit",           "low": 0.03, "high": 0.08},
         "default":          {"dimension": "profit",           "low": 0.02, "high": 0.06},
     },
+    "low_process_documentation": {
+        "estate_agency":    {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+        "marketing_agency": {"dimension": "capacity",         "low": 0.03, "high": 0.07},
+        "accountancy_firm": {"dimension": "capacity",         "low": 0.03, "high": 0.08},
+        "default":          {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+    },
+    "low_automation_coverage": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.02, "high": 0.06},
+        "marketing_agency": {"dimension": "profit",           "low": 0.03, "high": 0.08},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.04, "high": 0.10},
+        "default":          {"dimension": "profit",           "low": 0.02, "high": 0.06},
+    },
+    "low_operational_resilience": {
+        "estate_agency":    {"dimension": "risk_reduction",   "low": 0.05, "high": 0.14},
+        "marketing_agency": {"dimension": "risk_reduction",   "low": 0.05, "high": 0.14},
+        "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.05, "high": 0.14},
+        "default":          {"dimension": "risk_reduction",   "low": 0.05, "high": 0.14},
+    },
+    "no_business_continuity_plan": {
+        "estate_agency":    {"dimension": "risk_reduction",   "low": 0.05, "high": 0.15},
+        "marketing_agency": {"dimension": "risk_reduction",   "low": 0.05, "high": 0.15},
+        "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.06, "high": 0.16},
+        "default":          {"dimension": "risk_reduction",   "low": 0.05, "high": 0.15},
+    },
+    "high_absenteeism": {
+        "estate_agency":    {"dimension": "capacity",         "low": 0.02, "high": 0.05},
+        "marketing_agency": {"dimension": "capacity",         "low": 0.02, "high": 0.05},
+        "accountancy_firm": {"dimension": "capacity",         "low": 0.02, "high": 0.05},
+        "default":          {"dimension": "capacity",         "low": 0.02, "high": 0.05},
+    },
 }
 
 

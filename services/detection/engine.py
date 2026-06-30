@@ -48,6 +48,11 @@ INDUSTRY_RELEVANCE = {
         "expansion_revenue_shortfall": "low",
         "stale_pricing_position": "medium",
         "stale_price_review": "medium",
+        "low_process_documentation": "medium",
+        "low_automation_coverage": "medium",
+        "low_operational_resilience": "medium",
+        "no_business_continuity_plan": "medium",
+        "high_absenteeism": "medium",
     },
     "marketing_agency": {
         "trust_infrastructure_deficit": "medium",
@@ -81,6 +86,11 @@ INDUSTRY_RELEVANCE = {
         "expansion_revenue_shortfall": "medium",
         "stale_pricing_position": "high",
         "stale_price_review": "high",
+        "low_process_documentation": "medium",
+        "low_automation_coverage": "high",
+        "low_operational_resilience": "medium",
+        "no_business_continuity_plan": "medium",
+        "high_absenteeism": "low",
     },
     "accountancy_firm": {
         "trust_infrastructure_deficit": "medium",
@@ -114,6 +124,11 @@ INDUSTRY_RELEVANCE = {
         "expansion_revenue_shortfall": "medium",
         "stale_pricing_position": "medium",
         "stale_price_review": "medium",
+        "low_process_documentation": "high",
+        "low_automation_coverage": "high",
+        "low_operational_resilience": "medium",
+        "no_business_continuity_plan": "high",
+        "high_absenteeism": "low",
     },
     "default": {
         "trust_infrastructure_deficit": "medium",
@@ -147,6 +162,11 @@ INDUSTRY_RELEVANCE = {
         "expansion_revenue_shortfall": "medium",
         "stale_pricing_position": "medium",
         "stale_price_review": "medium",
+        "low_process_documentation": "medium",
+        "low_automation_coverage": "medium",
+        "low_operational_resilience": "medium",
+        "no_business_continuity_plan": "medium",
+        "high_absenteeism": "medium",
     },
 }
 
@@ -849,6 +869,103 @@ def detect_constraints(
             ],
             base_score=7 if months_since_increase > 36 else 5,
             severity="high" if months_since_increase > 36 else "medium",
+            industry=industry,
+        ))
+
+    # 32. Low Process Documentation
+    documented = twin["operations"].get("documented_processes", "")
+    if str(documented).lower() in ["no", "none", "minimal", "not at all"]:
+        detected.append(_make_constraint(
+            key="low_process_documentation",
+            name="Low Process Documentation",
+            hypothesis="Undocumented core processes create dependency on specific individuals, slow onboarding, and make the business harder to scale, delegate or sell.",
+            evidence=[
+                f"Core process documentation status: '{documented}'.",
+                "Undocumented processes are a common root cause of inconsistent delivery quality and key person dependency.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=6,
+            severity="medium",
+            industry=industry,
+        ))
+
+    # 33. Low Automation Coverage
+    automation = twin["operations"].get("automation_level", "")
+    try:
+        automation_pct = float(automation) if automation else None
+    except (ValueError, TypeError):
+        automation_pct = None
+    if automation_pct is not None and automation_pct < 30:
+        detected.append(_make_constraint(
+            key="low_automation_coverage",
+            name="Low Automation Coverage",
+            hypothesis="Low process automation coverage indicates manual, labour-intensive operations that cap margin and create a capacity ceiling as the business scales.",
+            evidence=[
+                f"Process automation coverage: {automation_pct}%.",
+                "Below the 30% threshold considered a healthy baseline for a scaling services business.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=6,
+            severity="medium",
+            industry=industry,
+        ))
+
+    # 34. Low Operational Resilience
+    resilience = twin["operations"].get("operational_resilience_score", "")
+    try:
+        resilience_score = float(resilience) if resilience else None
+    except (ValueError, TypeError):
+        resilience_score = None
+    if resilience_score is not None and resilience_score < 5:
+        detected.append(_make_constraint(
+            key="low_operational_resilience",
+            name="Low Operational Resilience",
+            hypothesis="A low self-assessed operational resilience score indicates the business is poorly prepared to absorb shocks such as key staff loss, supplier failure or demand spikes without serious disruption.",
+            evidence=[
+                f"Operational resilience self-assessment: {resilience_score}/10.",
+                "Below the 5/10 threshold considered the minimum for a business resilient to common operational shocks.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=7 if resilience_score < 3 else 5,
+            severity="high" if resilience_score < 3 else "medium",
+            industry=industry,
+        ))
+
+    # 35. No Business Continuity Plan
+    continuity_plan = twin["operations"].get("business_continuity_plan", "")
+    if str(continuity_plan).lower() in ["no", "none"]:
+        detected.append(_make_constraint(
+            key="no_business_continuity_plan",
+            name="No Business Continuity Plan",
+            hypothesis="Absence of a business continuity plan leaves the business exposed to extended disruption from events that a documented plan would otherwise mitigate.",
+            evidence=[
+                f"Business continuity plan in place: '{continuity_plan}'.",
+                "No formal continuity plan increases recovery time and risk severity in the event of disruption.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=6,
+            severity="medium",
+            industry=industry,
+        ))
+
+    # 36. High Absenteeism
+    absenteeism = twin["people"].get("absenteeism_rate_pct", "")
+    try:
+        absenteeism_pct = float(absenteeism) if absenteeism else None
+    except (ValueError, TypeError):
+        absenteeism_pct = None
+    if absenteeism_pct is not None and absenteeism_pct > 6:
+        detected.append(_make_constraint(
+            key="high_absenteeism",
+            name="High Absenteeism",
+            hypothesis="Absenteeism above a healthy threshold is often a leading indicator of low engagement, burnout or management issues, and directly erodes delivery capacity.",
+            evidence=[
+                f"Absenteeism rate: {absenteeism_pct}%.",
+                "Exceeds the 6% threshold considered the upper bound of healthy absenteeism for a services business.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=7 if absenteeism_pct > 10 else 5,
+            severity="high" if absenteeism_pct > 10 else "medium",
             industry=industry,
         ))
 
