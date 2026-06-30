@@ -35,6 +35,12 @@ INDUSTRY_RELEVANCE = {
         "governance_maturity_gap": "low",
         "delivery_execution_gap": "medium",
         "systematic_discounting_erosion": "low",
+        "weak_gross_margin": "medium",
+        "profitability_erosion": "high",
+        "cash_runway_risk": "high",
+        "unfavourable_cac_ltv_ratio": "medium",
+        "excessive_leverage": "high",
+        "revenue_growth_stagnation": "medium",
     },
     "marketing_agency": {
         "trust_infrastructure_deficit": "medium",
@@ -55,6 +61,12 @@ INDUSTRY_RELEVANCE = {
         "governance_maturity_gap": "medium",
         "delivery_execution_gap": "high",
         "systematic_discounting_erosion": "high",
+        "weak_gross_margin": "high",
+        "profitability_erosion": "high",
+        "cash_runway_risk": "high",
+        "unfavourable_cac_ltv_ratio": "high",
+        "excessive_leverage": "medium",
+        "revenue_growth_stagnation": "high",
     },
     "accountancy_firm": {
         "trust_infrastructure_deficit": "medium",
@@ -75,6 +87,12 @@ INDUSTRY_RELEVANCE = {
         "governance_maturity_gap": "medium",
         "delivery_execution_gap": "high",
         "systematic_discounting_erosion": "medium",
+        "weak_gross_margin": "high",
+        "profitability_erosion": "high",
+        "cash_runway_risk": "medium",
+        "unfavourable_cac_ltv_ratio": "low",
+        "excessive_leverage": "medium",
+        "revenue_growth_stagnation": "medium",
     },
     "default": {
         "trust_infrastructure_deficit": "medium",
@@ -95,6 +113,12 @@ INDUSTRY_RELEVANCE = {
         "governance_maturity_gap": "medium",
         "delivery_execution_gap": "medium",
         "systematic_discounting_erosion": "medium",
+        "weak_gross_margin": "medium",
+        "profitability_erosion": "high",
+        "cash_runway_risk": "high",
+        "unfavourable_cac_ltv_ratio": "medium",
+        "excessive_leverage": "medium",
+        "revenue_growth_stagnation": "medium",
     },
 }
 
@@ -516,6 +540,138 @@ def detect_constraints(
             ],
             base_score=7 if discount_pct > 25 else 5,
             severity="high" if discount_pct > 25 else "medium",
+            industry=industry,
+        ))
+
+    # 19. Weak Gross Margin
+    gross_margin = twin["financial"].get("gross_margin_pct", "")
+    try:
+        gross_margin_pct = float(gross_margin) if gross_margin else None
+    except (ValueError, TypeError):
+        gross_margin_pct = None
+    if gross_margin_pct is not None and gross_margin_pct < 40:
+        detected.append(_make_constraint(
+            key="weak_gross_margin",
+            name="Weak Gross Margin",
+            hypothesis="Gross margin below a healthy threshold for this business model indicates pricing, cost-of-delivery or service-mix issues eroding profitability at the most fundamental level.",
+            evidence=[
+                f"Gross margin: {gross_margin_pct}%.",
+                "Below the 40% threshold typical for healthy professional/agency service margins.",
+                f"Strategy pillar score: {health['pillars']['strategy']['score']}.",
+            ],
+            base_score=8 if gross_margin_pct < 25 else 6,
+            severity="high" if gross_margin_pct < 25 else "medium",
+            industry=industry,
+        ))
+
+    # 20. Profitability Erosion
+    ebitda = twin["financial"].get("ebitda", "")
+    annual_revenue = twin["financial"].get("annual_revenue", "")
+    try:
+        ebitda_val = float(ebitda) if ebitda else None
+        revenue_val = float(annual_revenue) if annual_revenue else None
+        ebitda_margin = (ebitda_val / revenue_val * 100) if ebitda_val is not None and revenue_val else None
+    except (ValueError, TypeError, ZeroDivisionError):
+        ebitda_margin = None
+    if ebitda_margin is not None and ebitda_margin < 10:
+        detected.append(_make_constraint(
+            key="profitability_erosion",
+            name="Profitability Erosion",
+            hypothesis="EBITDA margin below a sustainable threshold indicates the business is converting revenue into profit far less efficiently than it should be, directly suppressing enterprise value.",
+            evidence=[
+                f"EBITDA margin: {round(ebitda_margin, 1)}% (EBITDA of {ebitda_val:,.0f} on revenue of {revenue_val:,.0f}).",
+                "Below the 10% threshold associated with a financially healthy services business.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=8 if ebitda_margin < 0 else 6,
+            severity="high" if ebitda_margin < 0 else "medium",
+            industry=industry,
+        ))
+
+    # 21. Cash Runway Risk
+    cash_runway = twin["risk"].get("cash_runway_months", "")
+    try:
+        runway_months = float(cash_runway) if cash_runway else None
+    except (ValueError, TypeError):
+        runway_months = None
+    if runway_months is not None and runway_months < 6:
+        detected.append(_make_constraint(
+            key="cash_runway_risk",
+            name="Cash Runway Risk",
+            hypothesis="Cash runway below a safe threshold at current burn rate creates existential financial risk and limits strategic flexibility.",
+            evidence=[
+                f"Cash runway at current burn rate: {runway_months} months.",
+                "Below the 6-month threshold considered a safe minimum buffer for an enterprise-scale business.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=9 if runway_months < 3 else 7,
+            severity="high" if runway_months < 3 else "medium",
+            industry=industry,
+        ))
+
+    # 22. Unfavourable CAC:LTV Ratio
+    cac = twin["financial"].get("cac", "")
+    ltv = twin["financial"].get("customer_lifetime_value", "")
+    try:
+        cac_val = float(cac) if cac else None
+        ltv_val = float(ltv) if ltv else None
+        ltv_cac_ratio = (ltv_val / cac_val) if cac_val and ltv_val is not None else None
+    except (ValueError, TypeError, ZeroDivisionError):
+        ltv_cac_ratio = None
+    if ltv_cac_ratio is not None and ltv_cac_ratio < 3:
+        detected.append(_make_constraint(
+            key="unfavourable_cac_ltv_ratio",
+            name="Unfavourable CAC:LTV Ratio",
+            hypothesis="A weak lifetime-value-to-acquisition-cost ratio means growth is structurally expensive or unprofitable, undermining the unit economics of new client acquisition.",
+            evidence=[
+                f"LTV:CAC ratio: {round(ltv_cac_ratio, 1)}:1 (LTV {ltv_val:,.0f} vs CAC {cac_val:,.0f}).",
+                "Below the 3:1 ratio considered the minimum for healthy, scalable acquisition economics.",
+                f"Growth pillar score: {health['pillars']['growth']['score']}.",
+            ],
+            base_score=7 if ltv_cac_ratio < 1.5 else 5,
+            severity="high" if ltv_cac_ratio < 1.5 else "medium",
+            industry=industry,
+        ))
+
+    # 23. Excessive Leverage
+    debt_to_ebitda = twin["risk"].get("debt_to_ebitda", "")
+    try:
+        leverage_multiple = float(debt_to_ebitda) if debt_to_ebitda else None
+    except (ValueError, TypeError):
+        leverage_multiple = None
+    if leverage_multiple is not None and leverage_multiple > 3:
+        detected.append(_make_constraint(
+            key="excessive_leverage",
+            name="Excessive Leverage",
+            hypothesis="Debt-to-EBITDA above a sustainable multiple constrains financial flexibility, increases refinancing risk and can suppress valuation multiples at exit.",
+            evidence=[
+                f"Debt-to-EBITDA ratio: {leverage_multiple}x.",
+                "Above the 3x multiple generally considered the upper bound of sustainable leverage for a services business.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=8 if leverage_multiple > 5 else 6,
+            severity="high" if leverage_multiple > 5 else "medium",
+            industry=industry,
+        ))
+
+    # 24. Revenue Growth Stagnation
+    growth_rate = twin["financial"].get("revenue_growth_rate_pct", "")
+    try:
+        growth_pct = float(growth_rate) if growth_rate else None
+    except (ValueError, TypeError):
+        growth_pct = None
+    if growth_pct is not None and growth_pct < 5:
+        detected.append(_make_constraint(
+            key="revenue_growth_stagnation",
+            name="Revenue Growth Stagnation",
+            hypothesis="Flat or declining revenue growth at this scale signals that existing growth drivers have plateaued and structural intervention is needed, not just incremental sales effort.",
+            evidence=[
+                f"Revenue growth rate: {growth_pct}%.",
+                "Below the 5% threshold considered the minimum healthy growth rate for an enterprise-scale services business.",
+                f"Growth pillar score: {health['pillars']['growth']['score']}.",
+            ],
+            base_score=7 if growth_pct < 0 else 5,
+            severity="high" if growth_pct < 0 else "medium",
             industry=industry,
         ))
 

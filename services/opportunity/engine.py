@@ -155,6 +155,42 @@ IMPACT_RATES = {
         "accountancy_firm": {"dimension": "profit",           "low": 0.04, "high": 0.10},
         "default":          {"dimension": "profit",           "low": 0.05, "high": 0.12},
     },
+    "weak_gross_margin": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.04, "high": 0.10},
+        "marketing_agency": {"dimension": "profit",           "low": 0.06, "high": 0.14},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.06, "high": 0.14},
+        "default":          {"dimension": "profit",           "low": 0.04, "high": 0.10},
+    },
+    "profitability_erosion": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.06, "high": 0.15},
+        "marketing_agency": {"dimension": "profit",           "low": 0.06, "high": 0.15},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.06, "high": 0.15},
+        "default":          {"dimension": "profit",           "low": 0.06, "high": 0.15},
+    },
+    "cash_runway_risk": {
+        "estate_agency":    {"dimension": "risk_reduction",   "low": 0.10, "high": 0.25},
+        "marketing_agency": {"dimension": "risk_reduction",   "low": 0.10, "high": 0.25},
+        "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.08, "high": 0.20},
+        "default":          {"dimension": "risk_reduction",   "low": 0.10, "high": 0.25},
+    },
+    "unfavourable_cac_ltv_ratio": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.04, "high": 0.10},
+        "marketing_agency": {"dimension": "profit",           "low": 0.06, "high": 0.14},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.03, "high": 0.08},
+        "default":          {"dimension": "profit",           "low": 0.04, "high": 0.10},
+    },
+    "excessive_leverage": {
+        "estate_agency":    {"dimension": "risk_reduction",   "low": 0.08, "high": 0.20},
+        "marketing_agency": {"dimension": "risk_reduction",   "low": 0.06, "high": 0.15},
+        "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.06, "high": 0.15},
+        "default":          {"dimension": "risk_reduction",   "low": 0.06, "high": 0.15},
+    },
+    "revenue_growth_stagnation": {
+        "estate_agency":    {"dimension": "revenue",          "low": 0.04, "high": 0.10},
+        "marketing_agency": {"dimension": "revenue",          "low": 0.06, "high": 0.14},
+        "accountancy_firm": {"dimension": "revenue",          "low": 0.03, "high": 0.08},
+        "default":          {"dimension": "revenue",          "low": 0.04, "high": 0.10},
+    },
 }
 
 
