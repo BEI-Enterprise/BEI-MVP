@@ -143,6 +143,18 @@ IMPACT_RATES = {
         "accountancy_firm": {"dimension": "enterprise_value", "low": 0.06, "high": 0.14},
         "default":          {"dimension": "enterprise_value", "low": 0.04, "high": 0.10},
     },
+    "delivery_execution_gap": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.04, "high": 0.10},
+        "marketing_agency": {"dimension": "profit",           "low": 0.05, "high": 0.12},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.06, "high": 0.14},
+        "default":          {"dimension": "profit",           "low": 0.04, "high": 0.10},
+    },
+    "systematic_discounting_erosion": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.05, "high": 0.12},
+        "marketing_agency": {"dimension": "profit",           "low": 0.06, "high": 0.15},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.04, "high": 0.10},
+        "default":          {"dimension": "profit",           "low": 0.05, "high": 0.12},
+    },
 }
 
 

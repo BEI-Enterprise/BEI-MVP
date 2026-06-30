@@ -17,6 +17,59 @@ REVENUE_MIDPOINTS = {
 }
 
 
+def _resolve_concentration_band(answers: dict) -> str:
+    """
+    Reconciles top_3_clients_revenue_pct (numeric, enterprise manual
+    data) with revenue_concentration (banded string, original MRI
+    intake) -- both represent the same real-world fact (concentration
+    of revenue in top clients) and must not exist as two competing
+    signals in the twin. Prefers the numeric when present.
+    """
+    numeric = answers.get("top_3_clients_revenue_pct", "")
+    if numeric:
+        try:
+            pct = float(numeric)
+            if pct < 20:
+                return "Less than a fifth"
+            if pct < 40:
+                return "A fifth to two-fifths"
+            if pct < 60:
+                return "Two-fifths to three-fifths"
+            if pct < 80:
+                return "Three-fifths to four-fifths"
+            return "Most of it"
+        except (ValueError, TypeError):
+            pass
+    return answers.get("revenue_concentration", "")
+
+
+def _resolve_capacity_band(answers: dict) -> str:
+    """
+    Reconciles avg_utilisation_pct (numeric, enterprise manual data)
+    with capacity_utilisation (banded string, original MRI intake) --
+    both represent the same real-world fact (team capacity load) and
+    must not exist as two competing signals in the twin.
+    Prefers the numeric when present, since it is more precise;
+    falls back to the original banded answer otherwise.
+    """
+    numeric = answers.get("avg_utilisation_pct", "")
+    if numeric:
+        try:
+            pct = float(numeric)
+            if pct < 50:
+                return "Less than half"
+            if pct < 70:
+                return "About half to 70%"
+            if pct < 85:
+                return "70-85%"
+            if pct < 95:
+                return "85-95%"
+            return "Fully stretched"
+        except (ValueError, TypeError):
+            pass
+    return answers.get("capacity_utilisation", "")
+
+
 def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue_band: str) -> dict[str, Any]:
     """
     Build a Business Twin from intake answers.
@@ -50,19 +103,21 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "avg_client_value": answers.get("avg_client_value", ""),
             "pricing_confidence": answers.get("pricing_confidence", ""),
             "offer_clarity": answers.get("offer_clarity", ""),
+            "avg_response_time_hours": answers.get("avg_response_time_hours", ""),
         },
 
         # Operations sub-twin
         "operations": {
             "team_size": answers.get("team_size", ""),
-            "capacity_utilisation": answers.get("capacity_utilisation", ""),
+            "capacity_utilisation": _resolve_capacity_band(answers),
             "delivery_bottleneck": answers.get("delivery_bottleneck", ""),
+            "project_on_time_pct": answers.get("project_on_time_pct", ""),
         },
 
         # Risk sub-twin
         "risk": {
             "founder_dependency": answers.get("founder_dependency", ""),
-            "revenue_concentration": answers.get("revenue_concentration", ""),
+            "revenue_concentration": _resolve_concentration_band(answers),
             "key_person_risk": answers.get("key_person_risk", ""),
             "cash_flow_stability": answers.get("cash_flow_stability", ""),
             "client_retention": answers.get("client_retention", ""),
@@ -88,6 +143,7 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
         # Strategy sub-twin
         "strategy": {
             "revenue_target_12m": answers.get("revenue_target_12m", ""),
+            "avg_discount_pct": answers.get("avg_discount_pct", ""),
             "primary_growth_strategy": answers.get("primary_growth_strategy", ""),
             "strategic_blockers": answers.get("strategic_blockers", ""),
             "competitive_advantage": answers.get("competitive_advantage", ""),

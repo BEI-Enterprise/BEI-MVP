@@ -33,6 +33,8 @@ INDUSTRY_RELEVANCE = {
         "cyber_security_exposure": "low",
         "client_concentration_risk_enterprise": "high",
         "governance_maturity_gap": "low",
+        "delivery_execution_gap": "medium",
+        "systematic_discounting_erosion": "low",
     },
     "marketing_agency": {
         "trust_infrastructure_deficit": "medium",
@@ -51,6 +53,8 @@ INDUSTRY_RELEVANCE = {
         "cyber_security_exposure": "low",
         "client_concentration_risk_enterprise": "medium",
         "governance_maturity_gap": "medium",
+        "delivery_execution_gap": "high",
+        "systematic_discounting_erosion": "high",
     },
     "accountancy_firm": {
         "trust_infrastructure_deficit": "medium",
@@ -69,6 +73,8 @@ INDUSTRY_RELEVANCE = {
         "cyber_security_exposure": "medium",
         "client_concentration_risk_enterprise": "medium",
         "governance_maturity_gap": "medium",
+        "delivery_execution_gap": "high",
+        "systematic_discounting_erosion": "medium",
     },
     "default": {
         "trust_infrastructure_deficit": "medium",
@@ -87,6 +93,8 @@ INDUSTRY_RELEVANCE = {
         "cyber_security_exposure": "medium",
         "client_concentration_risk_enterprise": "medium",
         "governance_maturity_gap": "medium",
+        "delivery_execution_gap": "medium",
+        "systematic_discounting_erosion": "medium",
     },
 }
 
@@ -173,18 +181,29 @@ def detect_constraints(
 
     # 2. Lead Response Deficit
     conversion = twin["sales"].get("conversion_rate", "")
-    if conversion in ["Less than 1 in 10", "1-2 in 10"]:
+    response_time = twin["sales"].get("avg_response_time_hours", "")
+    try:
+        response_hours = float(response_time) if response_time else None
+    except (ValueError, TypeError):
+        response_hours = None
+    slow_response = response_hours is not None and response_hours > 4
+    low_conversion = conversion in ["Less than 1 in 10", "1-2 in 10"]
+    if low_conversion or slow_response:
+        evidence = []
+        if low_conversion:
+            evidence.append(f"Enquiry-to-client conversion rate: '{conversion}'.")
+            evidence.append("Below typical sector benchmarks for this industry.")
+        if slow_response:
+            evidence.append(f"Average lead response time: {response_hours} hours -- exceeds the 1-hour response benchmark significantly.")
+        evidence.append(f"Growth pillar score: {health['pillars']['growth']['score']} -- conversion drag confirmed.")
+        worst_signal_critical = conversion == "Less than 1 in 10" or (response_hours is not None and response_hours > 24)
         detected.append(_make_constraint(
             key="lead_response_deficit",
             name="Lead Response Deficit",
-            hypothesis="Low conversion rate indicates leads are not being responded to effectively or quickly enough.",
-            evidence=[
-                f"Enquiry-to-client conversion rate: '{conversion}'.",
-                "Below typical sector benchmarks for this industry.",
-                f"Growth pillar score: {health['pillars']['growth']['score']} — conversion drag confirmed.",
-            ],
-            base_score=8 if conversion == "Less than 1 in 10" else 6,
-            severity="high" if conversion == "Less than 1 in 10" else "medium",
+            hypothesis="Low conversion rate and/or slow lead response time indicate leads are not being responded to effectively or quickly enough.",
+            evidence=evidence,
+            base_score=8 if worst_signal_critical else 6,
+            severity="high" if worst_signal_critical else "medium",
             industry=industry,
         ))
 
@@ -455,6 +474,48 @@ def detect_constraints(
             ],
             base_score=6,
             severity="medium",
+            industry=industry,
+        ))
+
+    # 17. Delivery Execution Gap
+    on_time = twin["operations"].get("project_on_time_pct", "")
+    try:
+        on_time_pct = float(on_time) if on_time else None
+    except (ValueError, TypeError):
+        on_time_pct = None
+    if on_time_pct is not None and on_time_pct < 80:
+        detected.append(_make_constraint(
+            key="delivery_execution_gap",
+            name="Delivery Execution Gap",
+            hypothesis="A significant proportion of projects are delivered late, indicating capacity, process or planning weaknesses that damage client trust and increase rework costs.",
+            evidence=[
+                f"Only {on_time_pct}% of projects delivered on time.",
+                "Below the 80% on-time delivery benchmark for healthy operational execution.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=8 if on_time_pct < 60 else 6,
+            severity="high" if on_time_pct < 60 else "medium",
+            industry=industry,
+        ))
+
+    # 18. Systematic Discounting Erosion
+    discount = twin["strategy"].get("avg_discount_pct", "")
+    try:
+        discount_pct = float(discount) if discount else None
+    except (ValueError, TypeError):
+        discount_pct = None
+    if discount_pct is not None and discount_pct > 15:
+        detected.append(_make_constraint(
+            key="systematic_discounting_erosion",
+            name="Systematic Discounting Erosion",
+            hypothesis="Average discounting above sustainable levels is eroding margin integrity. At scale, every percentage point of average selling price reduction is a direct hit to EBITDA.",
+            evidence=[
+                f"Average discount offered: {discount_pct}%.",
+                "Exceeds the 15% threshold associated with margin-damaging discount habits.",
+                f"Strategy pillar score: {health['pillars']['strategy']['score']}.",
+            ],
+            base_score=7 if discount_pct > 25 else 5,
+            severity="high" if discount_pct > 25 else "medium",
             industry=industry,
         ))
 
