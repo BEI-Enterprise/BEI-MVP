@@ -43,6 +43,32 @@ def _resolve_concentration_band(answers: dict) -> str:
     return answers.get("revenue_concentration", "")
 
 
+def _resolve_conversion_band(answers: dict) -> str:
+    """
+    Reconciles lead_to_client_conversion (numeric %, enterprise manual
+    data) with conversion_rate (banded string, original MRI intake) --
+    both represent the same real-world fact (enquiry-to-client
+    conversion) and must not exist as two competing signals in the
+    twin. Prefers the numeric when present.
+    """
+    numeric = answers.get("lead_to_client_conversion", "")
+    if numeric:
+        try:
+            pct = float(numeric)
+            if pct < 10:
+                return "Less than 1 in 10"
+            if pct < 20:
+                return "1-2 in 10"
+            if pct < 40:
+                return "2-4 in 10"
+            if pct < 60:
+                return "4-6 in 10"
+            return "More than 6 in 10"
+        except (ValueError, TypeError):
+            pass
+    return answers.get("conversion_rate", "")
+
+
 def _resolve_capacity_band(answers: dict) -> str:
     """
     Reconciles avg_utilisation_pct (numeric, enterprise manual data)
@@ -108,7 +134,7 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
 
         # Sales sub-twin
         "sales": {
-            "conversion_rate": answers.get("conversion_rate", ""),
+            "conversion_rate": _resolve_conversion_band(answers),
             "avg_client_value": answers.get("avg_client_value", ""),
             "pricing_confidence": answers.get("pricing_confidence", ""),
             "offer_clarity": answers.get("offer_clarity", ""),
@@ -118,6 +144,8 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "win_rate_pct": answers.get("win_rate_pct", ""),
             "sales_team_size": answers.get("sales_team_size", ""),
             "converted_leads": answers.get("converted_leads", ""),
+            "avg_deal_value": answers.get("avg_deal_value", ""),
+            "total_leads": answers.get("total_leads", ""),
         },
 
         # Operations sub-twin
