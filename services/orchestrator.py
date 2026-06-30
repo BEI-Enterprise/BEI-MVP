@@ -8,6 +8,9 @@ Aligned with BEI Master Architecture Intelligence Flow.
 from typing import Any
 from services.twin.engine import build_twin
 from services.twin.builder import build_twin_record
+from services.db.twin_repository import persist_twin
+from services.db.constraint_repository import persist_constraints
+from services.db.opportunity_repository import persist_opportunities
 from services.health.engine import calculate_health
 from services.detection.engine import detect_constraints
 from services.verification.engine import verify_constraints
@@ -38,6 +41,11 @@ def run_intelligence(
 
     # Step 1B — Build Twin Record (structured record for database)
     twin_record = build_twin_record(business_id, answers, revenue_band, connector_updates)
+
+    # Step 1C — Persist Twin Record (Step 1 of Persistence Layer Plan)
+    # Upserts on business_id; returns the business_twins.id every
+    # downstream table (constraints, opportunities) needs as a FK.
+    business_twin_id = persist_twin(twin_record)
 
     # Step 2 — Calculate Business Health
     health = calculate_health(twin, industry)
@@ -82,6 +90,32 @@ def run_intelligence(
     primary_constraint = _attach_benchmark(decision["primary_constraint"])
     secondary_constraints = [_attach_benchmark(c) for c in decision["secondary_constraints"]]
 
+    # Step 2 — Persist Constraints (Persistence Layer Plan)
+    # Called here, not after verify_constraints(), because severity,
+    # verification, network and priority data are only all present
+    # on each constraint dict at this point in the pipeline.
+    constraint_ids = persist_constraints(
+        primary_constraint=primary_constraint,
+        secondary_constraints=secondary_constraints,
+        unverified_flags=decision["unverified_flags"],
+        business_id=business_id,
+        business_twin_id=business_twin_id,
+        health=health,
+        network=network,
+    )
+
+    # Step 3 — Persist Opportunities (Persistence Layer Plan)
+    # Called here, immediately after constraint_ids is available —
+    # opportunities reference constraint_id as a NOT NULL foreign key,
+    # so this cannot run before Step 2 completes.
+    opportunity_ids = persist_opportunities(
+        primary_constraint=primary_constraint,
+        secondary_constraints=secondary_constraints,
+        constraint_ids=constraint_ids,
+        business_id=business_id,
+        business_twin_id=business_twin_id,
+    )
+
     return {
         "business_id": business_id,
         "industry": industry,
@@ -101,6 +135,9 @@ def run_intelligence(
         "total_opportunity": total_opportunity,
         "twin_completeness": twin_record["completeness_score"],
         "twin_data_confidence": twin_record["data_confidence_score"],
+        "business_twin_id": business_twin_id,
+        "constraint_ids": constraint_ids,
+        "opportunity_ids": opportunity_ids,
         "version": "BEI Intelligence v1.0",
     }
 

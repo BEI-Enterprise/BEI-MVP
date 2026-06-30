@@ -4,7 +4,7 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from services.orchestrator import run_intelligence
+from services.orchestrator import run_intelligence, run_intelligence_with_deployment
 
 app = Flask(__name__)
 
@@ -253,7 +253,7 @@ def analyse_connector_data():
         annual_revenue = float(connector_data.get('annual_revenue', 0) or 0)
         revenue_band = map_annual_revenue_to_band(annual_revenue)
 
-        result = run_intelligence(answers, business_id, industry, revenue_band, connector_updates=connector_data)
+        result = run_intelligence_with_deployment(answers, business_id, industry, revenue_band, connector_updates=connector_data)
         return jsonify({'result': result, 'business_id': business_id, 'mapped_answers': answers})
 
     except Exception as e:

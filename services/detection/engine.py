@@ -27,6 +27,12 @@ INDUSTRY_RELEVANCE = {
         "revenue_concentration_risk": "medium",
         "offer_weakness": "medium",
         "market_selection_risk": "low",
+        "leadership_capacity_gap": "low",
+        "succession_risk": "medium",
+        "technology_debt_risk": "medium",
+        "cyber_security_exposure": "low",
+        "client_concentration_risk_enterprise": "high",
+        "governance_maturity_gap": "low",
     },
     "marketing_agency": {
         "trust_infrastructure_deficit": "medium",
@@ -39,6 +45,12 @@ INDUSTRY_RELEVANCE = {
         "revenue_concentration_risk": "medium",
         "offer_weakness": "high",
         "market_selection_risk": "low",
+        "leadership_capacity_gap": "high",
+        "succession_risk": "high",
+        "technology_debt_risk": "low",
+        "cyber_security_exposure": "low",
+        "client_concentration_risk_enterprise": "medium",
+        "governance_maturity_gap": "medium",
     },
     "accountancy_firm": {
         "trust_infrastructure_deficit": "medium",
@@ -51,6 +63,12 @@ INDUSTRY_RELEVANCE = {
         "revenue_concentration_risk": "medium",
         "offer_weakness": "medium",
         "market_selection_risk": "low",
+        "leadership_capacity_gap": "medium",
+        "succession_risk": "medium",
+        "technology_debt_risk": "medium",
+        "cyber_security_exposure": "medium",
+        "client_concentration_risk_enterprise": "medium",
+        "governance_maturity_gap": "medium",
     },
     "default": {
         "trust_infrastructure_deficit": "medium",
@@ -63,6 +81,12 @@ INDUSTRY_RELEVANCE = {
         "revenue_concentration_risk": "medium",
         "offer_weakness": "medium",
         "market_selection_risk": "medium",
+        "leadership_capacity_gap": "medium",
+        "succession_risk": "medium",
+        "technology_debt_risk": "medium",
+        "cyber_security_exposure": "medium",
+        "client_concentration_risk_enterprise": "medium",
+        "governance_maturity_gap": "medium",
     },
 }
 
@@ -296,6 +320,141 @@ def detect_constraints(
             ],
             base_score=7 if market == "Shrinking quickly" else 5,
             severity="high" if market == "Shrinking quickly" else "medium",
+            industry=industry,
+        ))
+
+    # 11. Leadership Capacity Gap
+    c_suite_size = twin["people"].get("c_suite_size", "")
+    leadership_vacancies = twin["people"].get("leadership_vacancies", "")
+    try:
+        vacancy_ratio = float(leadership_vacancies) / float(c_suite_size) if c_suite_size and float(c_suite_size) > 0 else 0
+    except (ValueError, TypeError):
+        vacancy_ratio = 0
+    if vacancy_ratio >= 0.15:
+        detected.append(_make_constraint(
+            key="leadership_capacity_gap",
+            name="Leadership Capacity Gap",
+            hypothesis="Senior leadership vacancies relative to team size are creating decision-making bottlenecks and limiting execution capacity.",
+            evidence=[
+                f"C-suite size: '{c_suite_size}', leadership vacancies: '{leadership_vacancies}'.",
+                f"Vacancy ratio of {round(vacancy_ratio * 100)}% exceeds the sustainable threshold for senior decision-making capacity.",
+                f"Strategy pillar score: {health['pillars']['strategy']['score']}.",
+            ],
+            base_score=8 if vacancy_ratio >= 0.3 else 6,
+            severity="high" if vacancy_ratio >= 0.3 else "medium",
+            industry=industry,
+        ))
+
+    # 12. Succession Risk
+    succession_planning = twin["people"].get("succession_planning", "")
+    avg_leadership_tenure = twin["people"].get("avg_leadership_tenure", "")
+    try:
+        tenure_val = float(avg_leadership_tenure) if avg_leadership_tenure else None
+    except (ValueError, TypeError):
+        tenure_val = None
+    no_succession_plan = str(succession_planning).lower() in ["none", "no", "partial", ""]
+    if no_succession_plan and tenure_val is not None and tenure_val >= 5:
+        detected.append(_make_constraint(
+            key="succession_risk",
+            name="Succession Risk",
+            hypothesis="Absence of a clear succession plan combined with long-tenured leadership creates enterprise value and continuity risk.",
+            evidence=[
+                f"Succession planning status: '{succession_planning}'.",
+                f"Average leadership tenure: {tenure_val} years — departure risk increases with tenure length.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=7 if str(succession_planning).lower() == "none" else 5,
+            severity="high" if str(succession_planning).lower() == "none" else "medium",
+            industry=industry,
+        ))
+
+    # 13. Technology Debt Risk
+    tech_maturity = twin["technology"].get("tech_stack_maturity", "")
+    legacy_risk = twin["technology"].get("legacy_system_risk", "")
+    if str(legacy_risk).lower() in ["high", "critical"] or str(tech_maturity).lower() in ["basic", "legacy"]:
+        detected.append(_make_constraint(
+            key="technology_debt_risk",
+            name="Technology Debt Risk",
+            hypothesis="Outdated or high-risk legacy technology infrastructure is constraining operational efficiency, scalability and competitive positioning.",
+            evidence=[
+                f"Technology stack maturity reported as: '{tech_maturity}'.",
+                f"Legacy system risk level: '{legacy_risk}'.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=7 if str(legacy_risk).lower() == "critical" else 5,
+            severity="high" if str(legacy_risk).lower() == "critical" else "medium",
+            industry=industry,
+        ))
+
+    # 14. Cyber Security Exposure
+    cyber_maturity = twin["technology"].get("cyber_security_maturity", "")
+    cyber_incidents = twin["risk"].get("cyber_incidents_12m", "")
+    try:
+        cyber_score = float(cyber_maturity) if cyber_maturity else None
+        incident_count = float(cyber_incidents) if cyber_incidents else 0
+    except (ValueError, TypeError):
+        cyber_score = None
+        incident_count = 0
+    if (cyber_score is not None and cyber_score < 5) or incident_count > 0:
+        detected.append(_make_constraint(
+            key="cyber_security_exposure",
+            name="Cyber Security Exposure",
+            hypothesis="Insufficient cyber security maturity creates material exposure to data breach, regulatory fines and reputational damage.",
+            evidence=[
+                f"Cyber security maturity score: {cyber_score if cyber_score is not None else 'not provided'}/10.",
+                f"Cyber/data incidents in last 12 months: {incident_count}.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=8 if incident_count > 0 else 6,
+            severity="high" if incident_count > 0 or (cyber_score is not None and cyber_score < 3) else "medium",
+            industry=industry,
+        ))
+
+    # 15. Client Concentration Risk (Enterprise)
+    top_client_pct = twin["risk"].get("top_client_revenue_pct", "")
+    try:
+        top_client_val = float(top_client_pct) if top_client_pct else 0
+    except (ValueError, TypeError):
+        top_client_val = 0
+    if top_client_val >= 25:
+        detected.append(_make_constraint(
+            key="client_concentration_risk_enterprise",
+            name="Client Concentration Risk (Enterprise)",
+            hypothesis="A single client representing a large share of revenue creates concentrated commercial risk and reduces negotiating leverage.",
+            evidence=[
+                f"Top client represents {top_client_val}% of total revenue.",
+                "Concentration above 25% in a single client significantly increases revenue volatility risk.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=8 if top_client_val >= 40 else 6,
+            severity="high" if top_client_val >= 40 else "medium",
+            industry=industry,
+        ))
+
+    # 16. Governance Maturity Gap
+    board_frequency = twin["strategy"].get("board_meeting_frequency", "")
+    decision_structure = twin["strategy"].get("decision_making_structure", "")
+    weak_governance = (
+        str(board_frequency).lower() in ["", "none", "ad hoc", "rarely"]
+        or "owner only" in str(decision_structure).lower()
+    )
+    revenue_target = twin["strategy"].get("revenue_target_12m", "")
+    try:
+        target_val = float(revenue_target) if revenue_target else 0
+    except (ValueError, TypeError):
+        target_val = 0
+    if weak_governance and target_val >= 10000000:
+        detected.append(_make_constraint(
+            key="governance_maturity_gap",
+            name="Governance Maturity Gap",
+            hypothesis="Governance structures have not matured in line with business scale, creating decision-making bottlenecks and oversight risk at enterprise scale.",
+            evidence=[
+                f"Board meeting frequency: '{board_frequency}'.",
+                f"Decision making structure: '{decision_structure}'.",
+                f"12 month revenue target of £{int(target_val):,} indicates enterprise scale requiring formalised governance.",
+            ],
+            base_score=6,
+            severity="medium",
             industry=industry,
         ))
 

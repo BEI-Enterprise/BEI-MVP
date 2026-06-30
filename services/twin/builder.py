@@ -126,6 +126,83 @@ def _map_market_conditions(val: str) -> str:
     return mapping.get(val, "unknown")
 
 
+def _coerce_int(val, default=None):
+    try:
+        return int(float(val))
+    except (ValueError, TypeError):
+        return default
+
+
+def _coerce_numeric(val, default=None):
+    try:
+        return float(val)
+    except (ValueError, TypeError):
+        return default
+
+
+def _map_tech_maturity(val: str) -> str:
+    """Maps free-text or banded maturity descriptions to the
+    tech_stack_maturity CHECK constraint values (migration 017)."""
+    if not val:
+        return "unknown"
+    v = str(val).lower()
+    if any(x in v for x in ["advanced", "modern", "leading"]):
+        return "advanced"
+    if any(x in v for x in ["develop", "improving", "moderate"]):
+        return "developing"
+    if any(x in v for x in ["basic", "legacy", "outdated"]):
+        return "basic"
+    return "unknown"
+
+
+def _map_legacy_risk(val: str) -> str:
+    """Maps free-text legacy system risk descriptions to the
+    tech_legacy_system_risk CHECK constraint values (migration 017)."""
+    if not val:
+        return "unknown"
+    v = str(val).lower()
+    if any(x in v for x in ["critical", "severe"]):
+        return "critical"
+    if "high" in v:
+        return "high"
+    if "medium" in v or "moderate" in v:
+        return "medium"
+    if "low" in v:
+        return "low"
+    return "unknown"
+
+
+def _map_differentiation_strength(val) -> str:
+    """Maps a numeric 1-10 differentiation score (as collected by
+    the Brand & Competitive Position manual data section) to the
+    context_differentiation_strength CHECK constraint values
+    (migration 017)."""
+    score = _coerce_numeric(val)
+    if score is None:
+        return "unknown"
+    if score >= 7:
+        return "strong"
+    if score >= 4:
+        return "moderate"
+    return "weak"
+
+
+def _map_ai_adoption(val: str) -> str:
+    """Maps free-text AI/ML adoption descriptions to the
+    tech_ai_ml_adoption CHECK constraint values (migration 017)."""
+    if not val:
+        return "unknown"
+    v = str(val).lower()
+    if any(x in v for x in ["advanced", "production", "scaled"]):
+        return "advanced"
+    if any(x in v for x in ["pilot", "develop", "exploring"]):
+        return "developing"
+    if any(x in v for x in ["none", "no adoption", "not"]):
+        return "none"
+    return "unknown"
+
+
+
 def _extract_lead_volume(val: str) -> int:
     mapping = {
         "0-5": 3,
@@ -262,6 +339,49 @@ def build_twin_record(
         "context_market_conditions": _map_market_conditions(answers.get("market_growth", "")),
         "context_business_stage": "unknown",
         "context_primary_objective": "unknown",
+
+        # Extended Strategy sub-twin (migration 017)
+        "strategy_revenue_target_12m": _coerce_numeric(answers.get("revenue_target_12m")),
+        "strategy_primary_growth_strategy": answers.get("primary_growth_strategy") or None,
+        "strategy_strategic_blockers": answers.get("strategic_blockers") or None,
+        "strategy_competitive_advantage": answers.get("competitive_advantage") or None,
+        "strategy_exit_strategy": answers.get("exit_strategy") or None,
+        "strategy_legal_structure": answers.get("legal_structure") or None,
+        "strategy_ownership_structure": answers.get("ownership_structure") or None,
+        "strategy_board_meeting_frequency": answers.get("board_meeting_frequency") or None,
+        "strategy_decision_making_structure": answers.get("decision_making_structure") or None,
+
+        # Extended Risk sub-twin (migration 017)
+        "risk_top_client_revenue_pct": _coerce_numeric(answers.get("top_client_revenue_pct")),
+        "risk_cyber_incidents_12m": _coerce_int(answers.get("cyber_incidents_12m")),
+        "risk_gdpr_compliant": answers.get("gdpr_compliant") or None,
+        "risk_pending_litigation": answers.get("pending_litigation") or None,
+        "risk_contract_renewal_risk": _coerce_numeric(answers.get("contract_renewal_risk")),
+
+        # Extended Context sub-twin (migration 017)
+        "context_years_trading": _coerce_int(answers.get("years_trading")),
+        "context_market_share_pct": _coerce_numeric(answers.get("market_share_pct")),
+        "context_nps_score": _coerce_int(answers.get("nps_score")),
+        "context_brand_awareness_pct": _coerce_numeric(answers.get("brand_awareness_pct")),
+        "context_competitive_set": answers.get("competitive_set") or None,
+        "context_differentiation_strength": _map_differentiation_strength(answers.get("differentiation_strength")),
+
+        # People sub-twin (new, migration 017)
+        "people_total_headcount": _coerce_int(answers.get("total_headcount")),
+        "people_employee_engagement_score": _coerce_numeric(answers.get("employee_engagement_score")),
+        "people_staff_turnover_12m": _coerce_numeric(answers.get("staff_turnover_12m")),
+        "people_c_suite_size": _coerce_int(answers.get("c_suite_size")),
+        "people_leadership_vacancies": _coerce_int(answers.get("leadership_vacancies")),
+        "people_succession_planning": answers.get("succession_planning") or None,
+        "people_avg_leadership_tenure": _coerce_numeric(answers.get("avg_leadership_tenure")),
+
+        # Technology sub-twin (new, migration 017)
+        "tech_stack_maturity": _map_tech_maturity(answers.get("tech_stack_maturity", "")),
+        "tech_cloud_adoption_pct": _coerce_numeric(answers.get("cloud_adoption_pct")),
+        "tech_legacy_system_risk": _map_legacy_risk(answers.get("legacy_system_risk", "")),
+        "tech_data_maturity_score": _coerce_numeric(answers.get("data_maturity_score")),
+        "tech_ai_ml_adoption": _map_ai_adoption(answers.get("ai_ml_adoption", "")),
+        "tech_cyber_security_maturity": _coerce_numeric(answers.get("cyber_security_maturity")),
 
         # Metadata
         "data_confidence_score": 60,

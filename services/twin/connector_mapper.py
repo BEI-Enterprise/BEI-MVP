@@ -172,6 +172,32 @@ def map_connector_data_to_answers(data: dict) -> dict:
             (100000, '£50k-£100k'), (250000, '£100k-£250k'),
         ], 'Over £250k')
 
+    # --- Enterprise pass-through fields (Section 8 Twin coverage) ---
+    # These come from manual intake sections that have no MRI-band
+    # equivalent (finance_divisional, strategy_corporate, strategy_governance,
+    # risk_concentration, risk_compliance, risk_enterprise, context_market,
+    # context_brand, tech_systems, tech_data, people_leadership,
+    # operations_enterprise). Passed through directly rather than invented
+    # bands, since fabricating bands here would itself be a Golden Rule 11
+    # risk (unverifiable derived values).
+    PASSTHROUGH_FIELDS = [
+        'years_trading', 'business_stage', 'market_share_pct', 'nps_score',
+        'brand_awareness_pct', 'competitive_set', 'differentiation_strength',
+        'revenue_target_12m', 'primary_growth_strategy', 'strategic_blockers',
+        'competitive_advantage', 'exit_strategy', 'legal_structure',
+        'ownership_structure', 'board_meeting_frequency',
+        'decision_making_structure', 'total_headcount',
+        'employee_engagement_score', 'staff_turnover_12m', 'c_suite_size',
+        'leadership_vacancies', 'succession_planning', 'avg_leadership_tenure',
+        'tech_stack_maturity', 'cloud_adoption_pct', 'legacy_system_risk',
+        'data_maturity_score', 'ai_ml_adoption', 'cyber_security_maturity',
+        'top_client_revenue_pct', 'cyber_incidents_12m', 'gdpr_compliant',
+        'pending_litigation', 'contract_renewal_risk',
+    ]
+    for field in PASSTHROUGH_FIELDS:
+        if field in data and data[field] not in (None, ''):
+            answers[field] = data[field]
+
     return answers
 
 
