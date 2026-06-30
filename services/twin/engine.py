@@ -213,6 +213,17 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "ownership_structure": answers.get("ownership_structure", ""),
             "board_meeting_frequency": answers.get("board_meeting_frequency", ""),
             "decision_making_structure": answers.get("decision_making_structure", ""),
+            "board_composition": answers.get("board_composition", ""),
+            "kpi_framework": answers.get("kpi_framework", ""),
+            "management_reporting_cadence": answers.get("management_reporting_cadence", ""),
+            "revenue_target_3yr": answers.get("revenue_target_3yr", ""),
+            "revenue_target_5yr": answers.get("revenue_target_5yr", ""),
+            "ma_activity": answers.get("ma_activity", ""),
+            "num_subsidiaries": answers.get("num_subsidiaries", ""),
+            "last_valuation": answers.get("last_valuation", ""),
+            "last_valuation_date": answers.get("last_valuation_date", ""),
+            "investment_raised": answers.get("investment_raised", ""),
+            "strategic_investment_pipeline": answers.get("strategic_investment_pipeline", ""),
         },
 
         # Financial sub-twin (new -- Enterprise Field Wiring Plan)
