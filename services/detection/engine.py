@@ -57,6 +57,9 @@ INDUSTRY_RELEVANCE = {
         "insufficient_insurance_cover": "high",
         "missing_client_contracts": "medium",
         "weak_data_governance": "low",
+        "low_cloud_adoption": "medium",
+        "underinvested_in_technology": "medium",
+        "early_stage_digital_transformation": "low",
     },
     "marketing_agency": {
         "trust_infrastructure_deficit": "medium",
@@ -99,6 +102,9 @@ INDUSTRY_RELEVANCE = {
         "insufficient_insurance_cover": "medium",
         "missing_client_contracts": "high",
         "weak_data_governance": "medium",
+        "low_cloud_adoption": "medium",
+        "underinvested_in_technology": "high",
+        "early_stage_digital_transformation": "high",
     },
     "accountancy_firm": {
         "trust_infrastructure_deficit": "medium",
@@ -141,6 +147,9 @@ INDUSTRY_RELEVANCE = {
         "insufficient_insurance_cover": "high",
         "missing_client_contracts": "high",
         "weak_data_governance": "medium",
+        "low_cloud_adoption": "medium",
+        "underinvested_in_technology": "high",
+        "early_stage_digital_transformation": "medium",
     },
     "default": {
         "trust_infrastructure_deficit": "medium",
@@ -183,6 +192,9 @@ INDUSTRY_RELEVANCE = {
         "insufficient_insurance_cover": "medium",
         "missing_client_contracts": "medium",
         "weak_data_governance": "medium",
+        "low_cloud_adoption": "medium",
+        "underinvested_in_technology": "medium",
+        "early_stage_digital_transformation": "medium",
     },
 }
 
@@ -1061,6 +1073,65 @@ def detect_constraints(
                 f"Risk pillar score: {health['pillars']['risk']['score']}.",
             ],
             base_score=6,
+            severity="medium",
+            industry=industry,
+        ))
+
+    # 41. Low Cloud Adoption
+    cloud_adoption = twin["technology"].get("cloud_adoption_pct", "")
+    try:
+        cloud_pct = float(cloud_adoption) if cloud_adoption else None
+    except (ValueError, TypeError):
+        cloud_pct = None
+    if cloud_pct is not None and cloud_pct < 30:
+        detected.append(_make_constraint(
+            key="low_cloud_adoption",
+            name="Low Cloud Adoption",
+            hypothesis="Low cloud infrastructure adoption indicates reliance on on-premise or legacy hosting that limits scalability, increases maintenance overhead and slows the deployment of modern tooling.",
+            evidence=[
+                f"Cloud infrastructure adoption: {cloud_pct}%.",
+                "Below the 30% threshold considered a healthy baseline for a scaling services business.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=5,
+            severity="medium",
+            industry=industry,
+        ))
+
+    # 42. Underinvested in Technology
+    it_spend = twin["technology"].get("it_spend_as_revenue_pct", "")
+    try:
+        it_spend_pct = float(it_spend) if it_spend else None
+    except (ValueError, TypeError):
+        it_spend_pct = None
+    if it_spend_pct is not None and it_spend_pct < 1.5:
+        detected.append(_make_constraint(
+            key="underinvested_in_technology",
+            name="Underinvested in Technology",
+            hypothesis="IT spend well below typical levels for the business's scale indicates chronic underinvestment in tooling, security and infrastructure, which compounds into larger constraints over time.",
+            evidence=[
+                f"IT spend as % of revenue: {it_spend_pct}%.",
+                "Below the 1.5% threshold considered the minimum healthy baseline for a modern services business.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=5,
+            severity="medium",
+            industry=industry,
+        ))
+
+    # 43. Early-Stage Digital Transformation
+    digital_stage = twin["technology"].get("digital_transformation_stage", "")
+    if any(term in str(digital_stage).lower() for term in ["early", "not started", "no transformation", "haven't started"]):
+        detected.append(_make_constraint(
+            key="early_stage_digital_transformation",
+            name="Early-Stage Digital Transformation",
+            hypothesis="Being early-stage or not yet started on digital transformation means the business is likely missing efficiency, data and competitive gains that more digitally mature competitors are already capturing.",
+            evidence=[
+                f"Digital transformation stage reported as: '{digital_stage}'.",
+                "Early-stage transformation status typically correlates with manual processes and limited use of data to drive decisions.",
+                f"Operations pillar score: {health['pillars']['operations']['score']}.",
+            ],
+            base_score=5,
             severity="medium",
             industry=industry,
         ))

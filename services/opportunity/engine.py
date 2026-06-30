@@ -287,6 +287,24 @@ IMPACT_RATES = {
         "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.03, "high": 0.07},
         "default":          {"dimension": "risk_reduction",   "low": 0.02, "high": 0.05},
     },
+    "low_cloud_adoption": {
+        "estate_agency":    {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+        "marketing_agency": {"dimension": "capacity",         "low": 0.03, "high": 0.07},
+        "accountancy_firm": {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+        "default":          {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+    },
+    "underinvested_in_technology": {
+        "estate_agency":    {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+        "marketing_agency": {"dimension": "capacity",         "low": 0.03, "high": 0.08},
+        "accountancy_firm": {"dimension": "capacity",         "low": 0.03, "high": 0.08},
+        "default":          {"dimension": "capacity",         "low": 0.02, "high": 0.06},
+    },
+    "early_stage_digital_transformation": {
+        "estate_agency":    {"dimension": "profit",           "low": 0.02, "high": 0.06},
+        "marketing_agency": {"dimension": "profit",           "low": 0.03, "high": 0.07},
+        "accountancy_firm": {"dimension": "profit",           "low": 0.03, "high": 0.08},
+        "default":          {"dimension": "profit",           "low": 0.02, "high": 0.06},
+    },
 }
 
 
