@@ -263,6 +263,30 @@ IMPACT_RATES = {
         "accountancy_firm": {"dimension": "capacity",         "low": 0.02, "high": 0.05},
         "default":          {"dimension": "capacity",         "low": 0.02, "high": 0.05},
     },
+    "stale_financial_review": {
+        "estate_agency":    {"dimension": "risk_reduction",   "low": 0.02, "high": 0.06},
+        "marketing_agency": {"dimension": "risk_reduction",   "low": 0.02, "high": 0.06},
+        "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.03, "high": 0.08},
+        "default":          {"dimension": "risk_reduction",   "low": 0.02, "high": 0.06},
+    },
+    "insufficient_insurance_cover": {
+        "estate_agency":    {"dimension": "risk_reduction",   "low": 0.06, "high": 0.16},
+        "marketing_agency": {"dimension": "risk_reduction",   "low": 0.06, "high": 0.16},
+        "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.07, "high": 0.18},
+        "default":          {"dimension": "risk_reduction",   "low": 0.06, "high": 0.16},
+    },
+    "missing_client_contracts": {
+        "estate_agency":    {"dimension": "risk_reduction",   "low": 0.03, "high": 0.08},
+        "marketing_agency": {"dimension": "risk_reduction",   "low": 0.03, "high": 0.08},
+        "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.04, "high": 0.10},
+        "default":          {"dimension": "risk_reduction",   "low": 0.03, "high": 0.08},
+    },
+    "weak_data_governance": {
+        "estate_agency":    {"dimension": "risk_reduction",   "low": 0.02, "high": 0.05},
+        "marketing_agency": {"dimension": "risk_reduction",   "low": 0.02, "high": 0.05},
+        "accountancy_firm": {"dimension": "risk_reduction",   "low": 0.03, "high": 0.07},
+        "default":          {"dimension": "risk_reduction",   "low": 0.02, "high": 0.05},
+    },
 }
 
 

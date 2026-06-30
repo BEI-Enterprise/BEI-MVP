@@ -53,6 +53,10 @@ INDUSTRY_RELEVANCE = {
         "low_operational_resilience": "medium",
         "no_business_continuity_plan": "medium",
         "high_absenteeism": "medium",
+        "stale_financial_review": "medium",
+        "insufficient_insurance_cover": "high",
+        "missing_client_contracts": "medium",
+        "weak_data_governance": "low",
     },
     "marketing_agency": {
         "trust_infrastructure_deficit": "medium",
@@ -91,6 +95,10 @@ INDUSTRY_RELEVANCE = {
         "low_operational_resilience": "medium",
         "no_business_continuity_plan": "medium",
         "high_absenteeism": "low",
+        "stale_financial_review": "medium",
+        "insufficient_insurance_cover": "medium",
+        "missing_client_contracts": "high",
+        "weak_data_governance": "medium",
     },
     "accountancy_firm": {
         "trust_infrastructure_deficit": "medium",
@@ -129,6 +137,10 @@ INDUSTRY_RELEVANCE = {
         "low_operational_resilience": "medium",
         "no_business_continuity_plan": "high",
         "high_absenteeism": "low",
+        "stale_financial_review": "high",
+        "insufficient_insurance_cover": "high",
+        "missing_client_contracts": "high",
+        "weak_data_governance": "medium",
     },
     "default": {
         "trust_infrastructure_deficit": "medium",
@@ -167,6 +179,10 @@ INDUSTRY_RELEVANCE = {
         "low_operational_resilience": "medium",
         "no_business_continuity_plan": "medium",
         "high_absenteeism": "medium",
+        "stale_financial_review": "medium",
+        "insufficient_insurance_cover": "medium",
+        "missing_client_contracts": "medium",
+        "weak_data_governance": "medium",
     },
 }
 
@@ -966,6 +982,86 @@ def detect_constraints(
             ],
             base_score=7 if absenteeism_pct > 10 else 5,
             severity="high" if absenteeism_pct > 10 else "medium",
+            industry=industry,
+        ))
+
+    # 37. Stale Financial Review
+    last_review = twin["risk"].get("last_financial_review", "")
+    try:
+        review_months = float(last_review) if last_review else None
+    except (ValueError, TypeError):
+        review_months = None
+    if review_months is not None and review_months > 12:
+        detected.append(_make_constraint(
+            key="stale_financial_review",
+            name="Stale Financial Review",
+            hypothesis="No external financial review or audit in over 12 months means material risks, errors or compliance gaps could be going undetected, and stakeholders are relying on stale assurance.",
+            evidence=[
+                f"Months since last external financial review: {int(review_months)}.",
+                "Exceeds the 12-month threshold considered the maximum healthy interval between external reviews.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=7 if review_months > 24 else 5,
+            severity="high" if review_months > 24 else "medium",
+            industry=industry,
+        ))
+
+    # 38. Insufficient Insurance Cover
+    insurance_cover = twin["risk"].get("insurance_total_cover", "")
+    annual_revenue = twin["financial"].get("annual_revenue", "")
+    try:
+        cover_val = float(insurance_cover) if insurance_cover else None
+        revenue_val = float(annual_revenue) if annual_revenue else None
+        cover_ratio = (cover_val / revenue_val) if cover_val is not None and revenue_val else None
+    except (ValueError, TypeError, ZeroDivisionError):
+        cover_ratio = None
+    if cover_ratio is not None and cover_ratio < 1.0:
+        detected.append(_make_constraint(
+            key="insufficient_insurance_cover",
+            name="Insufficient Insurance Cover",
+            hypothesis="Total insurance cover below annual revenue leaves the business structurally exposed to a single claim, lawsuit or incident materially damaging or ending the business.",
+            evidence=[
+                f"Total insurance cover: £{cover_val:,.0f} against annual revenue of £{revenue_val:,.0f}.",
+                f"Cover-to-revenue ratio of {round(cover_ratio, 2)}x is below the 1x threshold considered a minimum baseline of protection.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=7 if cover_ratio < 0.5 else 5,
+            severity="high" if cover_ratio < 0.5 else "medium",
+            industry=industry,
+        ))
+
+    # 39. Missing Client Contracts
+    contracts = twin["risk"].get("contracts_in_place", "")
+    contracts_normalized = str(contracts).strip().lower()
+    if contracts and contracts_normalized not in ["all", "all clients", "yes", "100%"]:
+        detected.append(_make_constraint(
+            key="missing_client_contracts",
+            name="Missing Client Contracts",
+            hypothesis="Not having written contracts with every client creates unenforceable payment terms, unclear scope and legal exposure that a simple documentation fix would resolve.",
+            evidence=[
+                f"Written contracts with all clients: '{contracts}'.",
+                "Gaps in contract coverage are a common, low-cost-to-fix root cause of payment disputes and scope creep.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=6,
+            severity="medium",
+            industry=industry,
+        ))
+
+    # 40. Weak Data Governance
+    data_governance = twin["technology"].get("data_governance", "")
+    if str(data_governance).lower() in ["no", "none"]:
+        detected.append(_make_constraint(
+            key="weak_data_governance",
+            name="Weak Data Governance",
+            hypothesis="Absence of a data governance framework increases regulatory, security and data-quality risk, and typically slows down or blocks future AI/automation initiatives that depend on trustworthy data.",
+            evidence=[
+                f"Data governance framework in place: '{data_governance}'.",
+                "No formal framework increases exposure to data protection compliance gaps and downstream data-quality issues.",
+                f"Risk pillar score: {health['pillars']['risk']['score']}.",
+            ],
+            base_score=6,
+            severity="medium",
             industry=industry,
         ))
 
