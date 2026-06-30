@@ -171,6 +171,7 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "num_locations": answers.get("num_locations", ""),
             "countries_operating": answers.get("countries_operating", ""),
             "outsourced_functions": answers.get("outsourced_functions", ""),
+            "sla_breach_rate_pct": answers.get("sla_breach_rate_pct", ""),
         },
 
         # Risk sub-twin
