@@ -304,6 +304,8 @@ def build_twin(answers: dict[str, Any], business_id: str, industry: str, revenue
             "diversity_leadership_pct": answers.get("diversity_leadership_pct", ""),
             "remote_hybrid_split": answers.get("remote_hybrid_split", ""),
             "leadership_development_programme": answers.get("leadership_development_programme", ""),
+            "headcount_by_function": answers.get("headcount_by_function", ""),
+            "headcount_by_location": answers.get("headcount_by_location", ""),
         },
 
         # Technology sub-twin
