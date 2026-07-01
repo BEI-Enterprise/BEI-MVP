@@ -412,30 +412,6 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* PRICING */}
-            {/* DASHBOARD PREVIEW */}
-      <section style={{ padding: '80px 48px', borderTop: '1px solid #111' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center' as const, marginBottom: '48px' }}>
-            <div style={{ fontSize: '11px', color: '#C8A24A', letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>The Intelligence Hub</div>
-            <h2 style={{ fontSize: '44px', fontWeight: '800', letterSpacing: '-0.02em', marginBottom: '20px', lineHeight: '1.1' }}>Everything you need.<br /><span style={{ color: '#C8A24A' }}>In one executive dashboard.</span></h2>
-            <p style={{ fontSize: '17px', color: '#888', maxWidth: '560px', margin: '0 auto', lineHeight: '1.8' }}>Your Business Twin, constraint network, health scores, deployment packages and intelligence signals — all in one place, updated continuously.</p>
-          </div>
-          <div onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 40px rgba(0,0,0,0.6)'; el.style.borderColor = 'rgba(200,162,74,0.2)' }} style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.2)', boxShadow: '0 0 40px rgba(0,0,0,0.6)', transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }}>
-            <img src='/BEIDASH.png' alt='BEI Executive Dashboard' style={{ width: '100%', height: 'auto', display: 'block' }} />
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginTop: '40px' }}>
-            {[{n:'8 tabs',l:'Intelligence areas',s:'Every dimension covered'},{n:'Live',l:'Continuous signals',s:'Updated in real time'},{n:'3 tiers',l:'Deployment packages',s:'Automatic to strategic'},{n:'100/100',l:'Max health score',s:'Clear measurable target'}].map(m => (
-              <div key={m.l} style={{ padding: '24px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', textAlign: 'center' as const }}>
-                <div style={{ fontSize: '24px', fontWeight: '700', color: '#C8A24A', marginBottom: '6px' }}>{m.n}</div>
-                <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600', marginBottom: '4px' }}>{m.l}</div>
-                <div style={{ fontSize: '12px', color: '#666' }}>{m.s}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
 <section style={{ padding: '100px 48px', borderTop: '1px solid #111', backgroundColor: '#030303' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <RevealSection>
