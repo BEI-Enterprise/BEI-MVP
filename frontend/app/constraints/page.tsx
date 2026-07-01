@@ -363,8 +363,9 @@ export default function ConstraintsPage() {
             <circle cx="290" cy="150" r="26" fill="#050a00" stroke="#C8A24A" strokeWidth="1.8"/>
             <circle cx="290" cy="150" r="20" fill="url(#cnCenter)"/>
             <circle cx="284" cy="143" r="7" fill="white" fillOpacity="0.6"/>
-            <text x="290" y="178" textAnchor="middle" fill="#C8A24A" fontSize="9" fontWeight="700">{(primary?.name || 'Management Bottleneck').split(' ').slice(0,1).join('')}</text>
-            <text x="290" y="188" textAnchor="middle" fill="#C8A24A" fontSize="9" fontWeight="700">{(primary?.name || 'Management Bottleneck').split(' ').slice(1).join(' ')}</text>
+            <rect x="220" y="192" width="140" height="34" rx="5" fill="#0a0a0a" fillOpacity="0.72"/>
+            <text x="290" y="205" textAnchor="middle" fill="#ffe090" fontSize="10" fontWeight="700">{(primary?.name || 'Management Bottleneck').split(' ').slice(0,1).join('')}</text>
+            <text x="290" y="219" textAnchor="middle" fill="#ffe090" fontSize="10" fontWeight="700">{(primary?.name || 'Management Bottleneck').split(' ').slice(1).join(' ')}</text>
             {/* Middle impact nodes */}
             {[
               { x: 400, y: 70, label: 'Strategic', sub: 'Delays', r: 16, grad: 'cnCrit' },

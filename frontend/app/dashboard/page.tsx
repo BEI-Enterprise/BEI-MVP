@@ -578,25 +578,25 @@ export default function DashboardPage() {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ flexShrink: 0 }}>
-                  <svg width="110" height="110" viewBox="0 0 80 80">
+                  <svg width="140" height="140" viewBox="0 0 100 100">
                     {(() => {
                       let offset = 0
-                      const r = 28
+                      const r = 36
                       const c = r * 2 * Math.PI
                       return oppBreakdown.map((o, i) => {
                         const dash = (o.pct / 100) * c
                         const gap = c - dash
                         const el = (
-                          <circle key={i} cx="40" cy="40" r={r} fill="none" stroke={o.color} strokeWidth="10"
+                          <circle key={i} cx="50" cy="50" r={r} fill="none" stroke={o.color} strokeWidth="11"
                             strokeDasharray={String(dash) + ' ' + String(gap)} strokeDashoffset={String(-offset)}
-                            strokeOpacity="0.85" transform="rotate(-90 40 40)"/>
+                            strokeOpacity="0.85" transform="rotate(-90 50 50)"/>
                         )
                         offset += dash
                         return el
                       })
                     })()}
-                    <text x="40" y="36" textAnchor="middle" fill={gold} fontSize="9" fontWeight="800">{fmtShort(oppLow)}+</text>
-                    <text x="40" y="48" textAnchor="middle" fill="#555" fontSize="7">Total</text>
+                    <text x="50" y="46" textAnchor="middle" fill={gold} fontSize="12" fontWeight="800">{oppLow >= 1000000 ? '£' + (oppLow/1000000).toFixed(1) + 'M' : oppLow >= 1000 ? '£' + Math.round(oppLow/1000) + 'K' : fmtShort(oppLow)}+</text>
+                    <text x="50" y="60" textAnchor="middle" fill="#555" fontSize="9">Total</text>
                   </svg>
                 </div>
                 <div style={{ flex: 1 }}>

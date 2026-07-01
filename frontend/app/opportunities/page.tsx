@@ -177,14 +177,14 @@ export default function OpportunitiesPage() {
   )
 
   const confCircle = (pct: number, color: string) => {
-    const r = 14, c = r * 2 * Math.PI, fill = (pct / 100) * c
+    const r = 17, c = r * 2 * Math.PI, fill = (pct / 100) * c
     return (
-      <svg width="40" height="40" viewBox="0 0 36 36">
-        <circle cx="18" cy="18" r={r} fill="none" stroke="#1a1a1a" strokeWidth="3"/>
-        <circle cx="18" cy="18" r={r} fill="none" stroke={color} strokeWidth="3"
+      <svg width="50" height="50" viewBox="0 0 44 44">
+        <circle cx="22" cy="22" r={r} fill="none" stroke="#1a1a1a" strokeWidth="3"/>
+        <circle cx="22" cy="22" r={r} fill="none" stroke={color} strokeWidth="3"
           strokeDasharray={String(fill) + ' ' + String(c - fill)}
-          strokeLinecap="round" transform="rotate(-90 18 18)"/>
-        <text x="18" y="22" textAnchor="middle" fill={color} fontSize="9" fontWeight="800">{pct}%</text>
+          strokeLinecap="round" transform="rotate(-90 22 22)"/>
+        <text x="22" y="27" textAnchor="middle" fill={color} fontSize="10.5" fontWeight="800">{pct}%</text>
       </svg>
     )
   }
