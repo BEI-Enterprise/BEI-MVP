@@ -412,6 +412,8 @@ function LandingPage() {
         </div>
       </section>
 
+{/* SOCIAL PROOF */}
+<section style={{ padding: "100px 48px", borderTop: "1px solid #111" }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '48px' }}>
             {[
               { quote: 'Within 3 minutes BEI identified the exact constraint our senior team had debated for 18 months. The precision was remarkable.', role: 'Managing Director', sector: 'Estate Agency', result: '£67k opportunity identified' },
@@ -451,6 +453,7 @@ function LandingPage() {
               { q: 'What is a constraint verification score?', a: 'Every detected constraint must pass five verification tests before it influences any recommendation. The verification score reflects how strongly the evidence supports the constraint. Only verified constraints with scores above 60/100 proceed to recommendations.' },
               { q: 'Can I try BEI before subscribing?', a: 'Yes. You can generate a free MRI report which includes your Business Health Score and Primary Constraint identification. A subscription unlocks the full opportunity map, deployment recommendations and outcome tracking.' },
             ].map((item, i) => (
+</section>
               <div key={item.q} style={{ padding: '24px 0', borderBottom: '1px solid #161616' }}>
                 <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '8px' }}>{item.q}</div>
                 <div style={{ fontSize: '14px', color: '#999', lineHeight: '1.7' }}>{item.a}</div>
