@@ -92,6 +92,16 @@ export default function OutcomeDeploymentPage() {
     </main>
   )
 
+
+  if (!result) return (
+    <DashboardShell activeId="deployments">
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"60vh",flexDirection:"column",gap:"16px"}}>
+        <div style={{fontSize:"11px",color:"#C8A24A",letterSpacing:"0.3em"}}>NO DEPLOYMENT DATA</div>
+        <div style={{fontSize:"13px",color:"#666",textAlign:"center"}}>Complete the platform data intake to generate deployment packages.</div>
+        <a href="/connect" style={{padding:"12px 24px",border:"1px solid #C8A24A",color:"#C8A24A",borderRadius:"6px",textDecoration:"none",fontSize:"13px"}}>Connect Data →</a>
+      </div>
+    </DashboardShell>
+  )
   const primary = result?.primary_constraint || null
   const secondary = result?.secondary_constraints || []
   const packages = result?.deployment_packages || {}

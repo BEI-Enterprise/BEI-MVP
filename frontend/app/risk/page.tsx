@@ -89,6 +89,11 @@ export default function RiskIntelligencePage() {
       <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>LOADING RISK INTELLIGENCE...</div>
     </main>
   )
+  if (!result) return (
+    <DashboardShell activeId="constraints">
+      <CompletenessGate completeness={0} businessName={businessName} />
+    </DashboardShell>
+  )
 
   const primary = result?.primary_constraint || null
   const totalOpp = result?.total_opportunity || {}

@@ -90,6 +90,11 @@ export default function ConstraintsPage() {
       <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>LOADING CONSTRAINT INTELLIGENCE...</div>
     </main>
   )
+  if (!result) return (
+    <DashboardShell activeId="constraints">
+      <CompletenessGate completeness={0} businessName={businessName} />
+    </DashboardShell>
+  )
 
   const primary = result?.primary_constraint || null
   const secondary = result?.secondary_constraints || []
