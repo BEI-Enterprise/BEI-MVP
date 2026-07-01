@@ -93,7 +93,7 @@ export default function DashboardPage() {
   const hasMRI = !!(selected?.mri_result) && selected?.mri_result?.mri_source !== 'free'
   let twinCompleteness = hasMRI ? MRI_BASE : 0
   const connectedSources = {}
-  Object.keys(connectedSources).forEach(id => { if (connectedSources[id]?.connected && CONNECTOR_WEIGHTS[id]) twinCompleteness += CONNECTOR_WEIGHTS[id] })
+  // connector weights calculated server-side
   twinCompleteness = Math.min(100, twinCompleteness)
   const businessName = selected?.business_name || 'Your Business'
   if (twinCompleteness < 75) return <DashboardShell activeId="dashboard"><CompletenessGate completeness={twinCompleteness} businessName={businessName} /></DashboardShell>
