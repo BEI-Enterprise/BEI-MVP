@@ -187,6 +187,23 @@ def _map_differentiation_strength(val) -> str:
     return "weak"
 
 
+def _map_automation_level(val) -> str:
+    try:
+        pct = float(val)
+        if pct >= 70: return 'high'
+        if pct >= 40: return 'medium'
+        if pct >= 15: return 'low'
+        return 'none'
+    except (ValueError, TypeError):
+        pass
+    v = str(val).lower()
+    if 'high' in v or 'advanced' in v: return 'high'
+    if 'medium' in v or 'moderate' in v: return 'medium'
+    if 'low' in v or 'basic' in v: return 'low'
+    if 'none' in v or 'no' in v: return 'none'
+    return 'unknown'
+
+
 def _map_ai_adoption(val: str) -> str:
     """Maps free-text AI/ML adoption descriptions to the
     tech_ai_ml_adoption CHECK constraint values (migration 017)."""
@@ -414,7 +431,7 @@ def build_twin_record(
         "ops_revenue_per_head": _coerce_numeric(answers.get("revenue_per_head")),
         "ops_cost_per_head": _coerce_numeric(answers.get("cost_per_head")),
         "ops_documented_processes": answers.get("documented_processes") or None,
-        "ops_automation_level": _coerce_numeric(answers.get("automation_level")),
+        "ops_automation_level": _map_automation_level(answers.get("automation_level", "")),
         "ops_supply_chain_dependencies": answers.get("supply_chain_dependencies") or None,
         "ops_operational_resilience_score": _coerce_numeric(answers.get("operational_resilience_score")),
         "ops_business_continuity_plan": answers.get("business_continuity_plan") or None,
