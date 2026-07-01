@@ -276,6 +276,173 @@ function LandingPage() {
             <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Pricing</div>
             <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>Intelligence that pays for itself.</h2>
           </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '20px' }}>
+            {[
+              { name: 'Executive', price: 2999, desc: 'For growing businesses ready to act on their constraint intelligence.', features: ['One-month onboarding included','12-month partnership','30-day termination after Month 3'], cta: 'Get Started', popular: false },
+              { name: 'Enterprise', price: 4999, desc: 'Full Business Twin intelligence with all integrations and executive-level onboarding.', features: ['Business Twin creation','All integrations','Executive onboarding','12-month partnership','30-day termination after Month 3'], cta: 'Most Popular', popular: true },
+              { name: 'Strategic', price: 7999, desc: 'Executive-level partnership with dedicated support and quarterly strategic review.', features: ['Unlimited integrations','Executive workshops','Dedicated Customer Success','Quarterly Executive Review','Outcome monitoring'], cta: 'Get Started', popular: false },
+            ].map((plan: any) => (
+              <div key={plan.name} style={{ padding: '32px', border: `1px solid ${plan.popular ? gold : '#1a1a1a'}`, borderRadius: '12px', backgroundColor: plan.popular ? '#0d0a04' : '#080808', position: 'relative' as const, display: 'flex', flexDirection: 'column' as const }}>
+                <div style={{ position: 'absolute' as const, top: 0, left: 0, right: 0, height: '1px', background: plan.popular ? `linear-gradient(90deg, transparent, ${gold}, transparent)` : 'linear-gradient(90deg, transparent, rgba(200,162,74,0.15), transparent)' }} />
+                {plan.popular && <div style={{ position: 'absolute' as const, top: '-12px', left: '50%', transform: 'translateX(-50%)', padding: '4px 16px', backgroundColor: gold, color: '#050505', fontSize: '11px', fontWeight: '700', borderRadius: '20px' }}>MOST POPULAR</div>}
+                <div style={{ fontSize: '11px', color: '#888', letterSpacing: '0.15em', textTransform: 'uppercase' as const, marginBottom: '6px' }}>{plan.name}</div>
+                <div style={{ fontSize: '13px', color: '#999', lineHeight: '1.6', marginBottom: '16px' }}>{plan.desc}</div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '16px' }}>
+                  <span style={{ fontSize: '44px', fontWeight: '800', color: plan.popular ? gold : '#f0f0f0', letterSpacing: '-0.02em' }}>{fmt(plan.price as number)}</span>
+                  <span style={{ fontSize: '14px', color: '#888' }}>/month</span>
+                </div>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' as const, gap: '10px', marginBottom: '24px' }}>
+                  {plan.features.map((f: string) => (
+                    <div key={f} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '13px', color: '#888' }}>
+                      <span style={{ color: '#4aaa4a', flexShrink: 0 }}>✓</span>{f}
+                    </div>
+                  ))}
+                </div>
+                <a href='/register' style={{ display: 'block', textAlign: 'center' as const, padding: '14px', backgroundColor: plan.popular ? gold : 'transparent', color: plan.popular ? '#050505' : gold, border: `1px solid ${gold}`, borderRadius: '6px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>{plan.cta} →</a>
+              </div>
+            ))}
+          </div>
+                    </RevealSection>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section style={{ padding: '100px 48px', borderTop: '1px solid #111', backgroundColor: '#030303' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <RevealSection>
+            <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
+              <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>How BEI Works</div>
+              <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>Five stages. One answer.</h2>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0' }}>
+              {[
+                { n: '01', title: 'Business MRI', desc: 'Deep diagnostic across growth, operations, strategy, risk and context.' },
+                { n: '02', title: 'Constraint Identification', desc: 'Intelligence engines detect and verify constraints from your business twin.' },
+                { n: '03', title: 'Opportunity Mapping', desc: 'Every verified constraint is quantified. Revenue, profit, capacity, risk.' },
+                { n: '04', title: 'Deployment', desc: 'Three-tier deployment engine prepares and executes the right intervention.' },
+                { n: '05', title: 'Continuous Learning', desc: 'Every outcome feeds the intelligence model. BEI gets smarter with every business.' },
+              ].map((step, i) => (
+                <div key={step.n} style={{ padding: '32px 24px', borderLeft: i === 0 ? '1px solid #1a1a1a' : 'none', borderRight: '1px solid #1a1a1a', borderTop: '1px solid #1a1a1a', borderBottom: '1px solid #1a1a1a' }}>
+                  <div style={{ fontSize: '11px', color: gold, fontWeight: '700', letterSpacing: '0.15em', marginBottom: '16px' }}>{step.n}</div>
+                  <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '10px' }}>{step.title}</div>
+                  <div style={{ fontSize: '13px', color: '#888', lineHeight: '1.7' }}>{step.desc}</div>
+                </div>
+              ))}
+            </div>
+          </RevealSection>
+          <RevealSection delay={200}>
+            <div style={{ marginTop: '48px' }}>
+              <div style={{ fontSize: '11px', color: '#aaa', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '20px', fontWeight: '600' }}>Constraint Detection Engine — Live</div>
+              <DetectionBarsSection constraints={[
+                { name: 'Trust Infrastructure Deficit', score: 94, color: '#C8A24A' },
+                { name: 'Lead Response Deficit', score: 87, color: '#C8A24A' },
+                { name: 'Founder Dependency', score: 78, color: '#cc6644' },
+                { name: 'Capacity Constraint', score: 65, color: '#888' },
+                { name: 'Pricing Constraint', score: 52, color: '#888' },
+              ]} />
+            </div>
+          </RevealSection>
+        </div>
+      </section>
+
+      {/* MRI PREVIEW */}
+      <section style={{ padding: '100px 48px', borderTop: '1px solid #111' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center' as const, marginBottom: '48px' }}>
+            <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Example Output</div>
+            <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>What your MRI report looks like</h2>
+          </div>
+          <div style={{ position: 'relative' as const }}>
+            {/* Preview card */}
+            <div style={{ border: '1px solid #2a2a2a', borderRadius: '12px', overflow: 'hidden', backgroundColor: '#080808' }}>
+              {/* Report header */}
+              <div style={{ padding: '24px 32px', borderBottom: '1px solid #1a1a1a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.15em', marginBottom: '4px' }}>BUSINESS MRI REPORT</div>
+                  <div style={{ fontSize: '18px', fontWeight: '700' }}>Example Business Ltd</div>
+                </div>
+                <div style={{ padding: '6px 14px', border: '1px solid #4aaa4a', borderRadius: '4px', fontSize: '11px', color: '#4aaa4a' }}>BEI MRI v1.1 — Verified Analysis</div>
+              </div>
+              {/* Preview content */}
+              <div style={{ padding: '32px', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '32px' }}>
+                <div>
+                  <div style={{ fontSize: '11px', color: '#aaa', marginBottom: '8px' }}>OVERALL HEALTH</div>
+                  <div style={{ fontSize: '64px', fontWeight: '700', color: '#C8A24A', lineHeight: '1' }}>67</div>
+                  <div style={{ fontSize: '13px', color: '#888', marginTop: '8px' }}>Moderate · below benchmark</div>
+                  <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
+                    {[{n:'Growth',v:72},{n:'Operations',v:58},{n:'Strategy',v:45},{n:'Risk',v:61},{n:'Context',v:70}].map(p => (
+                      <div key={p.n} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ width: '70px', fontSize: '11px', color: '#999' }}>{p.n}</div>
+                        <div style={{ flex: 1, height: '4px', backgroundColor: '#111', borderRadius: '2px', overflow: 'hidden' }}>
+                          <div style={{ width: p.v + '%', height: '100%', backgroundColor: p.v >= 70 ? '#4aaa4a' : p.v >= 45 ? '#C8A24A' : '#cc4444' }} />
+                        </div>
+                        <div style={{ fontSize: '11px', color: '#888', width: '24px' }}>{p.v}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ padding: '24px', border: '1px solid #2a2a2a', borderRadius: '8px', marginBottom: '16px' }}>
+                    <div style={{ fontSize: '10px', color: gold, letterSpacing: '0.15em', marginBottom: '8px' }}>PRIMARY CONSTRAINT</div>
+                    <div style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px' }}>Trust Infrastructure Deficit</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '16px' }}>Insufficient social proof is limiting new client conversion and market credibility.</div>
+                    <div style={{ display: 'flex', gap: '24px' }}>
+                      <div><div style={{ fontSize: '10px', color: '#aaa', marginBottom: '4px' }}>OPPORTUNITY</div><div style={{ fontSize: '16px', fontWeight: '700', color: gold }}>£40k–£120k</div></div>
+                      <div><div style={{ fontSize: '10px', color: '#aaa', marginBottom: '4px' }}>VERIFICATION</div><div style={{ fontSize: '16px', fontWeight: '700', color: '#4aaa4a' }}>100/100</div></div>
+                    </div>
+                  </div>
+                  {/* Blurred sections */}
+                  <div style={{ position: 'relative' as const }}>
+                    <div style={{ filter: 'blur(6px)', opacity: 0.4, padding: '24px', border: '1px solid #1a1a1a', borderRadius: '8px' }}>
+                      <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>Opportunity Map</div>
+                      <div style={{ display: 'flex', gap: '16px' }}>
+                        {['Revenue +£45k','Profit +12%','Enterprise +£200k'].map(t => (
+                          <div key={t} style={{ padding: '8px 12px', backgroundColor: '#111', borderRadius: '4px', fontSize: '12px' }}>{t}</div>
+                        ))}
+                      </div>
+                    </div>
+                    <div style={{ position: 'absolute' as const, inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(5,5,5,0.7)', borderRadius: '8px', backdropFilter: 'blur(2px)' }}>
+                      <a href="/book" style={{ padding: '12px 24px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '4px', textDecoration: 'none', fontSize: '13px' }}>Unlock Full MRI Report →</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING */}
+            {/* DASHBOARD PREVIEW */}
+      <section style={{ padding: '80px 48px', borderTop: '1px solid #111' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center' as const, marginBottom: '48px' }}>
+            <div style={{ fontSize: '11px', color: '#C8A24A', letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>The Intelligence Hub</div>
+            <h2 style={{ fontSize: '44px', fontWeight: '800', letterSpacing: '-0.02em', marginBottom: '20px', lineHeight: '1.1' }}>Everything you need.<br /><span style={{ color: '#C8A24A' }}>In one executive dashboard.</span></h2>
+            <p style={{ fontSize: '17px', color: '#888', maxWidth: '560px', margin: '0 auto', lineHeight: '1.8' }}>Your Business Twin, constraint network, health scores, deployment packages and intelligence signals — all in one place, updated continuously.</p>
+          </div>
+          <div onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 20px rgba(200,162,74,0.3), 0 0 60px rgba(200,162,74,0.2), 0 0 120px rgba(200,162,74,0.1)'; el.style.borderColor = 'rgba(200,162,74,0.5)' }} onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 0 40px rgba(0,0,0,0.6)'; el.style.borderColor = 'rgba(200,162,74,0.2)' }} style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(200,162,74,0.2)', boxShadow: '0 0 40px rgba(0,0,0,0.6)', transition: 'box-shadow 0.6s ease, border-color 0.6s ease' }}>
+            <img src='/BEIDASH.png' alt='BEI Executive Dashboard' style={{ width: '100%', height: 'auto', display: 'block' }} />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginTop: '40px' }}>
+            {[{n:'8 tabs',l:'Intelligence areas',s:'Every dimension covered'},{n:'Live',l:'Continuous signals',s:'Updated in real time'},{n:'3 tiers',l:'Deployment packages',s:'Automatic to strategic'},{n:'100/100',l:'Max health score',s:'Clear measurable target'}].map(m => (
+              <div key={m.l} style={{ padding: '24px', backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '10px', textAlign: 'center' as const }}>
+                <div style={{ fontSize: '24px', fontWeight: '700', color: '#C8A24A', marginBottom: '6px' }}>{m.n}</div>
+                <div style={{ fontSize: '13px', color: '#e0e0e0', fontWeight: '600', marginBottom: '4px' }}>{m.l}</div>
+                <div style={{ fontSize: '12px', color: '#666' }}>{m.s}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+<section style={{ padding: '100px 48px', borderTop: '1px solid #111', backgroundColor: '#030303' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <RevealSection>
+          <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
+            <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>Pricing</div>
+            <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>Intelligence that pays for itself.</h2>
+          </div>
           {/* Row 1 */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '20px' }}>
             {[

@@ -5,29 +5,29 @@ import { colors, fontSize, fontWeight, inputStyle, labelStyle, pageWrapper } fro
 
 const PLANS = [
   {
-    id: 'analysis',
-    name: 'MRI Analysis',
-    price: 199,
+    id: 'executive',
+    name: 'Executive',
+    price: 2999,
     period: '/month',
-    was: 332,
-    features: ['Business MRI', 'Health Score', 'Primary Constraint', 'Monthly Updates'],
+    was: null,
+    features: ['One-month onboarding included', '12-month partnership', '30-day termination after Month 3'],
   },
   {
-    id: 'opportunity',
-    name: 'Analysis + Opportunity',
-    price: 399,
+    id: 'enterprise',
+    name: 'Enterprise',
+    price: 4999,
     period: '/month',
-    was: 665,
-    features: ['Everything in Analysis', 'Opportunity Mapping', 'Prioritisation Engine', 'Opportunity Quantification'],
+    was: null,
+    features: ['Business Twin creation', 'All integrations', 'Executive onboarding', '12-month partnership', '30-day termination after Month 3'],
     popular: true,
   },
   {
-    id: 'platform',
-    name: 'Full Platform',
-    price: 999,
+    id: 'strategic',
+    name: 'Strategic',
+    price: 7999,
     period: '/month',
-    was: 1665,
-    features: ['Everything above', 'Deployment Engine', 'Execution Tracking', 'Outcome Monitoring', 'Continuous Optimisation'],
+    was: null,
+    features: ['Unlimited integrations', 'Executive workshops', 'Dedicated Customer Success', 'Quarterly Executive Review', 'Outcome monitoring'],
   },
 ]
 
@@ -108,7 +108,6 @@ export default function RegisterPage() {
                       <span style={{ fontSize: '32px', fontWeight: fontWeight.extrabold, color: plan.popular ? colors.gold : colors.textPrimary }}>{plan.price}</span>
                       <span style={{ fontSize: fontSize.base, color: colors.textMuted }}>{plan.period}</span>
                     </div>
-                    <div style={{ fontSize: fontSize.sm, color: colors.textDisabled, marginBottom: '20px', textDecoration: 'line-through' }}>was {plan.was}</div>
                     <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
                       {plan.features.map(f => (
                         <div key={f} style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: fontSize.base, color: colors.textBody }}>

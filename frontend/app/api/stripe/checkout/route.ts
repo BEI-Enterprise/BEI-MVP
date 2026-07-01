@@ -6,9 +6,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 })
 
 const PRICE_IDS: Record<string, string> = {
-  analysis: 'price_1TjPZmQeUg2DxiBvqqAUmNv4',
-  opportunity: 'price_1TjPaiQeUg2DxiBvFG5boRGQ',
-  platform: 'price_1TjPblQeUg2DxiBvmlc5mcDw',
+  executive: 'price_1ToO1cQeUg2DxiBvRFDHpat5',
+  enterprise: 'price_1ToO1cQeUg2DxiBvH0b3tzEB',
+  strategic: 'price_1ToO1dQeUg2DxiBvSo5eCj7w',
 }
 
 export async function POST(request: NextRequest) {
