@@ -379,6 +379,7 @@ export default function BusinessTwinPage() {
   if (!user) return <main style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><a href='/login' style={{ padding: '12px 28px', backgroundColor: gold, color: '#050505', fontWeight: '700', borderRadius: '6px', textDecoration: 'none' }}>Sign In</a></main>
 
   const hasMRI = !!(selected?.mri_result) && selected?.mri_result?.mri_source !== 'free'
+  const isPlatformMRI = selected?.mri_result?.mri_source === 'platform'
   const result = selected?.mri_result || null
   const health = result?.health || {}
   const businessName = selected?.business_name || 'Your Business'
@@ -394,7 +395,7 @@ export default function BusinessTwinPage() {
       activeConnectors.push(id)
     }
   })
-  completeness = Math.min(100, completeness)
+  completeness = isPlatformMRI ? 100 : Math.min(100, completeness)
 
   const gc = (p: number) => p >= 85 ? '#4aaa4a' : p >= 70 ? '#C8A24A' : '#e8923a'
   const totalConnectors = CONNECTOR_GROUPS.reduce((s, g) => s + g.connectors.length, 0)

@@ -47,6 +47,7 @@ export default function ProcessingPage() {
             answers,
             industry,
             revenue_band: revenueBand,
+            source: 'platform',
           }),
         })
 

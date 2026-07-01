@@ -88,13 +88,9 @@ export default function DashboardPage() {
 
 
   // Calculate twin completeness — same logic as Business Twin Centre
-  const MRI_BASE = 40
-  const CONNECTOR_WEIGHTS: Record<string, number> = { hubspot: 10, salesforce: 10, xero: 12, quickbooks: 12, google_analytics: 7, manual_crm: 6, manual_finance: 7, manual_revenue: 8, manual_ops: 5, manual_people: 5 }
   const hasMRI = !!(selected?.mri_result) && selected?.mri_result?.mri_source !== 'free'
-  let twinCompleteness = hasMRI ? MRI_BASE : 0
-  const connectedSources = {}
-  // connector weights calculated server-side
-  twinCompleteness = Math.min(100, twinCompleteness)
+  const isPlatformMRI = selected?.mri_result?.mri_source === 'platform'
+  const twinCompleteness = isPlatformMRI ? 100 : hasMRI ? 40 : 0
   const businessName = selected?.business_name || 'Your Business'
   if (twinCompleteness < 75) return <DashboardShell activeId="dashboard"><CompletenessGate completeness={twinCompleteness} businessName={businessName} /></DashboardShell>
 

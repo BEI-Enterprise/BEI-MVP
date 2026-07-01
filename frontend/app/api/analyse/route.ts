@@ -11,7 +11,7 @@ const INTELLIGENCE_API = process.env.INTELLIGENCE_API_URL || 'https://mindful-re
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { business_id, answers, industry, revenue_band } = body
+    const { business_id, answers, industry, revenue_band, source } = body
 
     if (!business_id || !answers) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -32,7 +32,8 @@ export async function POST(request: NextRequest) {
     const { result } = await intelligenceResponse.json()
 
     // Save to Supabase — tagged as free MRI (marketing layer, NOT platform intelligence)
-    const taggedResult = { ...result, mri_source: 'free', generated_at: new Date().toISOString() }
+    const mriSource = source === 'platform' ? 'platform' : 'free'
+    const taggedResult = { ...result, mri_source: mriSource, generated_at: new Date().toISOString() }
     const { error: updateError } = await supabase
       .from('businesses')
       .update({
