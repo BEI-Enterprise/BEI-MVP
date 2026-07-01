@@ -13,121 +13,59 @@ function PricingContent() {
 
   const plans = [
     {
-      name: 'MRI Analysis',
-      price: 199,
-      originalPrice: sym + '332',
-      saving: sym + '1,596',
+      name: 'Executive',
+      price: 2999,
+      originalPrice: null,
+      saving: null,
       period: '/month',
-      desc: 'Full constraint intelligence for businesses under ' + sym + '1M revenue.',
-      opportunity: sym + '40k+ avg opportunity identified',
+      desc: 'For growing businesses ready to act on their constraint intelligence.',
+      opportunity: 'One-month onboarding included',
       features: [
-        'Business MRI — full 6-step intake',
-        'Business Health Score — 5 pillars',
-        'Constraint Detection — all 10 types',
-        'Constraint Verification — 5-test framework',
-        'Primary Constraint identification',
-        'Decision Intelligence explanation',
-        'Monthly MRI refresh',
-        'PDF report export',
+        'One-month onboarding included',
+        '12-month partnership',
+        '30-day termination after Month 3',
       ],
       cta: 'Get Started',
       popular: false,
       color: '#fff',
     },
     {
-      name: 'Analysis + Opportunity',
-      price: 399,
-      originalPrice: sym + '665',
-      saving: sym + '3,192',
+      name: 'Enterprise',
+      price: 4999,
+      originalPrice: null,
+      saving: null,
       period: '/month',
-      desc: 'Full intelligence with quantified opportunity mapping.',
-      opportunity: sym + '200k+ avg opportunity identified',
+      desc: 'Full Business Twin intelligence with all integrations and executive-level onboarding.',
+      opportunity: 'Business Twin creation · All integrations',
       features: [
-        'Everything in MRI Analysis',
-        'Opportunity Engine — 5 dimensions',
-        'Revenue, profit and capacity mapping',
-        'Risk reduction quantification',
-        'Enterprise value opportunity',
-        'Prioritisation Engine',
-        'Secondary constraint ranking',
-        'Quarterly strategy review',
+        'Business Twin creation',
+        'All integrations',
+        'Executive onboarding',
+        '12-month partnership',
+        '30-day termination after Month 3',
       ],
       cta: 'Most Popular',
       popular: true,
       color: gold,
     },
     {
-      name: 'Full Platform',
-      price: 999,
-      originalPrice: sym + '1,665',
-      saving: sym + '7,992',
-      period: '/month',
-      desc: 'Complete intelligence, deployment and outcome tracking.',
-      opportunity: sym + '1.2M+ avg opportunity identified',
-      features: [
-        'Everything in Analysis + Opportunity',
-        'Deployment Engine — 3-tier system',
-        'Automatic deployment execution',
-        'Approval-based deployment workflow',
-        'Outcome measurement tracking',
-        'Learning Engine — continuous improvement',
-        'AI Agent suite — 7 agents',
-        'Dedicated BEI advisor',
-      ],
-      cta: 'Full Access',
-      popular: false,
-      color: '#fff',
-    },
-    {
-      name: 'Corporate Group',
-      price: 1599,
-      originalPrice: '£2,665',
-      saving: sym + '12,792',
-      period: '/month',
-      desc: 'Full platform intelligence across up to 3 businesses simultaneously.',
-      opportunity: sym + '3M+ avg opportunity across portfolio',
-      features: [
-        'Everything in Full Platform',
-        'Up to 3 connected businesses',
-        'Portfolio-level health dashboard',
-        'Cross-business constraint comparison',
-        'Group risk overview and alerts',
-        'Consolidated MRI reporting',
-        'Multi-business deployment engine',
-        'Group-level BEI advisor',
-        'Executive briefing pack monthly',
-      ],
-      cta: 'Corporate Access',
-      popular: false,
-      color: '#fff',
-      badge: 'MULTI-BUSINESS',
-    },
-    {
-      name: 'Enterprise',
-      price: null,
+      name: 'Strategic',
+      price: 7999,
       originalPrice: null,
       saving: null,
-      period: null,
-      desc: 'Custom intelligence infrastructure for enterprises valued £100M–£5B.',
-      opportunity: 'Custom benchmarking specific to your enterprise',
+      period: '/month',
+      desc: 'Executive-level partnership with dedicated support and quarterly strategic review.',
+      opportunity: 'Dedicated Customer Success · Quarterly Executive Review',
       features: [
-        'Everything in Corporate Group',
-        'Custom enterprise benchmark system',
-        'Bespoke intelligence framework build',
-        'Unlimited connected businesses',
-        'Enterprise-grade data connectors',
-        'Dedicated intelligence team',
-        'Board-level reporting suite',
-        'Custom deployment architecture',
-        'SLA-backed response times',
-        'Strategic advisory retainer',
+        'Unlimited integrations',
+        'Executive workshops',
+        'Dedicated Customer Success',
+        'Quarterly Executive Review',
+        'Outcome monitoring',
       ],
-      cta: 'Enquire Now',
+      cta: 'Get Started',
       popular: false,
-      color: gold,
-      badge: 'ENTERPRISE',
-      enquire: true,
-      priceRange: '£2,500–£25,000/month',
+      color: '#fff',
     },
   ]
 
@@ -207,56 +145,7 @@ function PricingContent() {
               )}
             </div>
           ))}
-          </div>
-          {/* Second row: Corporate + Enterprise centred */}
-          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'24px',maxWidth:'900px',margin:'0 auto'}}>
-          {plans.slice(3).map((plan: any) => (
-            <div key={plan.name} style={{padding:'36px',border:`1px solid ${(plan as any).enquire?'rgba(200,162,74,0.4)':(plan as any).badge?'rgba(200,162,74,0.2)':'#1a1a1a'}`,borderRadius:'12px',backgroundColor:(plan as any).enquire?'#0d0a04':(plan as any).badge?'#09080a':'#080808',position:'relative' as const,display:'flex',flexDirection:'column' as const}}>
-              {((plan as any).badge) && (
-                <div style={{position:'absolute' as const,top:'-12px',left:'50%',transform:'translateX(-50%)',padding:'4px 16px',backgroundColor:(plan as any).enquire?'#1a1000':'rgba(200,162,74,0.15)',border:'1px solid rgba(200,162,74,0.4)',borderRadius:'20px',fontSize:'11px',fontWeight:'700',color:'#C8A24A',whiteSpace:'nowrap' as const,letterSpacing:'0.1em'}}>
-                  {(plan as any).badge}
-                </div>
-              )}
-              <div style={{marginBottom:'8px',fontSize:'11px',color:'#555',letterSpacing:'0.15em',textTransform:'uppercase' as const}}>{plan.name}</div>
-              <div style={{marginBottom:'16px',fontSize:'13px',color:'#666',lineHeight:'1.6'}}>{plan.desc}</div>
-              <div style={{marginBottom:'20px'}}>
-                {(plan as any).enquire ? (
-                  <div>
-                    <div style={{fontSize:'24px',color:'#C8A24A',fontWeight:'800',marginBottom:'4px'}}>Custom Pricing</div>
-                    <div style={{fontSize:'13px',color:'#888'}}>{(plan as any).priceRange}</div>
-                  </div>
-                ) : (
-                  <div style={{display:'flex',alignItems:'baseline',gap:'4px'}}>
-                    <span style={{fontSize:'44px',fontWeight:'700',color:'#C8A24A'}}>{formatPrice(plan.price, currency)}</span>
-                    <span style={{fontSize:'14px',color:'#555'}}>/month</span>
-                  </div>
-                )}
-                {plan.originalPrice && !(plan as any).enquire && <div style={{fontSize:'12px',color:'#444',marginTop:'4px'}}>Value: {plan.originalPrice}/month · Annual saving: {plan.saving}</div>}
-              </div>
-              <div style={{padding:'10px 14px',backgroundColor:'rgba(200,162,74,0.06)',border:'1px solid rgba(200,162,74,0.15)',borderRadius:'6px',marginBottom:'20px',fontSize:'12px',color:'#C8A24A',fontWeight:'600'}}>
-                {plan.opportunity}
-              </div>
-              <div style={{flex:1,marginBottom:'24px'}}>
-                {plan.features.map((f: string) => (
-                  <div key={f} style={{display:'flex',gap:'10px',alignItems:'flex-start',marginBottom:'10px'}}>
-                    <span style={{color:'#4aaa4a',fontSize:'12px',marginTop:'2px',flexShrink:0}}>✓</span>
-                    <span style={{fontSize:'13px',color:'#888',lineHeight:'1.5'}}>{f}</span>
-                  </div>
-                ))}
-              </div>
-              {(plan as any).enquire ? (
-                <a href="/book" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:'transparent',color:'#C8A24A',border:'1px solid #C8A24A',borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
-                  {plan.cta} →
-                </a>
-              ) : (
-                <a href="/register" style={{display:'block',textAlign:'center' as const,padding:'14px',backgroundColor:'#C8A24A',color:'#050505',border:'1px solid #C8A24A',borderRadius:'6px',textDecoration:'none',fontWeight:'700',fontSize:'14px'}}>
-                  {plan.cta} →
-                </a>
-              )}
-            </div>
-          ))}
-          </div>
-        </div>
+          </div>        </div>
       </section>
 
       {/* DASHBOARD PREVIEW SECTION */}
