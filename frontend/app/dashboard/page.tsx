@@ -56,7 +56,7 @@ export default function DashboardPage() {
         if (user) {
           const { data } = await supabase
             .from('businesses')
-            .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at, industry, location_country, connected_sources')
+            .select('id, business_name, mri_result, subscription_tier, subscription_status, created_at, updated_at, industry, location_country')
             .eq('email', user.email)
             .order('updated_at', { ascending: false })
           if (data && data.length > 0) setSelected(data[0])
@@ -92,7 +92,7 @@ export default function DashboardPage() {
   const CONNECTOR_WEIGHTS: Record<string, number> = { hubspot: 10, salesforce: 10, xero: 12, quickbooks: 12, google_analytics: 7, manual_crm: 6, manual_finance: 7, manual_revenue: 8, manual_ops: 5, manual_people: 5 }
   const hasMRI = !!(selected?.mri_result) && selected?.mri_result?.mri_source !== 'free'
   let twinCompleteness = hasMRI ? MRI_BASE : 0
-  const connectedSources = selected?.connected_sources || {}
+  const connectedSources = {}
   Object.keys(connectedSources).forEach(id => { if (connectedSources[id]?.connected && CONNECTOR_WEIGHTS[id]) twinCompleteness += CONNECTOR_WEIGHTS[id] })
   twinCompleteness = Math.min(100, twinCompleteness)
   const businessName = selected?.business_name || 'Your Business'
