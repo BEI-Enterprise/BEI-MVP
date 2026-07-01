@@ -93,6 +93,11 @@ export default function OpportunitiesPage() {
     </main>
   )
 
+  if (!result) return (
+    <DashboardShell activeId="opportunities">
+      <CompletenessGate completeness={0} businessName={businessName || "Your Business"} />
+    </DashboardShell>
+  )
   const primary = result?.primary_constraint || null
   const secondary = result?.secondary_constraints || []
   const totalOpp = result?.total_opportunity || {}

@@ -9,6 +9,18 @@ const supabase = createClient()
 
 import DashboardShell from '../components/DashboardShell'
 import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
+function CompletenessGate({ completeness, businessName }: { completeness: number, businessName: string }) {
+  const gold = '#C8A24A'
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', flexDirection: 'column' as const, gap: '16px' }}>
+      <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>DATA REQUIRED</div>
+      <div style={{ fontSize: '15px', fontWeight: '600' }}>{businessName}</div>
+      <div style={{ fontSize: '13px', color: '#666', textAlign: 'center' as const, maxWidth: '360px' }}>Connect your business data to unlock this intelligence module.</div>
+      <a href="/connect" style={{ padding: '12px 24px', border: '1px solid ' + gold, color: gold, borderRadius: '6px', textDecoration: 'none', fontSize: '13px', marginTop: '8px' }}>Connect Data →</a>
+    </div>
+  )
+}
+
 export default function HealthPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
@@ -64,12 +76,9 @@ export default function HealthPage() {
   if (loading) return <main style={pageWrapper}></main>
 
   if (!result) return (
-    <main style={pageWrapper}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', flexDirection: 'column' as const, gap: '24px' }}>
-        <p style={{ color: colors.textSecondary, fontSize: fontSize.md }}>No MRI data found.</p>
-        <a href='/book' style={{ padding: '14px 32px', backgroundColor: colors.gold, color: '#050505', fontWeight: fontWeight.bold, borderRadius: '4px', textDecoration: 'none', fontSize: fontSize.base }}>Start Your MRI</a>
-      </div>
-    </main>
+    <DashboardShell activeId="health">
+      <CompletenessGate completeness={0} businessName={businessName} />
+    </DashboardShell>
   )
 
   const health = result.health || {}
@@ -81,7 +90,7 @@ export default function HealthPage() {
   const healthColor = overall >= 70 ? colors.success : (overall >= 45 ? colors.gold : colors.error)
 
   return (
-    <DashboardShell activeId="risk"><main style={pageWrapper}>
+    <DashboardShell activeId="health"><main style={pageWrapper}>
       <Nav />
 
       <div style={contentWrapper}>

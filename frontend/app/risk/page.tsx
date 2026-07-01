@@ -90,7 +90,7 @@ export default function RiskIntelligencePage() {
     </main>
   )
   if (!result) return (
-    <DashboardShell activeId="constraints">
+    <DashboardShell activeId="risk">
       <CompletenessGate completeness={0} businessName={businessName} />
     </DashboardShell>
   )

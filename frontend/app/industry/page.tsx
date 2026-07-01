@@ -306,7 +306,7 @@ export default function IndustryIntelligencePage() {
     </main>
   )
   if (!result) return (
-    <DashboardShell activeId="constraints">
+    <DashboardShell activeId="industry">
       <CompletenessGate completeness={0} businessName={businessName} />
     </DashboardShell>
   )

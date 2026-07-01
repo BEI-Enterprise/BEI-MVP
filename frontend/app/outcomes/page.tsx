@@ -8,6 +8,18 @@ const supabase = createClient()
 
 import DashboardShell from '../components/DashboardShell'
 import { useLiveIntelligence } from '../hooks/useLiveIntelligence'
+function CompletenessGate({ completeness, businessName }: { completeness: number, businessName: string }) {
+  const gold = '#C8A24A'
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', flexDirection: 'column' as const, gap: '16px' }}>
+      <div style={{ fontSize: '11px', color: gold, letterSpacing: '0.3em' }}>DATA REQUIRED</div>
+      <div style={{ fontSize: '15px', fontWeight: '600' }}>{businessName}</div>
+      <div style={{ fontSize: '13px', color: '#666', textAlign: 'center' as const, maxWidth: '360px' }}>Connect your business data to unlock this intelligence module.</div>
+      <a href="/connect" style={{ padding: '12px 24px', border: '1px solid ' + gold, color: gold, borderRadius: '6px', textDecoration: 'none', fontSize: '13px', marginTop: '8px' }}>Connect Data →</a>
+    </div>
+  )
+}
+
 export default function OutcomesPage() {
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [businessName, setBusinessName] = useState('Your Business')
@@ -42,6 +54,11 @@ export default function OutcomesPage() {
   ]
 
   if (loading) return <main style={pageWrapper}></main>
+  if (!result) return (
+    <DashboardShell activeId="outcomes">
+      <CompletenessGate completeness={0} businessName={businessName} />
+    </DashboardShell>
+  )
   if (!result) return (
     <main style={pageWrapper}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>

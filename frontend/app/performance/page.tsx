@@ -94,6 +94,11 @@ export default function PerformancePage() {
   // Extract real pillar data from MRI result
   const pillars: any[] = result?.health?.pillars || result?.pillar_scores || []
   const overallHealth = result?.health?.overall || result?.health?.overall_score || 64
+  if (!result) return (
+    <DashboardShell activeId="performance">
+      <CompletenessGate completeness={0} businessName={businessName || "Your Business"} />
+    </DashboardShell>
+  )
   const primary = result?.primary_constraint || null
   const secondary = result?.secondary_constraints || []
   const totalOpp = result?.total_opportunity || {}

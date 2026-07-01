@@ -112,6 +112,11 @@ export default function IntelligenceOperationsPage() {
   const automationPct = ops2.automation_level ? parseFloat(ops2.automation_level) : null
 
   // MRI data
+  if (!result) return (
+    <DashboardShell activeId="operations">
+      <CompletenessGate completeness={0} businessName={businessName || "Your Business"} />
+    </DashboardShell>
+  )
   const health = result?.health || {}
   const healthScore: number = health.overall || health.overall_score || 0
   const primary = result?.primary_constraint || null
