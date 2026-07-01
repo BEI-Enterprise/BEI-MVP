@@ -139,45 +139,6 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section style={{ padding: '100px 48px', borderTop: '1px solid #111', backgroundColor: '#030303' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <RevealSection>
-            <div style={{ textAlign: 'center' as const, marginBottom: '64px' }}>
-              <div style={{ fontSize: '11px', letterSpacing: '0.25em', color: gold, textTransform: 'uppercase' as const, marginBottom: '16px', fontWeight: '600' }}>How BEI Works</div>
-              <h2 style={{ fontSize: '40px', fontWeight: '700', letterSpacing: '-0.02em' }}>Five stages. One answer.</h2>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0' }}>
-              {[
-                { n: '01', title: 'Business MRI', desc: 'Deep diagnostic across growth, operations, strategy, risk and context.' },
-                { n: '02', title: 'Constraint Identification', desc: 'Intelligence engines detect and verify constraints from your business twin.' },
-                { n: '03', title: 'Opportunity Mapping', desc: 'Every verified constraint is quantified. Revenue, profit, capacity, risk.' },
-                { n: '04', title: 'Deployment', desc: 'Three-tier deployment engine prepares and executes the right intervention.' },
-                { n: '05', title: 'Continuous Learning', desc: 'Every outcome feeds the intelligence model. BEI gets smarter with every business.' },
-              ].map((step, i) => (
-                <div key={step.n} style={{ padding: '32px 24px', borderLeft: i === 0 ? '1px solid #1a1a1a' : 'none', borderRight: '1px solid #1a1a1a', borderTop: '1px solid #1a1a1a', borderBottom: '1px solid #1a1a1a' }}>
-                  <div style={{ fontSize: '11px', color: gold, fontWeight: '700', letterSpacing: '0.15em', marginBottom: '16px' }}>{step.n}</div>
-                  <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '10px' }}>{step.title}</div>
-                  <div style={{ fontSize: '13px', color: '#888', lineHeight: '1.7' }}>{step.desc}</div>
-                </div>
-              ))}
-            </div>
-          </RevealSection>
-          <RevealSection delay={200}>
-            <div style={{ marginTop: '48px' }}>
-              <div style={{ fontSize: '11px', color: '#aaa', letterSpacing: '0.2em', textTransform: 'uppercase' as const, marginBottom: '20px', fontWeight: '600' }}>Constraint Detection Engine — Live</div>
-              <DetectionBarsSection constraints={[
-                { name: 'Trust Infrastructure Deficit', score: 94, color: '#C8A24A' },
-                { name: 'Lead Response Deficit', score: 87, color: '#C8A24A' },
-                { name: 'Founder Dependency', score: 78, color: '#cc6644' },
-                { name: 'Capacity Constraint', score: 65, color: '#888' },
-                { name: 'Pricing Constraint', score: 52, color: '#888' },
-              ]} />
-            </div>
-          </RevealSection>
-        </div>
-      </section>
-
       {/* MRI PREVIEW */}
       <section style={{ padding: '100px 48px', borderTop: '1px solid #111' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
